@@ -17,7 +17,7 @@ re.c('text')
 	textAlign:'',
 	text:'',
 	
-	draw:function(t, context){
+	draw:function(context){
 		if(this.text != ''){
 			context.font = this.font;
 			context.fillStyle = this.textColor;

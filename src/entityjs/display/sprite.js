@@ -28,7 +28,7 @@ re.c('sprite')
 		return this.toId(this.frame.y, this.frame.x, this.image.width);
 	},
 	
-	draw:function(t, context){
+	draw:function(context){
 		if(this.image){
 			var x = this.pos.x;
 			var y = this.pos.y;

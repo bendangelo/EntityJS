@@ -15,7 +15,7 @@ re.comp('bitmap')
 })
 .define({
 	
-	draw:function(t, context){
+	draw:function(context){
 		if(this.image){
 			var x = this.pos.x;
 			var y = this.pos.y;

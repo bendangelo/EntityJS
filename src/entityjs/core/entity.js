@@ -367,7 +367,7 @@
 			
 			if(type.charAt(0) == '!'){
 				obj.once = true;
-				type = type.substr(1);	
+				type = type.substr(1);
 			}
 			
 			
@@ -387,7 +387,7 @@
 			for(var i=0; i<this._re_signals[type].length; i++){
 				
 				b = this._re_signals[type];
-				b[i].f.apply(this, arguments);
+				b[i].f.apply(this, Array.prototype.slice.call(arguments, 1));
 				
 				//remove after first use
 				if(b.once){

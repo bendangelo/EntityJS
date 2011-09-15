@@ -109,10 +109,10 @@ re.keyboard = re.c('keyboard')
 		}
 		
 		for(var k in that.listeners){
-			that.listeners[k].signal(e.type, key);
+			that.listeners[k].signal(e.type, key, e);
 			
 			//call specific signal
-			that.listeners[k].signal(e.type+':'+key);
+			that.listeners[k].signal(e.type+':'+key, e);
 		}
 		
 	}
