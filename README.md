@@ -16,7 +16,7 @@ In the world of *entity-component* designs. All logic is implemented in a *compo
 	* build_min.bat - Will build a minified version for release.
 	* build_debug.bat - Will build a debug file for testing offline.
 * lib - Contains two compiled sources *entity.min.js* and *entity.debug.js*
-* src - Contains source code to *entityjs*
+* src - Contains source code of *entityjs*
 * tutorials - Contains simple tutorials and examples.
 
 ## Quick Start Guide
@@ -36,21 +36,10 @@ re.system.init('#canvasId', fps);`
 * We now have to load our image *welcome.png*.
 
 	<code>re.load('welcome.png')
-.success(function(){
-
-});</code>
+.success(function(){ });</code>
 
 * Now inside the success function body we can display the image. *re.entity* creates a new entity with the given components.
 
 	`re.entity('bitmap welcome.png');`
 
 That should now display an image on your canvas. Yes!
-
-### Full Code
-	<code>var fps = 30;
-re.system.init('#canvasId', fps);
-re.system.start();</code>
-	<code>re.load('welcome.png')
-.success(function(){
-	re.entity('bitmap welcome.png');
-});</code>
