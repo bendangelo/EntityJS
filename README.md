@@ -1,7 +1,7 @@
 # Entity JS
 An HTML5 javascript game engine utlizing the entity-component design. Write highly flexible code in a powerful javascript framework.
 
-[EntityJS Website](entityjs.com) [Demo](entityjs.com/demo) [Tutorials](entityjs.com/tutorials) [API](entityjs.com/api)
+[EntityJS Website](http://entityjs.com) [Demo](http://entityjs.com/demo) [Tutorials](http://entityjs.com/tutorials) [API](http://entityjs.com/api)
 
 ## What makes this different from other javascript game engines?
 Entity strives to be the most flexible game engine available. We understand no one likes rewritting the same functions and lines of code over and over. So we have developed a solution to this problem and that is the component-entity design. The traditional approach to game engine design is creating a hierarchy of classes. This is infact the **most** tightly coupled design. This creates close coupled classes whos functionality is strictly typed to one class, its not easily portable to other projects, good luck copying that one needed function and as game development progresses classes get bigger and more complex. You will eventually end up with *god-classes* who control most of the game logic.
