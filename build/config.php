@@ -37,7 +37,7 @@ example
 $ignore_reg = '/(socket|storage|group)/'
 
 */
-$ignore_reg = '/socket/';
+$ignore_reg = '/(socket)/';
 
 //path to entityjs directory
 $retro_folder = $source_path.'/'.$entity.'/';
