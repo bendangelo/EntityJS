@@ -44,28 +44,61 @@ TODO
 
 */
 re.sound = re.c('sound')
-.static({
+.global({
 	
 	enabled:true,
 	volume:1
 	
 })
-.init(function(){
-	
-	throw 'not implemeneted';
-	
-})
-.default({
+.inherit({
 	volume:1
 })
 .define({
 
 	play:function(loop){
+		if(!this.sound || !re.sound.enabled) return this;
 		
+		var c = this.sound;
+		
+		c.currentTime = 0;
+	
+		c.play();
+		
+		if(loop){
+			
+			var l = 0;
+			
+			c.addEventListener('ended', function(){
+				
+				if(loop == -1 || l >= loop){
+					c.currentTime = 0;
+					l++;
+				}
+				
+			}, false);
+			
+		}
+		
+		return this;
 	},
 	
-	stop:function(){
+	resume:function(){
+		this.sound.play();
+		return this;
+	},
+	
+	pause:function(){
+		this.sound.pause();
 		
+		return this;
+	},
+	
+	currentTime:function(){
+		return this.sound.currentTime;
+	},
+	
+	ended:function(){
+		return this.sound.ended;
 	}
 	
 });

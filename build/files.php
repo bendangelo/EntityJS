@@ -7,7 +7,7 @@ Creates a $file variable.
 
 //finds all files in source path
 function findFiles($dir) {
-	global $re_file;
+	global $re_file, $ignore_reg;
 	
     if($dh = opendir($dir)) {
 
@@ -15,23 +15,34 @@ function findFiles($dir) {
         $inner_files = array();
 
         while($file = readdir($dh)) {
+		
             if($file != "." && $file != ".." && $file[0] != '.') {
+			
                 if(is_dir($dir . "/" . $file)) {
                     $inner_files = findFiles($dir . "/" . $file);
                     if(is_array($inner_files)) $files = array_merge($files, $inner_files); 
-                } else {
+					
+                } else if(strrpos($file, '.js')){
 					$f = $dir .'/' . $file;
 					
-					//push to the beginning to prevent null re errors
-					if($file == $re_file){
-						array_unshift($files, $f);
+					if(!preg_match($ignore_reg, $f)){
+						
+						//push to the beginning to prevent null re errors
+						if($file == $re_file){
+							array_unshift($files, $f);
+						} else {
+							array_push($files, $f);
+						}
+						
+						printf("Found file: %s\n", $f);
 					} else {
-						array_push($files, $f);
+						
+						printf("[Ignored] file: %s\n", $f);
 					}
-					
-					printf("Found file: %s\n", $f);
                 }
+				
             }
+			
         }
 
         closedir($dh);
@@ -43,17 +54,18 @@ function findFiles($dir) {
 $files = findFiles($source_path);
 
 //sort files in correct order
-for($i=count($files); $i>0; $i--){
+for($i=count($files)-1; $i>=0; $i--){
 	
-	if(strpos($files[$i], $retro_folder)){
+	$t = $files[$i];
+	
+	if(strpos($t, $retro_folder)){
 		//move to beginning
-		$t = $files[$i];
 		
 		//remove
 		array_splice($files, $i);
 		
 		//move to front
-		array_unshift($files[$i]);
+		array_unshift($t);
 	}
 	
 }

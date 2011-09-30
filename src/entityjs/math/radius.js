@@ -1,8 +1,9 @@
 re.c('radius')
-.require('point -size')
+.require('point')
+.inherit({
+	radius:0
+})
 .define({
-	
-	radius:0,
 	
 	touches:function(targ){
 		

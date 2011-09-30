@@ -4,80 +4,46 @@ FUTURE-
 create bounding component to create an interface for both components.
 */
 re.c('size')
-.require('point -radius')
+.require('point')
 .define({
 	
-	leftEdge:function(){
-		return this.pos.x;
-	},
-	
-	rightEdge:function(){
-		return this.pos.x + this.size.x;
-	},
-	
-	bottomEdge:function(){
-		return this.pos.y + this.size.y;
-	},
-	
-	topEdge:function(){
-		return this.pos.y;
-	},
-	
-	centerX:function(){
-		return (this.pos.x + this.size.x) / 2;	
-	},
-	
-	centerY:function(){
-		return (this.pos.y + this.size.y) / 2;	
-	},
-	
 	/*
-	checks if a the two targets intersect with each other.
+	checks if the two targets intersect with each other.
 	
-	k.touches(b);
+	k.touches(x, y, width, height);
 	k.touches(pos, size);
 	
 	*/
-	touches:function(targ){
+	touches:function(x, y, w, h){
 		return !
 		(
-		targ.pos.x > this.pos.x + this.size.x ||
-		targ.pos.x + targ.size.x < this.pos.x ||
-		targ.pos.y > this.pos.y + this.size.y ||
-		targ.pos.y + targ.size.y < this.pos.y
+		x > this.pos.x + this.size.x ||
+		x + w < this.pos.x ||
+		y > this.pos.y + this.size.y ||
+		y + h < this.pos.y
 		);
 	},
 	
 	/*
 	Calculates the distance between an other two points or from the given points
+	re('#point1').distanceTo(re('#point2').pos);
 	
-	re('#point').distanceTo(10, 10);
-	re('#point1').distanceTo(re('#point2'));
+	re('#point1').distanceTo(re.e('size').centerPos);
 	
-	FUTURE - fix
+	//TODO not centered
 	*/
-	distanceTo:function(xt, yt){
-		
-		if(typeof xt == 'object'){
-			//find center
-			if(xt.has('size')){
-				yt = (xt.pos.y + xt.size.y) / 2;
-				xt = (xt.pos.x + xt.size.x) / 2;
-			} else {
-				//its a circle
-				yt = xt.pos.y;
-				xt = xt.pos.x;
-			}
-		}
+	distanceTo:function(pos){
 		
 		var kx, ky;
-		kx = xt-this.pos.x>>31;
-		ky = yt-this.pos.y>>31;
+		kx = pos.x-this.pos.x>>31;
+		ky = pos.y-this.pos.y>>31;
 		
 		return Math.round(((xt-this.pos.x ^kx)-kx)+((yt-this.pos.y^ky)-ky));
 	}
 	
 })
 .init(function(){
-	this.size = {x:0, y:0};
+	if(!this.size)
+	this.size = {x:40, y:40};
+	
 })

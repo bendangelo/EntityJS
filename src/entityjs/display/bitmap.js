@@ -1,32 +1,35 @@
 re.comp('bitmap')
-.require('point draw -sprite')
+.require('point draw')
 .init(function(){
 	
-	this.signal('draw', this.draw);
+	if(!this.size)
+		this.size = {x:0, y:0};
+	
+	if(this.image){
+		this.reg.x = this.image.width * 0.5;
+		this.reg.y = this.image.height * 0.5;
+		this.size.x = this.image.width;
+		this.size.y = this.image.height;
+	}
+	
+	this.signal('draw', this.bitmap_draw);
 	
 })
 .dispose(function(){
 	
-	this.signal('-draw', this.draw);
+	this.signal('-draw', this.bitmap_draw);
 	
 })
-.default({
-	image:null
-})
-.define({
+.namespace({
 	
-	draw:function(context){
-		if(this.image){
-			var x = this.pos.x;
-			var y = this.pos.y;
+	draw:function(c){
+	
+		if(this.image && (!this.screen || this.screen.touches(this.pos.x - this.reg.x, this.pos.y - this.reg.y, this.image.width, this.image.height))){
 			
-			if(this.group){
-				x += this.group.pos.x;
-				y += this.group.pos.y;	
-			}
+			c.drawImage((this.canvasCache)?this.canvasCache:this.image, -this.reg.x, -this.reg.y, this.image.width, this.image.height);
 			
-			context.drawImage(this.image, x, y, this.image.width, this.image.height);
 		}
+		
 	}
 	
 });

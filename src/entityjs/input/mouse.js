@@ -1,54 +1,49 @@
 re.c('mouse')
-.static({
+.global({
 	listeners:[],
 	
 	mouseAction:function(e){
-		var button;
+		var b;
 		
 		//find which key
 		if(e.which == null){
 			//IE
 			if(e.button < 2){
-				button = 'left';	
+				b = 'left';	
 			} else if(e.button == 4){
-				button = 'middle';
+				b = 'middle';
 			} else {
-				button = 'right';	
+				b = 'right';	
 			}
 		} else {
 			if(e.which < 2){
-				button = 'left';	
+				b = 'left';	
 			} else if(e.which == 2){
-				button = 'middle';	
+				b = 'middle';	
 			} else {
-				button = 'right';	
+				b = 'right';	
 			}
 		}
 		
-		button = 'mouse'+button;
+		b = 'mouse:'+b;
 		
 		//register mouse action
 		if(re.c('pressed')._pressed){
-			re.c('pressed')._pressed[button] = (e.type == 'mousedown');
+			re.c('pressed')._pressed[b] = (e.type == 'mousedown');
 		}
 		
 		if(re.c('pressed').preventDefault){
-			if(re.c('pressed').preventDefault[button]){
-				e.preventDefault();	
+			if(re.c('pressed').preventDefault[b]){
+			if(e.preventDefault)
+				e.preventDefault();
+			 else 
+				e.returnValue = false;
 			}
 		}
 		
 		re.c('mouse').mouseEvent(e);
 	},
 	
-	/*
-	FUTURE
-	-add all event listeners
-	-add mouse position
-	-right click etc..
-	-do something about prevent default
-	-do something about pressed function
-	*/
 	mouseEvent:function(e){
 		
 		//calculate mouse coordinate
@@ -63,45 +58,46 @@ re.c('mouse')
 			y = e.clientY +	document.body.scrollTop + document.documentElement.scrollTop;
 		}
 		
-		if(re.system.canvas){
-			x -= re.system.canvas.offsetLeft;
-			y -= re.system.canvas.offsetTop;
+		if(re.sys.canvas){
+			x -= re.sys.canvas.offsetLeft;
+			y -= re.sys.canvas.offsetTop;
 		}
 		
 		//ignore if off canvas
-		if(x < 0 || y < 0 || y > re.system.size.y || x > re.system.size.x){
+		if(x < 0 || y < 0 || y > re.sys.size.y || x > re.sys.size.x){
 			return;	
 		}
 		
 		var that = re.c('mouse');
 		
-		for(var i in that.listeners){
+		for(var i=0; i<that.listeners.length; i++){
 			that.listeners[i].signal(e.type, x, y, e);
 		}
 		
+	},
+	
+	active:false,
+	initMouse:function(){
+		if(!this.active){
+			this.active = true;
+			
+			re.listener('mousedown', this.mouseAction, false);
+			re.listener('mouseup', this.mouseAction, false);
+			re.listener('mousemove', this.mouseEvent, false);
+			re.listener('click', this.mouseEvent, false);
+			re.listener('dblclick', this.mouseEvent, false);
+			re.listener('contextmenu', this.mouseEvent, false);
+		}
 	}
-	
-})
-.run(function(){
-	//add event listeners
-	
-	var targ = window.addEventListener ? window : document;
-	
-	targ.addEventListener('mousedown', this.mouseAction, false);
-	targ.addEventListener('mouseup', this.mouseAction, false);
-	targ.addEventListener('mousemove', this.mouseEvent, false);
-	targ.addEventListener('click', this.mouseEvent, false);
-	targ.addEventListener('dblclick', this.mouseEvent, false);
-	targ.addEventListener('contextmenu', this.mouseEvent, false);
 	
 })
 .init(function(c){
 	//add to listener array
-	
+	c.initMouse();
 	c.listeners.push(this);
 })
 .dispose(function(c){
 	//remove from listener array
 	
 	c.listeners.splice(c.listeners.indexOf(this), 1);
-})
+});

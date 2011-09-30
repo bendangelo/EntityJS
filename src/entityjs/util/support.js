@@ -38,7 +38,7 @@ webgl
 
 */
 re.c('support')
-.static({
+.global({
 
 	support:function(s){
 		var that = re.c('support');
@@ -75,6 +75,7 @@ re.c('support')
 	support:function(s){
 		return re.c('support').call(this, s);
 	}
+	
 })
 .run(function(){
 	
@@ -100,11 +101,11 @@ re.c('support')
 			c.ogg  = ele.canPlayType('audio/ogg; codecs="vorbis"');
 			c.mp3  = ele.canPlayType('audio/mpeg;');
 			c.wav  = ele.canPlayType('audio/wav; codecs="1"');
-			c.aac = c.m4a = ele.canPlayType('audio/x-m4a;') || elem.canPlayType('audio/aac;');
+			c.aac = ele.canPlayType('audio/x-m4a;') || ele.canPlayType('audio/aac;');
 			
 			//switch unsupported codecs to false
 			for(var i in c){
-				if(c[i] == 'no'){
+				if(c[i] == 'no' || c[i] == ''){
 					c[i] = false;
 				}
 			}

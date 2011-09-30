@@ -3,9 +3,12 @@
 This file contains configurable variables for both debug.php and min.php.
 */
 
+//turn off error for blank regex
+error_reporting(E_ALL ^ E_WARNING);
+
 //current entityjs version
 //this will be added to all built files.
-$version = '0.1';
+$version = '0.2';
 
 //full length path to entityjs folder
 $absolute_path = '..';
@@ -22,8 +25,19 @@ $license = $absolute_path.'/license.txt';
 //name of entityjs directory
 $entity = 'entityjs';
 
-//name of main entity file
+//name of re definition file
 $re_file = 're.js';
+
+//ignore regular expression
+/*
+ignore regular expression
+
+example
+
+$ignore_reg = '/(socket|storage|group)/'
+
+*/
+$ignore_reg = '/socket/';
 
 //path to entityjs directory
 $retro_folder = $source_path.'/'.$entity.'/';

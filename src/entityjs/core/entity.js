@@ -11,8 +11,8 @@
 	});
 	
 	*/
-	en = function(c, count){
-		if(arguments.length == 1){
+	var q = function(c, count){
+		if(!count){
 			return new re.entity.init(c);
 		}
 		
@@ -27,17 +27,17 @@
 		return q;
 	}
 	
-	en.id = 0;
+	q.id = 0;
 	
-	e = function(c){
+	var e = function(c){
 		c = c || '';
 		
 		this._re_comps = [];
 		this._re_signals = {};
 		
-		en.id++;
+		q.id++;
 		
-		this.id = en.id+'';
+		this.id = q.id+'';
 		
 		re._e.push(this);
 		
@@ -47,15 +47,6 @@
 	var p = e.prototype;
 	
 	p.id = '';
-	
-	p.comps = function(){
-		var r = '';
-		for(var k in this._re_comps){
-			r += ' '+this._re_comps[k];
-		}
-		
-		return r.substr(1);
-	}
 	
 	/*
 	//add components
@@ -71,11 +62,22 @@
 		
 		this._re_comp(com);
 		
-		//check interface
+		//check implement
 		if(this._re_interface){
-			for(var i in this){
-				if(!this.hasOwnProperty(i)){
-					throw 'Interface error: missing '+i;
+			
+			for(var i in this._re_interface){
+				if(!this.hasOwnProperty(this._re_interface[i])){
+					throw 'implementation: '+this._re_interface[i]+' missing';
+				}
+			}
+			
+		}
+		
+		//check asserts
+		if(this._re_asserts){
+			for(var t in this._re_asserts){
+				if(this._re_comps.indexOf(c._re_asserts[t]) != -1){
+					throw 'assert: '+c.name+' cannot be coupled with '+c._re_asserts[t];
 				}
 			}
 		}
@@ -87,7 +89,15 @@
 		if(!com || com == '' || com == ' ') return this;
 		
 		//split a multi word string into smaller one word function calls
-		var pieces = com.split(' ');
+		var pieces;
+		
+		if(typeof com == 'object'){
+			pieces = com;
+			//set in case length is 1
+			com = com[0];
+		} else {
+				pieces = com.split(' ');
+		}
 		
 		if(pieces.length > 1){
 			for(var k in pieces){
@@ -97,7 +107,7 @@
 			return this;
 		}
 		
-		//accepts single word strings
+		//component reference
 		var c;
 		
 		if(com.charAt(0) == '-'){
@@ -118,7 +128,7 @@
 					c._re_dispose.call(this, c);
 				}
 				
-				c.signal('dispose');
+				c.signal('dispose', this);
 				
 			}
 			
@@ -143,27 +153,25 @@
 			
 			//add component only if it exists
 			if(c){
-				
 				this._re_comp(c._re_requires);
 				
 				//add interface of component
-				if(c._re_interface){
-					if(this._re_interface){
-						this._re_interface = [];
+				if(c._re_implements){
+					if(!this._re_implements){
+						this._re_implements = [];
 					}
-					this._re_interface.concat(c._re_interface.split(' '));
+					this._re_implements = this._re_implements.concat(c._re_implements);
 				}
 				
 				if(c._re_asserts){
-					for(var t in c._re_asserts){
-						if(this._re_comps.indexOf(c._re_asserts[t]) != -1){
-							throw 'Assert: '+c.name+' cannot be coupled with '+c._re_asserts[t];
-						}
+					if(!this._re_asserts){
+						this._re_asserts = [];
 					}
+					this._re_asserts = this._re_asserts.concat(c._re_asserts);
 				}
 				
-				if(c._re_defaults){
-					this.default(c._re_defaults);
+				if(c._re_inherits){
+					this.inherit(c._re_inherits);
 				}
 				
 				if(c._re_defines){
@@ -171,7 +179,6 @@
 				}
 				
 				if(c._re_init){
-					
 					c._re_init.apply(this, vals);
 				}
 				
@@ -184,22 +191,42 @@
 		return this;
 	}
 	
-	p.length = function(){
-		return this._re_comps.length;	
+	/*
+	Returns component array
+	*/
+	p.getComps = function(){
+		return this._re_comps.slice();
+	}
+	
+	p.clone = function(count){
+		return re.e(this._re_comps, count);
 	}
 	
 	/*
-	FUTURE:
-	-copy attributes aswell
-	*/
-	p.clone = function(){
-		
-		Clone.prototype = this;
-		
-		return new Clone();
-	}
+	Calls methods of parent components.
 	
-	function Clone(){}
+	Use '' to call entities components when overriding
+	*/
+	p.parent = function(comp, method){
+		
+		var a = Array.prototype.slice.call(arguments, 2);
+		
+		if(comp == ''){
+			re.e.init[method].apply(this, a);
+		}
+		
+		var c = re._c[comp];
+		
+		if(c._re_defines[method]){
+			return c._re_defines[method].apply(this, a);
+		}
+		
+		if(c._re_inherits[method]){
+			return c._re_inherits[method].apply(this, a);
+		}
+		
+		return this;
+	}
 	
 	/*
 	TODO extend has to multiple item query
@@ -298,14 +325,10 @@
 	this.signal('-click');
 	
 	*/
-	p.signal = function(type, method){
+	p.signal = function(type, method, con){
 		if(arguments.length == 0 || type == undefined){
 			throw 'Signal error Type variable undefined';
 		}
-		if(arguments.length == 1){
-			method = null;
-		}
-		
 		
 		var c;
 		if(typeof type == 'string'){
@@ -345,25 +368,31 @@
 				
 				this._re_signals = {};
 				
-			} else if(method && typeof method == 'function'){
+			} else if(method){
 				//remove specific listener
-				
-				for(var k in this._re_signals[type]){
-					if(this._re_signals[type][k].f == method){
-						this._re_signals[type].splice(k, 1);
+				if(typeof method == 'function'){
+					for(var k in this._re_signals[type]){
+						if(this._re_signals[type][k].f == method){
+							this._re_signals[type].splice(k, 1);
+						}
 					}
+				} else {
+					//this safeguards from sending in non-function variables by mistake!
+					throw 'Cannot remove signal method '+method;
 				}
 				
 			} else {
-			
-				while(this._re_signals[type] && this._re_signals[type].length != 0){
-					this._re_signals[type].pop();
-				}
+				
+				this._re_signals[type] = [];
 			}
 			
-		} else if(arguments.length == 2 && method && typeof method == 'function'){
+		} else if(arguments.length >= 2 && method && typeof method == 'function'){
 			//add signals
 			var obj = {f:method};
+			
+			if(typeof con == 'object'){
+				obj.c = con;
+			}
 			
 			if(type.charAt(0) == '!'){
 				obj.once = true;
@@ -387,7 +416,8 @@
 			for(var i=0; i<this._re_signals[type].length; i++){
 				
 				b = this._re_signals[type];
-				b[i].f.apply(this, Array.prototype.slice.call(arguments, 1));
+				
+				b[i].f.apply( (b[i].c)?b[i].c : this , Array.prototype.slice.call(arguments, 1));
 				
 				//remove after first use
 				if(b.once){
@@ -411,32 +441,38 @@
 		if(typeof obj == 'object'){
 			
 			for(var key in obj){
-				this[key] = obj[key];
+				if(!obj.hasOwnProperty(key)) continue;
+				
+				this.define(key, obj[key]);
 			}
 			
 		} else {
 			//define property
 			
-			this[obj] = value;	
+			this[obj] = value;
 		}
 		
 		return this;
 	}
 	
-	p.default = function(obj, value){
+	p.inherit = function(obj, value){
+		
 		if(typeof obj == 'object'){
+		
 			for(var key in obj){
+				if(!obj.hasOwnProperty(key)) continue;
 				
-				if(!this.hasOwnProperty(key)){
-					this[key] = obj[key];
-				}
+				this.inherit(key, obj[key]);
 				
 			}
+			
 		} else {
 			//extend property
 			
-			if(!this.hasOwnProperty(obj)){
+			if(!this.hasOwnProperty(obj) || typeof this[obj] != typeof value){
+				
 				this[obj] = value;	
+				
 			}
 		}
 		
@@ -459,7 +495,7 @@
 		return this;
 	}
 	
-	re.entity = re.e = en;
+	re.entity = re.e = q;
 	re.entity.init = e;
 	
 }(re));

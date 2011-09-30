@@ -1,0 +1,26 @@
+-----------------------------------------------------------------------------------------
+Version 0.2 [Sept 30, 2011]
+
+Added query catching.
+Added log component.
+System is now extendable and can be used on multiple canvases.
+Added ticker component.
+Load now removes directories.
+Renamed default to inherit.
+Load now creates generic extensions.
+Sound component added.
+Keyboard, mouse, canvas and sounds now work in all browsers.
+Added scale and rotation to draw components.
+Implemented hitmap component.
+Adding signals now accepts a third context argument.
+Sprimate now accepts string frames.
+Added screen component.
+Added bitfont component.
+Added random component.
+Added playlist component.
+Added position component.
+
+-----------------------------------------------------------------------------------------
+Version 0.1 [Sept 15, 2011]
+
+First release

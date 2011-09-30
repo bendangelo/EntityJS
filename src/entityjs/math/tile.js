@@ -2,25 +2,38 @@
 The tile component adds tile positioning functions and helper functions for tile based games.
 */
 re.tile = re.c('tile')
-.require('point size')
-.static({
+.require('point')
+.global({
 	size:{x:40, y:40},
 	
-	pointToX:function(x){
-		return re.tile.pointToXt(x) * re.tile.size.x;
+	roundX:function(x, size){
+		if(arguments.length == 1){
+			size = re.tile.size.x;
+		}
+		return re.tile.pointToXt(x) * size;
 	},
 	
-	pointToY:function(y){
-		return re.tile.pointToYt(y) * re.tile.size.y;
+	roundY:function(y, size){
+		if(arguments.length == 1){
+			size = re.tile.size.y;
+		}
+		return re.tile.pointToYt(y) * size;
 	},
 	
-	pointToXt:function(x){
-		return Math.round((x-re.tile.size.x*0.5)/re.tile.size.x);
+	xToXt:function(x, size){
+		if(arguments.length == 1){
+			size = re.tile.size.x;
+		}
+		return Math.round((x-size*0.5)/size);
 	},
 	
-	pointToYt:function(y){
-		return Math.round((y-re.tile.size.y*0.5)/re.tile.size.y);
+	yToYt:function(y, size){
+		if(arguments.length == 1){
+			size = re.tile.size.y;
+		}
+		return Math.round((y-size*0.5)/size);
 	}
+	
 })
 .init(function(){
 	this.size = re.tile.size;
@@ -29,8 +42,10 @@ re.tile = re.c('tile')
 .define({
 
 	tileFromPoint:function(x, y){
-		this.pos.x = re.tile.pointToX(x);
-		this.pos.y = re.tile.pointToY(y);
+		this.pos.x = re.tile.roundX(x);
+		this.pos.y = re.tile.roundY(y);
+		
+		return this;
 	},
 	
 	tile:function(xt, yt){
@@ -59,8 +74,7 @@ re.tile = re.c('tile')
 	
 	getYt:function(){
 		
-		return Math.floor(this.pos.y / this.size.y);	
-	
+		return Math.floor(this.pos.y / this.size.y);
 	}
 	
 });

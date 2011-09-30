@@ -17,77 +17,66 @@ re.scene('game', function(data){
 //go to scene
 re.scene('game', {tiles:[]} );
 
-*/
-re.c('scene')
-.static({
-	
-	_scenes:{},
-	current:'',
-	
-	/*
-	The scene method is the main area for scene commands.
-	
-	//create a scene
-	re.c('scene').scene('home', function(){});
-	
-	//goto a scene
-	re.c('scene').scene('home', 'yo');
-	
-	//delete a scene
-	re.c('scene').scene('-home');
-	
-	//combine delete home goto title sceen
-	re.c('scene').scene('-home title');
-	*/
-	scene:function(title){
-		var s = re.c('scene');
-	
-		//split into multiple calls
-		var k = title.split(' ');
-		if(k.length > 1){
-			title = k.pop();
-			
-			for(var b in k){
-				re.c('scene').scene.apply(s, arguments);
-			}
-		}
-		
-		//delete scene
-		if(title.charAt(0) == '-'){
-			
-			var t = s._scenes[title.substr(1)];
-			delete s._scenes[title.substr(1)];
-			
-			return t;
-			
-		} else if(s._scenes[title]){
-		//go to scene
-				
-			//call exit
-			var t = s._scenes[s.current];
-			if(s.current != '' && typeof t.scene_exit == 'function'){
-				t.scene_exit.call(t, title);
-				
-			}
-			
-			s.current = title;
-			
-			t = s._scenes[title];
-			
-			if(typeof t.scene_enter == 'function'){
-				t.scene_enter.apply(t, Array.prototype.slice.call(arguments, 1));
-			}
-			
-			
-		} else {
-		
-			//add scene
-			re.e('scene:'+title);
-		}
-		
-		return s._scenes[title];
-	}
+//delete a scene
+re.scene('-home');
 
+//combine delete home goto title sceen
+re.scene('-home title');
+*/
+re.scene = function(title){
+	var s = re.c('scene');
+
+	//split into multiple calls
+	var k = title.split(' ');
+	if(k.length > 1){
+		title = k.pop();
+		
+		for(var b in k){
+			arguments.callee.apply(s, arguments);
+		}
+	}
+	
+	//delete scene
+	if(title.charAt(0) == '-'){
+		
+		delete s._scenes[title.substr(1)];
+		
+		return s;
+		
+	} else if(s._scenes[title]){
+	//go to scene
+		
+		var current = arguments.callee.current;
+		
+		//call exit
+		var t = s._scenes[current];
+		if(t && typeof t.scene_exit == 'function'){
+			t.scene_exit.call(t, title);
+		}
+		
+		arguments.callee.current = title;
+		s.curent = title;
+		
+		t = s._scenes[title];
+		
+		if(typeof t.scene_enter == 'function'){
+			t.scene_enter.apply(t, Array.prototype.slice.call(arguments, 1));
+		}
+		
+		
+	} else {
+	
+		//add scene
+		re.e('scene:'+title);
+	}
+	
+	return s._scenes[title];
+};
+
+re.c('scene')
+.global({
+	
+	_scenes:{}
 	
 })
 .init(function(c, title){
@@ -115,10 +104,7 @@ re.c('scene')
 		return this;
 	},
 	
-	scene:function(title){
-		return re.c('scene').apply(this, arguments);
+	scene:function(){
+		return re.scene.apply(this, arguments);
 	}
 });
-
-//shortcut method
-re.scene = re.c('scene').scene;

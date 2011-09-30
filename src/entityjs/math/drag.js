@@ -4,9 +4,9 @@ in relation to its starting postion.
 */
 re.c('drag')
 .require('point')
-.namespace({
+/*.namespace({
 	pos:null,
-})
+})*/
 .init(function(){
 	this.drag_pos = {x:0, y:0};
 })

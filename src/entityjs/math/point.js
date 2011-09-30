@@ -4,11 +4,26 @@ This can be used for 2d calculations or most commonly 2d sprite positioning.
 
 */
 
-re.comp('point')
+re.c('point')
 .init(function(){
+	
+	if(!this.pos)
 	this.pos = {x:0, y:0};
+	
 })
-.default({
+.define({
+	
+	moveTo:function(x, y){
+		if(arguments.length == 1){
+			y = x.y;
+			x = x.x;
+		}
+		
+		this.pos.x = x;
+		this.pos.y = y;
+		
+		return this;
+	},
 	
 	distanceTo:function(x, y){
 		

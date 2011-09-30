@@ -1,62 +1,71 @@
-(function(re){
-    
+
+	/*
+	Quick way to convert sentences to arrays.
+	*/
+	var __z = function(n, r){
+        this._checkFinal();
+		
+		if(!this[n]){
+			this[n] = [];
+		}
+		
+		if(typeof r == 'string'){
+			this[n] = this[n].concat(r.split(' '));
+		} else {
+			this[n] = this[n].concat(r);
+		}
+		
+		return this;
+	};
+	
     /*
 	If component exists, the component will NOT be overwritten.
 	
 	@return component reference
 	*/
-	comp = function(title){
+	re.comp = re.c = function(title){
 		
-		if(!this._c[title]){
-			this._c[title] = new re.comp.init(title);
+		if(!re._c[title]){
+			re._c[title] = new re.comp.init(title);
 		}
 		
-		return this._c[title];
-	}
+		return re._c[title];
+	};
 	
-	c = function(name){
+	re.comp.init = function(name){
 		
 		this.name = name;
-		this._re_defaults = {};
-		this._re_defines = {};
 		this._re_signals = {};
-	}
-	
-	var p = c.prototype;
-	
-	p.name = '';
-	
-    p._re_final = false;
-    
-	p._re_requires = '';
+		this._re_inherits = {};
+		this._re_defines = {};
+		this._re_final = false;
+	};
 	
 	/*
-	//handy to find variable names
-	p._re_defaults = null;
-	
-	p._re_defines = null;
+	p._re_requires = null;
 	
 	p._re_init = null;
 	
 	p._re_dispose = null;
 	
-	p._re_signals = null;
-	
 	p._re_asserts = null;
 	
 	p._re_interface = null;
 	*/
-    p._checkFinal = function(){
+	
+re.comp.init.prototype = {
+	
+    _checkFinal:function(){
         
         if(this._re_final){
             throw this.name+' is final.';
         }
-    }
+    },
     
-	p.static = function(obj, value){
+	global:function(obj, value){
         this._checkFinal();
         
-		if(typeof obj == 'object'){
+		if(arguments.length == 1){
 			
 			for(var type in obj){
 				this[type] = obj[type];	
@@ -67,14 +76,12 @@
 		}
 		
 		return this;
-	}
+	},
 	
-	p.require = function(requirements){
-        this._checkFinal();
-        this._re_requires += requirements+' ';
-		
-		return this;
-	}
+	
+	require:function(r){
+		return __z.call(this, '_re_requires', r);
+	},
 	
 	/*
 	Upon component init it will throw an error 
@@ -82,95 +89,28 @@
 	
 	This prevents incompatible components from colliding.
 	*/
-	p.assert = function(asserts){
-		this._re_asserts = asserts.split(' ');
-		
-		return this;
-	}
+	assert:function(r){
+		return __z.call(this, '_re_asserts', r);
+	},
 	
 	/*
-	Adds signal functionality to components.
-	All components will automatically call two signals, init and dispose.
+	The implement method checks and enforces implmentation
+	of the given keys. This can create interface components
+	for organization and query searches.
 	
-	Init on entity creation and dispose on entitiy disposition.
+	Forcing an interface on components will allow instant
+	runtime errors and save time.
 	
-	This is useful for 'watch tower' components that keep a list of
-	all entities that have its component. Check the cycle directory.
+	//reccommended to put an i infront to represent an interface
+	re.c('ienemy')
+	//create an enemy interface
+	.interface('moveTo spawn attack runAway');
 	
 	*/
-	p.signal = function(string, method){
-		return re.entity.init.prototype.signal.call(this, string, method);
-	}
-	
-	/*
-	Default adds onto but doesn't overwrite values.
-	*/
-	p.default = function(d, value){
-        this._checkFinal();
-        
-		if(typeof d == 'object'){
-			
-			for(var k in d){
-				this._re_defaults[k] = d[k];	
-			}
-			
-		} else {
-			
-			this._re_defaults[d] = value;
-				
-		}
-		
-		return this;
-	}
-	
-	/*
-	The run method allows a function to be ran in the context
-	of the component.
-	
-	Useful to keep everything in one big component.
-	*/
-	p.run = function(method){
-		this._checkFinal();
-		
-		method.call(this);
-		
-		return this;
-	}
-	
-	/*
-	Define overrides everything.
-	*/
-	p.define = function(d, value){
-        this._checkFinal();
-        
-		if(typeof d == 'object'){
-			
-			for(var k in d){
-				this._re_defines[k] = d[k];	
-			}
-		} else {
-			this._re_defines[d] = value;
-		}
-		
-		return this;	
-	}
-	
-	p.init = function(method){
-        this._checkFinal();
-        
-        this._re_init = method;
-		
-		return this;	
-	}
-	
-	p.dispose = function(method){
-        this._checkFinal();
-        
-        this._re_dispose = method;
-		
-		return this;	
-	}
-	
+	implement:function(r){
+		return __z.call(this, '_re_implments', r);
+	},
+    
 	/*
 	Creates new names for a component.
 	
@@ -189,7 +129,7 @@
 	re.c('draw').alias('dr bob');
 	
 	*/
-	p.alias = function(s){
+	alias:function(s){
         this._checkFinal();
         
         var p = s.split(' ');
@@ -204,14 +144,9 @@
 		}
 		
 		if(s.charAt(0) == '-'){
-			
-			var t = re._c[s.substr(1)];
-			
 			//only remove if its a reference
-			if(t == this){
-				delete t;
-			
-				return t;
+			if(re._c[s.substr(1)] == this){
+				delete re._c[s.substr(1)];
 			}
 		} else {
 		
@@ -219,47 +154,44 @@
 		}
 		
 		return this;
-	}
+	},
 	
 	/*
-	The final method locks the component from modification.
+	Adds signal functionality to components.
+	All components will automatically call two signals, init and dispose.
 	
-	This is handy to stop unexpected changes to a component.
+	Init on entity creation and dispose on entitiy disposition.
+	
+	This is useful for 'watch tower' components that keep a list of
+	all entities that have its component. Check the cycle directory.
+	
 	*/
-	p.final = function(){
+	signal:function(string, method){
         this._checkFinal();
-		
-        this._re_final = true;
-		
-		return this;
-	}
+		return re.entity.init.prototype.signal.call(this, string, method);
+	},
 	
 	/*
-	The interface method checks and enforces implmentation
-	of the given keys. This can create interface components
-	for organization and query searches.
-	
-	Forcing an interface on components will allow instant
-	runtime errors and save time.
-	
-	//reccommended to put an i infront to represent an interface
-	re.c('ienemy')
-	//create an enemy interface
-	.interface('moveTo spawn attack runAway');
-	
+	Default adds onto but doesn't overwrite values.
 	*/
-	p.interface = function(i){
+	inherit:function(d, value){
         this._checkFinal();
-		
-		if(this._re_interface){
-			this._re_interface += ' '+i;
+        
+		if(arguments.length == 1){
+			
+			for(var k in d){
+				this._re_inherits[k] = d[k];	
+			}
+			
 		} else {
-			this._re_interface = i;
+			
+			this._re_inherits[d] = value;
+				
 		}
 		
 		return this;
-	}
-    
+	},
+	
     /*
     The namespace method is used to put private component variables
     in its own space. This prevents unwanted overrites.
@@ -280,11 +212,11 @@
     this.draw_type = 'none';
     
     */
-    p.namespace = function(obj, value){
+    namespace:function(obj, value){
         this._checkFinal();
         var name = this.name+'_';
         
-        if(typeof obj == 'object'){
+        if(arguments.length == 1){
         
             for(var k in obj){
             	this._re_defines[name+k] = obj[k];
@@ -295,10 +227,74 @@
         }
         
         return this;
-    }
+    },
     
-	re.comp = re.c = comp;
+	/*
+	Define overrides everything.
+	*/
+	define:function(d, value){
+        this._checkFinal();
+        
+		if(!this._re_defines){
+			this._re_defines = {};
+		}
+		
+		if(arguments.length == 1){
+			
+			for(var k in d){
+				this._re_defines[k] = d[k];	
+			}
+			
+		} else {
+			this._re_defines[d] = value;
+		}
+		
+		return this;	
+	},
 	
-	re.comp.init = c;
+	init:function(method){
+        this._checkFinal();
+        
+        this._re_init = method;
+		
+		return this;	
+	},
 	
-}(re));
+	dispose:function(method){
+        this._checkFinal();
+        
+        this._re_dispose = method;
+		
+		return this;	
+	},
+	
+	/*
+	The lock method prevents modification to the component.
+	
+	This is handy to stop unexpected changes to a component.
+	*/
+	lock:function(){
+        this._checkFinal();
+		
+        this._re_final = true;
+		
+		return this;
+	},
+	
+	/*
+	The run method allows a function to be ran in the context
+	of the component.
+	
+	Useful to keep everything in one big component.
+	*/
+	run:function(method){
+		this._checkFinal();
+		
+		//re.ready(function(){
+			method.call(this);
+		//});
+		
+		return this;
+	}
+	
+};

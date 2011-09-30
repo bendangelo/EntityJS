@@ -6,9 +6,10 @@
 	
 	b.path = "";
 	
-	b.maxChannels = 3;
-	b.supportedImages = ['gif', 'jpg', 'jpeg', 'png'];
-	b.supportedSounds = ['wav', 'mp3', 'aac', 'ogg', 'm4a'];
+	b.imageExt = 'img';
+	b.soundExt = 'sfx';
+	b.images = ['gif', 'jpg', 'jpeg', 'png'];
+	b.sounds = ['wav', 'mp3', 'aac', 'ogg'];
 	
 	/*
 	Loads images, sounds and other files into components.
@@ -17,7 +18,7 @@
 	
 	//example of loading assets
 	re.load('tiles.png add.js attack.mp3')
-	.success(function(arrayOfAssets){
+	.complete(function(arrayOfAssets){
 		//create new bitmap of tiles.png
 		re.e('bitmap tiles.png');
 		
@@ -43,26 +44,47 @@
 	//re.support will return the supported codec
 	re.load('run.'+re.support('ogg', 'aac'));
 	
+	FUTURE remove directories from calls
+	
 	*/
 	var l = function(assets){
 		
 		if(typeof assets == 'string'){
 			this.assets = assets.split(' ');
+		} else {
+			this.assets = assets;
 		}
 		
 		var a;
-		for(var i in this.assets){
+		for(var i=0; i<this.assets.length; i++){
+			
 			this.total++;
+			
 			a = this.assets[i];
 			
 			//find file extension
-			var ext = a.substr(a.lastIndexOf('.')+1).toLowerCase();
+			var j = a.lastIndexOf('.')+1;
+			var ext = a.substr(j).toLowerCase();
 			
-			if(re.load.supportedImages.indexOf(ext) != -1){
-				this._loadImg(a);
+			//remove directories
+			var d = a.lastIndexOf('/');
+			if(d != -1){
+				a = a.substr(d+1, a.length);
+			}
+			
+			//find name
+			var n = a.substr(0, j);
+			
+			if(re.load.images.indexOf(ext) != -1){
+
+				this._loadImg(a, n);
 				
-			} else if(re.support(ext) && re.load.supportedSounds.indexOf(ext) != -1){
-				this._loadSound(a);
+			} else if(re.load.sounds.indexOf(ext) != -1){
+				
+				//check if support component exists first
+				if(!re.support || re.support(ext)){
+					this._loadSound(a, n);
+				}
 				
 			}
 			
@@ -77,14 +99,15 @@
 	p.current = 0;
 	p.total = 0;
 	
-	p._loadImg = function(a){
+	p._loadImg = function(a, n){
 	
 		var that = this;
 		var img = new Image();
 		
 		//create new image component
 		re.c(a)
-		.static({
+		.alias(n+re.load.imgExt)
+		.global({
 			image:img
 		})
 		.define({
@@ -106,41 +129,39 @@
 				}
 				
 			}
-		}
+		};
 		
 		img.onerror = function(){
-		
+			
 			if(that._e){
 				that._e.call(that, a);
 			}
 			
-		}
+		};
 		
 		img.src = re.load.path+a
 		
 		return this;
 	}
 	
-	p._loadSound = function(a){
+	p._loadSound = function(a, n){
 		var that = this;
 		
-		var channels = [];
+		var s = new Audio(re.load.path+a);
+		s.preload = "auto";
+		s.load();
 		
-		var a = new Audio(re.load.path+a);
-		a.load();
+		re.c(a)
+		//create global codec for easy use
+		.alias(n+re.load.soundExt)
+		.global({
+			sound:s
+		})
+		.define({
+			sound:s
+		});
 		
-		//cloning glitch fix
-		document.body.appendChild(a);
-		
-		a.addEventListener('canplaythrough', function(e){
-			
-			//multiple channels will allow the sound to be played more at the sametime.
-			//this will load the sound multiple times sadly FIX
-			for(var i=0; i<re.load.maxChannels-1; i++){
-				channels.push(a.cloneNode(true));
-			}
-			
-			//TODO refactor
+		s.addEventListener('canplaythrough',function(){
 			that.current++;
 			
 			if(that._p){
@@ -148,26 +169,20 @@
 			}
 			
 			if(that.current >= that.total){
-			
 				if(that._s){
 					that._s.call(that, that.assets);
 				}
 				
 			}
 			
-		}, false);
+		},false);
 		
-		re.c(a)
-		.static(function(){
-			channels:channels
-		})
-		.define({
-			channels:channels
-		});
-		
-		
-		
-		//TODO assets progress and on error
+		s.addEventListener('error',function(){
+			
+			if(that._e){
+				that._e.call(that, a);
+			}
+		},false);
 		
 	}
 	
@@ -178,7 +193,7 @@
 		return this;
 	}
 	
-	p.success = function(m){
+	p.complete = function(m){
 		
 		this._s = m;
 		

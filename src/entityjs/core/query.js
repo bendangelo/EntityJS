@@ -23,8 +23,9 @@
 	//returns a random entity
 	.random();
 	
-	//select all entities with id of bob or asset
-	re('#asset #bob')
+	//select all entities with id of bob and player
+	//warning you cannot query for two ids
+	re('#bob player')
 	//takes values from all objects and returns an array
 	.pluck('width height');
 	
@@ -35,7 +36,7 @@
 	re('text').comp('color');
 	
 	//custom entity search
-	re(function(entity, index){
+	re(function(index){
 		
 		if(entity.has('health') && entity.health > 0){
 			//add to query
@@ -52,7 +53,7 @@
 	re('#player').health = 100;
 	
 	*/
-	q = function(selector){
+	var q = function(selector){
 		this._e = [];
 		
 		if(selector){
@@ -64,7 +65,10 @@
 	Sort a query string into objects
 	*/
 	q._toObj = function(query){
-	
+		if(q.c[query]){
+			return q.c[query];
+		}
+		
 		//convert to object
 		var temp = query.split(' ');
 		var comps = [];
@@ -97,10 +101,14 @@
 			id:id
 		};	
 		
+		q.c[query] = comp;
+		
 		return comp;
 	}
 	
-	p = q.prototype;
+	q.c = {};
+	
+	var p = q.prototype;
 	
 	p.query = function(select){
 		select = select || '';
@@ -115,8 +123,8 @@
 				return this;
 			}
 			
-			//optimize search
-			var obj = re.query._toObj(select);
+			//optimize search and cache
+			var obj = q._toObj(select);
 			
 			var en;
 			main : for(; i<re._e.length; i++){
@@ -134,7 +142,7 @@
 			
 			for(; i<re._e.length; i++){
 				
-				if(select(re._e[i], i)){
+				if(select.call(re._e[i], i)){
 					this._e.push(re._e[i]);
 				}
 				
@@ -158,9 +166,13 @@
 	re('enemies').method('rest');
 	*/
 	p.method = function(m){
+		var b = Array.prototype.slice.call(arguments, 1);
 		this.each(function(){
-			this[m].call(this);
+		
+			this[m].apply(this, b);
 		});
+		
+		return this;
 	}
 	
 	/*
@@ -169,12 +181,13 @@
 		
 	});
 	
+	returning false will break the loop
 	*/
 	p.each = function(method){
 		var l = this._e.length;
 		
 		for(var i=0; i<l; i++){
-			method.call(this._e[i], i, l);
+			if(method.call(this._e[i], i, l) == false) break;
 		}
 		
 		return this;
@@ -201,6 +214,8 @@
 	...
 	]
 	
+	returning false will break the loop
+	
 	*/
 	p.map = function(w, method){
 		var x = 0;
@@ -208,7 +223,7 @@
 		
 		for(var i =0; i<this._e.length; i++){
 			
-			method.call(this._e[i], x, y);
+			if(method.call(this._e[i], x, y) == false) break;
 			
 			x++;
 			
@@ -222,14 +237,14 @@
 	/*
 	Returns an array of all components in the query.
 	*/
-	p.comps = function(){
-		var l = '';
+	p.compArray = function(){
+		var l = [];
 		
 		this.each(function(){
-			l += ' '+this.comps();
+			l.concat(this.compArray());
 		});
 		
-		return l.substr(1);
+		return l;
 	}
 	
 	/*
@@ -262,7 +277,9 @@
 			var o = {};
 			
 			for(var p in k){
-				o[k[p]] = this[k[p]];
+				if(k.hasOwnProperty(p)){
+					o[k[p]] = this[k[p]];
+				}
 			}
 			
 			t.push(o);
@@ -280,18 +297,18 @@
 		return this;
 	}
 	
-	p.default = function(obj, value){
+	p.inherit = function(obj, value){
 		this.each(function(){
-			this.default(obj, value);
+			this.inherit(obj, value);
 		});
 		
 		return this;
 	}
 	
-	p.comp = function(components){
+	p.comp = function(c){
 		
 		this.each(function(ref){
-			this.comp(components);
+			this.comp(c);
 		});
 		
 		return this;

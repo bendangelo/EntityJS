@@ -1,5 +1,5 @@
-re.keyboard = re.c('keyboard')
-.static({
+re.c('keyboard')
+.global({
 	listeners:[],
 	
 	keyCodes: { 
@@ -68,7 +68,6 @@ re.keyboard = re.c('keyboard')
     9:'tab',
     20:'capslock',
     91:'windows',//mac os - super
-    45:'insert',
     46:'delete', //NOT THE OS X DELETE KEY!
     36:'home',
     35:'end',
@@ -81,11 +80,11 @@ re.keyboard = re.c('keyboard')
     40:'down',
     /* Special char keys */
     96:'`',
-    45:'-',
+    45:'-',//also insert on mac?
     187:'=',
     219:'[',
     221:']',
-    220:'\\', //it's actually a \ but there's two to escape the original
+    220:'\\', //it's actually a \ but there's two to escape
     59:';',
     222:"'",
     188:',',
@@ -93,38 +92,49 @@ re.keyboard = re.c('keyboard')
     191:'/'
 	},
 	
+	/*
+	Add modifiers, shift, alt, ctrl.
+	.signal('ctrl+k')
+	*/
 	keyboardEvent: function(e){
 		var that = re.c('keyboard');
 		
-		e.keyCode = e.keyCode || e.which;
+		var c = e.keyCode || e.which;
 		
-		var key = that.keyCodes[e.keyCode];
+		var key = that.keyCodes[c];
 		
 		if(re.c('pressed').preventDefault[key]){
-			e.preventDefault();
+			if(e.preventDefault)
+				e.preventDefault();
+			 else 
+				e.returnValue = false;
+			
 		}
 		
 		if(re.c('pressed')._pressed){
 			re.c('pressed')._pressed[key] = (e.type == 'keydown');
 		}
 		
-		for(var k in that.listeners){
-			that.listeners[k].signal(e.type, key, e);
-			
-			//call specific signal
-			that.listeners[k].signal(e.type+':'+key, e);
+		for(var k=0; k<that.listeners.length; k++){
+			that.listeners[k].signal(e.type+' '+e.type+':'+key, key, e);
 		}
 		
+	},
+	
+	active:false,
+	
+	initKeyboard:function(){
+		if(!this.active){
+			this.active = true;
+			re.listener('keydown', this.keyboardEvent, false);
+			re.listener('keyup', this.keyboardEvent, false);
+			
+		}
 	}
 
 })
-.run(function(){
-	//add event listeners
-	document.addEventListener('keydown', this.keyboardEvent, false);
-	document.addEventListener('keyup', this.keyboardEvent, false);
-	
-})
 .init(function(c){
+	c.initKeyboard();
 	//add to global key array
 	c.listeners.push(this);
 })

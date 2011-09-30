@@ -1,5 +1,5 @@
 re.c('pressed')
-.static({
+.global({
 	//contains pressed keys and mouse clicks
 	_pressed:{},
 	preventDefault:{}
@@ -14,17 +14,28 @@ re.c('pressed')
 	if(this.pressed('w', 'up')){
 		this.pos.y--;	
 	}
+	
+	//or
+	if(this.pressed(['w', 'up']){
+	
+	}
+	
 	*/
 	pressed:function(key){
 		var that = re.c('pressed');
 		
-		if(arguments.length > 1){
+		var c = typeof key == 'object';
+		
+		if(arguments.length > 1 || c){
+			if(c) c = key
+			else c = arguments;
 			
-			for(var i=0; i<arguments.length; i++){
-				if(that._pressed[arguments[i]]){
+			for(var i=0; i<c.length; i++){
+				if(that._pressed[c[i]]){
 					return true;
 				}
 			}
+			
 		}
 		
 		return that._pressed[key];
@@ -53,6 +64,13 @@ re.c('pressed')
 		 re.c('pressed').preventDefault[key] = true;
 		
 		return this;
-	},
+	}
+	
+})
+.init(function(){
+	
+	//int mouse and keyboard
+	re._c.keyboard.initKeyboard();
+	re._c.mouse.initMouse();
 	
 });

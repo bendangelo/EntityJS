@@ -1,14 +1,13 @@
 re.c('sheet')
-.require('tile')
-.define({
+.global({
 	
-	sheet:function(map, padX, padY){
+	sheet:function(map, padX, padY, sizeX, sizeY){
 		
-		var frameWidth = re.tile.size.x;
-		var frameHeight = re.tile.size.y;
+		var frameWidth = sizeX || re.tile.size.x;
+		var frameHeight = sizeY || re.tile.size.y;
 		
 		if(padX){
-			frameWidth += padX;	
+			frameWidth += padX;
 		}
 		
 		if(padY){
@@ -31,7 +30,7 @@ re.c('sheet')
 				frame:{x:x, y:y, 
 				size:{x:frameWidth, y:frameHeight}
 				},
-				sheet:this.image,
+				sheet:this.image
 			});
 			
 		}
@@ -39,4 +38,12 @@ re.c('sheet')
 		return this;
 	}
 	
+})
+.require('tile')
+.define({
+	
+	sheet:re.sheet
+	
 });
+
+re.sheet = re.c('sheet').sheet;

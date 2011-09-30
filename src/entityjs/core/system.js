@@ -8,10 +8,8 @@ FUTURE
 -add entity defines to allow local usage.
 -perhaps allow users to override the system class for their own custom usage. (new arrays of entities and components)
 */
-re.system = re.sys = re.c('system')
-.static({
-	
-	size:{x:0, y:0},
+re.c('system')
+.define({
 	
 	clearColor:'#f9f9f9',
 	
@@ -19,51 +17,55 @@ re.system = re.sys = re.c('system')
 	
 	clear:function(color){
 		
-		re.system.context.fillStyle = color;
-		re.system.context.fillRect(0, 0, re.system.size.x, re.system.size.y);	
+		if(color){
+			this.context.fillStyle = color;
+			this.context.fillRect(0, 0, this.size.x, this.size.y);
+		} else {
+			this.context.clearRect(0, 0, this.size.x, this.size.y);
+		}
 		
 		return this;
 	},
 	
 	start:function(){
-		if(!re.system.running){
-			re.system.running = true;
+		if(!this.running){
+			this.running = true;
 			
-			re.sys.inter = re.e('interval').start(re.sys.fps, re.sys._d);
+			var that = this;
+			
+			(function mainLoop(){
+				if(that.running){
+					
+					that.system_loop.call(that);
+					
+					that.requestAnimationFrame(mainLoop, that.canvas);
+				}
+			})();
+			
+			
 		}
 		
 		return this;
 	},
 	
-	delegate:function(m){
-	
-		re.sys._d = m;
+	loop:function(m){
+		
+		this.system_loop = m;
 	
 		return this;
 	},
 	
-	_d:function(){
-		//clear
-		re.system.clear(re.system.clearColor);
-	
-		//update
-		re.c('update').update();
-	
-		re.c('draw').draw(re.system.context);
-	},
-	
 	stop:function(){
-		if(re.sys.running){
-			re.system.running = false;
-			
-			re.sys.inter.stop();
-			
-			
+		if(this.running){
+			this.running = false;
 		}
 		return this;
 	},
 	
-	init:function(canvasId, fps){
+	init:function(canvasId, screen){
+		
+		//add comps here because system is defined earlier
+		this.comp('polyfill ticker');
 		
 		//setup canvas
 		this.canvas = re.$(canvasId);
@@ -73,13 +75,42 @@ re.system = re.sys = re.c('system')
 		this.size.x = this.canvas.width;
 		this.size.y = this.canvas.height;
 		
-		//setup mainloop
-		if(arguments.length >= 2){
-			re.system.fps = fps;
+		screen = screen || re.screen;
+		
+		if(screen){
+			screen.size.x = this.size.x;
+			screen.size.y = this.size.y;
+			screen.reg.x = this.size.x * 0.5;
+			screen.reg.y = this.size.y * 0.5;
 		}
 		
 		return this;
+	},
+	
+	/*
+	Default main loop
+	*/
+	system_loop:function(){
+		
+		//update
+		re._c.update.update.call(re._c.update, this, this.tick(), this.time);
+		
+		//clear
+		this.clear(this.clearColor);
+		
+		re._c.draw.draw.call(re._c.draw, this, this.context);
 	}
 	
+	
+})
+.init(function(c){
+	
+	this.size = {x:0, y:0};
+	
+})
+.run(function(){
+	
+	//create default system
+	re.system = re.sys = re.e('system');
 	
 });
