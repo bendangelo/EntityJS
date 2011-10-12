@@ -2,135 +2,141 @@
 The Physics component adds new physical and time calculated variables to an entity.
 
 These variables will give the entity a more fluid movement in 2d space.
+
+Warning - this component is not delta time safe. It assumes a fixed timestep.
 */
 re.physics = re.c('physics')
-.require('point update')
+.require('update')
 .global({
-	/*
-	hitmap:null,
-	*/
-	gra:{x:0, y:0},
+	graX:0,
+	graY:0,
 	
 	//velocity lower than this will be rounded down
 	minVel:0.01
 })
-.init(function(c){
+.inherit({
 	
-	if(!this.has('size') || !this.has('radius')){
-		this.comp('size');	
-	}
+	posX:0,
+	posY:0,
 	
-	this.vel = {x:0, y:0, max:{x:100, y:100}};
-	this.fri = {x:0.9, y:0.4};
-	this.acc = {x:0, y:0};
-	this.res = {x:0, y:0};
-	this.mas = {x:1, y:1};
+	velX:0,
+	velY:0,
 	
-	this.signal('update', this.physics_update);
+	velMaxX:100,
+	velMaxY:100,
 	
-	//setup defaults
-	this.hitmap = c.hitmap;
+	friX:0.9,
+	friY:0.4,
 	
-	this.gra = {x:c.gra.x, y:c.gra.y};
+	accX:0,
+	accY:0,
 	
-})
-.dispose(function(){
+	resX:0,
+	resY:0,
 	
-	this.signal('-update', this.physics_update);
+	masX:1,
+	masY:1,
+	
+	padX:0,
+	padY:0,
+	
+	bodX:1,
+	bodY:1
 	
 })
 .namespace({
 	
 	update:function(t){
 		
-		this.vel.x = this.force(this.vel.x, this.acc.x, this.fri.x, this.gra.x, this.mas.x, t, this.vel.max.x);
-		this.vel.y = this.force(this.vel.y, this.acc.y, this.fri.y, this.gra.y, this.mas.y, t, this.vel.max.y);
+		this.velX = this.force(this.velX, this.accX, this.friX, this.graX, this.masX, this.velMaxX);
+		this.velY = this.force(this.velY, this.accY, this.friY, this.graY, this.masY, this.velMaxY);
 		
 		//check collisions and get result
 		if(this.hitmap){
 			
-			this.step(this.hitmap.checkHit(this));
+			this.aftermath(this.hitmap.checkHit(this));
 			
 		} else {
 			
-			this.pos.x += this.vel.x;
-			this.pos.y += this.vel.y;
-			
-			this.step(this.pos);
+			this.aftermath(this.posX + this.velX, this.posY + this.velY);
 		}
+		
 	}
 	
 })
-.define({
-	/*
-	hitmap:null,
+.extend({
 	
-	vel:null,
-	//friction
-	fri:null,
-	acc:null,
-	vel.max:null,
-	//restitution
-	res:null,
-	mas:null,
-	gra:null
-	*/
-	
-	step:function(pos, hitx, hity, tilex, tiley){
+	aftermath:function(posx, posy, hitx, hity, tarx, tary){
 		
 		if(arguments.length == 1){
-			hitx = pos.x;
-			hity = pos.y;
-			if(pos.tile){
-				tilex = pos.tile.x;
-				tiley = pos.tile.y;
-			}
-			pos = pos.pos;
+			hitx = posx.hitX;
+			hity = posx.hitY;
+			
+			tarx = posx.tarX;
+			tary = posx.tarY;
+			
+			posy = posx.posY;
+			posx = posx.posX;
 		}
 		
-		this.pos = pos;
+		this.posX = posx;
+		this.posY = posy;
 		
-		this.signal('step', hitx, hity, tilex, tiley);
+		this.signal('aftermath', hitx, hity, tarx, tary);
 		
 		if(hitx){
-			this.vel.x = this.forceRes(this.vel.x, this.res.x);
+			this.velX = this.forceRes(this.velX, this.resX);
 		}
 		
 		if(hity){
-			this.vel.y = this.forceRes(this.vel.y, this.res.y);
+			this.velY = this.forceRes(this.velY, this.resY);
 		}
 		
-		if(Math.abs(this.vel.x) < re.physics.minVel){
-			this.vel.x = 0;
-		}
-		if(Math.abs(this.vel.y) < re.physics.minVel){
-			this.vel.y = 0;
-		}
 	},
 	
 	forceRes:function(vel, res){
 		return vel * -res;
 	},
 	
-	forceGra:function(gra, mas, tim){
-		return gra * mas * tim;
+	forceGra:function(gra, mas){
+		return gra * mas;
 	},
 	
-	forceVel:function(vel, acc, fri, tim){
-		return (vel + acc * tim) * fri;
-	},
-	
-	force:function(vel, acc, fri, gra, mas, tim, max){
+	forceVel:function(vel, acc, fri){
+		return (vel + acc) * fri;
 		
-		var v = this.forceVel(vel, acc, fri, tim) + this.forceGra(gra, mas, tim);
+	},
+	
+	force:function(vel, acc, fri, gra, mas, max){
+		
+		var v = this.forceVel(vel, acc, fri) + this.forceGra(gra, mas);
 		
 		v = Math.min(max, Math.max(-max, v));
+		
+		if(Math.abs(v) < re.physics.minVel){
+			v = 0;
+		}
 		
 		return v;
 	},
 	
 	isIdle:function(){
-		return (this.vel.y == 0 && this.vel.x == 0 && this.acc.x == 0 && this.acc.y == 0);
+		return (this.velY == 0 && this.velX == 0 && this.accX == 0 && this.accY == 0);
 	}
+	
+})
+.init(function(c){
+	
+	//setup defaults
+	this.hitmap = re.hitmap;
+	
+	this.graX = c.graX;
+	this.graY = c.graY;
+	
+	this.addSignal('update', this.physics_update);
+})
+.dispose(function(){
+	
+	this.removeSignal('update', this.physics_update);
 	
 });

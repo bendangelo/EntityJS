@@ -1,5 +1,5 @@
 /*
-The log component defines a cross browser console.log command.
+The log component extends a cross browser console.log command.
 
 //example usage
 re.e('log')
@@ -22,4 +22,4 @@ re.log = function(){
 };
 
 re.c('log')
-.define('log', re.log);
+.extend('log', re.log);

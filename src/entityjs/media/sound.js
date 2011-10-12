@@ -39,26 +39,26 @@ Sound Tip
 re('sound').method('play');
 
 
-TODO
--sound channels
-
 */
 re.sound = re.c('sound')
 .global({
 	
-	enabled:true,
-	volume:1
+	enabled:true
 	
 })
-.inherit({
-	volume:1
+.namespace({
+	
+	hasEvent:false,
+	loops:0
+	
 })
-.define({
+.extend({
 
 	play:function(loop){
 		if(!this.sound || !re.sound.enabled) return this;
 		
 		var c = this.sound;
+		var that = this;
 		
 		c.currentTime = 0;
 	
@@ -66,16 +66,22 @@ re.sound = re.c('sound')
 		
 		if(loop){
 			
-			var l = 0;
+			this.sound_loops = 0;
 			
-			c.addEventListener('ended', function(){
+			if(!this.sound_hasEvent){
+				this.sound_hasEvent = true;
 				
-				if(loop == -1 || l >= loop){
-					c.currentTime = 0;
-					l++;
-				}
-				
-			}, false);
+				c.addEventListener('ended', function(){
+					
+					that.signal('sounded', that.sound_loops, loop);
+					
+					if(loop == -1 || that.sound_loops < loop){
+						c.currentTime = 0;
+						that.sound_loops++;
+					}
+					
+				}, false);
+			}
 			
 		}
 		

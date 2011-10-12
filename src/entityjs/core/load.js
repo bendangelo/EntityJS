@@ -66,6 +66,9 @@
 			var j = a.lastIndexOf('.')+1;
 			var ext = a.substr(j).toLowerCase();
 			
+			//copy full source path
+			var s = a;
+			
 			//remove directories
 			var d = a.lastIndexOf('/');
 			if(d != -1){
@@ -77,13 +80,13 @@
 			
 			if(re.load.images.indexOf(ext) != -1){
 
-				this._loadImg(a, n);
+				this._loadImg(s, a, n);
 				
 			} else if(re.load.sounds.indexOf(ext) != -1){
 				
 				//check if support component exists first
 				if(!re.support || re.support(ext)){
-					this._loadSound(a, n);
+					this._loadSound(s, a, n);
 				}
 				
 			}
@@ -99,7 +102,7 @@
 	p.current = 0;
 	p.total = 0;
 	
-	p._loadImg = function(a, n){
+	p._loadImg = function(src, a, n){
 	
 		var that = this;
 		var img = new Image();
@@ -108,14 +111,22 @@
 		re.c(a)
 		.alias(n+re.load.imgExt)
 		.global({
-			image:img
+			bitmap:img
 		})
-		.define({
+		.extend({
 			//save image for other components to copy or use
-			image:img
+			bitmap:img
 		});
 		
 		img.onload = function(){
+		
+			re.c(a).extend({
+			
+			bisect:img.width,
+			sizeX:img.width,
+			sizeY:img.height
+			});
+			
 			that.current++;
 			
 			if(that._p){
@@ -139,15 +150,15 @@
 			
 		};
 		
-		img.src = re.load.path+a
+		img.src = re.load.path+src;
 		
 		return this;
 	}
 	
-	p._loadSound = function(a, n){
+	p._loadSound = function(src, a, n){
 		var that = this;
 		
-		var s = new Audio(re.load.path+a);
+		var s = new Audio(re.load.path+src);
 		s.preload = "auto";
 		s.load();
 		
@@ -157,7 +168,7 @@
 		.global({
 			sound:s
 		})
-		.define({
+		.extend({
 			sound:s
 		});
 		

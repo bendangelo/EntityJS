@@ -58,13 +58,14 @@ re.c('mouse')
 			y = e.clientY +	document.body.scrollTop + document.documentElement.scrollTop;
 		}
 		
+		//FUTURE fix, does not support multiple canvases
 		if(re.sys.canvas){
 			x -= re.sys.canvas.offsetLeft;
 			y -= re.sys.canvas.offsetTop;
 		}
 		
 		//ignore if off canvas
-		if(x < 0 || y < 0 || y > re.sys.size.y || x > re.sys.size.x){
+		if(x < 0 || y < 0 || y > re.sys.sizeY || x > re.sys.sizeX){
 			return;	
 		}
 		
@@ -77,7 +78,7 @@ re.c('mouse')
 	},
 	
 	active:false,
-	initMouse:function(){
+	initListeners:function(){
 		if(!this.active){
 			this.active = true;
 			
@@ -93,7 +94,7 @@ re.c('mouse')
 })
 .init(function(c){
 	//add to listener array
-	c.initMouse();
+	c.initListeners();
 	c.listeners.push(this);
 })
 .dispose(function(c){

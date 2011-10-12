@@ -5,27 +5,32 @@ It simply offsets pos values upon rendering.
 This is useful for setting up a tile-based game.
 */
 re.c('screen')
-.require('size point')
-.define({
+.require('hittest')
+.extend({
 	
-	moveTo:function(x, y){
+	setPos:function(x, y){
 		if(arguments.length == 1){
-			y = x.y;
-			x = x.x;
+			y = x.posY;
+			x = x.posX;
 		}
 		
-		this.pos.x = x - this.reg.x;
-		this.pos.y = y - this.reg.y;
+		this.posX = x - this.regX;
+		this.posY = y - this.regY;
 		
 		return this;
 	}
 	
 })
-.init(function(){
+.inherit({
 	
-	this.reg = {x:0, y:0};
+	posX:0,
+	posY:0,
 	
-	this.size = {x:9, y:9};
+	regX:0,
+	regY:0,
+	
+	sizeX:0,
+	sizeY:0
 	
 });
 

@@ -183,12 +183,10 @@
 	
 	returning false will break the loop
 	*/
-	p.each = function(method){
-		var l = this._e.length;
+	p.each = function(m){
+		var l = this._e.length, i = -1, e;
 		
-		for(var i=0; i<l; i++){
-			if(method.call(this._e[i], i, l) == false) break;
-		}
+		while(++i < l && (e = this._e[i]) && m.call(e, i, l) !== false);
 		
 		return this;
 	}
@@ -237,11 +235,11 @@
 	/*
 	Returns an array of all components in the query.
 	*/
-	p.compArray = function(){
+	p.getComps = function(){
 		var l = [];
 		
 		this.each(function(){
-			l.concat(this.compArray());
+			l.concat(this.getComps());
 		});
 		
 		return l;
@@ -251,7 +249,7 @@
 	Returns a random entity.
 	*/
 	p.random = function(){
-		return this._e[Math.random()*this._e.length];
+		return this._e[~~(Math.random()*this._e.length)];
 	}
 	
 	/*
@@ -289,9 +287,9 @@
 		return t;
 	}
 	
-	p.define = function(obj, value){
+	p.extend = function(obj, value){
 		this.each(function(){
-			this.define(obj,value);
+			this.extend(obj,value);
 		});
 		
 		return this;

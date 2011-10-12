@@ -2,7 +2,11 @@
 The arraymap component creates an auto expandable two-dimensional array.
 */
 re.c('arraymap')
-.define({
+.inherit({
+	lengthX:0,
+	lengthY:0
+})
+.extend({
 	/*map:null,
 	size:null,*/
 	value:0,
@@ -30,8 +34,8 @@ re.c('arraymap')
 				
 			}
 			
-			this.size.x = this.map[y].length;
-			this.size.y = this.map.length;
+			this.lengthX = this.map[y].length;
+			this.lengthY = this.map.length;
 			
 			this.map[y][x] = value;
 			
@@ -40,7 +44,7 @@ re.c('arraymap')
 	
 	within:function(x, y){
 		
-		if(y < 0 || y >= this.size.y || x < 0 || x >= this.size.x){
+		if(y < 0 || y >= this.lengthY || x < 0 || x >= this.lengthX){
 			return false;
 		}
 		return true;
@@ -66,6 +70,5 @@ re.c('arraymap')
 	
 })
 .init(function(){
-	this.size = {x:0, y:0};
 	this.map = [];
 });

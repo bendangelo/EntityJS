@@ -5,23 +5,33 @@ Such as the canvas context, fps, start, stop, canvas.
 You can add the component to entities for quick reference to variables.
 
 FUTURE
--add entity defines to allow local usage.
+-add entity extends to allow local usage.
 -perhaps allow users to override the system class for their own custom usage. (new arrays of entities and components)
 */
 re.c('system')
-.define({
+.inherit({
+	
+	contextType:'2d',
 	
 	clearColor:'#f9f9f9',
 	
+	stepSize:0.03,
+	
 	running:false,
+	
+	sizeX:0,
+	sizeY:0
+	
+})
+.extend({
 	
 	clear:function(color){
 		
 		if(color){
 			this.context.fillStyle = color;
-			this.context.fillRect(0, 0, this.size.x, this.size.y);
+			this.context.fillRect(0, 0, this.sizeX, this.sizeY);
 		} else {
-			this.context.clearRect(0, 0, this.size.x, this.size.y);
+			this.context.clearRect(0, 0, this.sizeX, this.sizeY);
 		}
 		
 		return this;
@@ -34,12 +44,13 @@ re.c('system')
 			var that = this;
 			
 			(function mainLoop(){
+					
+				that.system_loop.call(that);
+					
 				if(that.running){
-					
-					that.system_loop.call(that);
-					
 					that.requestAnimationFrame(mainLoop, that.canvas);
 				}
+				
 			})();
 			
 			
@@ -56,32 +67,33 @@ re.c('system')
 	},
 	
 	stop:function(){
-		if(this.running){
-			this.running = false;
-		}
+		this.running = false;
 		return this;
 	},
 	
-	init:function(canvasId, screen){
+	init:function(canvasId, screen, contextType){
 		
-		//add comps here because system is defined earlier
-		this.comp('polyfill ticker');
+		//add comps here because system is extendd earlier
+		this.addComp('polyfill ticker timestep');
 		
 		//setup canvas
 		this.canvas = re.$(canvasId);
 		
-		this.context = this.canvas.getContext('2d');
+		this.contextType = contextType || this.contextType;
 		
-		this.size.x = this.canvas.width;
-		this.size.y = this.canvas.height;
+		this.context = this.canvas.getContext(this.contextType);
+		
+		this.sizeX = this.canvas.width;
+		this.sizeY = this.canvas.height;
 		
 		screen = screen || re.screen;
 		
 		if(screen){
-			screen.size.x = this.size.x;
-			screen.size.y = this.size.y;
-			screen.reg.x = this.size.x * 0.5;
-			screen.reg.y = this.size.y * 0.5;
+			screen.sizeX = this.sizeX;
+			screen.sizeY = this.sizeY;
+			
+			screen.regX = this.sizeX * 0.5;
+			screen.regY = this.sizeY * 0.5;
 		}
 		
 		return this;
@@ -92,20 +104,17 @@ re.c('system')
 	*/
 	system_loop:function(){
 		
-		//update
-		re._c.update.update.call(re._c.update, this, this.tick(), this.time);
+		this.timestep(this.tick(), function(){
+			//update
+			re._c.update.update.call(re._c.update, this, this.stepSize);
+		});
 		
 		//clear
 		this.clear(this.clearColor);
 		
-		re._c.draw.draw.call(re._c.draw, this, this.context);
+		re._c.draw.draw.call(re._c.draw, this);
 	}
 	
-	
-})
-.init(function(c){
-	
-	this.size = {x:0, y:0};
 	
 })
 .run(function(){

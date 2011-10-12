@@ -90,7 +90,7 @@ re.c('scene')
 	delete c._scenes[this.sceneName];
 	
 })
-.define({
+.extend({
 	
 	enter:function(m){
 		this.scene_enter = m;

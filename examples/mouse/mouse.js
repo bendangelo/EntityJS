@@ -18,30 +18,30 @@ re.ready(function(){
 	re.sys.clearColor = '#FFFFFF';
 	
 	re.e('mouse update pressed')
-	.signal('mousedown',function(){
+	.addSignal('mousedown',function(){
 		console.log('Mouse down!');
 	})
-	.signal('mouseup', function(){
+	.addSignal('mouseup', function(){
 		console.log('Mouse up!');
 	
 	})
-	.signal('mousemove', function(x, y){
+	.addSignal('mousemove', function(x, y){
 		console.log('Mouse move!',x+' '+y);
 	
 	})
-	.signal('click', function(){
+	.addSignal('click', function(){
 		console.log('Mouse click!');
 	
 	})
-	.signal('dblclick', function(){
+	.addSignal('dblclick', function(){
 		console.log('Mouse double click!');
 	
 	})
-	.signal('contextmenu', function(){
+	.addSignal('contextmenu', function(){
 		console.log('Contextmenu!');
 	
 	})
-	.signal('update', function(){
+	.addSignal('update', function(){
 		
 		if(this.pressed('mouse:left')){
 			console.log('mouse:left');

@@ -9,42 +9,68 @@ re.e('bind bitmap char.png')
 */
 
 re.c('bind')
-.require('point update')
+.require('update')
 .namespace({
 	
 	update:function(){
+		if(!this.bind) return;
 		
-		if(this.pos.x < this.bind.min.x){
-			this.pos.x = this.bind.min.x;
+		if(this.posX < this.bindMinX){
 			
-		} else if(this.pos.x > this.bind.max.x){
+			this.posX = this.bindMinX;
+			
+		} else if(this.posX > this.bindMaxX){
 		
-			this.pos.x = this.bind.max.x;	
+			this.posX = this.bindMaxX;	
 		}
 		
-		if(this.pos.y < this.bind.min.y){
-			this.pos.y = this.bind.min.y;
+		if(this.posY < this.bindMinY){
 			
-		} else if(this.pos.y > this.bind.max.y){
+			this.posY = this.bindMinY;
+			
+		} else if(this.posY > this.bindMaxY){
 		
-			this.pos.y = this.bind.max.y;	
+			this.posY = this.bindMaxY;	
 		}
 		
 	}
 	
 })
+.inherit({
+	
+	posX:0,
+	posY:0,
+	
+	bindMinX:0,
+	bindMinY:0,
+	
+	bindMaxX:10,
+	bindMaxY:10,
+	
+	bind:true
+	
+})
+.extend({
+	
+	setBind:function(minx, miny, maxx, maxy){
+		
+		this.bindMinX = minx;
+		this.bindMinY = miny;
+		
+		this.bindMaxX = maxx;
+		this.bindMaxY = maxy;
+		
+		return this;
+	}
+	
+})
 .init(function(){
 	
-	this.bind = {
-		min:{x:0, y:0},
-		max:{x:10, y:10}
-	};
-	
-	this.signal('update', this.bind_update);
+	this.addSignal('update', this.bind_update);
 	
 })
 .dispose(function(){
 	
-	this.signal('-update', this.bind_update);
+	this.removeSignal('update', this.bind_update);
 	
 });

@@ -7,54 +7,53 @@ wanted font.
 */
 
 re.c('bitfont')
-.require('point draw')
+.require('draw')
 .inherit({
-
+	
 	text:'',
-	//default width if charwidths not defined
+	//default width if charwidths not extendd
 	charOffset:32
 	
 })
-.namespace({
+.extend({
 	
-	draw:function(context){
+	isVisible:function(){
+		return this.text.length != 0 && this.bitmap && this.parent('draw', 'isVisible');
+	},
+	
+	draw:function(c){
+	
+		var slot = 0, charWidth, code, charPos;
 		
-		if(this.text.length != 0 && this.image && (!this.screen || this.screen.touches(this.pos.x - this.reg.x, this.pos.y - this.reg.y, this.size.x, this.size. y))){
+		for(var i=0, l = this.text.length; i<l; ++i){
 			
-			var slot = 0, charWidth, code, charPos;
+			//get char code
+			code = this.text.charCodeAt(i) - this.charOffset;
 			
-			for(var i=0, l = this.text.length; i<l; ++i){
-				
-				//get char code
-				code = this.text.charCodeAt(i) - this.charOffset;
-				
-				//find width of character
-				charWidth = this.charWidths[code];
-				
-				//find source character position
-				if(!this.charCache[code]){
-					charPos = 0;
-					for(var p=0; p<code; ++p){
-						charPos += this.charWidths[p]+1;
-					}
-					this.charCache[code] = charPos;
+			//find width of character
+			charWidth = this.charWidths[code];
+			
+			//find source character position
+			if(!this.charCache[code]){
+				charPos = 0;
+				for(var p=0; p<code; ++p){
+					charPos += this.charWidths[p]+1;
 				}
-				
-				context.drawImage(this.image, this.charCache[code], 0, charWidth, this.image.height, -this.reg.x + slot, -this.reg.y, charWidth, this.image.height);
-				
-				//append to next character slot
-				slot += charWidth;
-				
+				this.charCache[code] = charPos;
 			}
 			
-			this.size.x = slot;
-			this.size.y = this.image.height;
+			c.drawImage(this.bitmap, this.charCache[code], 0, charWidth, this.bitmap.height, -this.regX + slot, -this.regY, charWidth, this.bitmap.height);
+			
+			//append to next character slot
+			slot += charWidth;
+			
 		}
 		
-	}
+		this.sizeX = slot;
+		this.sizeY = this.bitmap.height;
 	
-})
-.define({
+	
+	},
 	
 	updateSize:function(){
 		
@@ -64,12 +63,12 @@ re.c('bitfont')
 			t += this.charWidths[p];
 		}
 		
-		this.size.x = t;
+		this.sizeX = t;
 		
-		if(this.image){
-			this.size.y = this.image.height;
+		if(this.bitmap){
+			this.sizeY = this.bitmap.height;
 		} else {
-			this.size.y = 0;
+			this.sizeY = 0;
 		}
 		return this;
 	},
@@ -85,19 +84,10 @@ re.c('bitfont')
 })
 .init(function(){
 	
-	//calculate font widths
-	this.size = {x:0, y:0};
-	this.reg = {x:0, y:0};
-	
 	if(!this.charCache){
 		this.charCache = {};
 	}
 	
-	this.signal('draw', this.bitfont_draw);
-	
-})
-.dispose(function(){
-	
-	this.signal('-draw', this.bitfont_draw);
+	this.updateSize();
 	
 });

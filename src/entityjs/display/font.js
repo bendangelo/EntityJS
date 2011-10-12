@@ -3,36 +3,34 @@ The font component displays font on screen using the canvas font api.
 
 //create font
 re.e('font')
-.define({
+.extend({
 	text:'Texting Message',
 	textColor:'#ff0000'
 });
 
+TODO implement size
+
 */
 re.c('font')
-.require('draw point')
+.require('draw')
 .inherit({
 	font:"14px sans-serif",
 	textColor:'#000000',
 	textAlign:'',
 	text:''
 })
-.namespace({
+.extend({
 	
-	draw:function(context){
+	isVisible:function(){
+		return this.text.length != 0;
+	},
+	
+	draw:function(c){
 		
-		//TODO implement screen
-		if(this.text.length != 0){
-			
-			context.font = this.font;
-			context.fillStyle = this.textColor;
-			context.fillText(this.text, -this.reg.x, -this.reg.y);
-			
-		}
+		c.font = this.font;
+		c.fillStyle = this.textColor;
+		c.fillText(this.text, -this.regX, -this.regY);
 		
 	}
 	
-})
-.init(function(){
-	this.signal('draw', this.font_draw);
 });

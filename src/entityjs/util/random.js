@@ -10,7 +10,7 @@ r.random(10, 30) // 10 - 30
 randomInt rounds numbers to whole
 */
 re.c('random')
-.define({
+.extend({
 	
 	random:function(max, min){
 		switch(arguments.length){

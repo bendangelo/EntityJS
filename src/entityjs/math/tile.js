@@ -2,79 +2,90 @@
 The tile component adds tile positioning functions and helper functions for tile based games.
 */
 re.tile = re.c('tile')
-.require('point')
 .global({
-	size:{x:40, y:40},
+	sizeX:40,
+	sizeY:40,
 	
 	roundX:function(x, size){
 		if(arguments.length == 1){
-			size = re.tile.size.x;
+			size = re.tile.sizeX;
 		}
 		return re.tile.pointToXt(x) * size;
 	},
 	
 	roundY:function(y, size){
 		if(arguments.length == 1){
-			size = re.tile.size.y;
+			size = re.tile.sizeY;
 		}
 		return re.tile.pointToYt(y) * size;
 	},
 	
-	xToXt:function(x, size){
+	xToTileX:function(x, size){
 		if(arguments.length == 1){
-			size = re.tile.size.x;
+			size = re.tile.sizeX;
 		}
 		return Math.round((x-size*0.5)/size);
 	},
 	
-	yToYt:function(y, size){
+	yToTileX:function(y, size){
 		if(arguments.length == 1){
-			size = re.tile.size.y;
+			size = re.tile.sizeY;
 		}
 		return Math.round((y-size*0.5)/size);
 	}
 	
 })
-.init(function(){
-	this.size = re.tile.size;
+.inherit({
+	
+	posX:0,
+	posY:0
 	
 })
-.define({
+.init(function(){
+	
+	if(!this.sizeX)
+	this.sizeX = re.tile.sizeX;
+	
+	if(!this.sizeY)
+	this.sizeY = re.tile.sizeY;
+	
+})
+.extend({
 
-	tileFromPoint:function(x, y){
-		this.pos.x = re.tile.roundX(x);
-		this.pos.y = re.tile.roundY(y);
+	setTileFromPoint:function(x, y){
+		this.posX = re.tile.roundX(x);
+		this.posY = re.tile.roundY(y);
 		
 		return this;
 	},
 	
-	tile:function(xt, yt){
-		this.setXt(xt);
-		this.setYt(yt);
+	setTile:function(xt, yt){
+		this.setTileX(xt);
+		this.setTileY(yt);
 		
 		return this;
 	},
 	
-	setXt:function(value){
-		this.pos.x = Math.floor(value * this.size.x);
+	setTileX:function(value){
+		this.posX = Math.floor(value * this.sizeX);
 		
 		return this;
 	},
 	
-	getXt:function(){
-		return Math.floor(this.pos.x / this.size.x);
+	getTileX:function(){
+		return Math.floor(this.posX / this.sizeX);
 	},
 	
-	setYt:function(value){
+	setTileY:function(value){
 		
-		this.pos.y = Math.floor(value * this.size.y);
+		this.posY = Math.floor(value * this.sizeY);
 		
 		return this;
 	},
 	
-	getYt:function(){
+	getTileY:function(){
 		
-		return Math.floor(this.pos.y / this.size.y);
+		return Math.floor(this.posY / this.sizeY);
 	}
 	
 });

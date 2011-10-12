@@ -2,19 +2,19 @@ re.c('draw')
 .global({
 	listeners:[],
 	
-	draw:function(s, c){
+	draw:function(s){
 		var l = this.listeners;
 		
 		for(var k=0, le = l.length, b; k < le; ++k){
 			b = l[k];
 			
-			if(b && b.sys == s && b.drawing){
+			if(b && b.sys == s && b.drawing && b.isVisible()){
 				/*if(!b.canvasCache){
 					b.draw_render(c);
 				} else {
 					b.signal('draw', c);
 				}*/
-				b.draw_render(c);
+				b.draw_render(s.context);
 				
 			}
 		}
@@ -22,12 +22,10 @@ re.c('draw')
 	}
 	
 })
+.implement('draw')
 .init(function(c){
 	
 	c.listeners.push(this);
-	this.scale = {x:1, y:1};
-	
-	this.reg = {x:1, y:1};
 	
 	//set default screen
 	this.screen = re.screen;
@@ -43,10 +41,22 @@ re.c('draw')
 	sys:re.sys,
 	drawing:true,
 	rotation:0,
-	alpha:1
+	alpha:1,
+	
+	scaleX:1,
+	scaleY:1,
+	
+	posX:0,
+	posY:0,
+	
+	sizeX:1,
+	sizeY:1,
+	
+	regX:0,
+	regY:0
 	
 })
-.inherit({
+.extend({
 	
 	cache:function(){
 		if(!this.image) return this;
@@ -58,7 +68,7 @@ re.c('draw')
 		c.width = s;
 		c.height = s;
 		
-		this.draw_render(c.getContext('2d'));
+		this.draw_render(c.getContext(re.sys.contextType));
 		
 		this.canvasCache = c;
 		
@@ -119,23 +129,34 @@ re.c('draw')
 	},
 	
 	getScreenX:function(){
-		var x = this.pos.x;
-		if(this.screen) x -= this.screen.pos.x;
+		var x = this.posX;
+		if(this.screen) x -= this.screen.posX;
 		return x;
 	},
 	
 	getScreenY:function(){
-		var y = this.pos.y;
-		if(this.screen) y -= this.screen.pos.y;
+		var y = this.posY;
+		if(this.screen) y -= this.screen.posY;
 		return y;
+	},
+	
+	/*
+	Returns true or false wether the object is visible on screen.
+	*/
+	isVisible:function(){
+		
+		return (!this.screen || this.screen.touches(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY));
+		
 	}
 	
 })
 .namespace({
 	
 	render:function(c){
+		if(!c) c = this.sys.context;
+		
 		this.draw_before(c);
-		this.signal('draw', c);
+			this.draw(c);
 		this.draw_after(c);
 	},
 	
@@ -146,15 +167,14 @@ re.c('draw')
 		if(this.alpha != 1)
 			c.globalAlpha = this.alpha;
 		
-		
 		c.translate(this.getScreenX(), this.getScreenY());
 		
 		if(this.rotation != 0)
 			c.rotate(this.rotation * Math.PI / 180);
 		
 		
-		if(this.scale.x != 1 || this.scale.y != 1)
-			c.scale(this.scale.x, this.scale.y);
+		if(this.scaleX != 1 || this.scaleY != 1)
+			c.scale(this.scaleX, this.scaleY);
 		
 	},
 	

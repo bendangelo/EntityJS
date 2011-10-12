@@ -46,7 +46,7 @@ re.channel = re.c('channel')
 	volume:1,
 	max:3
 })
-.define({
+.extend({
 
 	play:function(loop){
 		if(!this.channels || !re.sound.enabled) return this;

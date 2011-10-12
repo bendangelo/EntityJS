@@ -2,9 +2,9 @@
 The bisect component cuts an object into equal sections. It supplies helper functions 
 for converting to a section and from a section. Useful for sprites and animation.
 */
-re.c('bisect')
-.define({
-
+re.bisect = re.c('bisect')
+.global({
+	
 	biToX:function(bi, width, size){
 		
 		return this.biToXt(bi, width) * size;
@@ -24,9 +24,46 @@ re.c('bisect')
 		return Math.floor((bi * size) / (width - 0.1));
 	},
 	
-	toBi:function(xt, yt, wt){
+	toBi:function(xt, yt, w, s){
 		
-		return xt + (yt * wt);
+		return xt + (yt * (w / s));
 	}
+	
+})
+.extend({
 
+	
+	biToX:function(bi){
+		
+		return this.biToXt(bi, this.bisect) * this.sizeX;
+	},
+	
+	biToY:function(bi){
+		
+		return this.biToYt(bi, this.bisect) * this.sizeY;
+	},
+	
+	biToXt:function(bi){
+		
+		return Math.floor(bi % (this.bisect / this.sizeX) );
+	},
+	
+	biToYt:function(bi){
+		return Math.floor((bi * this.sizeY) / (this.bisect - 0.1));
+	},
+	
+	toBi:function(xt, yt){
+		
+		return xt + (yt * (this.bisect / this.sizeX));
+	}
+	
+})
+.inherit({
+	
+	//spliting width
+	bisect:1,
+	
+	sizeX:1,
+	sizeY:1
+	
 });

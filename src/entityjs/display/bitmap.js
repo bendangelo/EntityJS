@@ -1,35 +1,37 @@
-re.comp('bitmap')
-.require('point draw')
-.init(function(){
+/*
+The bitmap component draws an image on screen.
+
+
+FUTURE - add bitdata component for image manipulation.
+*/
+re.c('bitmap')
+.require('draw')
+.extend({
 	
-	if(!this.size)
-		this.size = {x:0, y:0};
+	setBitmap:function(b){
+		this.bitmap = b;
+		if(b){
+			this.sizeX = b.width;
+			this.sizeY = b.height;
+		}
+		return this;
+	},
 	
-	if(this.image){
-		this.reg.x = this.image.width * 0.5;
-		this.reg.y = this.image.height * 0.5;
-		this.size.x = this.image.width;
-		this.size.y = this.image.height;
-	}
-	
-	this.signal('draw', this.bitmap_draw);
-	
-})
-.dispose(function(){
-	
-	this.signal('-draw', this.bitmap_draw);
-	
-})
-.namespace({
+	isVisible:function(){
+		return this.bitmap && this.parent('draw', 'isVisible');
+	},
 	
 	draw:function(c){
-	
-		if(this.image && (!this.screen || this.screen.touches(this.pos.x - this.reg.x, this.pos.y - this.reg.y, this.image.width, this.image.height))){
-			
-			c.drawImage((this.canvasCache)?this.canvasCache:this.image, -this.reg.x, -this.reg.y, this.image.width, this.image.height);
-			
-		}
 		
+		c.drawImage(this.bitmap, -this.regX, -this.regY, this.sizeX, this.sizeY);
+		return this;
+	}
+	
+})
+.init(function(){
+	
+	if(this.bitmap){
+		this.setBitmap(this.bitmap);
 	}
 	
 });

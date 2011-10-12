@@ -9,7 +9,8 @@ their own hit collision system.
 */
 re.c('hitmap')
 .require('arraymap')
-.define({
+.extend({
+
 	hitValue:1,
 	
 	checkAxisX:function(value, x, y, vx, vy){
@@ -22,40 +23,50 @@ re.c('hitmap')
 		return value == this.hitValue;
 	},
 	
-	checkHit:function(pos, vel, size){
+	checkHit:function(posX, posY, velX, velY, bodX, bodY, padX, padY){
 		if(arguments.length == 1){
-			var vel = pos.vel;
-			var size = pos.size;
-			pos = pos.pos;
+			var velX = posX.velX;
+			var velY = posX.velY;
+			
+			var bodX = posX.bodX;
+			var bodY = posX.bodY;
+			
+			var padX = posX.padX;
+			var padY = posX.padY;
+			
+			var posY = posX.posY;
+			posX = posX.posX;
 		}
 		
 		var res = {
-			pos:{x:pos.x, y:pos.y},
-			tile:{}
+			posX:posX,
+			posY:posY,
+			tarX:-1,
+			tarY:-1
 		};
 		
-		var step = ~~(Math.max(Math.abs(vel.x), Math.abs(vel.y)) / ((re.tile.size.x + re.tile.size.y) * 0.5) + 0.5);
+		var step = ~~(Math.max(Math.abs(velX), Math.abs(velY)) / ((re.tile.sizeX + re.tile.sizeY) * 0.5) + 0.5);
 		
         if(step > 1) {
-            var sx = vel.x / step;
-            var sy = vel.y / step;
+            var sx = velX / step;
+            var sy = velY / step;
             
             for(var i=0; i<step && (sx || sy); i++) {
 				
-                this.hitmap_step(res, pos.x, pos.y, sx, sy, size.x, size.y);
+                this.hitmap_step(res, posX, posY, sx, sy, bodX, bodY, padY, padY);
                 
-                if(res.x) {
+                if(res.hitX) {
 					sx = 0;
 				}
 				
-                if(res.y) {
+                if(res.hitY) {
 					sy = 0;
 				}
             }
 			
         } else {
 			
-            this.hitmap_step(res, pos.x, pos.y, vel.x, vel.y, size.x, size.y);
+            this.hitmap_step(res, posX, posY, velX, velY, bodX, bodY, padX, padY);
 			
         }
 		
@@ -70,27 +81,27 @@ re.c('hitmap')
 	refactor
 	possibly utilize entity methods for more robust calculations.
 	*/
-	step:function(res, x, y, vx, vy, width, height){
+	step:function(res, x, y, vx, vy, width, height, padx, pady){
 	
-		res.pos.x += vx;
-        res.pos.y += vy;
+		res.posX += vx;
+        res.posY += vy;
         
 		var t, ty, tx;
 		
         if(vx) {
 			
-			t = re.tile.size.x;
+			t = re.tile.sizeX;
 			
-            var offsetx = (vx > 0 ? width : 0);
+            var offsetx = (vx > 0 ? width - padx : padx);
 			
-            var firsty = Math.floor(y / t);
-            var lasty = Math.ceil((y + height) / t);
+            var firsty = Math.floor((y + pady)/ t);
+            var lasty = Math.ceil((y + height - pady) / t);
 			
             tx = Math.floor((x + vx + offsetx) / t);
             
             var offx = (vx < 0 ? t : 0);
 			//is inside
-            if(tx >= 0 && tx < this.size.x && lasty >= 0 && firsty < this.size.y) {
+            if(tx >= 0 && tx < this.lengthX && lasty >= 0 && firsty < this.lengthY) {
 				
                 for(ty = firsty; ty<lasty; ty++){
 					
@@ -100,10 +111,10 @@ re.c('hitmap')
 						this.signal('hit', this.map[ty][tx], tx, ty);
 						
 						if(this.checkAxisX(this.map[ty][tx], x, y, vx, vy)) {
-							res.x = true;
-							res.pos.x = tx * t + offx  - offsetx;
-							res.tile.x = tx * t;
-							res.tile.y = ty * t;
+							res.hitX = true;
+							res.posX = tx * t + offx  - offsetx;
+							res.tarX = tx * t;
+							res.tarY = ty * t;
 							break;
 						}
                     }
@@ -115,17 +126,17 @@ re.c('hitmap')
         }
 		
         if(vy) {
-			t = re.tile.size.y;
+			t = re.tile.sizeY;
 			
-            var offsety = (vy > 0 ? height : 0);
+            var offsety = (vy > 0 ? height -pady : pady);
 			
-            var firstx = Math.floor(res.pos.x / t);
-            var lastx = Math.ceil((res.pos.x + width) / t);
+            var firstx = Math.floor((res.posX + padx) / t);
+            var lastx = Math.ceil((res.posX + width - padx) / t);
             ty = Math.floor((y + vy + offsety) / t);
             
             var offy = (vy < 0 ? t : 0);
             // Still inside this collision map?
-            if(ty >= 0 && ty < this.size.y && lastx >= 0 && firstx< this.size.x) {
+            if(ty >= 0 && ty < this.lengthY && lastx >= 0 && firstx< this.lengthX) {
 					
                 for(tx = firstx; tx<lastx; tx++) {
 					
@@ -134,10 +145,10 @@ re.c('hitmap')
 						this.signal('hit', this.map[ty][tx], tx, ty);
 						
 						if(this.checkAxisY(this.map[ty][tx], x, y, vx, vy)) {
-							res.y = true;
-							res.pos.y = ty * t + offy - offsety;
-							res.tile.x = tx * t;
-							res.tile.y = ty * t;
+							res.hitY = true;
+							res.posY = ty * t + offy - offsety;
+							res.tarX = tx * t;
+							res.tarY = ty * t;
 							break;
 						}
                     }

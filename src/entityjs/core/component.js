@@ -37,7 +37,7 @@
 		this.name = name;
 		this._re_signals = {};
 		this._re_inherits = {};
-		this._re_defines = {};
+		this._re_extends = {};
 		this._re_final = false;
 	};
 	
@@ -156,6 +156,14 @@ re.comp.init.prototype = {
 		return this;
 	},
 	
+	addSignal:function(){
+		return re.e.init.prototype.addSignal.apply(this, arguments);
+	},
+	
+	removeSignal:function(){
+		return re.e.init.prototype.removeSignal.apply(this, arguments);
+	},
+	
 	/*
 	Adds signal functionality to components.
 	All components will automatically call two signals, init and dispose.
@@ -166,9 +174,8 @@ re.comp.init.prototype = {
 	all entities that have its component. Check the cycle directory.
 	
 	*/
-	signal:function(string, method){
-        this._checkFinal();
-		return re.entity.init.prototype.signal.call(this, string, method);
+	signal:function(){
+		return re.e.init.prototype.signal.apply(this, arguments);
 	},
 	
 	/*
@@ -219,34 +226,33 @@ re.comp.init.prototype = {
         if(arguments.length == 1){
         
             for(var k in obj){
-            	this._re_defines[name+k] = obj[k];
+            	this._re_extends[name+k] = obj[k];
             }
         
         } else {
-            this._re_defines[name+obj] = value;
+            this._re_extends[name+obj] = value;
         }
         
         return this;
     },
     
 	/*
-	Define overrides everything.
+	extend overrides everything.
 	*/
-	define:function(d, value){
+	extend:function(d, value){
         this._checkFinal();
         
-		if(!this._re_defines){
-			this._re_defines = {};
+		if(!this._re_extends){
+			this._re_extends = {};
 		}
-		
 		if(arguments.length == 1){
 			
 			for(var k in d){
-				this._re_defines[k] = d[k];	
+				this._re_extends[k] = d[k];	
 			}
 			
 		} else {
-			this._re_defines[d] = value;
+			this._re_extends[d] = value;
 		}
 		
 		return this;	

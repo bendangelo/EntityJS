@@ -4,12 +4,12 @@ The ticker component calculates time between steps for animation or special effe
 re.c('ticker')
 .inherit({
 	time:0,
-	minStep:0.05
+	maxTick:0.05
 })
 .init(function(){
 	this.lastTime = Date.now();
 })
-.define({
+.extend({
 
 	tick:function(){
 		var wall = Date.now();
@@ -17,7 +17,8 @@ re.c('ticker')
 		
 		this.lastTime = wall;
 		
-		var timeDelta = Math.min(delta, this.minStep);
+		var timeDelta = Math.min(delta, this.maxTick);
+		
 		this.time += timeDelta;
 		
 		return timeDelta;

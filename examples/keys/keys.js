@@ -12,7 +12,8 @@ re.constants = {
 	canvasId:'#canvas',
 	assets:"arrow.png",
 	arrowSpeed:120,
-	arrowSize:{x:40, y:40}
+	arrowSizeX:40,
+	arrowSizeY:40
 
 };
 
@@ -43,7 +44,7 @@ re.ready(function(){
 		//you can also call re.e instead of re.entity
 		re.e('keyboard')
 		//listens for keyup on the space key
-		.signal('keydown:space', function(){
+		.addSignal('keydown:space', function(){
 			
 			//creates a new entity with the arrow component
 			re.e('arrow');
@@ -51,7 +52,7 @@ re.ready(function(){
 		})
 		//second signal
 		//remove key upon R key up
-		.signal('keyup:r', function(){
+		.addSignal('keyup:r', function(){
 			
 			var q = re('arrow');
 			if(q.length() > 0){
@@ -84,15 +85,15 @@ re.c('arrow')
 //define constructor
 .init(function(){
 	//center arrow
-	this.pos.x = re.sys.size.x * 0.5;
-	this.pos.y = re.sys.size.y * 0.5;
+	this.posX = re.sys.sizeX * 0.5;
+	this.posY = re.sys.sizeY * 0.5;
 	
 	//this will break the sprite sheet into grids
-	this.frame.size.x = re.constants.arrowSize.x;
-	this.frame.size.y = re.constants.arrowSize.y;
+	this.sizeX = re.constants.arrowSizeX;
+	this.sizeY = re.constants.arrowSizeY;
 	
 	//listens for updates every frame
-	this.signal('update', this.arrow_update);
+	this.addSignal('update', this.arrow_update);
 	
 	//prevents default action of keys
 	this.preventDefault('up left right down space r');
@@ -101,8 +102,8 @@ re.c('arrow')
 //define deconstructor
 .dispose(function(){
 	
-	//the -update will remove the signal
-	this.signal('-update', this.arrow_update);
+	//will remove the signal
+	this.removeSignal('update', this.arrow_update);
 	
 })
 //values here are set only if they are null
@@ -118,26 +119,26 @@ re.c('arrow')
 		//move based on keypress	
 		//listens for w key down OR up key down
 		if(this.pressed('w', 'up')){
-		
-			this.pos.y -= s;
+			
+			this.posY -= s;
 			
 			this.setFrameId(0);
 			
 		} else if(this.pressed('s', 'down')){
 		
-			this.pos.y += s;
+			this.posY += s;
 			this.setFrameId(2);
 			
 		}
 		
 		if(this.pressed('a', 'left')){
 		
-			this.pos.x -= s;
+			this.posX -= s;
 			this.setFrameId(3);
 			
 		} else if(this.pressed('d', 'right')){
 		
-			this.pos.x += s;
+			this.posX += s;
 			this.setFrameId(1);
 			
 		}

@@ -8,7 +8,7 @@ re.constants  = {
 
 re.ready(function(){
 	
-	re.sys.init(re.constants.canvasId, 30)
+	re.sys.init(re.constants.canvasId)
 	.start();
 	
 	//go to scene preload
@@ -27,31 +27,32 @@ re.ready(function(){
 	
 });
 
-//define scenes
+//extend scenes
 
 //first scene and openning scene
 re.scene('preload')
 //since a scene is just an entity
 //we can add components to it
-.comp('text')
-.define({
+.addComp('font')
+.extend({
 	text: 'Preloading', 
 	textColor:'#66b44d',
-	pos:{x:re.constants.size.x * 0.5, y:re.constants.size.y * 0.5}
+	posX: re.constants.size.x * 0.5,
+	posY: re.constants.size.y * 0.5
 })
 .enter(function(){
 	
 	//called upon entering a scene
 	
 	//property from the draw component
-	this.visible = true;
+	this.drawing = true;
 	
 })
 .exit(function(newScene){
 	
 	//called upon exiting a scene
 	
-	this.visible = false;
+	this.drawing = false;
 	
 	//first argument is the new scene its switching to
 	console.log('New scene is: '+newScene);
@@ -65,19 +66,19 @@ re.e('scene:start')
 	//display bitmap home.png
 	this.home = re.e('bitmap home.png');
 	
-	this.home.pos.x = 20;
-	this.home.pos.y = 50;
+	this.home.posX = 20;
+	this.home.posY = 50;
 	
 	//add enter listener
 	this.enter = re.e('keyboard')
 	//add two signals listens for keyup of enter AND space. Cool eh??
-	.signal('keyup:enter keyup:space', function(){
-		
-		var score = Math.floor(Math.random() * re.constants.maxScore);
-		
-		//you can send arguments to scenes
-		re.scene('win', score, 'Awsome score!');
-		
+	.addSignal('keyup', function(key){
+		if(key == 'space' || key == 'enter'){
+			var score = Math.floor(Math.random() * re.constants.maxScore);
+			
+			//you can send arguments to scenes
+			re.scene('win', score, 'Awsome score!');
+		}
 	});
 
 })
@@ -92,21 +93,25 @@ re.e('scene:start')
 re.scene('win')
 .enter(function(points, rating){
 	
-	this.win = re.e('bitmap win.png')
-	.define('pos', {x:100, y:10});
+	this.win = re.e('win.png bitmap')
+	.extend({
+		posX:100,
+		posY:10
+	});
 	
-	this.message = re.e('text');
+	this.message = re.e('font');
 	
 	this.message.text = 'Your score is: '+points+'... '+rating;
-	this.message.pos = {x: 150, y: 300};
+	this.message.posX = 150;
+	this.message.posY = 300;
 	
-	this.ret = re.e('text');
+	this.ret = re.e('font');
 	this.ret.text = 'Press any key to return.';
-	this.ret.pos.x = this.message.pos.x;
-	this.ret.pos.y = this.message.pos.y + 30;
+	this.ret.posX = this.message.posX;
+	this.ret.posY = this.message.posY + 30;
 	
 	this.key = re.e('keyboard')
-	.signal('keyup', function(){
+	.addSignal('keyup', function(){
 	
 		re.scene('start');
 		

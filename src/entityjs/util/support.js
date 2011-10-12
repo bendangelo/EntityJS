@@ -71,7 +71,7 @@ re.c('support')
 	}
 	
 })
-.define({
+.extend({
 	support:function(s){
 		return re.c('support').call(this, s);
 	}
@@ -126,5 +126,7 @@ re.c('support')
 	
 	//check webgl
 	c.webgl = !!window.WebGLRenderingContext;
+	
+	c.touch = 'ontouchstart' in window;
 	
 });

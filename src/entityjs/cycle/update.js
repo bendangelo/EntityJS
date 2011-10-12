@@ -4,15 +4,14 @@ The update component calls update signals to all listening entities.
 re.c('update')
 .global({
 	listeners:[],
-	
-	update:function(s, tick, time){
+	update:function(s,t){
 		var l = this.listeners;
 		
 		for(var k=0, le = l.length, b; k < le; ++k){
 			b = l[k];
 			
 			if(b && b.sys == s && b.updating){
-				b.signal('update', tick, time);
+				b.signal('update', t, s.time);
 			}
 		}
 		
@@ -22,10 +21,12 @@ re.c('update')
 	updating:true,
 	sys:re.sys
 })
-.inherit({
+.extend(function(){
 	
+	var l = re.c('update').listeners;
+	
+	return {
 	updateFirst:function(){
-		var l = re.c('update').listeners;
 		
 		l.splice(l.indexOf(this), 1);
 		
@@ -35,7 +36,6 @@ re.c('update')
 	},
 	
 	updateLast:function(){
-		var l = re.c('update').listeners;
 		
 		l.splice(l.indexOf(this), 1);
 		
@@ -46,7 +46,6 @@ re.c('update')
 	
 	updateAfter:function(e){
 		
-		var l = re.c('update').listeners;
 		var him = l.indexOf(e);
 		var me = l.indexOf(this);
 		
@@ -61,8 +60,7 @@ re.c('update')
 	},
 	
 	updateBefore:function(e){
-	
-		var l = re.c('update').listeners;
+		
 		var him = l.indexOf(e);
 		var me = l.indexOf(this);
 		
@@ -76,11 +74,13 @@ re.c('update')
 		return this;
 	}
 	
-})
-.init(function(){
-	re.c('update').listeners.push(this);
-})
-.dispose(function(){
+	};
 	
-	re.c('update').listeners.splice(re.c('update').listeners.indexOf(this), 1);
+}())
+.init(function(c){
+	c.listeners.push(this);
+})
+.dispose(function(c){
+	
+	c.listeners.splice(c.listeners.indexOf(this), 1);
 });

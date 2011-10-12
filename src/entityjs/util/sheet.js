@@ -1,10 +1,13 @@
+/*
+The sheet component converts a each frame of a sprite sheet into their own components.
+*/
 re.c('sheet')
 .global({
 	
 	sheet:function(map, padX, padY, sizeX, sizeY){
 		
-		var frameWidth = sizeX || re.tile.size.x;
-		var frameHeight = sizeY || re.tile.size.y;
+		var frameWidth = sizeX || re.tile.sizeX;
+		var frameHeight = sizeY || re.tile.sizeY;
 		
 		if(padX){
 			frameWidth += padX;
@@ -26,11 +29,10 @@ re.c('sheet')
 			
 			re.c(p)
 			.require('sprite')
-			.define({
-				frame:{x:x, y:y, 
-				size:{x:frameWidth, y:frameHeight}
-				},
-				sheet:this.image
+			.extend({
+				frame:{x:x, y:y},
+				size:{x:frameWidth, y:frameHeight},
+				bitmap:this.bitmap
 			});
 			
 		}
@@ -40,7 +42,7 @@ re.c('sheet')
 	
 })
 .require('tile')
-.define({
+.extend({
 	
 	sheet:re.sheet
 	

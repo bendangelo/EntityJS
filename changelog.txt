@@ -1,4 +1,20 @@
 -----------------------------------------------------------------------------------------
+Version 0.2.1 [Upcoming]
+
+Added timestep component.
+Added rect component.
+Added circle component.
+Renamed size to hittest component.
+Add distanceTo to point component.
+Returning false on a signal will remove it.
+Added wait component.
+Split physics into physics+.
+Renamed sprimate to sprite+.
+Renamed position to anchor.
+Remove coordinate object properties.
+Renamed define to extend.
+
+-----------------------------------------------------------------------------------------
 Version 0.2 [Sept 30, 2011]
 
 Added query catching.

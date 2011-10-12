@@ -1,51 +1,37 @@
 /*
-The sprite object defines a drawable image for an entity.
+The sprite object extends a drawable image for an entity.
 */
 
 re.c('sprite')
-.require('point draw bisect')
-.init(function(){
+.require('bitmap bisect')
+.inherit({
 	
-	if(!this.frame){
-		this.frame = {x:0, y:0};
-	}
-	
-	if(!this.frame.size){
-		this.frame.size = {x:40, y:40};
-	}
-	
-	this.signal('draw', this.sprite_draw);
+	frameX:0,
+	frameY:0
 	
 })
-.dispose(function(){
-	
-	this.signal('-draw', this.sprite_draw);
-	
-})
-.define({
+.extend({
 	
 	setFrameId:function(id){
-		this.frame.x = this.biToXt(id, this.image.width, this.frame.size.x);
-		this.frame.y = this.biToYt(id, this.image.width, this.frame.size.y);
+		this.frameX = this.biToXt(id);
+		this.frameY = this.biToYt(id);
+		
 		return this;
 	},
 	
 	getFrameId:function(){
-		return this.toBi(this.frame.y, this.frame.x, this.image.width);
-	}
-	
-})
-.namespace({
+		return this.toBi(this.frameX, this.frameY);
+	},
 	
 	draw:function(c){
-		
-		if(this.image && (!this.screen || this.screen.touches(this.pos.x - this.reg.x, this.pos.y -this.reg.y, this.frame.size.x, this.frame.size.y))){
-			
-			c.drawImage((this.canvasCache)?this.canvasCache:this.image, this.frame.x * this.frame.size.x, this.frame.y * this.frame.size.y, this.frame.size.x, this.frame.size.y, -this.reg.x,  -this.reg.y, this.frame.size.x, this.frame.size.y);
-			
-		}
+		c.drawImage(this.bitmap, this.frameX * this.sizeX, this.frameY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
 		
 		return this;
+	},
+	
+	//implement for flicker
+	flick:function(c){
+		this.setFrameId(c);
 	}
 	
 });

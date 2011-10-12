@@ -13,7 +13,7 @@ re.c('storage')
 .init(function(c, type){
 	this.storage = (type == 'session')? sessionStorage : localStorage;
 })
-.define({
+.extend({
 	
 	length:function(){
 		return this.storage.length;

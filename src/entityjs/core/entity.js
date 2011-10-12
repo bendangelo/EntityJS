@@ -7,7 +7,7 @@
 	re.e('spider', 10)
 	//returns a query with all entities
 	.each(function(index){
-		this.pos.x = index * 10;
+		this.posX = index * 10;
 	});
 	
 	*/
@@ -25,40 +25,29 @@
 		}
 		
 		return q;
-	}
+	};
 	
 	q.id = 0;
 	
 	var e = function(c){
-		c = c || '';
 		
 		this._re_comps = [];
 		this._re_signals = {};
 		
-		q.id++;
-		
 		this.id = q.id+'';
+		
+		q.id++;
 		
 		re._e.push(this);
 		
-		this.comp(c);
-	}
+		this.addComp(c);
+	};
 	
 	var p = e.prototype;
 	
 	p.id = '';
 	
-	/*
-	//add components
-	this.comp('point text');
-	
-	//add health component with 100 health
-	this.comp('health:100 physics');
-	
-	//remove components
-	this.comp('-point');
-	*/
-	p.comp = function(com){
+	p.addComp = function(com){
 		
 		this._re_comp(com);
 		
@@ -83,20 +72,99 @@
 		}
 		
 		return this;
-	}
+	};
+	
+	p.removeComp = function(com){
+		
+		var pieces;
+		
+		//handle string or array?
+		if(typeof com == 'object'){
+			pieces = com;
+			
+			com = com[0];
+		} else {
+			pieces = com.split(' ');
+		}
+		
+		if(pieces.length > 1){
+			
+			for(var k in pieces){
+				this._re_comp(pieces[k]);	
+			}
+			
+			return this;
+		}
+		
+		var c = re._c[com];
+		
+		if(!this.has(com)) return this;
+		
+		//remove from array
+		this._re_comps.splice(this._re_comps.indexOf(com), 1);
+		
+		//only remove if it exists
+		if(c){
+			
+			if(c._re_dispose){
+				c._re_dispose.call(this, c);
+			}
+			
+			c.signal('dispose', this);
+			
+		}
+	};
+	
+	/*
+	//add components
+	this.comp('point text');
+	
+	//add health component with 100 health
+	this.comp('health:100 physics');
+	
+	//remove components
+	this.comp('-point');
+	*/
+	/*p.comp = function(com){
+		
+		this._re_comp(com);
+		
+		//check implement
+		if(this._re_interface){
+			
+			for(var i in this._re_interface){
+				if(!this.hasOwnProperty(this._re_interface[i])){
+					throw 'implementation: '+this._re_interface[i]+' missing';
+				}
+			}
+			
+		}
+		
+		//check asserts
+		if(this._re_asserts){
+			for(var t in this._re_asserts){
+				if(this._re_comps.indexOf(c._re_asserts[t]) != -1){
+					throw 'assert: '+c.name+' cannot be coupled with '+c._re_asserts[t];
+				}
+			}
+		}
+		
+		return this;
+	}*/
 	
 	p._re_comp = function(com){
-		if(!com || com == '' || com == ' ') return this;
+		if(!com) return this;
 		
 		//split a multi word string into smaller one word function calls
 		var pieces;
 		
+		//handle array or string?
 		if(typeof com == 'object'){
 			pieces = com;
 			//set in case length is 1
 			com = com[0];
 		} else {
-				pieces = com.split(' ');
+			pieces = com.split(' ');
 		}
 		
 		if(pieces.length > 1){
@@ -110,83 +178,59 @@
 		//component reference
 		var c;
 		
-		if(com.charAt(0) == '-'){
-			//remove component
+		var vals = com.split(':');
+		
+		com = vals[0];
+		
+		//add component
+		c = re._c[com];
+		
+		//swap values
+		vals[0] = c;
+		
+		//if already has component
+		if(this.has(com)) return this;
+		
+		//add comp first thing, to avoid dupe requirement calls
+		//and this lets the init remove the comp too.
+		this._re_comps.push(com);
+		
+		//init component only if it exists
+		if(c){
+			this._re_comp(c._re_requires);
 			
-			com = com.substr(1);
-			c = re._c[com];
-			
-			if(!this.has(com)) return this;
-			
-			//remove from array
-			this._re_comps.splice(this._re_comps.indexOf(com), 1);
-			
-			//only remove if it exists
-			if(c){
-				
-				if(c._re_dispose){
-					c._re_dispose.call(this, c);
+			//add interface of component
+			if(c._re_implements){
+				if(!this._re_implements){
+					this._re_implements = [];
 				}
-				
-				c.signal('dispose', this);
-				
+				this._re_implements = this._re_implements.concat(c._re_implements);
 			}
 			
-			
-		} else {
-			var vals = com.split(':');
-			
-			com = vals[0];
-			
-			//add component
-			c = re._c[com];
-			
-			//swap values
-			vals[0] = c;
-			
-			//if already has component
-			if(this.has(com)) return this;
-			
-			//add comp first thing, to avoid dupe requirement calls
-			//and this lets the init remove the comp.
-			this._re_comps.push(com);
-			
-			//add component only if it exists
-			if(c){
-				this._re_comp(c._re_requires);
-				
-				//add interface of component
-				if(c._re_implements){
-					if(!this._re_implements){
-						this._re_implements = [];
-					}
-					this._re_implements = this._re_implements.concat(c._re_implements);
+			if(c._re_asserts){
+				if(!this._re_asserts){
+					this._re_asserts = [];
 				}
-				
-				if(c._re_asserts){
-					if(!this._re_asserts){
-						this._re_asserts = [];
-					}
-					this._re_asserts = this._re_asserts.concat(c._re_asserts);
-				}
-				
-				if(c._re_inherits){
-					this.inherit(c._re_inherits);
-				}
-				
-				if(c._re_defines){
-					this.define(c._re_defines);
-				}
-				
-				if(c._re_init){
-					c._re_init.apply(this, vals);
-				}
-				
-				c.signal('init', this);
+				this._re_asserts = this._re_asserts.concat(c._re_asserts);
 			}
 			
+			if(c._re_inherits){
+				this.inherit(c._re_inherits);
+			}
 			
+			if(c._re_extends){
+				this.extend(c._re_extends);
+			}
+			
+			if(c._re_init){
+				c._re_init.apply(this, vals);
+			}
+			
+			c.signal('init', this);
 		}
+		
+		
+		
 	
 		return this;
 	}
@@ -212,13 +256,14 @@
 		var a = Array.prototype.slice.call(arguments, 2);
 		
 		if(comp == ''){
+			//call entity parent methods
 			re.e.init[method].apply(this, a);
 		}
 		
 		var c = re._c[comp];
 		
-		if(c._re_defines[method]){
-			return c._re_defines[method].apply(this, a);
+		if(c._re_extends[method]){
+			return c._re_extends[method].apply(this, a);
 		}
 		
 		if(c._re_inherits[method]){
@@ -291,163 +336,132 @@
 		
 		
 		return true;
-	}
+	};
 	
 	/*
-	singal can call events and add events to entities
+	New way to add signals version 0.2.1.
 	
-	-adding signals
-	this.signal('click', function(e){});
-	this.signal('click draw', function(e){});
-	this.signal({
-		click: function(e){},
-		draw:function(e){}
-	});
-	//listens to all signals
-	this.signal('*', function(e){
+	//single
+	addSignal('draw', function(){});
+	
+	//multiple
+	addSignal({
+		
+		draw:function(){},
+		
+		update:function(){}
 		
 	});
+	*/
+	p.addSignal = function(type, method){
+		
+		if(typeof type == 'object'){
+			
+			for(var k in type){
+				this.addSignal(k, type[k]);
+			}
+			
+		} else {
+			
+			if(!this._re_signals[type]){
+				this._re_signals[type] = [];
+			}
+			
+			this._re_signals[type].push(method);
+			
+		}
+		
+		return this;
+	};
 	
-	//remove after first dispatch
-	this.signal('!load', function(e){});
+	/*
+	Added in V0.2.1
 	
-	//remove all click events and add back this event
-	this.signal('-click click', function(e){
+	//remove single
+	removeSignal('draw', this.draw);
+	
+	//remove multiple
+	removeSignal({
+		
+		draw:this.draw,
+		update:this.update
 		
 	});
+	*/
+	p.removeSignal = function(type, method){
+		
+		if(typeof type == 'object'){
+			
+			for(var k in type){
+				this.removeSignal(k, type[k]);
+			}
+			
+		} else {
+			
+			if(typeof method == 'function'){
+			
+				for(var k in this._re_signals[type]){
+				
+					if(this._re_signals[type][k] == method){
+						this._re_signals[type].splice(k, 1);
+					}
+					
+				}
+			} else {
+				
+				//no method was passed. Remove all signals
+				this._re_signals[type] = [];
+				
+			}
+		}
+		
+		return this;
+	};
+	
+	/*
+	Signal dispatches events to entities. 
+	Modified V0.2.1
+	
 	
 	-dispatch signals
 	this.signal('click');
 	this.signal('click draw');
 	this.signal('click', {data:0});
 	
-	-remove signals
-	this.signal('-click');
-	
 	*/
-	p.signal = function(type, method, con){
-		if(arguments.length == 0 || type == undefined){
-			throw 'Signal error Type variable undefined';
-		}
+	p.signal = function(type){
 		
-		var c;
-		if(typeof type == 'string'){
-			c = type.split(' ');
-			
-			if(c.length > 1){
-				
-				var args = Array.prototype.slice.call(arguments, 1);
-				
-				for(var k in c){
-					
-					//add first arg
-					args.unshift(c[k]);
-					
-					this.signal.apply(this, args);
-					
-					args.shift();
-				}
-				
-				return this;
-			}
-		}
+		if(!this._re_signals[type])	return this;
+		var b;
 		
-		 if(typeof type == 'object'){
-			//map of events	to add
+		for(var i=0, l = this._re_signals[type].length; i<l; i++){
 			
-			for(var k in type){
-				this.signal(k, type[k]);
-			}
+			b = this._re_signals[type];
 			
-		} else if(type.charAt(0) == '-') {
-			//remove signals
+			if(!b[i]) continue;
 			
-			type = type.substr(1);
-			
-			if(type == '*'){
-				
-				this._re_signals = {};
-				
-			} else if(method){
-				//remove specific listener
-				if(typeof method == 'function'){
-					for(var k in this._re_signals[type]){
-						if(this._re_signals[type][k].f == method){
-							this._re_signals[type].splice(k, 1);
-						}
-					}
-				} else {
-					//this safeguards from sending in non-function variables by mistake!
-					throw 'Cannot remove signal method '+method;
-				}
-				
-			} else {
-				
-				this._re_signals[type] = [];
-			}
-			
-		} else if(arguments.length >= 2 && method && typeof method == 'function'){
-			//add signals
-			var obj = {f:method};
-			
-			if(typeof con == 'object'){
-				obj.c = con;
-			}
-			
-			if(type.charAt(0) == '!'){
-				obj.once = true;
-				type = type.substr(1);
-			}
-			
-			
-			if(!this._re_signals[type]){
-				this._re_signals[type] = [];
-			}
-			
-			this._re_signals[type].push(obj);
-			
-		}  else {
-			//dispatch signals
-			if(!this._re_signals[type]){
-				return this;	
-			}
-			var b;
-			
-			for(var i=0; i<this._re_signals[type].length; i++){
-				
-				b = this._re_signals[type];
-				
-				b[i].f.apply( (b[i].c)?b[i].c : this , Array.prototype.slice.call(arguments, 1));
-				
-				//remove after first use
-				if(b.once){
-					b.splice(i, 1);	
-				}
-				
-				//* recieves all signals
-				if(type != '*' && this._re_signals['*']){
-					this.signal('*');
-				}
-				
+			//return false remove?
+			if(b[i].apply( (b[i].c)?b[i].c : this , Array.prototype.slice.call(arguments, 1)) === false){
+				b.splice(i, 1);
 			}
 			
 		}
 		
 		return this;
-	}
+	};
 	
-	p.define = function(obj, value){
-		
-		if(typeof obj == 'object'){
+	p.extend = function(obj, value){
+		var a = typeof obj;
+		if(a == 'object'){
 			
 			for(var key in obj){
 				if(!obj.hasOwnProperty(key)) continue;
 				
-				this.define(key, obj[key]);
+				this.extend(key, obj[key]);
 			}
 			
-		} else {
-			//define property
+		}else {
+			//extend property
 			
 			this[obj] = value;
 		}

@@ -1,0 +1,34 @@
+/*
+
+
+re.e('timestep')
+.timestep(progress, function(){
+	
+	
+	
+});
+*/
+
+re.c('timestep')
+.inherit({
+	
+	stepProgress:0,
+	stepSize:0.3
+	
+})
+.extend({
+	
+	timestep:function(progress, callback, context){
+		
+		this.stepProgress += progress;
+		
+		while(this.stepProgress >= this.stepSize){
+			
+			callback.call((context)?context:this);
+			
+			this.stepProgress -= this.stepSize;
+		}
+		
+	}
+	
+})

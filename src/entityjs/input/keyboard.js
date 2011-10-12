@@ -116,14 +116,16 @@ re.c('keyboard')
 		}
 		
 		for(var k=0; k<that.listeners.length; k++){
-			that.listeners[k].signal(e.type+' '+e.type+':'+key, key, e);
+			that.listeners[k]
+			.signal(e.type, key, e)
+			.signal(e.type+':'+key, key, e);
 		}
 		
 	},
 	
 	active:false,
 	
-	initKeyboard:function(){
+	initListeners:function(){
 		if(!this.active){
 			this.active = true;
 			re.listener('keydown', this.keyboardEvent, false);
@@ -134,7 +136,7 @@ re.c('keyboard')
 
 })
 .init(function(c){
-	c.initKeyboard();
+	c.initListeners();
 	//add to global key array
 	c.listeners.push(this);
 })

@@ -3,39 +3,49 @@ The tween component tweens properties of entities to the given value over a peri
 
 This is useful for animations.
 
-NOT IMPLMENETED will be in V0.3
+re.e('tween')
+.tween(0.8, {x:10});
+
 */
 re.c('tween')
 .require('update')
 .global({
 	
 	tween:function(obj, time, props){
-		//return this._re_defines.tween.call(obj, time, props);
+		return obj.comp('tween')
+		.tween(time, props);
 	}
 	
 })
 .namespace({
 
-	update:function(t, time){
+	update:function(t){
 		
 		
 		
 	}
 
 })
-.define({
+.inherit({
+	
+	tweening:false
+	
+})
+.extend({
 	
 	tween:function(time, props){
 		this.time = time || 5;
 		
-		this.signal('-update', this.tween_update);
+		if(this.tweening){
+			this.removeSignal('update', this.tween_update);
+		}
 		
 		//collect properties
 		for(var i in props){
 			
 			if(!props.hasOwnProperty(i)) continue;
 			
-			this.tween_props[i] = {s:re.sys.time, i:props[i]};
+			this.tween_props[i] = {s:re.sys.stepSize, i:props[i]};
 			
 		}
 		

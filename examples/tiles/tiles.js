@@ -34,8 +34,8 @@ re.ready(function(){
 	re.sys.init(re.constants.canvasId).start();
 	
 	//setup tile size
-	re.tile.size.x = re.constants.tileSize;
-	re.tile.size.y = re.constants.tileSize;
+	re.tile.sizeX = re.constants.tileSize;
+	re.tile.sizeY = re.constants.tileSize;
 	
 	re.load(re.constants.assets)
 	.complete(function(){
@@ -53,7 +53,7 @@ re.ready(function(){
 The level component loads and handles all tiles in the game.
 */
 re.c('level')
-.define({
+.extend({
 	
 	//loads given tile map
 	load:function(map){
@@ -70,11 +70,13 @@ re.c('level')
 			
 			//remember to set the crop image size of tiles
 			//or else nothing will appear
-			this.frame.size = re.tile.size;
+			this.sizeX = re.tile.sizeX;
+			this.sizeY = re.tile.sizeY;
+			
 			
 			this.setFrameId(map[y][x]);
 			
-			this.tile(x, y);
+			this.setTile(x, y);
 			
 		});
 		
