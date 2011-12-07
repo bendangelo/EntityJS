@@ -8,7 +8,7 @@ error_reporting(E_ALL ^ E_WARNING);
 
 //current entityjs version
 //this will be added to all built files.
-$version = '0.2.2';
+$version = '0.3';
 
 //full length path to entityjs folder
 $absolute_path = '..';
