@@ -10,28 +10,28 @@ re.tile = re.c('tile')
 		if(arguments.length == 1){
 			size = re.tile.sizeX;
 		}
-		return re.tile.pointToXt(x) * size;
+		return re.tile.roundTileX(x) * size;
 	},
 	
 	roundY:function(y, size){
 		if(arguments.length == 1){
 			size = re.tile.sizeY;
 		}
-		return re.tile.pointToYt(y) * size;
+		return re.tile.roundTileY(y) * size;
 	},
 	
-	xToTileX:function(x, size){
+	roundTileX:function(x, size){
 		if(arguments.length == 1){
 			size = re.tile.sizeX;
 		}
-		return Math.round((x-size*0.5)/size);
+		return Math.round((x - size*0.5)/size);
 	},
 	
-	yToTileX:function(y, size){
+	roundTileY:function(y, size){
 		if(arguments.length == 1){
 			size = re.tile.sizeY;
 		}
-		return Math.round((y-size*0.5)/size);
+		return Math.round((y - size * 0.5)/size);
 	}
 	
 })

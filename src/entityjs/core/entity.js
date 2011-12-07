@@ -502,6 +502,7 @@
 			if(k._re_dispose){
 				k._re_dispose.call(this, k);
 			}
+			k.signal('dispose', this);
 		}
 		
 		this.signal('dispose');

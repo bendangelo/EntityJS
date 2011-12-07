@@ -66,6 +66,21 @@ re.c('arraymap')
 		}
 		
 		return this;
+	},
+	
+	copyByRef:function(m){
+		
+		this.map = m;
+		
+		if(m.length > 0){
+			this.lengthX = m[0].length;
+		} else {
+			this.lengthX = 0;
+		}
+		
+		this.lengthY = m.length;
+		
+		return this;
 	}
 	
 })

@@ -32,16 +32,22 @@ re.c('mouse')
 			re.c('pressed')._pressed[b] = (e.type == 'mousedown');
 		}
 		
+		var c = false;
+		
 		if(re.c('pressed').preventDefault){
 			if(re.c('pressed').preventDefault[b]){
-			if(e.preventDefault)
-				e.preventDefault();
-			 else 
-				e.returnValue = false;
+				if(e.preventDefault)
+					e.preventDefault();
+				 else 
+					e.returnValue = false;
+					
+				c = true;
 			}
 		}
 		
 		re.c('mouse').mouseEvent(e);
+		
+		if(c) return false;
 	},
 	
 	mouseEvent:function(e){
@@ -66,13 +72,23 @@ re.c('mouse')
 		
 		//ignore if off canvas
 		if(x < 0 || y < 0 || y > re.sys.sizeY || x > re.sys.sizeX){
-			return;	
+			return;
 		}
 		
 		var that = re.c('mouse');
 		
-		for(var i=0; i<that.listeners.length; i++){
-			that.listeners[i].signal(e.type, x, y, e);
+		//FUTURE automatically transform screen coordinates?
+		var c, t, sx, sy;
+		for(var i=0, l = that.listeners.length; i<l; i++){
+			t = that.listeners[i];
+			if(t.toScreen && t.screen){
+				sx = t.screen.toScreenX(x);
+				sy = t.screen.toScreenY(y);
+			} else {
+				sx = x;
+				sy = y;
+			}
+			t.signal(e.type, sx, sy, e);
 		}
 		
 	},
@@ -91,6 +107,9 @@ re.c('mouse')
 		}
 	}
 	
+})
+.inherit({
+	toScreen:false
 })
 .init(function(c){
 	//add to listener array

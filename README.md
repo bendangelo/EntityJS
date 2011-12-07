@@ -34,10 +34,16 @@ This will take you through some quick steps to display an image on a canvas elem
 
 * We now have to load our image *welcome.png*.
 
-	<code>re.load('welcome.png').success(function(){ });</code>
+	<code>re.load('welcome.png').complete(function(){ });</code>
 
-* Now inside the success function body we can display the image. *re.entity* creates a new entity with the given components.
+* Now inside the complete function body we can display the image. *re.entity* creates a new entity with the given components.
 
 	`re.entity('bitmap welcome.png');`
 
 That should now display an image on your canvas. Yes! For more information check out [the website](entityjs.com).
+
+## Future
+* Ruby YUI compiler
+* Level Editor
+* JS Loader
+* More tutorials!

@@ -1,5 +1,17 @@
 -----------------------------------------------------------------------------------------
-Version 0.2.1 [Upcoming]
+Version 0.2.2 [Dec 6, 2011]
+
+Fixed distanceTo on point component.
+Added length argument to query filter / map.
+Removed multiple scene creation from re.scene.
+Components now dispatch dispose on entity removal.
+Renamed re.tile globals.
+Mouse now has optional toScreen coordinates.
+Screen now has screen convertions globals.
+Text input focus disables keyboard input.
+
+-----------------------------------------------------------------------------------------
+Version 0.2.1 [Oct 11, 2011]
 
 Added timestep component.
 Added rect component.
@@ -8,8 +20,7 @@ Renamed size to hittest component.
 Add distanceTo to point component.
 Returning false on a signal will remove it.
 Added wait component.
-Split physics into physics+.
-Renamed sprimate to sprite+.
+Renamed sprimate to flicker.
 Renamed position to anchor.
 Remove coordinate object properties.
 Renamed define to extend.

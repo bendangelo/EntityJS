@@ -142,7 +142,7 @@
 			
 			for(; i<re._e.length; i++){
 				
-				if(select.call(re._e[i], i)){
+				if(select.call(re._e[i], i, re._e.length)){
 					this._e.push(re._e[i]);
 				}
 				
@@ -219,9 +219,9 @@
 		var x = 0;
 		var y = 0;
 		
-		for(var i =0; i<this._e.length; i++){
+		for(var i =0, l = this._e.length; i<l; i++){
 			
-			if(method.call(this._e[i], x, y) == false) break;
+			if(method.call(this._e[i], x, y, i, l) == false) break;
 			
 			x++;
 			
@@ -303,13 +303,19 @@
 		return this;
 	}
 	
-	p.comp = function(c){
+	p.addComp = function(c){
 		
 		this.each(function(ref){
-			this.comp(c);
+			this.addComp(c);
 		});
 		
 		return this;
+	}
+	
+	p.removeComp = function(c){
+		this.each(function(ref){
+			this.removeComp(c);
+		});
 	}
 	
 	p.signal = function(type, method){
@@ -348,9 +354,9 @@
 		var q = re();
 		var that = this;
 		
-		this.each(function(i){
+		this.each(function(i, l){
 			
-			if(method.call(this, i)){
+			if(method.call(this, i, l)){
 				//add entity
 				q.push(this);
 			}

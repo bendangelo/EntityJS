@@ -99,11 +99,15 @@ re.c('keyboard')
 	keyboardEvent: function(e){
 		var that = re.c('keyboard');
 		
+		if(that.body != document.activeElement){
+			return;
+		}
+		
 		var c = e.keyCode || e.which;
 		
 		var key = that.keyCodes[c];
 		
-		if(re.c('pressed').preventDefault[key]){
+		if(re.c('pressed').preventDefault && re.c('pressed').preventDefault[key]){
 			if(e.preventDefault)
 				e.preventDefault();
 			 else 
@@ -130,7 +134,7 @@ re.c('keyboard')
 			this.active = true;
 			re.listener('keydown', this.keyboardEvent, false);
 			re.listener('keyup', this.keyboardEvent, false);
-			
+			this.body = re.$('body')[0];
 		}
 	}
 

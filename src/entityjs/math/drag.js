@@ -5,24 +5,35 @@ in relation to its starting postion.
 re.c('drag')
 .inherit({
 	posX:0,
-	posY:0
-})
-.init(function(){
-	this.drag_pos = {x:0, y:0};
+	posY:0,
+	
+	dragX:0,
+	dragY:0,
+	
+	dragging:false
 })
 .extend({
 	
-	anchorDrag:function(x, y){
-		this.drag_pos.x = x;
-		this.drag_pos.y = y;
+	startDrag:function(x, y){
+		if(!this.dragging){
+			this.dragging = true;
+			this.dragX = x;
+			this.dragY = y;
+		}
+	},
+	
+	endDrag:function(){
+		this.dragging = false;
 	},
 	
 	updateDrag:function(x, y){
-		this.posX += x - this.drag_pos.x;
-		this.posY += y - this.drag_pos.y;
-		
-		this.drag_pos.x = x;
-		this.drag_pos.y = y;
+		if(this.dragging){
+			this.posX += x - this.dragX;
+			this.posY += y - this.dragY;
+			
+			this.dragX = x;
+			this.dragY = y;
+		}
 	}
 	
 });

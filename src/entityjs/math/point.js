@@ -51,7 +51,7 @@ re.c('point')
 		kx = x-this.posX>>31;
 		ky = y-this.posY>>31;
 		
-		return Math.round(((xt-this.posX ^kx)-kx)+((yt-this.posY^ky)-ky));
+		return Math.round(((x-this.posX ^kx)-kx)+((y-this.posY^ky)-ky));
 	}
 	
 });

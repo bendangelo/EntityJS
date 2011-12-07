@@ -18,6 +18,14 @@ re.c('screen')
 		this.posY = y - this.regY;
 		
 		return this;
+	},
+	
+	toScreenX:function(x){
+		return x + this.posX + this.offX;
+	},
+	
+	toScreenY:function(y){
+		return y + this.posY + this.offY;
 	}
 	
 })
@@ -30,10 +38,9 @@ re.c('screen')
 	regY:0,
 	
 	sizeX:0,
-	sizeY:0
+	sizeY:0,
 	
-});
-
-re.ready(function(){
-	re.screen = re.e('screen');
+	offX:0,
+	offY:0
+	
 });

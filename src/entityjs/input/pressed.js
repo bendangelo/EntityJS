@@ -60,7 +60,7 @@ re.pressed = function(key){
 		}
 		
 		return false;
-}
+};
 
 re.preventDefault = function(key){
 	
@@ -78,4 +78,4 @@ re.preventDefault = function(key){
 	 re.c('pressed').preventDefault[key] = true;
 	
 	return this;
-}
+};

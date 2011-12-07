@@ -11,7 +11,6 @@ re.c('hittest')
 	checks if the two targets intersect with each other.
 	
 	k.touches(x, y, width, height);
-	k.touches(pos, size);
 	
 	*/
 	touches:function(x, y, w, h){

@@ -25,6 +25,11 @@ re.c('font')
 		return this.text.length != 0;
 	},
 	
+	setText:function(t){
+		this.text = t;
+		return this;
+	},
+	
 	draw:function(c){
 		
 		c.font = this.font;

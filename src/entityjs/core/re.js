@@ -53,6 +53,11 @@ re.listener = function(t, c){
 	}
 };
 
+Function.prototype.context = function(c){
+	var that = this;
+	return function(){ return that.apply(c, arguments); };
+};
+
 if(!Array.prototype.indexOf){
 	Array.prototype.indexOf = function(o){
 		for(var i=0; i<this.length; i++){

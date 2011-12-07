@@ -26,7 +26,7 @@ re.bisect = re.c('bisect')
 	
 	toBi:function(xt, yt, w, s){
 		
-		return xt + (yt * (w / s));
+		return (xt + (yt * (w / s))) / s;
 	}
 	
 })
@@ -54,7 +54,7 @@ re.bisect = re.c('bisect')
 	
 	toBi:function(xt, yt){
 		
-		return xt + (yt * (this.bisect / this.sizeX));
+		return (xt + (yt * (this.bisect / this.sizeX))) / this.sizeX;
 	}
 	
 })

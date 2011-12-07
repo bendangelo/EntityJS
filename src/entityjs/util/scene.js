@@ -5,7 +5,8 @@ Goes to an other scene in the game. This calls the scene method with a possible 
 Scenes are a helpful way to organize stages of a game.
 
 //create scene
-re.scene('game', function(data){
+re.scene('game')
+.enter(function(data){
 	
 	//remove all 2d elements
 	re('2d').dispose();
@@ -25,16 +26,6 @@ re.scene('-home title');
 */
 re.scene = function(title){
 	var s = re.c('scene');
-
-	//split into multiple calls
-	var k = title.split(' ');
-	if(k.length > 1){
-		title = k.pop();
-		
-		for(var b in k){
-			arguments.callee.apply(s, arguments);
-		}
-	}
 	
 	//delete scene
 	if(title.charAt(0) == '-'){
