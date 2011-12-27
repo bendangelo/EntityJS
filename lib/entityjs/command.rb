@@ -1,20 +1,28 @@
+
+require 'entityjs/game'
+require 'entityjs/min'
+require 'entityjs/refresh'
+require 'entityjs/comp'
+
 module Entityjs
   class Command
     
     def self.run(command, args)
+      puts "command #{command}"
       
       case command
         when 'game'
-          Game.generate(args.first, args[1..-1])
+          Entityjs::Game.generate(args.first, args[1..-1])
+          puts 'generated game'
           
         when 'min'
-          Min.generate(args)
+          Entityjs::Min.generate(args)
         
         when 'refresh'
-          Refresh.generate(args)
+          Entityjs::Refresh.generate(args)
         
         when 'comp'
-          Comp.generate(args)
+          Entityjs::Comp.generate(args)
           
         else
           puts 'Error enter in one of the following...'

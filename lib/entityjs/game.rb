@@ -2,16 +2,16 @@ module Entityjs
   
   class Game
     
-    def self.generate(name, comps)
+    def self.generate(name, comps=[])
       
       #create directory
       self.create_dir(name)
       
+      Dir.chdir(Dir.pwd+'/'+name)
+      
       #create html file
       File.open("#{name}.html", "w") {|f| f.write('test html') }
       puts "created #{name}.html"
-      
-      Dir.chdir(Dir.pwd+'/'+name)
       
       #create src directory
       self.create_dir('src')
@@ -20,6 +20,7 @@ module Entityjs
       #create test directory
       self.create_dir('test')
       
+      return true
     end
     
     def self.create_dir(name)
