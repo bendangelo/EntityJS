@@ -20,6 +20,7 @@ module Entityjs
       Dirc.create_dir('src', true)
       
       Dirc.copy_file('init.js')
+      Dirc.copy_file('config.js')
       
       Dirc.create_dir('display')
       

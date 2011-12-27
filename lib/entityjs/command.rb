@@ -13,7 +13,7 @@ module Entityjs
       
       case command
         when 'game'
-          Entityjs::Game.generate(command, args[1..-1])
+          Entityjs::Game.generate(args.first, args[2..-1])
           puts 'generated game'
           
         when 'min'
