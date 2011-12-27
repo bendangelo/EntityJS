@@ -4,20 +4,20 @@ module Entityjs
   
   class Config
     
-    def instance
+    def self.instance
       if @instance.nil?
-        @instance = Config.new
+        @instance = Config.new('/config.yml')
       end
       
       return @instance
     end
     
-    def initialize
-      @yml = YAML::load(File.open(Dir.pwd+"/config.yml"))
+    def initialize(path)
+      @yml = YAML::load(File.open(Dir.pwd+path))
     end
     
     def name
-      return @yml[:name]
+      return @yml['name']
     end
     
   end
