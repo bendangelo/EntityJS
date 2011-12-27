@@ -31,7 +31,7 @@ module Entityjs
     
     def self.get_root_path
       
-      return File.dirname(__FILE__)+'/../..'
+      return File.expand_path(File.dirname(__FILE__)+'/../..')
     end
     
     def self.get_license
@@ -88,8 +88,8 @@ module Entityjs
         new_name = name
       end
       
-      template = File.expand_path(File.dirname(__FILE__) + '/../blank/'+name)
-      FileUtils.cp template, new_name
+      template = self.get_root_path+'/blank/'+name
+      ::FileUtils.cp template, new_name
       
       path = "/#{name}"
       
