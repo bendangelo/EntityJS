@@ -15,6 +15,8 @@ module Entityjs
       
       Dirc.copy_config(name)
       
+      Config.instance
+      
       Dirc.copy_file('readme.txt')
       
       #create lib

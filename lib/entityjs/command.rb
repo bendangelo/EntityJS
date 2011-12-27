@@ -11,8 +11,6 @@ module Entityjs
   class Command
     
     def self.run(command, args=nil)
-      #load config first
-      Entityjs::Config.instance
       
       case command
         when 'new'

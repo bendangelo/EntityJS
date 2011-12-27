@@ -4,6 +4,8 @@ module Entityjs
     
     def self.generate(args=nil)
       
+      Config.instance
+      
       ent = Dirc.find_entity_files
       srcs = Dirc.find_src_files
       
