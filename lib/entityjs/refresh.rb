@@ -11,7 +11,7 @@ module Entityjs
       
       Dirc.change_dir('lib')
       
-      name = 'entity'
+      name = Config.instance.name
       
       file_name = name+'.debug.js'
       

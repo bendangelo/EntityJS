@@ -100,6 +100,23 @@ module Entityjs
       puts "Created: #{path}"
     end
     
+    def self.copy_config(name)
+      self.copy_file('config.yml')
+      
+      f = File.open('config.yml', 'r')
+      
+      contents = f.read
+      
+      contents = contents.sub(/\$NAME/, name)
+      
+      File.open('config.yml', "w+") do |f|
+        
+        f.write(contents)
+        
+      end
+      
+    end
+    
   end
   
 end

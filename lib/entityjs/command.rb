@@ -5,6 +5,7 @@ require 'entityjs/min'
 require 'entityjs/refresh'
 require 'entityjs/comp'
 require 'entityjs/version'
+require 'entityjs/config'
 
 module Entityjs
   class Command
@@ -12,9 +13,8 @@ module Entityjs
     def self.run(command, args=nil)
       
       case command
-        when 'game'
+        when 'new'
           Entityjs::Game.generate(args.first, args[2..-1])
-          puts 'generated game'
           
         when 'min'
           Entityjs::Min.generate(args)
@@ -25,9 +25,12 @@ module Entityjs
         when 'comp'
           Entityjs::Comp.generate(args)
           
+        when 'version'
+          puts 'Current EntityJS V'+Entityjs::VERSION
+          
         else
           puts 'Error enter in one of the following...'
-          puts 'entityjs game [name] [comp]+'
+          puts 'entityjs new [name] [comp]+'
           puts 'entityjs comp [name]'
           puts 'entityjs min'
           puts 'entityjs refresh'

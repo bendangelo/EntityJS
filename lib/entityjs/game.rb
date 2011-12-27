@@ -2,7 +2,9 @@ module Entityjs
   
   class Game
     
-    def self.generate(name, comps=[])
+    def self.generate(name, comps=nil)
+      comps ||= []
+      
       Dirc.set_root(name)
       
       #create directory
@@ -11,7 +13,9 @@ module Entityjs
       #create html file
       Dirc.copy_file('play.html')
       
-      Dirc.copy_file('config.yml')
+      Dirc.copy_config(name)
+      
+      Dirc.copy_file('readme.txt')
       
       #create lib
       Dirc.create_dir('lib')
