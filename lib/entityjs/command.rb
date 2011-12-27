@@ -3,6 +3,7 @@ require 'entityjs/game'
 require 'entityjs/min'
 require 'entityjs/refresh'
 require 'entityjs/comp'
+require 'entityjs/version'
 
 module Entityjs
   class Command

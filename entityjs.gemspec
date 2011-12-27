@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Ben D'Angelo"]
   s.email       = ["ben.dangelo2@gmail.com"]
   s.homepage    = "http://entityjs.com"
-  s.summary     = %q{A HTML5 Javascript game engine.}
-  s.description = %q{A HTML5 Javascript game engine.}
+  s.summary     = %q{A helper gem for developing HTML5 javascript games in EntityJS.}
+  s.description = %q{A helper gem for developing HTML5 javascript games in EntityJS.}
 
   s.rubyforge_project = "entityjs"
 
