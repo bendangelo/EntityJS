@@ -1,0 +1,21 @@
+# Configure your game settings
+
+#project name
+name: mygame
+
+paths:
+  images: assets/images
+  sounds: assets/sounds
+  levels: assets/levels
+  src: src
+  lib: lib
+  test: tests
+  
+#files to ignore in /src and entity/src
+#this is useful to ignore unused files
+ignore:
+  socket
+  
+#although all files are compiled its
+#useful to include dependent files first
+order:

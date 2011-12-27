@@ -2,8 +2,11 @@ module Entityjs
   
   class Refresh
     
-    def self.generate()
+    def self.generate(args=nil)
       
+      
+      
+      puts 'Refreshed debug.js'
     end
     
   end

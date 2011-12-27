@@ -7,12 +7,11 @@ require 'entityjs/comp'
 module Entityjs
   class Command
     
-    def self.run(command, args)
-      puts "command #{command}"
+    def self.run(command, args=nil)
       
       case command
         when 'game'
-          Entityjs::Game.generate(args.first, args[1..-1])
+          Entityjs::Game.generate(command, args[1..-1])
           puts 'generated game'
           
         when 'min'

@@ -1,1 +1,3 @@
-require File.dirname(__FILE__)+'/../lib/entityjs/game.rb'
+root = File.dirname(__FILE__)+'/../'
+
+Dir[root+"lib/entityjs/*.rb"].each {|file| require file }
