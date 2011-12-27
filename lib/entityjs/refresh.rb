@@ -2,7 +2,7 @@ module Entityjs
   
   class Refresh
     
-    def initialize(args)
+    def self.generate()
       
     end
     

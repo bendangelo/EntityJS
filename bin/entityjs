@@ -1,22 +1,14 @@
 #!/usr/bin/env ruby
 
-require 'entityjs/game'
-require 'entityjs/min'
-require 'entityjs/refresh'
-require 'entityjs/comp'
 
-case ARGV.first
-  when 'game'
-    Entityjs::Game.new(ARGV.unshift)
-    puts 'game'
-    
-  when 'min'
-    Entityjs::Min.new(ARGV.unshift)
-    
-  when 'refresh'
-    Entityjs::Refresh.new(ARGV.unshift)
-    
-  when 'comp'
-    Entityjs::Comp.new(ARGV.unshift)
-    
-end
+lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
+$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
+
+require 'entityjs'
+require 'entityjs/command'
+
+args = ARGV.dup
+ARGV.clear
+command = args.shift.strip rescue 'help'
+
+Entityjs::Command.run(command, args)

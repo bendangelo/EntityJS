@@ -2,7 +2,7 @@ module Entityjs
   
   class Comp
     
-    def initialize(args)
+    def self.generate(name)
       
     end
     

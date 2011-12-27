@@ -2,7 +2,7 @@ module Entityjs
   
   class Min
     
-    def initialize(args)
+    def self.generate()
       
     end
     
