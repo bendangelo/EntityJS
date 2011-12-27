@@ -1,6 +1,6 @@
 module Entityjs
   
-  class Game
+  class Refresh
     
     def initialize(args)
       

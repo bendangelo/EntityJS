@@ -1,6 +1,6 @@
 module Entityjs
   
-  class Game
+  class Min
     
     def initialize(args)
       

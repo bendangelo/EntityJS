@@ -1,6 +1,6 @@
 module Entityjs
   
-  class Game
+  class Comp
     
     def initialize(args)
       

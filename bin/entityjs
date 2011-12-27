@@ -1,3 +1,22 @@
 #!/usr/bin/env ruby
 
-puts 'running entityjs....'
+require 'entityjs/game'
+require 'entityjs/min'
+require 'entityjs/refresh'
+require 'entityjs/comp'
+
+case ARGV.first
+  when 'game'
+    Entityjs::Game.new(ARGV.unshift)
+    puts 'game'
+    
+  when 'min'
+    Entityjs::Min.new(ARGV.unshift)
+    
+  when 'refresh'
+    Entityjs::Refresh.new(ARGV.unshift)
+    
+  when 'comp'
+    Entityjs::Comp.new(ARGV.unshift)
+    
+end
