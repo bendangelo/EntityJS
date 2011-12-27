@@ -90,7 +90,7 @@ module Entityjs
         new_name = name
       end
       
-      template = self.get_root_path+'/blank/'+name
+      template = self.get_root_path+'/lib/blank/'+name
       ::FileUtils.cp template, new_name
       
       path = "/#{name}"
