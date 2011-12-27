@@ -1,4 +1,5 @@
 
+require 'entityjs/dirc'
 require 'entityjs/game'
 require 'entityjs/min'
 require 'entityjs/refresh'
