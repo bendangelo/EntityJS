@@ -208,6 +208,10 @@
 		
 		this._s = m;
 		
+		if(this.assets.length == 0 && m){
+			m([]);
+		}
+		
 		return this;
 	}
 	
