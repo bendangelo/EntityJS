@@ -20,7 +20,7 @@ EntityJS is now an easy to install gem. In the terminal type in:
 
 `gem install entityjs`
 
-This will install the latest version of the gem and now you can easy create some games!
+This will install the latest version of the gem and now you can easily create some games!
 
 *Warning* at the moment the gemfile is at 0.2.2 and it is *broken*. Wait until version 0.3 to try these commands.
 
@@ -76,7 +76,7 @@ This will create a new component in the directory src/display instead of src/ li
 This will take you through some quick steps to display an image on a canvas element.
 
 * In the terminal:
-```entityjs new mygame```
+`entityjs new mygame`
 
 * Add an image to `mygame/assets/images` call it welcome.png
 
@@ -84,10 +84,12 @@ This will take you through some quick steps to display an image on a canvas elem
 
 * In `mygame/src/scenes/load.js` add at the bottom:
 
-```re.scene('home')
+```
+re.scene('home')
 .enter(function(){
   re.e('welcome.png bitmap');
-});```
+});
+```
 
 * Open up mygame/play.html to view your game
 
