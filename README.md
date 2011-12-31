@@ -12,7 +12,7 @@ In the world of *entity-component* designs. All logic is implemented in a *compo
 
 ## Requirements
 
-You must have [ruby](http://rubyinstaller.org/) installed.
+You must have [ruby 1.9.0](http://rubyinstaller.org/) or higher installed.
 
 ## Installion
 
@@ -22,9 +22,10 @@ EntityJS is now an easy to install gem. In the terminal type in:
 
 This will install the latest version of the gem and now you can easily create some games!
 
-*Warning* at the moment the gemfile is at 0.2.2 and it is *broken*. Wait until version 0.3 to try these commands.
 
 ## Usage
+
+**Warning** at the moment the gemfile is at version 0.2.2 and is **broken**. Wait until version 0.3 to try these commands.
 
 When using these commands make sure you are always in the root directory of your game.
 
@@ -38,6 +39,16 @@ or create with components
 
 `entityjs new mygame comp1 comp2`
 
+### Creating a Component
+
+`entityjs comp rock`
+
+This will create a new component called *rock* at src/rock.js and will create a test file inside test/rock.js
+
+`entityjs comp display/hero`
+
+This will create a new component in the directory src/display instead of src/ like before.
+
 ### Compiling Code
 
 `entityjs min`
@@ -50,17 +61,9 @@ This will minify all entityjs src code and game src code into one file inside /l
 
 When adding new images, sounds or src code it will not be available in play.html until you refresh.
 
-### Creating a Component
+## Game Structure
 
-`entityjs comp rock`
-
-This will create a new component called *rock* at src/rock.js and will create a test file inside test/rock.js
-
-`entityjs comp display/hero`
-
-This will create a new component in the directory src/display instead of src/ like before.
-
-### Config.yml
+**coming soon...**
 
 ## New In V0.3
 
