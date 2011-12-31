@@ -14,7 +14,7 @@ re.physics = re.c('physics')
 	//velocity lower than this will be rounded down
 	minVel:0.01
 })
-.inherit({
+.defaults({
 	
 	posX:0,
 	posY:0,
@@ -82,7 +82,7 @@ re.physics = re.c('physics')
 		this.posX = posx;
 		this.posY = posy;
 		
-		this.signal('aftermath', hitx, hity, tarx, tary);
+		this.bind('aftermath', hitx, hity, tarx, tary);
 		
 		if(hitx){
 			this.velX = this.forceRes(this.velX, this.resX);
@@ -133,10 +133,10 @@ re.physics = re.c('physics')
 	this.graX = c.graX;
 	this.graY = c.graY;
 	
-	this.addSignal('update', this.physics_update);
+	this.bind('update', this.physics_update);
 })
 .dispose(function(){
 	
-	this.removeSignal('update', this.physics_update);
+	this.unbind('update', this.physics_update);
 	
 });

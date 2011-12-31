@@ -44,15 +44,15 @@ re.ready(function(){
 		//you can also call re.e instead of re.entity
 		re.e('keyboard')
 		//listens for keyup on the space key
-		.addSignal('keydown:space', function(){
+		.bind('keydown:space', function(){
 			
 			//creates a new entity with the arrow component
 			re.e('arrow');
 			
 		})
-		//second signal
+		//second bind
 		//remove key upon R key up
-		.addSignal('keyup:r', function(){
+		.bind('keyup:r', function(){
 			
 			var q = re('arrow');
 			if(q.length() > 0){
@@ -93,7 +93,7 @@ re.c('arrow')
 	this.sizeY = re.constants.arrowSizeY;
 	
 	//listens for updates every frame
-	this.addSignal('update', this.arrow_update);
+	this.bind('update', this.arrow_update);
 	
 	//prevents default action of keys
 	this.preventDefault('up left right down space r');
@@ -102,12 +102,12 @@ re.c('arrow')
 //define deconstructor
 .dispose(function(){
 	
-	//will remove the signal
-	this.removeSignal('update', this.arrow_update);
+	//will remove the bind
+	this.unbind('update', this.arrow_update);
 	
 })
 //values here are set only if they are null
-.inherit({
+.defaults({
 	speed:re.constants.arrowSpeed
 })
 //define private variables of the arrow component

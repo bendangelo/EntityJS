@@ -73,7 +73,7 @@ re.sound = re.c('sound')
 				
 				c.addEventListener('ended', function(){
 					
-					that.signal('sounded', that.sound_loops, loop);
+					that.bind('sounded', that.sound_loops, loop);
 					
 					if(loop == -1 || that.sound_loops < loop){
 						c.currentTime = 0;

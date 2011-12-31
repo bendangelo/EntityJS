@@ -29,7 +29,7 @@ re.c('screen')
 	}
 	
 })
-.inherit({
+.defaults({
 	
 	posX:0,
 	posY:0,

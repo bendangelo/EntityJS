@@ -11,13 +11,13 @@ re.c('update')
 			b = l[k];
 			
 			if(b && b.sys == s && b.updating){
-				b.signal('update', t, s.time);
+				b.bind('update', t, s.time);
 			}
 		}
 		
 	}
 })
-.inherit({
+.defaults({
 	updating:true,
 	sys:re.sys
 })

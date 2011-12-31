@@ -72,7 +72,7 @@ re.e('scene:start')
 	//add enter listener
 	this.enter = re.e('keyboard')
 	//add two signals listens for keyup of enter AND space. Cool eh??
-	.addSignal('keyup', function(key){
+	.bind('keyup', function(key){
 		if(key == 'space' || key == 'enter'){
 			var score = Math.floor(Math.random() * re.constants.maxScore);
 			
@@ -111,7 +111,7 @@ re.scene('win')
 	this.ret.posY = this.message.posY + 30;
 	
 	this.key = re.e('keyboard')
-	.addSignal('keyup', function(){
+	.bind('keyup', function(){
 	
 		re.scene('start');
 		

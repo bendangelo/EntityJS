@@ -13,7 +13,7 @@ TODO implement size
 */
 re.c('font')
 .require('draw')
-.inherit({
+.defaults({
 	font:"14px sans-serif",
 	textColor:'#000000',
 	textAlign:'',

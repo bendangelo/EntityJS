@@ -1,4 +1,4 @@
-# Entity JS
+# EntityJS
 An HTML5 javascript game engine utlizing the entity-component design. Write highly flexible code in a powerful javascript framework.
 
 [EntityJS Website](http://entityjs.com) | [Demos](http://entityjs.com/demos) | [Tutorials](http://entityjs.com/tutorials) | [API](http://entityjs.com/api)
@@ -10,40 +10,95 @@ This becomes a big mess.
 
 In the world of *entity-component* designs. All logic is implemented in a *component*, as big or small as you want. You can then create an *entity* and add/remove components to it. The entity is a live represantation of all its components. With this low coupling of components and entities you can mix and match components together to create powerful functionality yet still portable and robust.
 
-## Directory Structure
+## Requirements
 
-* **build** Contains two build commands to compile entityjs code.
-	* **build_min.bat** Will build a minified version for release.
-	* **build_debug.bat** Will build a debug file for testing offline.
-* **lib** Contains two compiled sources *entity.min.js* and *entity.debug.js*
-* **src** Contains source code of *entityjs*
-* **tutorials** Contains simple tutorials and examples.
+You must have [ruby](http://rubyinstaller.org/) installed.
+
+## Installion
+
+EntityJS is now an easy to install gem. In the terminal type in:
+
+`gem install entityjs`
+
+This will install the latest version of the gem and now you can easy create some games!
+
+*Warning* at the moment the gemfile is at 0.2.2 and it is *broken*. Wait until version 0.3 to try these commands.
+
+## Usage
+
+When using these commands make sure you are always in the root directory of your game.
+
+### Creating a New Game
+
+Creating a game is simple, move to any directory and type in:
+
+`entityjs new mygame`
+
+or create with components
+
+`entityjs new mygame comp1 comp2`
+
+### Compiling Code
+
+`entityjs min`
+
+This will minify all entityjs src code and game src code into one file inside /lib
+
+### Refreshing Sources
+
+`entityjs refresh`
+
+When adding new images, sounds or src code it will not be available in play.html until you refresh.
+
+### Creating a Component
+
+`entityjs comp rock`
+
+This will create a new component called *rock* at src/rock.js and will create a test file inside test/rock.js
+
+`entityjs comp display/hero`
+
+This will create a new component in the directory src/display instead of src/ like before.
+
+### Config.yml
+
+## New In V0.3
+
+* `Inherit()` is now `defaults()`
+
+### Signals Changed to bind/unbind
+
+* `addSignal()` is now `bind()`
+* `removeSignal()` is now `unbind()`
+* `signal()` is now `trigger()`
 
 ## Quick Start Guide
 This will take you through some quick steps to display an image on a canvas element.
 
-* Include *entity.min.js* in your html document (All compiled sources can be found in */lib*).
+* In the terminal:
+```entityjs new mygame```
 
-* Initialize the system by calling *re.system.init*.
+* Add an image to `mygame/assets/images` call it welcome.png
 
-	`re.system.init('#canvasId');`
+* Refresh srcs to find the image: `entityjs refresh`
 
-* Start the *main loop* of the application. This will refresh the screen and update logic.
+* In `mygame/src/scenes/load.js` add at the bottom:
 
-	`re.system.start();`
+```re.scene('home')
+.enter(function(){
+  re.e('welcome.png bitmap');
+});```
 
-* We now have to load our image *welcome.png*.
+* Open up mygame/play.html to view your game
 
-	<code>re.load('welcome.png').complete(function(){ });</code>
+* In the root directory type: `entityjs min`
 
-* Now inside the complete function body we can display the image. *re.entity* creates a new entity with the given components.
+* Checkout `/mygame/lib/min` to see your finished game
 
-	`re.entity('bitmap welcome.png');`
-
-That should now display an image on your canvas. Yes! For more information check out [the website](entityjs.com).
+* You can now upload the game online and show people.
 
 ## Future
 * Ruby YUI compiler
 * Level Editor
-* JS Loader
+* Testing
 * More tutorials!

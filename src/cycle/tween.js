@@ -26,7 +26,7 @@ re.c('tween')
 	}
 
 })
-.inherit({
+.defaults({
 	
 	tweening:false
 	
@@ -37,7 +37,7 @@ re.c('tween')
 		this.time = time || 5;
 		
 		if(this.tweening){
-			this.removeSignal('update', this.tween_update);
+			this.unbind('update', this.tween_update);
 		}
 		
 		//collect properties

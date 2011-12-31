@@ -5,7 +5,7 @@
 	
 	//identifiers
 	* identifies all
-	^ identifies a signal
+	^ identifies a bind
 	# identifies an id
 	- identifies not
 	
@@ -29,7 +29,7 @@
 	//takes values from all objects and returns an array
 	.pluck('width height');
 	
-	//find all bitmap entities with update signal.
+	//find all bitmap entities with update bind.
 	re('bitmap ^update');
 	
 	//add color comp to all text components
@@ -96,7 +96,7 @@
 		
 		var comp = {
 			comp:comps,
-			signal:signals,
+			bind:signals,
 			not:minus,
 			id:id
 		};	
@@ -295,9 +295,9 @@
 		return this;
 	}
 	
-	p.inherit = function(obj, value){
+	p.defaults = function(obj, value){
 		this.each(function(){
-			this.inherit(obj, value);
+			this.defaults(obj, value);
 		});
 		
 		return this;
@@ -318,11 +318,11 @@
 		});
 	}
 	
-	p.signal = function(type, method){
+	p.bind = function(type, method){
 		var p = arguments;
 		
 		this.each(function(ref){
-			this.signal.apply(this, p);
+			this.bind.apply(this, p);
 		});
 		
 		return this;
@@ -346,7 +346,7 @@
 		//remove entity
 		return false;
 		
-	}).signal('spawn');
+	}).bind('spawn');
 	
 	*/
 	p.filter = function(method){

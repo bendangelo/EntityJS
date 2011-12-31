@@ -4,7 +4,7 @@ The sprite object extends a drawable image for an entity.
 
 re.c('sprite')
 .require('bitmap bisect')
-.inherit({
+.defaults({
 	
 	frameX:0,
 	frameY:0

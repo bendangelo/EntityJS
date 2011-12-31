@@ -4,7 +4,7 @@ The hitmap component is used for collision detection in a tile-based game.
 This can be sent to a physics entity and it will recieve checks if it hits
 a tile.
 
-Creating this signal system will allow other developers to easily implement
+Creating this bind system will allow other developers to easily implement
 their own hit collision system.
 */
 re.c('hitmap')
@@ -107,8 +107,8 @@ re.c('hitmap')
 					
                     if(this.map[ty]){
 						
-						//signal
-						this.signal('hit', this.map[ty][tx], tx, ty);
+						//bind
+						this.bind('hit', this.map[ty][tx], tx, ty);
 						
 						if(this.checkAxisX(this.map[ty][tx], x, y, vx, vy)) {
 							res.hitX = true;
@@ -142,7 +142,7 @@ re.c('hitmap')
 					
                     if(this.map[ty]){
 						
-						this.signal('hit', this.map[ty][tx], tx, ty);
+						this.bind('hit', this.map[ty][tx], tx, ty);
 						
 						if(this.checkAxisY(this.map[ty][tx], x, y, vx, vy)) {
 							res.hitY = true;

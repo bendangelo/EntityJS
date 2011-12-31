@@ -22,7 +22,7 @@ re.c('flicker')
 	flicker_stop:function(){
 		if(this.flickering()){
 		
-			this.signal('animated', this.flicker_flickering);
+			this.bind('animated', this.flicker_flickering);
 			
 			this.flicker_flickering = '';
 			
@@ -30,7 +30,7 @@ re.c('flicker')
 			this.frameX = this.flicker_oldX;
 			this.frameY = this.flicker_oldY;
 			
-			this.removeSignal('update', this.flicker_update);
+			this.unbind('update', this.flicker_update);
 		}
 		return this;
 	},
@@ -187,7 +187,7 @@ re.c('flicker')
 		this.flick(c.frames[this.flicker_frame++]);
 		
 		if(!this.flickering()){
-			this.addSignal('update', this.flicker_update);
+			this.bind('update', this.flicker_update);
 		}
 		
 		this.flicker_flickering = id;

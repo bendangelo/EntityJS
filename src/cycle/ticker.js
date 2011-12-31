@@ -2,7 +2,7 @@
 The ticker component calculates time between steps for animation or special effects.
 */
 re.c('ticker')
-.inherit({
+.defaults({
 	time:0,
 	maxTick:0.05
 })

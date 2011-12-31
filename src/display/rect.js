@@ -3,7 +3,7 @@ The rect component draws a rectangle on screen.
 */
 re.c('rect')
 .require('draw')
-.inherit({
+.defaults({
 	color:'#82d5f4'
 })
 .extend({

@@ -29,11 +29,11 @@ re.ready(function(){
 		s1 = re.e('sound sound1.sfx'); //could use sound1.ogg
 		
 		re.e('keyboard')
-		.addSignal('keyup:x', function(){
+		.bind('keyup:x', function(){
 			//play sound 1
 			s1.play();
 		})
-		.addSignal('keyup:z', function(){
+		.bind('keyup:z', function(){
 			//call sound directly
 			re.c('sound1.sfx').sound.play();
 		});

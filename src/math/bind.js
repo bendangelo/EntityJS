@@ -36,7 +36,7 @@ re.c('bind')
 	}
 	
 })
-.inherit({
+.defaults({
 	
 	posX:0,
 	posY:0,
@@ -66,11 +66,11 @@ re.c('bind')
 })
 .init(function(){
 	
-	this.addSignal('update', this.bind_update);
+	this.bind('update', this.bind_update);
 	
 })
 .dispose(function(){
 	
-	this.removeSignal('update', this.bind_update);
+	this.unbind('update', this.bind_update);
 	
 });

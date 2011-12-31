@@ -3,7 +3,7 @@ The circle component draws a rectangle on screen.
 */
 re.c('circle')
 .require('draw')
-.inherit({
+.defaults({
 	color:'#82d5f4'
 })
 .extend({

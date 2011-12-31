@@ -35,7 +35,7 @@ re.tile = re.c('tile')
 	}
 	
 })
-.inherit({
+.defaults({
 	
 	posX:0,
 	posY:0

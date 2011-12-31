@@ -10,7 +10,7 @@ re.e('timestep')
 */
 
 re.c('timestep')
-.inherit({
+.defaults({
 	
 	stepProgress:0,
 	stepSize:0.3

@@ -42,7 +42,7 @@ re.c('anchor')
 	}
 	
 })
-.inherit({
+.defaults({
 	
 	sizeX:0,
 	sizeY:0,

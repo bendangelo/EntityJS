@@ -3,7 +3,7 @@ The drag component adds functions to move points
 in relation to its starting postion.
 */
 re.c('drag')
-.inherit({
+.defaults({
 	posX:0,
 	posY:0,
 	

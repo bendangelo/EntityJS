@@ -8,7 +8,7 @@ wanted font.
 
 re.c('bitfont')
 .require('draw')
-.inherit({
+.defaults({
 	
 	text:'',
 	//default width if charwidths not extendd

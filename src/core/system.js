@@ -9,7 +9,7 @@ FUTURE
 -perhaps allow users to override the system class for their own custom usage. (new arrays of entities and components)
 */
 re.c('system')
-.inherit({
+.defaults({
 	
 	contextType:'2d',
 	
