@@ -58,7 +58,7 @@ re.bisect = re.c('bisect')
 	}
 	
 })
-.inherit({
+.defaults({
 	
 	//spliting width
 	bisect:1,

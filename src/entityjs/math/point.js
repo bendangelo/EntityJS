@@ -5,7 +5,7 @@ This can be used for 2d calculations or most commonly 2d sprite positioning.
 */
 
 re.c('point')
-.inherit({
+.defaults({
 	
 	posX:0,
 	posY:0

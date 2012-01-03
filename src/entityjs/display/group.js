@@ -1,5 +1,5 @@
 re.c('group')
-.inherit({
+.defaults({
 	posX:0,
 	posY:0
 })

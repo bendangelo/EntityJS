@@ -156,16 +156,16 @@ re.comp.init.prototype = {
 		return this;
 	},
 	
-	addSignal:function(){
-		return re.e.init.prototype.addSignal.apply(this, arguments);
+	bind:function(){
+		return re.e.init.prototype.bind.apply(this, arguments);
 	},
 	
-	removeSignal:function(){
-		return re.e.init.prototype.removeSignal.apply(this, arguments);
+	unbind:function(){
+		return re.e.init.prototype.unbind.apply(this, arguments);
 	},
 	
 	/*
-	Adds signal functionality to components.
+	Adds trigger functionality to components.
 	All components will automatically call two signals, init and dispose.
 	
 	Init on entity creation and dispose on entitiy disposition.
@@ -174,14 +174,14 @@ re.comp.init.prototype = {
 	all entities that have its component. Check the cycle directory.
 	
 	*/
-	signal:function(){
-		return re.e.init.prototype.signal.apply(this, arguments);
+	trigger:function(){
+		return re.e.init.prototype.trigger.apply(this, arguments);
 	},
 	
 	/*
 	Default adds onto but doesn't overwrite values.
 	*/
-	inherit:function(d, value){
+	defaults:function(d, value){
         this._checkFinal();
         
 		if(arguments.length == 1){

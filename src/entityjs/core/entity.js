@@ -110,7 +110,7 @@
 				c._re_dispose.call(this, c);
 			}
 			
-			c.signal('dispose', this);
+			c.trigger('dispose', this);
 			
 		}
 	};
@@ -215,7 +215,7 @@
 			}
 			
 			if(c._re_inherits){
-				this.inherit(c._re_inherits);
+				this.defaults(c._re_inherits);
 			}
 			
 			if(c._re_extends){
@@ -226,7 +226,7 @@
 				c._re_init.apply(this, vals);
 			}
 			
-			c.signal('init', this);
+			c.trigger('init', this);
 		}
 		
 		
@@ -282,14 +282,14 @@
 	//return true if bitmap not present but has update
 	this.has('update -bitmap');
 	
-	//returns true if has asset id and update signal
+	//returns true if has asset id and update trigger
 	this.has('#asset ^update');
 	
 	//expanded
 	this.has({
 		'comp':['draw'],
 		'id':'bob',
-		'signal':['draw'],
+		'trigger':['draw'],
 		'not':['update']
 	});
 	*/
@@ -302,7 +302,7 @@
 		
 		comp.comp = comp.comp || [];
 		comp.id = comp.id || '';
-		comp.signal = comp.signal || [];
+		comp.trigger = comp.trigger || [];
 		comp.not = comp.not || [];
 			
 		//check if entitiy contains the correct components
@@ -323,8 +323,8 @@
 		
 		var s;
 		//check if entity contains signals
-		for(p=0; p<comp.signal.length; p++){
-			s = comp.signal[p];
+		for(p=0; p<comp.trigger.length; p++){
+			s = comp.trigger[p];
 			if(!this._re_signals[s] || this._re_signals[s].length == 0){
 				return false;
 			}
@@ -342,10 +342,10 @@
 	New way to add signals version 0.2.1.
 	
 	//single
-	addSignal('draw', function(){});
+	bind('draw', function(){});
 	
 	//multiple
-	addSignal({
+	bind({
 		
 		draw:function(){},
 		
@@ -353,12 +353,12 @@
 		
 	});
 	*/
-	p.addSignal = function(type, method){
+	p.bind = function(type, method){
 		
 		if(typeof type == 'object'){
 			
 			for(var k in type){
-				this.addSignal(k, type[k]);
+				this.bind(k, type[k]);
 			}
 			
 		} else {
@@ -378,22 +378,22 @@
 	Added in V0.2.1
 	
 	//remove single
-	removeSignal('draw', this.draw);
+	unbind('draw', this.draw);
 	
 	//remove multiple
-	removeSignal({
+	unbind({
 		
 		draw:this.draw,
 		update:this.update
 		
 	});
 	*/
-	p.removeSignal = function(type, method){
+	p.unbind = function(type, method){
 		
 		if(typeof type == 'object'){
 			
 			for(var k in type){
-				this.removeSignal(k, type[k]);
+				this.unbind(k, type[k]);
 			}
 			
 		} else {
@@ -424,12 +424,12 @@
 	
 	
 	-dispatch signals
-	this.signal('click');
-	this.signal('click draw');
-	this.signal('click', {data:0});
+	this.trigger('click');
+	this.trigger('click draw');
+	this.trigger('click', {data:0});
 	
 	*/
-	p.signal = function(type){
+	p.trigger = function(type){
 		
 		if(!this._re_signals[type])	return this;
 		var b;
@@ -469,14 +469,14 @@
 		return this;
 	}
 	
-	p.inherit = function(obj, value){
+	p.defaults = function(obj, value){
 		
 		if(typeof obj == 'object'){
 		
 			for(var key in obj){
 				if(!obj.hasOwnProperty(key)) continue;
 				
-				this.inherit(key, obj[key]);
+				this.defaults(key, obj[key]);
 				
 			}
 			
@@ -502,10 +502,10 @@
 			if(k._re_dispose){
 				k._re_dispose.call(this, k);
 			}
-			k.signal('dispose', this);
+			k.trigger('dispose', this);
 		}
 		
-		this.signal('dispose');
+		this.trigger('dispose');
 		
 		return this;
 	}

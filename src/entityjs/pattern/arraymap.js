@@ -2,7 +2,7 @@
 The arraymap component creates an auto expandable two-dimensional array.
 */
 re.c('arraymap')
-.inherit({
+.defaults({
 	lengthX:0,
 	lengthY:0
 })

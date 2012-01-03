@@ -94,7 +94,7 @@ re.c('keyboard')
 	
 	/*
 	Add modifiers, shift, alt, ctrl.
-	.signal('ctrl+k')
+	.trigger('ctrl+k')
 	*/
 	keyboardEvent: function(e){
 		var that = re.c('keyboard');
@@ -121,8 +121,8 @@ re.c('keyboard')
 		
 		for(var k=0; k<that.listeners.length; k++){
 			that.listeners[k]
-			.signal(e.type, key, e)
-			.signal(e.type+':'+key, key, e);
+			.trigger(e.type, key, e)
+			.trigger(e.type+':'+key, key, e);
 		}
 		
 	},

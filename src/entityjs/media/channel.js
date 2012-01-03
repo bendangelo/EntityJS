@@ -42,7 +42,7 @@ re.e('channel attack.sfx')
 *//*
 re.channel = re.c('channel')
 .require('sound')
-.inherit({
+.defaults({
 	volume:1,
 	max:3
 })

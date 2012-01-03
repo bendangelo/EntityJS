@@ -12,7 +12,7 @@ re.c('draw')
 				/*if(!b.canvasCache){
 					b.draw_render(c);
 				} else {
-					b.signal('draw', c);
+					b.trigger('draw', c);
 				}*/
 				b.draw_render(s.context);
 				
@@ -36,7 +36,7 @@ re.c('draw')
 	c.listeners.splice(c.listeners.indexOf(this), 1);
 	
 })
-.inherit({
+.defaults({
 	
 	sys:re.sys,
 	drawing:true,

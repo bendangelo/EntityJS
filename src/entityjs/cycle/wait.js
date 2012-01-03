@@ -8,7 +8,7 @@ re.c('wait')
 	wait:function(time, callback){
 		var c = 0;
 		
-		this.addSignal('update',  function(t){
+		this.bind('update',  function(t){
 			c += t;
 			
 			if(c >= time){

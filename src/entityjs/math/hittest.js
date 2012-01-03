@@ -1,5 +1,5 @@
 re.c('hittest')
-.inherit({
+.defaults({
 	
 	posX:0,
 	posY:0,

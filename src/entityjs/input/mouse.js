@@ -88,7 +88,7 @@ re.c('mouse')
 				sx = x;
 				sy = y;
 			}
-			t.signal(e.type, sx, sy, e);
+			t.trigger(e.type, sx, sy, e);
 		}
 		
 	},
@@ -108,7 +108,7 @@ re.c('mouse')
 	}
 	
 })
-.inherit({
+.defaults({
 	toScreen:false
 })
 .init(function(c){

@@ -28,7 +28,7 @@ re.c('body')
 	
 	
 })
-.inherit({
+.defaults({
 	
 	padX:0,
 	padY:0,
