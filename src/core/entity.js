@@ -420,16 +420,16 @@
 	
 	/*
 	Signal dispatches events to entities. 
-	Modified V0.2.1
+	Modified V0.3
 	
 	
 	-dispatch signals
-	this.bind('click');
-	this.bind('click draw');
-	this.bind('click', {data:0});
+	this.trigger('click');
+	this.trigger('click draw');
+	this.trigger('click', {data:0});
 	
 	*/
-	p.bind = function(type){
+	p.trigger = function(type){
 		
 		if(!this._re_signals[type])	return this;
 		var b;
@@ -469,6 +469,11 @@
 		return this;
 	}
 	
+  p.inherit = function(){
+    
+    throw 'Deprecated use defaults'
+  }
+  
 	p.defaults = function(obj, value){
 		
 		if(typeof obj == 'object'){

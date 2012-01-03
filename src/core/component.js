@@ -178,6 +178,10 @@ re.comp.init.prototype = {
 		return re.e.init.prototype.bind.apply(this, arguments);
 	},
 	
+  inherit:function(){
+    throw 'Deprecated use defaults'
+  },
+  
 	/*
 	Default adds onto but doesn't overwrite values.
 	*/
