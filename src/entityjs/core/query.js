@@ -194,7 +194,7 @@
 	/*
 	The map method allows multidimensional loops.
 	
-	//map through and increase y every 3 entities.
+	//map through and increase y every and x resets to zero 3 entities.
 	
 	re('draw').map(3, function(x, y){
 		this.x(x * width);
