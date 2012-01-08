@@ -51,7 +51,7 @@ re.pressed = function(key){
 		
 		var c = arguments;
 		
-		if(typeof key == 'object') c = key;
+		if(re.is(key, 'object')) c = key;
 		
 		for(var i=0; i<c.length; i++){
 			if(that._pressed[c[i]]){

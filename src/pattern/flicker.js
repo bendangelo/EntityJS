@@ -68,7 +68,7 @@ re.c('flicker')
 	
 	addFlicker:function(id, loops, duration, frames){
 	
-		if(typeof id == 'object'){
+		if(re.is(id, 'object')){
 			
 			for(var i in id){
 				if(!id.hasOwnProperty(i)) continue;
@@ -85,7 +85,7 @@ re.c('flicker')
 			return this;
 		}
 		
-		if(typeof frames == 'string') frames = frames.split(' ');
+		if(re.is(frames, 'string')) frames = frames.split(' ');
 		
 		//add
 		this.flicker_reels[id] = 

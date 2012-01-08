@@ -9,7 +9,7 @@
 			this[n] = [];
 		}
 		
-		if(typeof r == 'string'){
+		if(re.is(r, 'string')){
 			this[n] = this[n].concat(r.split(' '));
 		} else {
 			this[n] = this[n].concat(r);

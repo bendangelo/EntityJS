@@ -41,11 +41,7 @@ re.c('sheet')
 	}
 	
 })
-.require('tile')
-.extend({
-	
-	sheet:re.sheet
-	
-});
+.require('tile');
 
 re.sheet = re.c('sheet').sheet;
+re.c('sheet').extend('sheet', re.sheet);

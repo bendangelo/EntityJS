@@ -53,9 +53,14 @@ re.listener = function(t, c){
 	}
 };
 
-Function.prototype.context = function(c){
-	var that = this;
-	return function(){ return that.apply(c, arguments); };
+/*
+Checks the existance of a variable or 
+*/
+re.is = function(obj, type){
+  if(arguments.length==1) return typeof obj !== 'undefined'
+  
+  var clas = Object.prototype.toString.call(obj).slice(8, -1);
+  return obj !== undefined && obj !== null && clas.toLowerCase() === type.toLowerCase();
 };
 
 if(!Array.prototype.indexOf){

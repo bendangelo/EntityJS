@@ -49,7 +49,7 @@
 	*/
 	var l = function(assets){
 		
-		if(typeof assets == 'string'){
+		if(re.is(assets,'string')){
 			this.assets = assets.split(' ');
 		} else {
 			this.assets = assets;

@@ -79,7 +79,7 @@
 		var pieces;
 		
 		//handle string or array?
-		if(typeof com == 'object'){
+		if(re.is(com,'object')){
 			pieces = com;
 			
 			com = com[0];
@@ -159,7 +159,7 @@
 		var pieces;
 		
 		//handle array or string?
-		if(typeof com == 'object'){
+		if(re.is(com, 'object')){
 			pieces = com;
 			//set in case length is 1
 			com = com[0];
@@ -295,7 +295,7 @@
 	*/
 	p.has = function(comp){
 		
-		if(typeof comp == 'string'){
+		if(re.is(comp ,'string')){
 			
 			comp = re.query._toObj(comp);
 		}
@@ -355,7 +355,7 @@
 	*/
 	p.bind = function(type, method){
 		
-		if(typeof type == 'object'){
+		if(re.is(type, 'object')){
 			
 			for(var k in type){
 				this.bind(k, type[k]);
@@ -390,7 +390,7 @@
 	*/
 	p.unbind = function(type, method){
 		
-		if(typeof type == 'object'){
+		if(re.is(type, 'object')){
 			
 			for(var k in type){
 				this.unbind(k, type[k]);
@@ -398,7 +398,7 @@
 			
 		} else {
 			
-			if(typeof method == 'function'){
+			if(re.is(method, 'function')){
 			
 				for(var k in this._re_signals[type]){
 				
@@ -451,8 +451,8 @@
 	};
 	
 	p.extend = function(obj, value){
-		var a = typeof obj;
-		if(a == 'object'){
+		
+		if(re.is(obj,  'object'){
 			
 			for(var key in obj){
 				if(!obj.hasOwnProperty(key)) continue;
@@ -476,7 +476,7 @@
   
 	p.defaults = function(obj, value){
 		
-		if(typeof obj == 'object'){
+		if(re.is(obj , 'object')){
 		
 			for(var key in obj){
 				if(!obj.hasOwnProperty(key)) continue;
@@ -488,7 +488,7 @@
 		} else {
 			//extend property
 			
-			if(!this.hasOwnProperty(obj) || typeof this[obj] != typeof value){
+			if(!this.hasOwnProperty(obj) || !re.is(this[obj])){
 				
 				this[obj] = value;	
 				

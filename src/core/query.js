@@ -138,7 +138,7 @@
 			}
 			
 			
-		} else if(typeof select == 'function'){
+		} else if(re.is(select, 'function')){
 			
 			for(; i<re._e.length; i++){
 				

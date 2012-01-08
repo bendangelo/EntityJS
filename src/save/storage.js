@@ -33,7 +33,7 @@ re.c('storage')
 	
 	setItem:function(key, data){
 		
-		if(typeof data != 'number' || typeof data != 'string'){
+		if(!re.is(data, 'number') || !re.is(data, 'string')){
 			data = JSON.stringify(data);
 		}
 		

@@ -41,7 +41,7 @@ re.scene = function(title){
 		
 		//call exit
 		var t = s._scenes[current];
-		if(t && typeof t.scene_exit == 'function'){
+		if(t && re.is(t.scene_exit, 'function')){
 			t.scene_exit.call(t, title);
 		}
 		
@@ -50,7 +50,7 @@ re.scene = function(title){
 		
 		t = s._scenes[title];
 		
-		if(typeof t.scene_enter == 'function'){
+		if(re.is(t.scene_enter, 'function')){
 			t.scene_enter.apply(t, Array.prototype.slice.call(arguments, 1));
 		}
 		
