@@ -156,10 +156,6 @@ re.comp.init.prototype = {
 		return this;
 	},
 	
-	bind:function(){
-		return re.e.init.prototype.bind.apply(this, arguments);
-	},
-	
 	unbind:function(){
 		return re.e.init.prototype.unbind.apply(this, arguments);
 	},

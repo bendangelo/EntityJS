@@ -10,15 +10,15 @@ re.c('update')
 		for(var k=0, le = l.length, b; k < le; ++k){
 			b = l[k];
 			
-			if(b && b.sys == s && b.updating){
-				b.bind('update', t, s.time);
+			if(b && b.sys == s && b.updatable){
+				b.trigger('update', t, s.time);
 			}
 		}
 		
 	}
 })
 .defaults({
-	updating:true,
+	updatable:true,
 	sys:re.sys
 })
 .extend(function(){

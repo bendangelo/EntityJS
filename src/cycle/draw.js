@@ -8,7 +8,7 @@ re.c('draw')
 		for(var k=0, le = l.length, b; k < le; ++k){
 			b = l[k];
 			
-			if(b && b.sys == s && b.drawing && b.isVisible()){
+			if(b && b.sys == s && b.drawable && b.isVisible()){
 				/*if(!b.canvasCache){
 					b.draw_render(c);
 				} else {
@@ -25,10 +25,11 @@ re.c('draw')
 .implement('draw')
 .init(function(c){
 	
-	c.listeners.push(this);
-	
 	//set default screen
-	this.screen = re.screen;
+	this.screen = this.screen || re.screen;
+  this.sys = this.sys || re.sys;
+	
+	c.listeners.push(this);
 	
 })
 .dispose(function(c){
@@ -38,8 +39,7 @@ re.c('draw')
 })
 .defaults({
 	
-	sys:re.sys,
-	drawing:true,
+	drawable:true,
 	rotation:0,
 	alpha:1,
 	
