@@ -57,10 +57,9 @@ re.listener = function(t, c){
 Checks the existance of a variable or 
 */
 re.is = function(obj, type){
-  if(arguments.length==1) return typeof obj !== 'undefined'
+  if(arguments.length==1) return obj != null;
   
-  var clas = Object.prototype.toString.call(obj).slice(8, -1);
-  return obj !== undefined && obj !== null && clas.toLowerCase() === type.toLowerCase();
+  return obj != null && Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() == type.toLowerCase();
 };
 
 if(!Array.prototype.indexOf){
