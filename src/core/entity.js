@@ -78,10 +78,6 @@
         return this;
     };
     
-    p.uncomp = function(c){
-        this.removeComp(c);
-    };
-    
     p.removeComp = function(com){
         
         var pieces;
