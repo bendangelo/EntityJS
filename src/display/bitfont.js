@@ -11,7 +11,7 @@ re.c('bitfont')
 .defaults({
 	
 	text:'',
-	//default width if charwidths not extendd
+  //remove empty characters in ascii
 	charOffset:32
 	
 })

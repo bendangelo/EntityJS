@@ -60,7 +60,7 @@ re.bisect = re.c('bisect')
 })
 .defaults({
 	
-	//spliting width
+	//full width
 	bisect:1,
 	
 	sizeX:1,

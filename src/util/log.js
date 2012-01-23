@@ -1,10 +1,6 @@
 /*
 The log component extends a cross browser console.log command.
 
-//example usage
-re.e('log')
-.log('example log');
-
 //global usage
 re.log('example log');
 
@@ -20,6 +16,3 @@ re.log = function(){
 		}
 	}
 };
-
-re.c('log')
-.extend('log', re.log);

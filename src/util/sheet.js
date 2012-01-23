@@ -1,47 +1,39 @@
 /*
 The sheet component converts a each frame of a sprite sheet into their own components.
 */
-re.c('sheet')
-.global({
-	
-	sheet:function(map, padX, padY, sizeX, sizeY){
+re.sheet = function(map, components, sizeX, sizeY, padX, padY){
 		
-		var frameWidth = sizeX || re.tile.sizeX;
-		var frameHeight = sizeY || re.tile.sizeY;
+	var frameWidth = sizeX || re.tile.sizeX;
+	var frameHeight = sizeY || re.tile.sizeY;
 		
-		if(padX){
-			frameWidth += padX;
-		}
-		
-		if(padY){
-			frameHeight += padY;	
-		}
-		
-		//create new sprites for sheet
-		
-		//save frame positions from map
-		var x;
-		var y;
-		
-		for(var p in map){
-			x = map[p][0] || 0;
-			y = map[p][1] || 0;
-			
-			re.c(p)
-			.require('sprite')
-			.extend({
-				frame:{x:x, y:y},
-				size:{x:frameWidth, y:frameHeight},
-				bitmap:this.bitmap
-			});
-			
-		}
-		
-		return this;
+	if(padX){
+		frameWidth += padX;
 	}
-	
-})
-.require('tile');
-
-re.sheet = re.c('sheet').sheet;
-re.c('sheet').extend('sheet', re.sheet);
+		
+	if(padY){
+		frameHeight += padY;	
+	}
+		
+	//create new sprites for sheet
+		
+	//save frame positions from map
+	var x;
+	var y;
+	var b = [];
+	for(var p in map){
+		x = map[p][0] || 0;
+		y = map[p][1] || 0;
+		b.push(p);
+		re.c(p)
+		.require('sprite '+components)
+		.extend({
+      frameX:x,
+      frameY:y,
+      sizeX:frameWidth,
+      sizeY:frameHeight
+		});
+			
+  }
+  
+	return b;
+};

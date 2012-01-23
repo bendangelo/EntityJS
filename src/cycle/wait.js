@@ -17,6 +17,7 @@ re.c('wait')
 			}
 		});
 		
+    return this;
 	}
 	
 });

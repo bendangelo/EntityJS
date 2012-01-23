@@ -88,7 +88,7 @@ re.c('mouse')
 				sx = x;
 				sy = y;
 			}
-			t.bind(e.type, sx, sy, e);
+			t.trigger(e.type, sx, sy, e);
 		}
 		
 	},

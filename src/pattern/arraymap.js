@@ -7,8 +7,6 @@ re.c('arraymap')
 	lengthY:0
 })
 .extend({
-	/*map:null,
-	size:null,*/
 	value:0,
 	
 	set:function(x, y, value){

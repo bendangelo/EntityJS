@@ -23,6 +23,7 @@ re.scene('-home');
 
 //combine delete home goto title sceen
 re.scene('-home title');
+
 */
 re.scene = function(title){
 	var s = re.c('scene');
@@ -93,9 +94,6 @@ re.c('scene')
 		this.scene_exit = m;
 		
 		return this;
-	},
-	
-	scene:function(){
-		return re.scene.apply(this, arguments);
 	}
+  
 });

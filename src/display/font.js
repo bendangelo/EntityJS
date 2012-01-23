@@ -22,7 +22,7 @@ re.c('font')
 .extend({
 	
 	isVisible:function(){
-		return this.text.length != 0;
+		return this.text.length != 0 && this.parent('draw', 'isVisible')
 	},
 	
 	setText:function(t){

@@ -1,53 +1,45 @@
 /*
-The anchor component contains helper methods for positioning entities relative to system size.
+The align component contains helper methods for positioning entities relative to system size.
 */
-re.c('anchor')
+re.c('align')
+.require('draw')
 .extend({
 	
-	centerX:function(o){
+	alignX:function(o){
 		o = o || 0;
 		this.posX = Math.floor(re.sys.sizeX * 0.5 - this.sizeX * 0.5 + o);
 		
 		return this;
 	},
 	
-	centerY:function(o){
+	alignY:function(o){
 		o = o || 0;
 		this.posY = Math.floor(re.sys.sizeY * 0.5 - this.sizeY * 0.5 + o);
 		return this;
 	},
 	
-	right:function(x){
+	alignRight:function(x){
 		x = x || 0;
 		this.posX = Math.floor(re.sys.sizeX - this.sizeX + x);
 		return this;
 	},
 	
-	left:function(x){
+	alignLeft:function(x){
 		x = x || 0;
 		this.posX = Math.floor(x);
 		return this;
 	},
 	
-	top:function(y){
+	alignTop:function(y){
 		y = y || 0;
 		this.posY = Math.floor(y);
 		return this;
 	},
 	
-	bottom:function(y){
+	alignBottom:function(y){
 		y = y || 0;
 		this.posY = Math.floor(re.sys.sizeY - this.sizeY + y);
 		return this;
 	}
-	
-})
-.defaults({
-	
-	sizeX:0,
-	sizeY:0,
-	
-	posX:0,
-	posY:0
 	
 });
