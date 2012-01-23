@@ -242,14 +242,15 @@ re.c.init.prototype = {
         return this;
     },
     
-    defines:function(){
-        this.extend.apply(this, arguments);
+    extend:function(){
+        this.defines.apply(this, arguments);
+        re.log('warning extend will be deprecated soon, use defines');
     },
     
     /*
     extend overrides everything.
     */
-    extend:function(d, value){
+    defines:function(d, value){
         this._checkFinal();
         
         if(!this._re_extends){
