@@ -47,12 +47,12 @@ re.tile = re.c('tile')
         sizeY: re.tile.sizeY
     });
 })
-.extend({
+.defines({
 
     tile:function(x, y){
         if(arguments.length == 2){
             this.tileX(x);
-            return this.tileY(y);
+            this.tileY(y);
         }
         return this;
     },
