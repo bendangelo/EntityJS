@@ -1,5 +1,5 @@
 
-Dir['entityjs/*'].each {|f| require f }
+Dir["#{Entityjs::root}/lib/entityjs/*"].each {|f| require f }
 
 module Entityjs
   class Command

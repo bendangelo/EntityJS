@@ -18,19 +18,19 @@ types:
   levels: json xml
   sounds: mp3 ogg
 
-#files to ignore in /src
+#files to ignore in the game
 #regular expressions are allowed
 src-ignore:
 
 
-#files to ignore in /entityjs/src
+#files to ignore in entityjs source
 #regular expressions are allowed
 #save space by ignoring unused components
 entity-ignore:
   socket.js
   
 #although all files are compiled its
-#useful to include dependent files first
+#you might have to include dependencies first
 #regular expressions are allowed
 order:
   
