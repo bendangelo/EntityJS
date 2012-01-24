@@ -1,11 +1,5 @@
 
-require 'entityjs/dirc'
-require 'entityjs/game'
-require 'entityjs/min'
-require 'entityjs/refresh'
-require 'entityjs/comp'
-require 'entityjs/version'
-require 'entityjs/config'
+Dir['entityjs/*'].each {|f| require f }
 
 module Entityjs
   class Command
@@ -14,26 +8,29 @@ module Entityjs
       
       case command
         when 'new'
-          Entityjs::Game.generate(args.first, args[2..-1])
+          Entityjs::New.generate(args.first, args[2..-1])
           
         when 'min'
           Entityjs::Min.generate(args)
         
-        when 'refresh'
+        when 'ref'
           Entityjs::Refresh.generate(args)
+        
+        when 'test'
+          puts 'Not implemented'
         
         when 'comp'
           Entityjs::Comp.generate(args)
           
         when 'version'
-          puts 'Current EntityJS V'+Entityjs::VERSION
+          puts 'EntityJS V'+Entityjs::VERSION
           
-        else
-          puts 'Error enter in one of the following...'
+        when 'help'
           puts 'entityjs new [name] [comp]+'
           puts 'entityjs comp [name]'
+          puts 'entityjs test [name]'
           puts 'entityjs min'
-          puts 'entityjs refresh'
+          puts 'entityjs ref'
           
       end
     end

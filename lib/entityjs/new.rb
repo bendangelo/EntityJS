@@ -1,6 +1,6 @@
 module Entityjs
   
-  class Game
+  class New
     
     def self.generate(name, comps=nil)
       comps ||= []
@@ -61,7 +61,7 @@ module Entityjs
         Entityjs::Command.run('comp', c)
       end
       
-      Entityjs::Command.run('refresh')
+      Entityjs::Command.run('ref')
       
       return true
     end
