@@ -2,8 +2,9 @@ module Entityjs
   
   class New
     
-    def self.generate(name, comps=nil)
-      comps ||= []
+    def self.generate(args)
+        name = args.first
+      comps = args[2..-1]
       
       template = Dir.glob("#{Entityjs::root}/template/*")
       

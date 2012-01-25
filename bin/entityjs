@@ -10,4 +10,4 @@ args = ARGV.dup
 ARGV.clear
 command = args.shift.strip rescue 'help'
 
-Entityjs::Command.run(command, args)
+return Entityjs::Command.run(command, args)

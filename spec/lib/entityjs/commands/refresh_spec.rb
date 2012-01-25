@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'ref' do
+describe 'refresh' do
   
   before(:each) do
     setup_mygame
@@ -8,7 +8,7 @@ describe 'ref' do
   
   it 'should refresh debug.js' do
     
-    Entityjs::Ref.generate('mygame').should == true
+    Entityjs::Refresh.generate('mygame').should == true
     
   end
   

@@ -1,6 +1,6 @@
 module Entityjs
   
-  class Ref
+  class Refresh
     
     def self.generate(args=nil)
       

@@ -1,6 +1,6 @@
 module Entityjs
   
-  class Min
+  class Build
     
     def self.generate()
       puts 'currently not implemented!'

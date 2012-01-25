@@ -5,15 +5,11 @@ describe 'Assets' do
   before(:each) do
     setup_mygame
     
-    files = []
+    files = factory(:assets)
     
-    files.push Entityjs::Config.instance.assets_folder+'/levels/bob.json'
-    files.push Entityjs::Config.instance.assets_folder+'/levels/bob.xml'
     @data_file = Entityjs::Config.instance.assets_folder+'/blag/bob.json'
     files.push @data_file
-    files.push Entityjs::Config.instance.images_folder+'/yep.png'
-    files.push Entityjs::Config.instance.images_folder+'/bdd.png'
-    files.push Entityjs::Config.instance.sounds_folder+'/bdd.mp3'
+    
     @sounds_file = Entityjs::Config.instance.sounds_folder+'/fold/secret1.mp3'
     files.push @sounds_file
     

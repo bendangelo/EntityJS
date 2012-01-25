@@ -4,7 +4,7 @@ describe 'new' do
   
   it 'should generate mygame' do
     
-    Entityjs::New.generate('mygame').should == true
+    Entityjs::New.generate(['mygame']).should == true
     
   end
   

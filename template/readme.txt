@@ -22,15 +22,17 @@ entityjs comp [component_name]
 - example
 entityjs comp hero
 
-## export game
-entityjs min
+## build game
+entityjs build
 
-Exports game in mins
+Exports game in builds directory
 
-## export game with custom name
-entityjs min release1
+## build game with custom name
+entityjs build release1
 
 ## refresh sources
-entityjs ref
+entityjs refresh
+or
+entityjs r
 
 Creates a file called game.debug.js inside /tmp

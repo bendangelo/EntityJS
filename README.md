@@ -5,11 +5,11 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 
 ## Version 0.3
 
-This is a major version update in the game engine and features an easy to use gem for creating games. You can now type `entityjs new game` and a new game with all the files will be created. There are more commands, check below.
+Version 0.3 is a major release with many revisions and a brand new ruby gem to work with. You can now type `entityjs new game-name` and a new game will be created. Of course there are more commands, check below.
 
 There is a new directory structure, testing framework, better minifier, better config file and more. This is currently in alpha and most of it doesn't work!
 
-**Warning:** there are many name changes which will break older versions! So becareful.
+**Warning:** there are many name changes which will break older versions!
 
 ## API
 Currently the [API](http://entityjs.com/api) is out of date. It will be updated once version 0.3 is released.
@@ -23,7 +23,7 @@ In the world of *entity-component* designs. All logic is implemented in a *compo
 
 ## Requirements
 
-You must have [Ruby 1.9.0](http://rubyinstaller.org/) or higher installed.
+You must have at least [Ruby 1.8.1+](http://rubyinstaller.org/).
 
 ## Installion
 
@@ -62,9 +62,9 @@ This will create a new component in the directory src/display instead of src/ li
 
 ### Compiling Code
 
-`entityjs min`
+`entityjs build`
 
-This will minify all entityjs src code and game src code into one file inside /lib
+This will minify all entityjs src code and game src code into one file inside /builds
 
 ### Refreshing Sources
 

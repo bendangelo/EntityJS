@@ -1,4 +1,3 @@
-
 Dir["#{Entityjs::root}/lib/entityjs/*/*"].each {|f| require f }
 
 module Entityjs
@@ -7,32 +6,35 @@ module Entityjs
     def self.run(command, args=nil)
       
       case command
-        when 'new'
-          Entityjs::New.generate(args.first, args[2..-1])
+        when /new|n/
+          Entityjs::New.generate(args)
           
-        when 'min'
-          Entityjs::Min.generate(args)
+        when /build|b/
+          Entityjs::Build.generate(args)
         
-        when 'ref'
-          Entityjs::Ref.generate(args)
+        when /refresh|r/
+          Entityjs::Refresh.generate(args)
         
-        when 'test'
+        when /test|t/
           Entityjs::Test.generate(args)
         
-        when 'comp'
+        when /comp|c/
           Entityjs::Comp.generate(args)
           
-        when 'version'
+        when /version|v/
           puts 'EntityJS V'+Entityjs::VERSION
           
-        when 'help'
+        when /help|h/
           puts 'entityjs new [name] [comp]+'
           puts 'entityjs comp [name]'
           puts 'entityjs test [name]'
-          puts 'entityjs min'
-          puts 'entityjs ref'
+          puts 'entityjs build'
+          puts 'entityjs refresh'
+          puts 'entityjs version'
           
       end
+      
+      return 0
     end
     
   end
