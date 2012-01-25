@@ -4,6 +4,7 @@ module Entityjs
     
     def self.to_js
       out = %Q(re.load.path = 'assets/';
+      
       )
     end
     
