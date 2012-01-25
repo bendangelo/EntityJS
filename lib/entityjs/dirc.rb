@@ -4,16 +4,15 @@ module Entityjs
   
   class Dirc
     
-    def self.find_src_files(ignore=[], order=[])
+    def self.find_scripts(ignore=[], order=[])
       
       return Dir["src/**/*.js"]
       
     end
     
     def self.find_entity_files
-      root = Dirc.get_root_path
 
-      ents = Dir[root+"/src/**/*.js"]
+      ents = Dir[Entityjs::root+"/src/**/*.js"]
       
       #push re.js to the top
       
@@ -31,13 +30,8 @@ module Entityjs
       return ents
     end
     
-    def self.get_root_path
-      
-      return File.expand_path(File.dirname(__FILE__)+'/../..')
-    end
-    
     def self.get_license
-      f = File.open(self.get_root_path+'/license.txt', 'r')
+      f = File.open(Entityjs::root+'/license.txt', 'r')
       
       contents = f.read
       
@@ -46,16 +40,12 @@ module Entityjs
       return contents
     end
       
-    def self.set_root(root)
-      @root = root
-    end
-    
     def self.change_dir(name)
       Dir.chdir(Dir.pwd+'/'+name)
     end
     
     def self.get_root(path)
-      cut = Dir.pwd.split(@root)
+      cut = Dir.pwd.split(root)
       
       if cut.length == 2
         path = cut.pop+path

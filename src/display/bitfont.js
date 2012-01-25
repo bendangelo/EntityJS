@@ -18,7 +18,7 @@ re.c('bitfont')
 .extend({
 	
 	isVisible:function(){
-		return this.text.length != 0 && this.bitmap && this.parent('draw', 'isVisible');
+		return this.text.length != 0 && this.image && this.parent('draw', 'isVisible');
 	},
 	
 	draw:function(c){
@@ -42,7 +42,7 @@ re.c('bitfont')
 				this.charCache[code] = charPos;
 			}
 			
-			c.drawImage(this.bitmap, this.charCache[code], 0, charWidth, this.bitmap.height, -this.regX + slot, -this.regY, charWidth, this.bitmap.height);
+			c.drawImage(this.bitmap, this.charCache[code], 0, charWidth, this.bitmap.height, -this.regX + slot, -this.regY, charWidth, this.image.height);
 			
 			//append to next character slot
 			slot += charWidth;
@@ -50,7 +50,7 @@ re.c('bitfont')
 		}
 		
 		this.sizeX = slot;
-		this.sizeY = this.bitmap.height;
+		this.sizeY = this.image.height;
 	
 	
 	},
@@ -65,7 +65,7 @@ re.c('bitfont')
 		
 		this.sizeX = t;
 		
-		if(this.bitmap){
+		if(this.image){
 			this.sizeY = this.bitmap.height;
 		} else {
 			this.sizeY = 0;

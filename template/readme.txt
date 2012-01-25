@@ -25,5 +25,12 @@ entityjs comp hero
 ## export game
 entityjs min
 
+Exports game in mins
+
+## export game with custom name
+entityjs min release1
+
 ## refresh sources
-entityjs refresh
+entityjs ref
+
+Creates a file called game.debug.js inside /tmp

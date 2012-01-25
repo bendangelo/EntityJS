@@ -1,4 +1,3 @@
-require "entityjs/version"
 
 module Entityjs
   
@@ -7,3 +6,6 @@ module Entityjs
   end
   
 end
+
+require "entityjs/version"
+require 'entityjs/command'

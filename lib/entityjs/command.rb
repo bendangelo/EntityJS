@@ -1,5 +1,5 @@
 
-Dir["#{Entityjs::root}/lib/entityjs/*"].each {|f| require f }
+Dir["#{Entityjs::root}/lib/entityjs/*/*"].each {|f| require f }
 
 module Entityjs
   class Command
@@ -14,10 +14,10 @@ module Entityjs
           Entityjs::Min.generate(args)
         
         when 'ref'
-          Entityjs::Refresh.generate(args)
+          Entityjs::Ref.generate(args)
         
         when 'test'
-          puts 'Not implemented'
+          Entityjs::Test.generate(args)
         
         when 'comp'
           Entityjs::Comp.generate(args)

@@ -1,21 +1,17 @@
 module Entityjs
   
-  class Refresh
+  class Ref
     
     def self.generate(args=nil)
       
-      Config.instance
-      
       ent = Dirc.find_entity_files
-      srcs = Dirc.find_src_files
+      srcs = Dirc.find_scripts
       
       merg = ent | srcs
       
-      Dirc.change_dir('lib')
+      Dirc.change_dir('tmp')
       
-      name = Config.instance.name
-      
-      file_name = name+'.debug.js'
+      file_name = 'game.debug.js'
       
       license = Dirc.get_license
       
@@ -32,7 +28,7 @@ module Entityjs
         
       end
       
-      puts "Refreshed /lib/#{file_name}"
+      puts "Refreshed /tmp/#{file_name}"
       
       return true
     end

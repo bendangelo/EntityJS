@@ -3,7 +3,7 @@ The sprite object extends a drawable image for an entity.
 */
 
 re.c('sprite')
-.requires('bitmap bisect')
+.requires('image bisect')
 .defaults({
     
     frameX:0,
@@ -24,7 +24,7 @@ re.c('sprite')
     },
     
     draw:function(c){
-        c.drawImage(this.bitmap, this.frameX * this.sizeX, this.frameY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
+        c.drawImage(this.image, this.frameX * this.sizeX, this.frameY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
         
         return this;
     },

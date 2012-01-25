@@ -4,9 +4,7 @@ describe 'config' do
   
   it 'should load config' do
     
-    @config = Entityjs::Config.new('/lib/blank/config.yml')
-    
-    @config.name.should == '$NAME'
+    @config = Entityjs::Config.new('/config.yml')
     
   end
   

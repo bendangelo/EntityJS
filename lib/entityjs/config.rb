@@ -16,8 +16,16 @@ module Entityjs
       @yml = YAML::load(File.open(Dir.pwd+path))
     end
     
-    def name
-      return @yml['name']
+    def assets_folder
+      return 'assets'
+    end
+    
+    def images_folder
+      assets_folder+'/images'
+    end
+    
+    def sounds_folder
+      assets_folder+'/sounds'
     end
     
   end

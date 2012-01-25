@@ -1,31 +1,13 @@
 # Configure your game settings
 
-#project name
-name: $NAME
-
-paths:
-  images: assets/images
-  sounds: assets/sounds
-  levels: assets/levels
-  src: src
-  plugins: src/plugins
-  lib: lib
-  tests: tests
-
-#types of files to be included in re.images, re.sounds, re.levels
-types:
-  images: png
-  levels: json xml
-  sounds: mp3 ogg
-
-#files to ignore in the game
+#files to ignore in the scripts directory
 #regular expressions are allowed
-src-ignore:
+scripts-ignore:
 
 
-#files to ignore in entityjs source
+#components to ignore in the entityjs source
 #regular expressions are allowed
-#save space by ignoring unused components
+#reduce file size by ignoring unused components
 entity-ignore:
   socket.js
   
