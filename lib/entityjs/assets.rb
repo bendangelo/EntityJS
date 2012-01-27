@@ -11,13 +11,13 @@ module Entityjs
     def self.images_to_js
       s = self.search('images').join(', ')
       
-      %Q([#{s}])
+      "[#{s}]"
     end
     
     def self.sounds_to_js
       s = self.search('sounds').join(', ')
       
-      %Q([#{s}])
+      "[#{s}]"
     end
     
     def self.datas_to_js

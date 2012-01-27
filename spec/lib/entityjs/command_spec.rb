@@ -10,62 +10,37 @@ describe 'command' do
         teardown_mygame
     end
     
-    describe 'new' do
-        it 'should run mygame' do
-            Entityjs::Command.run(['new', 'mygame']).should == true
-        end
-        
-        it 'should run mygame with components'
+    it 'should run new' do
+      Entityjs::New.stub(:generate).and_return('100')
+      Entityjs::Command.run('new', ['mygame']).should == '100'
     end
     
-    describe 'build' do
-        it 'should run' do
-            Entityjs::Command.run(['build']).should == true
-        end
-    
-        it 'should run release1' do
-            Entityjs::Command.run(['build', 'release1']).should == true
-        end
+    it 'should run build' do
+      Entityjs::Build.stub(:generate).and_return('build')
+      Entityjs::Command.run('build').should == 'build'
     end
     
-    describe 'version' do
-        it 'should run' do
-            Entityjs::Command.run(['version']).should == true
-        end
-        it 'should run short version' do
-            Entityjs::Command.run(['v']).should == true
-        end
+    it 'should run version' do
+      Entityjs::Command.run('version').should == 0
     end
     
-    describe 'refresh' do
-        it 'should run refresh'do
-            Entityjs::Command.run(['refresh']).should == true
-        end
-        it 'should run refresh short' do
-            Entityjs::Command.run(['r']).should == true
-        end
+    it 'should run refresh' do
+      Entityjs::Refresh.stub(:generate).and_return('refresh')
+      Entityjs::Command.run('refresh').should == 'refresh'
     end
     
-    describe 'test' do
-        it 'should not run' do
-            Entityjs::Command.run(['test']).should == true
-        end
-        it 'should create init'
-        
-        it 'should create init in display'
+    it 'should run test' do
+      Entityjs::Test.stub(:generate).and_return('test')
+      Entityjs::Command.run('test', ['yep.js']).should == 'test'
     end
     
-    describe 'comp' do
-        it 'should create init.js'
-        it 'should create init'
-        it 'should not run'
-        it 'should create init.js in display'
-        it 'should create init.js and items'
+    it 'should run comp' do
+      Entityjs::Comp.stub(:generate).and_return('comp')
+      Entityjs::Command.run('comp', ['test.js']).should == 'comp'
     end
     
-    describe 'help' do
-        it 'should run help'
-        it 'should run short help'
+    it 'should run help' do
+      Entityjs::Command.run('help').should == 0
     end
     
     describe 'outside entityjs dir' do
@@ -75,7 +50,7 @@ describe 'command' do
         
         ['comp', 'build', 'refresh', 'test'].each do |i|
             it "should #{i} throw error" do
-                Entityjs::Command.run([i]).should == false
+                Entityjs::Command.run(i).should == 2
             end
         end
     end

@@ -4,6 +4,11 @@ module Entityjs
   
   class Dirc
     
+    def self.game?
+      #check if config.yml exists
+      return File.file? Config.file_name
+    end
+    
     def self.find_scripts(ignore=[], order=[])
       
       return Dir["src/**/*.js"]

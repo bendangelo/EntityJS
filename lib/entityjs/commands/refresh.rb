@@ -4,6 +4,10 @@ module Entityjs
     
     def self.generate(args=nil)
       
+      if !Dirc.game?
+        return 2
+      end
+      
       ent = Dirc.find_entity_files
       srcs = Dirc.find_scripts
       

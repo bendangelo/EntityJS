@@ -4,9 +4,13 @@ module Entityjs
   
   class Config
     
+    def self.file_name
+      'config.yml'
+    end
+    
     def self.instance
       if @instance.nil?
-        @instance = Config.new('/config.yml')
+        @instance = Config.new('/'+self.file_name)
       end
       
       return @instance

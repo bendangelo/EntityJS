@@ -3,10 +3,10 @@ module Entityjs
   class New
     
     def self.generate(args)
-        name = args.first
-      comps = args[2..-1]
+      name = args.first
+      comps = args[2..-1] || []
       
-      template = Dir.glob("#{Entityjs::root}/template/*")
+      template = Entityjs::template
       
       if !Dir.exists?(name)
         FileUtils.mkdir(name)
