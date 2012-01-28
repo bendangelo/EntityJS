@@ -14,7 +14,7 @@ describe 'Assets' do
     files.push @sounds_file
     
     Dir.stub(:'[]').and_return(files)
-    
+    IO.stub(:read).and_return('{"test":0, "array":[1,2,3]}')
   end
   
   after(:all) do
@@ -63,10 +63,22 @@ describe 'Assets' do
     
   end
   
-  it 'should generate images to js'
+  it 'should generate images to js' do
+    r = Entityjs::Assets.images_to_js
+    r.should match /\[*\]/
+    
+  end
   
-  it 'should generate datas to js'
+  it 'should generate datas to js' do
+    r = Entityjs::Assets.datas_to_js
+    r.should match /re\.e\('/
+    
+  end
   
-  it 'should generate all to js'
+  it 'should generate to js' do
+    r = Entityjs::Assets.to_js
+    r.should match /re\.assets/
+    
+  end
   
 end

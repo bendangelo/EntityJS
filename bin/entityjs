@@ -10,4 +10,9 @@ args = ARGV.dup
 ARGV.clear
 command = args.shift.strip rescue 'help'
 
-return Entityjs::Command.run(command, args)
+code = Entityjs::Command.run(command, args)
+
+if code == 2
+  puts "EntityJS game not found"
+  puts "Move inside the root directory"
+end

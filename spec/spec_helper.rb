@@ -13,7 +13,7 @@ end
 root = File.dirname(__FILE__)+'/..'
 
 
-Dir[root+'/spec/supports/*'].each {|f| require f}
+Dir[root+'/spec/support/*'].each {|f| require f}
 
 require "#{root}/lib/entityjs"
 

@@ -13,16 +13,16 @@ module Entityjs
       
       merg = ent | srcs
       
-      Dirc.change_dir('tmp')
-      
-      file_name = 'game.debug.js'
+      file_name = 'tmp/game.debug.js'
       
       license = Dirc.get_license
       
       File.open(file_name, "w+") do |f|
         
+        #add license
         f.write(license+"\n")
         
+        #add javascript srcs
         merg.each do |s|
         
           scrip = "<script src='#{s}' type='text/javascript'></script>"
@@ -30,9 +30,12 @@ module Entityjs
           f.write("document.write(\"#{scrip}\");\n")
         end
         
+        #add files
+        f.write(Assets.to_js)
+        
       end
       
-      puts "Refreshed /tmp/#{file_name}"
+      puts "Refreshed: #{file_name}"
       
       return true
     end

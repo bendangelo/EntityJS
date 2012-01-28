@@ -1,4 +1,5 @@
-Dir["#{Entityjs::root}/lib/entityjs/*/*"].each {|f| require f }
+Dir.glob("#{Entityjs::root}/lib/entityjs/*.rb").each {|f| require f }
+Dir.glob("#{Entityjs::root}/lib/entityjs/*/*.rb").each {|f| require f }
 
 # 0 - ok
 # 1 - command not found
@@ -30,6 +31,7 @@ module Entityjs
           return 0
           
         when /^(help|h)$/
+          puts '---- Commands ----'
           puts 'entityjs new [name] [comp]+'
           puts 'entityjs comp [name]'
           puts 'entityjs test [name]'

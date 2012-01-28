@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Entityjs
   
   class New
@@ -14,13 +16,19 @@ module Entityjs
       
       FileUtils.cp_r template, name
       
+      puts "Created: #{name}"
+      puts "Path: ./#{name}"
+      puts "Version: #{Entityjs::VERSION}"
+      puts "Website: http://entityjs.com"
+      puts ""
+      
       Dirc.change_dir(name)
       
       comps.each do |c|
         Entityjs::Command.run('comp', c)
       end
       
-      Entityjs::Command.run('ref')
+      Entityjs::Command.run('refresh')
       
       return true
     end

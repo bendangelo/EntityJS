@@ -96,7 +96,7 @@ This will take you through some quick steps to display an image on a canvas elem
 
 * Refresh srcs to find the image: `entityjs refresh`
 
-* In `mygame/src/scenes/load.js` add at the bottom:
+* In `mygame/scripts/scenes/load.js` add:
 
 ```
 re.scene('home')
@@ -107,9 +107,9 @@ re.scene('home')
 
 * Open up mygame/play.html to view your game
 
-* In the root directory type: `entityjs min`
+* In the root directory type: `entityjs build`
 
-* Checkout `/mygame/lib/min` to see your finished game
+* Checkout `/mygame/builds` to see your finished game
 
 * You can now upload the game online and show people.
 
