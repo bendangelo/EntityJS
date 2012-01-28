@@ -6,7 +6,7 @@ re.c('arraymap')
 	lengthX:0,
 	lengthY:0
 })
-.extend({
+.defines({
 	value:0,
 	
 	set:function(x, y, value){

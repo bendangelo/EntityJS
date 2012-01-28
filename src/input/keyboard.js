@@ -1,5 +1,5 @@
 re.c('keyboard')
-.global({
+.statics({
 	listeners:[],
 	
 	keyCodes: { 
@@ -141,10 +141,10 @@ re.c('keyboard')
 })
 .init(function(c){
 	c.initListeners();
-	//add to global key array
+	//add to statics key array
 	c.listeners.push(this);
 })
 .dispose(function(c){
-	//remove from global key array
+	//remove from statics key array
 	c.listeners.splice(c.listeners.indexOf(this), 1);
 });

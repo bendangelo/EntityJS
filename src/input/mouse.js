@@ -1,5 +1,5 @@
 re.c('mouse')
-.global({
+.statics({
 	listeners:[],
 	
 	mouseAction:function(e){

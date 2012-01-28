@@ -4,7 +4,7 @@ a more precise touch checking.
 
 */
 re.c('body')
-.extend({
+.defines({
 	
 	touches:function(x, y, w, h){
 		return !

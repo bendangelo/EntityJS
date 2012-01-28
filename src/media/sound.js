@@ -23,7 +23,7 @@ re.e('sound run.'+codec);
 //that is a pain, so a helper method has been created
 re('sound run.'+re.support('ogg', 'aac'));
 
-Its reccomended to save the supported codec somewhere globaly
+Its reccomended to save the supported codec somewhere staticsy
 //like so...
 re.codec = re.support('ogg', 'aac');
 
@@ -41,18 +41,18 @@ re('sound').method('play');
 
 */
 re.sound = re.c('sound')
-.global({
+.statics({
 	
 	enabled:true
 	
 })
-.namespace({
+.namespaces({
 	
 	hasEvent:false,
 	loops:0
 	
 })
-.extend({
+.defines({
 
 	play:function(loop){
 		if(!this.sound || !re.sound.enabled) return this;

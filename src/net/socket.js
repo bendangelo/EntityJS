@@ -5,7 +5,7 @@ Its safe to use this abstraction incase specs change in the future.
 
 */
 re.c('socket')
-.extend({
+.defines({
 	
 	connect:function(address){
 		

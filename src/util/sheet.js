@@ -25,8 +25,8 @@ re.sheet = function(map, components, sizeX, sizeY, padX, padY){
         y = map[p][1] || 0;
         b.push(p);
         re.c(p)
-        .require('sprite '+components)
-        .extend({
+        .requires('sprite '+components)
+        .defines({
       frameX:x,
       frameY:y,
       sizeX:frameWidth,

@@ -1,5 +1,5 @@
 re.c('draw')
-.global({
+.statics({
 	listeners:[],
 	
 	draw:function(s){
@@ -22,7 +22,7 @@ re.c('draw')
 	}
 	
 })
-.implement('draw')
+.interfaces('draw')
 .init(function(c){
 	
 	//set default screen
@@ -56,7 +56,7 @@ re.c('draw')
 	regY:0
 	
 })
-.extend({
+.defines({
 	
 	cache:function(){
 		if(!this.image) return this;
@@ -150,7 +150,7 @@ re.c('draw')
 	}
 	
 })
-.namespace({
+.namespaces({
 	
 	render:function(c){
 		if(!c) c = this.sys.context;
@@ -165,7 +165,7 @@ re.c('draw')
 		c.save();
 		
 		if(this.alpha != 1)
-			c.globalAlpha = this.alpha;
+			c.staticsAlpha = this.alpha;
 		
 		c.translate(this.getScreenX(), this.getScreenY());
 		

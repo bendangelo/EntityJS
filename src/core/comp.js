@@ -22,7 +22,7 @@
     
     @return component reference
     */
-    re.component = re.c = function(title){
+    re.comp = re.c = function(title){
         
         if(!re._c[title]){
             re._c[title] = new re.c.init(title);
@@ -36,12 +36,12 @@
         this.name = name;
         this._re_signals = {};
         this._re_inherits = {};
-        this._re_extends = {};
+        this._re_definess = {};
         this._re_final = false;
     };
     
     /*
-    p._re_requires = null;
+    p._re_requiress = null;
     
     p._re_init = null;
     
@@ -82,11 +82,11 @@ re.c.init.prototype = {
     },
     
     require:function(){
-        throw 'Deprecated use requires'
+        throw 'Deprecated use requiress'
     },
     
     requires:function(r){
-        return __z.call(this, '_re_requires', r);
+        return __z.call(this, '_re_requiress', r);
     },
     
     /*
@@ -232,11 +232,11 @@ re.c.init.prototype = {
         if(arguments.length == 1){
         
             for(var k in obj){
-                this._re_extends[name+k] = obj[k];
+                this._re_definess[name+k] = obj[k];
             }
         
         } else {
-            this._re_extends[name+obj] = value;
+            this._re_definess[name+obj] = value;
         }
         
         return this;
@@ -244,26 +244,26 @@ re.c.init.prototype = {
     
     extend:function(){
         this.defines.apply(this, arguments);
-        re.log('warning extend will be deprecated soon, use defines');
+        re.log('warning extend is deprecated, use defines');
     },
     
     /*
-    extend overrides everything.
+    defines overrides everything.
     */
     defines:function(d, value){
         this._checkFinal();
         
-        if(!this._re_extends){
-            this._re_extends = {};
+        if(!this._re_definess){
+            this._re_definess = {};
         }
         if(arguments.length == 1){
             
             for(var k in d){
-                this._re_extends[k] = d[k];    
+                this._re_definess[k] = d[k];    
             }
             
         } else {
-            this._re_extends[d] = value;
+            this._re_definess[d] = value;
         }
         
         return this;    

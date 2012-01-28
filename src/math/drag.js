@@ -12,7 +12,7 @@ re.c('drag')
 	
 	dragging:false
 })
-.extend({
+.defines({
 	
 	startDrag:function(x, y){
 		if(!this.dragging){

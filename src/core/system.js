@@ -5,7 +5,7 @@ Such as the canvas context, fps, start, stop, canvas.
 You can add the component to entities for quick reference to variables.
 
 FUTURE
--add entity extends to allow local usage.
+-add entity definess to allow local usage.
 -perhaps allow users to override the system class for their own custom usage. (new arrays of entities and components)
 */
 re.c('system')
@@ -73,8 +73,8 @@ re.c('system')
     
     init:function(canvasId, screen, contextType){
         
-        //add comps here because system is extended earlier
-        this.addComp('polyfill ticker timestep');
+        //add comps here because system is definesed earlier
+        this.comp('polyfill ticker timestep');
         
         //setup canvas
         this.canvas = re.$(canvasId);

@@ -5,8 +5,8 @@ The image component draws an image on screen.
 FUTURE - add bitdata component for image manipulation.
 */
 re.c('image')
-.require('draw')
-.extend({
+.requires('draw')
+.defines({
 	
 	setImage:function(b){
 		this.image = b;

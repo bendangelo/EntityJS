@@ -66,7 +66,7 @@ re.scene = function(title){
 };
 
 re.c('scene')
-.global({
+.statics({
 	
 	_scenes:{}
 	
@@ -82,7 +82,7 @@ re.c('scene')
 	delete c._scenes[this.sceneName];
 	
 })
-.extend({
+.defines({
 	
 	enter:function(m){
 		this.scene_enter = m;

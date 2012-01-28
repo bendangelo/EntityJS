@@ -3,7 +3,7 @@ The font component displays font on screen using the canvas font api.
 
 //create font
 re.e('font')
-.extend({
+.defines({
 	text:'Texting Message',
 	textColor:'#ff0000'
 });
@@ -12,14 +12,14 @@ TODO implement size
 
 */
 re.c('font')
-.require('draw')
+.requires('draw')
 .defaults({
 	font:"14px sans-serif",
 	textColor:'#000000',
 	textAlign:'',
 	text:''
 })
-.extend({
+.defines({
 	
 	isVisible:function(){
 		return this.text.length != 0 && this.parent('draw', 'isVisible')

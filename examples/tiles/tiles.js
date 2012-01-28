@@ -53,7 +53,7 @@ re.ready(function(){
 The level component loads and handles all tiles in the game.
 */
 re.c('level')
-.extend({
+.defines({
 	
 	//loads given tile map
 	load:function(map){

@@ -2,8 +2,8 @@
 The align component contains helper methods for positioning entities relative to system size.
 */
 re.c('align')
-.require('draw')
-.extend({
+.requires('draw')
+.defines({
 	
 	alignX:function(o){
 		o = o || 0;

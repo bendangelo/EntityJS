@@ -2,8 +2,8 @@
 The wait component delays function calls.
 */
 re.c('wait')
-.require('update')
-.extend({
+.requires('update')
+.defines({
 	
 	wait:function(time, callback){
 		var c = 0;

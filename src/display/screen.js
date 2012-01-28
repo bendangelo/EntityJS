@@ -5,8 +5,8 @@ It simply offsets pos values upon rendering.
 This is useful for setting up a tile-based game.
 */
 re.c('screen')
-.require('hittest')
-.extend({
+.requires('hittest')
+.defines({
 	
 	setPos:function(x, y){
 		if(arguments.length == 1){

@@ -2,7 +2,7 @@
 The touch component handles touch events and dispatches signals.
 */
 re.c('touch')
-.global({
+.statics({
 	
 	touchEvent:function(e){
 		

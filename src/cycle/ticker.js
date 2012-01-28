@@ -9,7 +9,7 @@ re.c('ticker')
 .init(function(){
 	this.lastTime = Date.now();
 })
-.extend({
+.defines({
 
 	tick:function(){
 		var wall = Date.now();

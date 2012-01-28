@@ -38,7 +38,7 @@ webgl
 
 */
 re.c('support')
-.global({
+.statics({
 
 	support:function(s){
 		var that = re.c('support');
@@ -71,7 +71,7 @@ re.c('support')
 	}
 	
 })
-.extend({
+.defines({
 	support:function(s){
 		return re.c('support').call(this, s);
 	}

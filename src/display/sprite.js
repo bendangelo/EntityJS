@@ -1,5 +1,5 @@
 /*
-The sprite object extends a drawable image for an entity.
+The sprite object definess a drawable image for an entity.
 */
 
 re.c('sprite')

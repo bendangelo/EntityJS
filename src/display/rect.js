@@ -2,11 +2,11 @@
 The rect component draws a rectangle on screen.
 */
 re.c('rect')
-.require('draw')
+.requires('draw')
 .defaults({
 	color:'#82d5f4'
 })
-.extend({
+.defines({
 	
 	draw:function(c){
 		

@@ -1,5 +1,5 @@
 /*
-The point component extends an entity that has a 2d position in space.
+The point component definess an entity that has a 2d position in space.
 This can be used for 2d calculations or most commonly 2d sprite positioning.
 
 */
@@ -11,7 +11,7 @@ re.c('point')
 	posY:0
 	
 })
-.extend({
+.defines({
 	
 	setPos:function(x, y){
 		

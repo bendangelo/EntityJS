@@ -7,7 +7,7 @@ wanted font.
 */
 
 re.c('bitfont')
-.require('draw')
+.requires('draw')
 .defaults({
 	
 	text:'',
@@ -15,7 +15,7 @@ re.c('bitfont')
 	charOffset:32
 	
 })
-.extend({
+.defines({
 	
 	isVisible:function(){
 		return this.text.length != 0 && this.image && this.parent('draw', 'isVisible');

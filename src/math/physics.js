@@ -6,8 +6,8 @@ These variables will give the entity a more fluid movement in 2d space.
 Warning - this component is not delta time safe. It assumes a fixed timestep.
 */
 re.physics = re.c('physics')
-.require('update')
-.global({
+.requires('update')
+.statics({
 	graX:0,
 	graY:0,
 	
@@ -44,7 +44,7 @@ re.physics = re.c('physics')
 	bodY:1
 	
 })
-.namespace({
+.namespaces({
 	
 	update:function(t){
 		
@@ -64,7 +64,7 @@ re.physics = re.c('physics')
 	}
 	
 })
-.extend({
+.defines({
 	
 	aftermath:function(posx, posy, hitx, hity, tarx, tary){
 		

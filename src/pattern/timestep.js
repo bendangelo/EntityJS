@@ -16,7 +16,7 @@ re.c('timestep')
     stepSize:0.3
     
 })
-.extend({
+.defines({
     
     timestep:function(progress, callback, context){
         

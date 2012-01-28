@@ -1,7 +1,7 @@
 /*
-The log component extends a cross browser console.log command.
+The log component definess a cross browser console.log command.
 
-//global usage
+//statics usage
 re.log('example log');
 
 */

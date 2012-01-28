@@ -287,7 +287,7 @@
         return t;
     }
     
-        p.extend = function(){
+        p.defines = function(){
         throw 'Deprecated use attr'
         }
     
@@ -300,21 +300,21 @@
     }
     
         p.defaults = function(){
-        throw 'Deprecated use def'
+        throw 'Deprecated use defaults'
         }
     
-    p.def = function(obj, value){
+    p.defaults = function(obj, value){
         this.each(function(){
-            this.def(obj, value);
+            this.defaults(obj, value);
         });
         
         return this;
     }
     
-    p.addComp = function(c){
+    p.comp = function(c){
         
         this.each(function(ref){
-            this.addComp(c);
+            this.comp(c);
         });
         
         return this;

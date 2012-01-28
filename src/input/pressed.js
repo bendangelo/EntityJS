@@ -1,11 +1,11 @@
 re.c('pressed')
-.global({
+.statics({
 	//contains pressed keys and mouse clicks
 	_pressed:{},
 	preventDefault:{}
 	
 })
-.extend({
+.defines({
 	
 	/*
 	This function is usually used in conjunction with mousemove or update for controls.

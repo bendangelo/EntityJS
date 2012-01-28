@@ -27,14 +27,14 @@ re.ready(function(){
 	
 });
 
-//extend scenes
+//defines scenes
 
 //first scene and openning scene
 re.scene('preload')
 //since a scene is just an entity
 //we can add components to it
-.addComp('font')
-.extend({
+.comp('font')
+.defines({
 	text: 'Preloading', 
 	textColor:'#66b44d',
 	posX: re.constants.size.x * 0.5,
@@ -94,7 +94,7 @@ re.scene('win')
 .enter(function(points, rating){
 	
 	this.win = re.e('win.png bitmap')
-	.extend({
+	.defines({
 		posX:100,
 		posY:10
 	});

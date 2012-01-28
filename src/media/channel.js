@@ -41,12 +41,12 @@ re.e('channel attack.sfx')
 		}, false);
 *//*
 re.channel = re.c('channel')
-.require('sound')
+.requires('sound')
 .defaults({
 	volume:1,
 	max:3
 })
-.extend({
+.defines({
 
 	play:function(loop){
 		if(!this.channels || !re.sound.enabled) return this;

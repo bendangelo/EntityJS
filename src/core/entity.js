@@ -40,18 +40,19 @@
         
         re._e.push(this);
         
-        this.addComp(c);
+        this.comp(c);
     };
     
     var p = e.prototype;
     
     p.id = '';
     
-    p.comp = function(c){
-        this.addComp(c);
+    p.addComp = function(c){
+      re.log('AddComp deprecated use comp')
+      this.comp(c);
     };
     
-    p.addComp = function(com){
+    p.comp = function(com){
         
         this._re_comp(com);
         
@@ -195,13 +196,13 @@
         //if already has component
         if(this.has(com)) return this;
         
-        //add comp first thing, to avoid dupe requirement calls
+        //add comp first thing, to avoid dupe requiresment calls
         //and this lets the init remove the comp too.
         this._re_comps.push(com);
         
         //init component only if it exists
         if(c){
-            this._re_comp(c._re_requires);
+            this._re_comp(c._re_requiress);
             
             //add interface of component
             if(c._re_implements){
@@ -222,8 +223,8 @@
                 this.def(c._re_inherits);
             }
             
-            if(c._re_extends){
-                this.attr(c._re_extends);
+            if(c._re_definess){
+                this.attr(c._re_definess);
             }
             
             if(c._re_init){
@@ -266,8 +267,8 @@
         
         var c = re._c[comp];
         
-        if(c._re_extends[method]){
-            return c._re_extends[method].apply(this, a);
+        if(c._re_definess[method]){
+            return c._re_definess[method].apply(this, a);
         }
         
         if(c._re_inherits[method]){
@@ -278,7 +279,7 @@
     }
     
     /*
-    TODO extend has to multiple item query
+    TODO defines has to multiple item query
     
     //returns true if both present
     this.has('draw update');
@@ -460,16 +461,16 @@
     
     p.attr = function(obj, value){
         
-        if(re.is(obj,  'object'){
+        if(re.is(obj,  'object')){
             
             for(var key in obj){
                 if(!obj.hasOwnProperty(key)) continue;
                 
-                this.extend(key, obj[key]);
+                this.attr(key, obj[key]);
             }
             
         }else {
-            //extend property
+            //defines property
             
             this[obj] = value;
         }
@@ -479,7 +480,7 @@
     
   p.inherit = function(){
     
-    throw 'Deprecated use defaults'
+    throw 'Deprecated use def'
   }
   
     p.defaults = function(){
@@ -493,12 +494,12 @@
             for(var key in obj){
                 if(!obj.hasOwnProperty(key)) continue;
                 
-                this.defaults(key, obj[key]);
+                this.def(key, obj[key]);
                 
             }
             
         } else {
-            //extend property
+            //defines property
             
             if(!this.hasOwnProperty(obj) || !re.is(this[obj])){
                 
@@ -511,7 +512,7 @@
     }
     
     p.dispose = function(){
-        //delete from global array
+        //delete from statics array
         re._e.splice(re._e.indexOf(this), 1);
         
         for(var i in this._re_comps){

@@ -163,7 +163,7 @@
         s.load();
         
         re.c(a)
-        //create global codec for easy use
+        //create statics codec for easy use
         .alias(n+re.load.soundExt)
         .statics({
             sound:s

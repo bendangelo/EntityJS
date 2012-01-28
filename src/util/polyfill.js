@@ -2,7 +2,7 @@
 The polyfill component polyfills unsupported HTML5 functions when possible.
 */
 re.c('polyfill')
-.extend({
+.defines({
 	
 	requestAnimationFrame:function(callback, canvas){
 		return requestAnimFrame(callback, canvas);

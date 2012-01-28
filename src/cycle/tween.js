@@ -8,8 +8,8 @@ re.e('tween')
 
 */
 re.c('tween')
-.require('update')
-.global({
+.requires('update')
+.statics({
 	
 	tween:function(obj, time, props){
 		return obj.comp('tween')
@@ -17,7 +17,7 @@ re.c('tween')
 	}
 	
 })
-.namespace({
+.namespaces({
 
 	update:function(t){
 		
@@ -31,7 +31,7 @@ re.c('tween')
 	tweening:false
 	
 })
-.extend({
+.defines({
 	
 	tween:function(time, props){
 		this.time = time || 5;

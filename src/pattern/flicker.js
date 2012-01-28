@@ -6,8 +6,8 @@ This is most popular for sprite animation.
 It can also be used for graduatly writing text or flashing a drawing object.
 */
 re.c('flicker')
-.require('update timestep')
-.implement('flick')
+.requires('update timestep')
+.interfaces('flick')
 .init(function(){
 	
 	this.flicker_reels = {};
@@ -17,7 +17,7 @@ re.c('flicker')
 	this.flicker_flickering = '';
 	
 })
-.extend({
+.defines({
 	
 	flicker_stop:function(){
 		if(this.flickering()){

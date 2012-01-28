@@ -2,7 +2,7 @@
 The update component calls update signals to all listening entities.
 */
 re.c('update')
-.global({
+.statics({
 	listeners:[],
 	update:function(s,t){
 		var l = this.listeners;
@@ -21,7 +21,7 @@ re.c('update')
 	updatable:true,
 	sys:re.sys
 })
-.extend(function(){
+.defines(function(){
 	
 	var l = re.c('update').listeners;
 	

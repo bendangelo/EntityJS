@@ -3,7 +3,7 @@ re.c('group')
 	posX:0,
 	posY:0
 })
-.extend({
+.defines({
 	
 	group:function(){
 		

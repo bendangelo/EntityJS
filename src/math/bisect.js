@@ -3,7 +3,7 @@ The bisect component cuts an object into equal sections. It supplies helper func
 for converting to a section and from a section. Useful for sprites and animation.
 */
 re.bisect = re.c('bisect')
-.global({
+.statics({
 	
 	biToX:function(bi, width, size){
 		
@@ -30,7 +30,7 @@ re.bisect = re.c('bisect')
 	}
 	
 })
-.extend({
+.defines({
 
 	
 	biToX:function(bi){

@@ -80,8 +80,8 @@ except it can be removed or added at anytime.
 
 */
 re.c('arrow')
-//adds requirement components
-.require('pressed update sprite arrow.png')
+//adds requiresment components
+.requires('pressed update sprite arrow.png')
 //define constructor
 .init(function(){
 	//center arrow
