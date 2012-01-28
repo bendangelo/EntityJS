@@ -1,5 +1,8 @@
 # Configure your game settings
 
+width: 500
+height: 400
+
 #files to ignore in the scripts directory
 #regular expressions are allowed
 scripts-ignore:

@@ -15,7 +15,7 @@ module Entityjs
       
       file_name = 'tmp/game.debug.js'
       
-      license = Dirc.get_license
+      license = Config.instance.license
       
       File.open(file_name, "w+") do |f|
         
@@ -31,7 +31,10 @@ module Entityjs
         end
         
         #add files
-        f.write(Assets.to_js)
+        f.write(%Q(window.onload = function(){
+        #{Assets.to_js}
+        re.version = '#{VERSION}';
+        }))
         
       end
       

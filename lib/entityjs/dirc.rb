@@ -11,13 +11,13 @@ module Entityjs
     
     def self.find_scripts(ignore=[], order=[])
       
-      return Dir["src/**/*.js"]
+      return Dir["#{Config.instance.scripts_folder}/**/*.js"]
       
     end
     
     def self.find_entity_files
 
-      ents = Dir[Entityjs::root+"/src/**/*.js"]
+      ents = Dir[Entityjs::root+"/#{Config.instance.scripts_folder}/**/*.js"]
       
       #push re.js to the top
       
@@ -35,16 +35,6 @@ module Entityjs
       return ents
     end
     
-    def self.get_license
-      f = File.open(Entityjs::root+'/license.txt', 'r')
-      
-      contents = f.read
-      
-      contents = contents.sub(/\$VERSION/, Entityjs::VERSION)
-      
-      return contents
-    end
-      
     def self.change_dir(name)
       Dir.chdir(Dir.pwd+'/'+name)
     end
