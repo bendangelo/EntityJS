@@ -11,7 +11,7 @@ describe 'build' do
   end
   
   it 'should run' do
-    Entityjs::Command.run('build').should == 0
+    Entityjs::Command.run('build', []).should == 0
   end
   
   it 'should run release1' do

@@ -27,6 +27,9 @@ module Entityjs
         when /^(comp|c)$/
           return Entityjs::Comp.generate(args)
           
+        when /^(server|s)$/
+          return Entityjs::Server.run! :port=>2345
+          
         when /^(version|v)$/
           puts 'EntityJS V'+Entityjs::VERSION
           return 0
@@ -37,6 +40,7 @@ module Entityjs
           puts 'entityjs comp [name]'
           puts 'entityjs test [name]'
           puts 'entityjs build'
+          puts 'entityjs build [name]'
           puts 'entityjs refresh'
           puts 'entityjs version'
           return 0

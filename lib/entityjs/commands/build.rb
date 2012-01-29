@@ -10,7 +10,7 @@ module Entityjs
         return 2
       end
       
-      if name.nil?
+      if name.nil? || name.empty?
         date = Time.now.strftime('%s')
         name = "build-#{date}"
       else
