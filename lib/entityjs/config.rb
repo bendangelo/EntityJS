@@ -41,11 +41,11 @@ module Entityjs
     end
     
     def width
-      @yml['width'].to_i
+      @yml['width']
     end
     
     def height
-      @yml['height'].to_i
+      @yml['height']
     end
     
     def scripts_ignore
