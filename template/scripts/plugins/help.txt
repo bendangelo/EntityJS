@@ -1,5 +1,0 @@
-In the future this is where external plugins will be located.
-You can install some by using
-  entityjs plugin soundmanager2
-  
-But at the moment this does nothing.

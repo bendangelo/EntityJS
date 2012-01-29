@@ -5,8 +5,16 @@ module Entityjs
   class Dirc
     
     def self.game?
+      
       #check if config.yml exists
-      return File.file? Config.file_name
+      if File.file? Config.file_name
+      
+        if @game_root.nil?
+          @game_root = Dir.pwd
+        end
+        return true
+      end
+      return false
     end
     
     def self.to_game_root
@@ -14,23 +22,77 @@ module Entityjs
     end
     
     def self.game_root
-      if @game_root.nil?
-        @game_root = Dir.pwd
-      end
       
       @game_root
     end
     
     def self.find_tests_url(ignore=nil)
-      Dir["#{Dirc.game_root}/#{Config.instance.tests_folder}/*/*.js"]
+      ignore ||= []
+      tests = Dir["#{Dirc.game_root}/#{Config.instance.tests_folder}/*/*.js"]
+      
+      tests = tests.collect do |i|
+        i[i.rindex('tests/')..-1]
+      end
+      
+      tests.delete_if do |i|  
+        k = false
+        ignore.each do |g|
+          k = i.match /#{g}/
+        end
+        k
+      end
+      
     end
     
     def self.find_scripts_url(ignore=nil, order=nil)
-      self.find_scripts(ignore, order).collect{|k| k[k.rindex('scripts/')..-1] }
+      ignore ||= []
+      order ||= []
+      
+      scripts = self.find_scripts(ignore, order)
+      
+      #change filenames
+      scripts = scripts.collect{|k| k[k.rindex('scripts/')..-1] }
+      
+      #ignore files
+      scripts = scripts.delete_if do |i|
+        k = false
+        
+        ignore.each do |g|
+          k = i.match /#{g}/
+        end
+        k
+      end
+      
+      #order files
+      order.reverse.each do |i|
+        
+        scripts.each do |s|
+          
+          if s.match /#{i}/
+            scripts.delete(s)
+            scripts.unshift(s)
+          end
+          
+        end
+        
+      end
+      
+      scripts
     end
     
     def self.find_entity_src_url(ignore=nil)
-      self.find_entity_src(ignore).collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
+      ignore ||= []
+      srcs = self.find_entity_src(ignore)
+      srcs = srcs.collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
+      
+      srcs.delete_if do |i|
+        k = false
+        
+        ignore.each do |g|
+          k = i.match /#{g}/
+        end
+        k
+      end
     end
     
     def self.find_scripts(ignore=nil, order=nil)

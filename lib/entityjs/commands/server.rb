@@ -10,10 +10,10 @@ module Entityjs
         return 2
       end
       
+      set :public_folder, Dirc.game_root
+      
       Entityjs::Server.run! :port=>2345
     end
-    
-    set :public_folder, Dirc.game_root
     
     get '/' do
       
@@ -34,12 +34,12 @@ module Entityjs
     
     get '/qunit/qunit.js' do
       content_type 'text/javascript'
-      IO.read(Entityjs::root+'/public/qunit/qunit.js')
+      IO.read(Entityjs::root+'/public/qunit.js')
     end
     
     get '/qunit/qunit.css' do
       content_type 'text/css'
-      IO.read(Entityjs::root+'/public/qunit/qunit.css')
+      IO.read(Entityjs::root+'/public/qunit.css')
     end
     
   end

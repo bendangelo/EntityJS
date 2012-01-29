@@ -12,7 +12,7 @@ describe 'Comp' do
   end
   
   before do
-    @n = "asdf#{rand(999)}"
+    @n = "asdf#{rand(9999999)}"
   end
 
   it 'should create init.js' do

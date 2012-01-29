@@ -4,7 +4,7 @@ describe 'test' do
   
   before(:all) do
     setup_mygame
-    @n = rand(999)
+    @n = rand(999999999999)
   end
   
   after(:all) do

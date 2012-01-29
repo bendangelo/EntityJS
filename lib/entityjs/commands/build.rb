@@ -6,6 +6,7 @@ module Entityjs
   class Build
     
     def self.generate(name=nil)
+      
       if !Dirc.game?
         return 2
       end

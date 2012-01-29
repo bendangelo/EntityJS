@@ -6,7 +6,7 @@ module Entityjs
     
     def self.generate(args)
       name = args.first
-      comps = args[2..-1] || []
+      comps = args[1..-1] || []
       
       template = Entityjs::template
       
@@ -24,13 +24,26 @@ module Entityjs
       
       Dirc.change_dir(name)
       
-      comps.each do |c|
-        Entityjs::Command.run('comp', c)
+      #make blank dirs
+      if !Dir.exists? 'builds'
+        Dir.mkdir('builds')
       end
       
-      Entityjs::Command.run('refresh')
+      Dirc.change_dir('scripts')
       
-      return true
+      if !Dir.exists? 'plugins'
+        Dir.mkdir('plugins')
+      end
+      
+      Dirc.change_dir('..')
+      
+      comps.each do |c|
+        Entityjs::Command.run('comp', [c])
+      end
+      
+      Entityjs::Command.run('help')
+        
+      return 0
     end
     
   end
