@@ -10,14 +10,18 @@ module Entityjs
     
     def self.instance
       if @instance.nil?
-        @instance = Config.new('/'+self.file_name)
+        @instance = Config.new
       end
       
       return @instance
     end
     
-    def initialize(path)
-      @yml = YAML::load(File.open(Dir.pwd+path))
+    def reload
+      @yml = YAML::load(File.open(Dirc.game_root+'/'+Config.file_name))
+    end
+    
+    def initialize()
+      self.reload
     end
     
     def assets_folder
@@ -55,28 +59,28 @@ module Entityjs
     def scripts_ignore
       y = @yml['scripts-ignore']
       if !y.nil?
-        y.split("\n")
+        y.split(" ")
       end
     end
     
     def scripts_order
       y = @yml['order']
       if !y.nil?
-        y.split("\n")
+        y.split(" ")
       end
     end
     
     def tests_ignore
       y = @yml['tests-ignore']
       if !y.nil?
-        y.split("\n")
+        y.split(" ")
       end
     end
     
     def entity_ignore
       y = @yml['entity-ignore']
       if !y.nil?
-        y.split("\n")
+        y.split(" ")
       end
     end
     

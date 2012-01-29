@@ -34,14 +34,11 @@ module Entityjs
         i[i.rindex('tests/')..-1]
       end
       
-      tests.delete_if do |i|  
-        k = false
-        ignore.each do |g|
-          k = i.match /#{g}/
-        end
-        k
+      if ignore.any?
+        tests.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
       end
       
+      return tests
     end
     
     def self.find_scripts_url(ignore=nil, order=nil)
@@ -54,13 +51,8 @@ module Entityjs
       scripts = scripts.collect{|k| k[k.rindex('scripts/')..-1] }
       
       #ignore files
-      scripts = scripts.delete_if do |i|
-        k = false
-        
-        ignore.each do |g|
-          k = i.match /#{g}/
-        end
-        k
+      if ignore.any?
+        scripts = scripts.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
       end
       
       #order files
@@ -77,7 +69,7 @@ module Entityjs
         
       end
       
-      scripts
+      return scripts
     end
     
     def self.find_entity_src_url(ignore=nil)
@@ -85,14 +77,11 @@ module Entityjs
       srcs = self.find_entity_src(ignore)
       srcs = srcs.collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
       
-      srcs.delete_if do |i|
-        k = false
-        
-        ignore.each do |g|
-          k = i.match /#{g}/
-        end
-        k
+      if ignore.any?
+        srcs.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
       end
+      
+      return srcs
     end
     
     def self.find_scripts(ignore=nil, order=nil)

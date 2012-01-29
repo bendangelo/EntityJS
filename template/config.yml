@@ -4,19 +4,17 @@ width: 500
 height: 400
 canvas-id: game-canvas
 
-#files to ignore in the scripts directory
-#regular expressions are allowed
+#files to ignore in /scripts
 scripts-ignore:
 
+#specify files to be loaded first in /scripts
+order:
 
 #components to ignore in the entityjs source
-#regular expressions are allowed
 #reduce file size by ignoring unused components
 entity-ignore:
   socket
-  
-#type in js file names which should be added first
-#regular expressions are allowed
-order:
-  
+  wait
+
+#ignore tests in /tests
 tests-ignore:

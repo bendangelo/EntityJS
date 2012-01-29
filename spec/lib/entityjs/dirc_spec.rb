@@ -26,13 +26,14 @@ describe 'dirc' do
   end
   
   it 'should ignore and order game scripts' do
-    Entityjs::Dirc.stub(:find_scripts).and_return(['asdfsdf/scripts/second.js', 'sfhs/scripts/first.js', 'sdf/scripts/kill.js'])
+    Entityjs::Dirc.stub(:find_scripts).and_return(['asdfsdf/scripts/second.js', 'sfhs/scripts/first.js', 
+      'sdf/scripts/kill.js','sdf/scripts/kill2.js'])
     
     out = Entityjs::Dirc.find_scripts_url(['kill'], ['first'])
     
     out.first.should match /first/
     out.each do |i|
-      i.should_not match /kill/
+      i.should_not match /kill|kill2/
     end
     
   end
@@ -40,17 +41,19 @@ describe 'dirc' do
   it 'should return entity src urls' do
     Entityjs::Dirc.stub(:find_entity_src).and_return(['asdfsdf/src/asdf.js', 'sfhs/src/sdf.js'])
     
-    Entityjs::Dirc.find_entity_src_url.should be_instance_of Array
+    u = Entityjs::Dirc.find_entity_src_url
+    
+    u.size.should == 2
     
   end
   
   it 'should ignore entity scripts' do
-    Entityjs::Dirc.stub(:find_entity_src).and_return(['asdfsdf/src/first.js', 'sfhs/src/ignore.js'])
+    Entityjs::Dirc.stub(:find_entity_src).and_return(['asdfsdf/src/first.js', 'sfhs/src/ignore.js', 'sdfds/src/ignore2.js'])
     
-    out = Entityjs::Dirc.find_entity_src_url(['ignore'])
+    out = Entityjs::Dirc.find_entity_src_url(['ignore', 'ignore2'])
     
     out.each do |i|
-      i.should_not match /ignore/
+      i.should_not match /ignore|ignore2/
     end
   end
   

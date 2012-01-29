@@ -3,6 +3,9 @@ module Entityjs
   class Assets
     
     def self.set_vars(contents, tests=false)
+      #read file for changes
+      Config.instance.reload
+      
       contents = contents.gsub("$WIDTH", Config.instance.width.to_s)
       contents = contents.gsub("$HEIGHT", Config.instance.height.to_s)
       contents = contents.gsub("$CANVAS_ID", Config.instance.canvas_id)
