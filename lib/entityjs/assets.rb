@@ -1,3 +1,6 @@
+require 'cobravsmongoose'
+require 'json'
+
 module Entityjs
   
   class Assets
@@ -77,30 +80,7 @@ module Entityjs
           dirname = dirname[0..-2]
         end
         
-        contents = IO.read(Config.instance.assets_folder+'/'+i)
-        #remove dot from extension
-        ext = File.extname(i)
-        
-        case ext
-          when '.json'
-            contents = contents
-            
-          when '.tmx'
-            raise 'Support coming soon..'
-            
-          when '.xml'
-            raise 'Support coming soon..'
-            
-          when '.csv'
-            raise 'Support coming soon..'
-            
-          when '.yml'
-            raise 'Support coming soon...'
-            
-          else
-            raise 'File '+i+' is invalid'
-            
-        end
+        contents = self.data_to_json(Config.instance.assets_folder+'/'+i)
         
         out += %Q(
         re.e('#{basename} #{dirname}')
@@ -111,6 +91,37 @@ module Entityjs
       
       
       out
+    end
+    
+    def self.data_to_json(file)
+        contents = IO.read(file)
+        #remove dot from extension
+        ext = File.extname(file)
+        
+        case ext
+          when '.json'
+            return contents
+            
+          when '.tmx'
+            #might need different transfomration
+            return CobraVsMongoose.xml_to_json(contents).gsub('"@','"')
+            
+          when '.xml'
+            #remove annoying @ signs
+            return CobraVsMongoose.xml_to_json(contents).gsub('"@','"')
+            
+          when '.csv'
+            raise 'Support coming soon..'
+            
+          when '.yml'
+            raise 'Support coming soon...'
+            
+          else
+            raise 'File '+file+' is invalid'
+            
+        end
+      
+      return nil
     end
     
     def self.search(type='*')

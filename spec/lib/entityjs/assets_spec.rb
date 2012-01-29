@@ -75,6 +75,18 @@ describe 'Assets' do
     
   end
   
+  it 'should convert xml to json' do
+    
+    File.stub(:extname).and_return('.xml')
+    IO.stub(:read).and_return('<alice sid="4"><bob sid="1">charlie</bob><bob sid="2">david</bob></alice>')
+    
+    r = Entityjs::Assets.data_to_json('sdf.xml')
+    
+    r.should match /alice/
+  end
+  
+  it 'should convert tmx to json'
+  
   it 'should generate to js' do
     r = Entityjs::Assets.to_js
     r.should match /re\.assets/

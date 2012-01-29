@@ -5,11 +5,11 @@ def factory(type)
         
             files = []
     
-            files.push Entityjs::Config.instance.assets_folder+'/levels/bob.json'
-            files.push Entityjs::Config.instance.assets_folder+'/levels/bob.xml'
-            files.push Entityjs::Config.instance.images_folder+'/yep.png'
-            files.push Entityjs::Config.instance.images_folder+'/bdd.png'
-            files.push Entityjs::Config.instance.sounds_folder+'/bdd.mp3'
+            files.push 'assets/levels/bob.json'
+            files.push 'assets/levels/bob.xml'
+            files.push 'assets/images/yep.png'
+            files.push 'assets/images/bdd.png'
+            files.push 'assets/sounds/bdd.mp3'
             return files
         
         

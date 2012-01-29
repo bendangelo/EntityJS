@@ -20,7 +20,7 @@ module Entityjs
       @yml = YAML::load(File.open(Dirc.game_root+'/'+Config.file_name))
     end
     
-    def initialize()
+    def initialize
       self.reload
     end
     
