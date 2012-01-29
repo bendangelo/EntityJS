@@ -18,9 +18,6 @@ module Entityjs
         when /^(build|b)$/
           return Entityjs::Build.generate(args)
         
-        when /^(refresh|r)$/
-          return Entityjs::Refresh.generate(args)
-        
         when /^(test|t)$/
           return Entityjs::Test.generate(args)
         
@@ -28,7 +25,7 @@ module Entityjs
           return Entityjs::Comp.generate(args)
           
         when /^(server|s)$/
-          return Entityjs::Server.run! :port=>2345
+          return Entityjs::Server.run(args)
           
         when /^(version|v)$/
           puts 'EntityJS V'+Entityjs::VERSION
@@ -41,7 +38,7 @@ module Entityjs
           puts 'entityjs test [name]'
           puts 'entityjs build'
           puts 'entityjs build [name]'
-          puts 'entityjs refresh'
+          puts 'entityjs server'
           puts 'entityjs version'
           return 0
           

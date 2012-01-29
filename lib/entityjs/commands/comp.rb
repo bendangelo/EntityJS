@@ -21,8 +21,6 @@ module Entityjs
         filename += '.js'
       end
       
-      game_root = Dir.pwd
-      
       dir = Config.instance.scripts_folder
       
       Dirc.change_dir(dir)
@@ -64,9 +62,9 @@ module Entityjs
         f.close
       end
       
-      puts "Created file: scripts/#{filename}"
+      puts "Created comp: scripts/#{filename}"
       
-      Dir.chdir(game_root)
+      Dir.chdir(Dirc.game_root)
       
       return 0
     end

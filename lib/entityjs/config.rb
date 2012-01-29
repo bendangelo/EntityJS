@@ -24,6 +24,10 @@ module Entityjs
       return 'assets'
     end
     
+    def tests_folder
+      'tests'
+    end
+    
     def scripts_folder
       return 'scripts'
     end

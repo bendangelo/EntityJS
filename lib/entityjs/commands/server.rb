@@ -4,19 +4,42 @@ module Entityjs
   
   class Server < Sinatra::Base
     
+    def self.run(args)
+      
+      if !Dirc.game?
+        return 2
+      end
+      
+      Entityjs::Server.run! :port=>2345
+    end
+    
+    set :public_folder, Dirc.game_root
+    
     get '/' do
       
-      contents = IO.read("#{Entityjs::root}/public/play.html")
-      
-      contents.gsub("$WIDTH", Config.instance.width)
-      contents.gsub("$HEIGHT", Config.instance.height)
-      contents.gsub("$CANVAS_ID", Config.instance.canvas_id)
-      contents.gsub("$JS", "")
+      Assets.set_vars(IO.read("#{Entityjs::root}/public/play.html"))
       
     end
     
     get '/tests' do
-      'Testing stuff soon to come...'
+      
+      Assets.set_vars(IO.read("#{Entityjs::root}/public/tests.html"))
+      
+    end
+    
+    get '/entityjs/*' do
+      content_type 'text/javascript'
+      IO.read(Entityjs::root+'/src/'+params[:splat].first)
+    end
+    
+    get '/qunit/qunit.js' do
+      content_type 'text/javascript'
+      IO.read(Entityjs::root+'/public/qunit/qunit.js')
+    end
+    
+    get '/qunit/qunit.css' do
+      content_type 'text/css'
+      IO.read(Entityjs::root+'/public/qunit/qunit.css')
     end
     
   end

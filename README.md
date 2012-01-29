@@ -66,11 +66,13 @@ This will create a new component in the directory src/display instead of src/ li
 
 This will minify all entityjs src code and game src code into one file inside /builds
 
-### Refreshing Sources
+### Running the Game / Tests
 
-`entityjs refresh`
+`entityjs server`
 
-When adding new images, sounds or src code it will not be available in play.html until you refresh.
+`localhost:2345` displays game
+`localhost:2345/tests` runs tests
+`localhost:2345/assets/*name` view sounds / images
 
 ## Game Structure
 
@@ -94,8 +96,6 @@ This will take you through some quick steps to display an image on a canvas elem
 
 * Add an image to `mygame/assets/images` call it welcome.png
 
-* Refresh srcs to find the image: `entityjs refresh`
-
 * In `mygame/scripts/scenes/load.js` add:
 
 ```
@@ -105,16 +105,10 @@ re.scene('home')
 });
 ```
 
-* Open up mygame/play.html to view your game
+* `entityjs server` and head to `localhost:2345` to play the game
 
 * In the root directory type: `entityjs build`
 
 * Checkout `/mygame/builds` to see your finished game
 
 * You can now upload the game online and show people.
-
-## Future
-* Ruby YUI compiler
-* Level Editor
-* Testing
-* More tutorials!

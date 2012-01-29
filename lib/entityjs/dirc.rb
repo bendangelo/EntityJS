@@ -18,6 +18,14 @@ module Entityjs
       @game_root
     end
     
+    def self.find_scripts_url(ignore=nil, order=nil)
+      self.find_scripts(ignore, order).collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
+    end
+    
+    def self.find_entity_src_url(ignore=nil)
+      self.find_entity_src(ignore).collect{|k| k[k.rindex('scripts/')..-1] }
+    end
+    
     def self.find_scripts(ignore=nil, order=nil)
       
       return Dir["#{Dirc.game_root}/#{Config.instance.scripts_folder}/**/*.js"]

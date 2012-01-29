@@ -2,6 +2,35 @@ module Entityjs
   
   class Assets
     
+    def self.set_vars(contents)
+      contents = contents.gsub("$WIDTH", Config.instance.width.to_s)
+      contents = contents.gsub("$HEIGHT", Config.instance.height.to_s)
+      contents = contents.gsub("$CANVAS_ID", Config.instance.canvas_id)
+      
+      contents.gsub("$JS", Assets.to_html)
+    end
+    
+    def self.to_html
+      js = %Q(
+      <script type='text/javascript'>
+      window.addEventListener\('load', function(){
+        #{Assets.to_js}
+        re.version = '#{VERSION}';
+        
+        }\);
+      </script>
+)
+      ent = Dirc.find_entity_src_url(Config.instance.entity_ignore)
+      srcs = Dirc.find_scripts_url(Config.instance.scripts_ignore, Config.instance.scripts_order)
+      
+      merg = ent | srcs
+      
+      merg.each do |s|
+        js += "\t<script src='#{s}' type='text/javascript'></script>\n"
+      end
+      js
+    end
+    
     def self.to_js
       out = %Q(
       re.load.path = 'assets/';

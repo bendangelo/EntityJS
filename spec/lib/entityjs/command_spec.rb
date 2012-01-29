@@ -24,11 +24,6 @@ describe 'command' do
       Entityjs::Command.run('version').should == 0
     end
     
-    it 'should run refresh' do
-      Entityjs::Refresh.stub(:generate).and_return('refresh')
-      Entityjs::Command.run('refresh').should == 'refresh'
-    end
-    
     it 'should run test' do
       Entityjs::Test.stub(:generate).and_return('test')
       Entityjs::Command.run('test', ['yep.js']).should == 'test'
@@ -48,7 +43,7 @@ describe 'command' do
             teardown_mygame
         end
         
-        ['comp', 'build', 'refresh', 'test'].each do |i|
+        ['comp', 'build', 'test'].each do |i|
             it "should #{i} throw error" do
                 Entityjs::Command.run(i).should == 2
             end
