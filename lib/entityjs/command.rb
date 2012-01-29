@@ -27,18 +27,26 @@ module Entityjs
         when /^(server|s)$/
           return Entityjs::Server.run(args)
           
+        when /^(font|f)$/
+          return Entityjs::Font.generate(args)
+          
         when /^(version|v)$/
           puts 'EntityJS V'+Entityjs::VERSION
           return 0
           
         when /^(help|h)$/
+          puts ""
           puts '---- Commands ----'
-          puts 'entityjs new [name] [comp]+'
+          puts 'entityjs new [name]'
+          puts 'entityjs new [name] [comps]+'
           puts 'entityjs comp [name]'
           puts 'entityjs test [name]'
+          puts 'entityjs test [name] [tests]+'
+          puts 'entityjs font [name]'
           puts 'entityjs build'
           puts 'entityjs build [name]'
           puts 'entityjs server'
+          puts 'entityjs help'
           puts 'entityjs version'
           return 0
           

@@ -8,6 +8,30 @@ module Entityjs
       'config.yml'
     end
     
+    def self.assets_folder
+      return 'assets'
+    end
+    
+    def self.tests_folder
+      'tests'
+    end
+    
+    def self.scripts_folder
+      return 'scripts'
+    end
+    
+    def self.builds_folder
+      return 'builds'
+    end
+    
+    def self.sounds_folder
+      self.assets_folder+'/sounds'
+    end
+    
+    def self.images_folder
+      self.assets_folder+'/images'
+    end
+    
     def self.instance
       if @instance.nil?
         @instance = Config.new
@@ -17,35 +41,11 @@ module Entityjs
     end
     
     def reload
-      @yml = YAML::load(File.open(Dirc.game_root+'/'+Config.file_name))
+      @yml = YAML::load(File.open(Config.file_name))
     end
     
     def initialize
       self.reload
-    end
-    
-    def assets_folder
-      return 'assets'
-    end
-    
-    def tests_folder
-      'tests'
-    end
-    
-    def scripts_folder
-      return 'scripts'
-    end
-    
-    def builds_folder
-      return 'builds'
-    end
-    
-    def sounds_folder
-      assets_folder+'/sounds'
-    end
-    
-    def images_folder
-      assets_folder+'/images'
     end
     
     def width

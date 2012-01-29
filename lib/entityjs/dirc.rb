@@ -28,7 +28,7 @@ module Entityjs
     
     def self.find_tests_url(ignore=nil)
       ignore ||= []
-      tests = Dir["#{Dirc.game_root}/#{Config.instance.tests_folder}/*/*.js"]
+      tests = Dir["#{Dirc.game_root}/#{Config.tests_folder}/*/*.js"]
       
       tests = tests.collect do |i|
         i[i.rindex('tests/')..-1]
@@ -86,7 +86,7 @@ module Entityjs
     
     def self.find_scripts(ignore=nil, order=nil)
       
-      return Dir["#{Dirc.game_root}/#{Config.instance.scripts_folder}/**/*.js"]
+      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.js"]
       
     end
     

@@ -6,7 +6,7 @@ def factory(type)
             files = []
     
             files.push 'assets/levels/bob.json'
-            files.push 'assets/levels/bob.xml'
+            #files.push 'assets/levels/bob.xml'
             files.push 'assets/images/yep.png'
             files.push 'assets/images/bdd.png'
             files.push 'assets/sounds/bdd.mp3'

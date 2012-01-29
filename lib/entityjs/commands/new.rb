@@ -41,8 +41,6 @@ module Entityjs
         Entityjs::Command.run('comp', [c])
       end
       
-      Entityjs::Command.run('help')
-        
       return 0
     end
     

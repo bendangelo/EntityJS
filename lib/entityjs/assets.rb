@@ -1,9 +1,25 @@
-require 'cobravsmongoose'
-require 'json'
+begin
+  require "cobravsmongoose" 
+rescue LoadError
+  puts "Could not load 'cobravsmongoose'"
+  put "run 'gem install cobravsmongoose'"
+  exit
+end
+begin
+  require "json" 
+rescue LoadError
+  puts "Could not load 'json'"
+  put "run 'gem install json'"
+  exit
+end
 
 module Entityjs
   
   class Assets
+    
+    def self.valid_datas
+      ['xml', 'json', 'tmx']
+    end
     
     def self.set_vars(contents, tests=false)
       #read file for changes
@@ -80,7 +96,7 @@ module Entityjs
           dirname = dirname[0..-2]
         end
         
-        contents = self.data_to_json(Config.instance.assets_folder+'/'+i)
+        contents = self.data_to_json(Config.assets_folder+'/'+i)
         
         out += %Q(
         re.e('#{basename} #{dirname}')
@@ -102,13 +118,37 @@ module Entityjs
           when '.json'
             return contents
             
-          when '.tmx'
+          when /\.tmx|\.xml/
             #might need different transfomration
-            return CobraVsMongoose.xml_to_json(contents).gsub('"@','"')
+            #remove header
             
-          when '.xml'
-            #remove annoying @ signs
-            return CobraVsMongoose.xml_to_json(contents).gsub('"@','"')
+            contents = contents.gsub(/<\?xml.*\?>/, '')
+            #convert to hash
+            contents = CobraVsMongoose.xml_to_hash(contents)
+            
+            #remove root
+            contents.each do |i,v|
+              if !v.nil?
+                contents = v
+                break
+              end
+            end
+            
+            if ext == '.tmx'
+              #filter values
+              contents['layer'].each do |k|
+                map = k['data']
+                #remove encoding
+                map.delete '@encoding'
+                #convert csv to array
+                tiles = map['$'].split(",\n")
+                k['data']['$'] = tiles.collect{|i| i.split(',').collect{|j| j.to_i }}
+              end
+            end
+            #to string
+            contents = contents.to_json
+            #remove @
+            return contents.gsub('"@','"')
             
           when '.csv'
             raise 'Support coming soon..'
@@ -125,9 +165,9 @@ module Entityjs
     end
     
     def self.search(type='*')
-      images_folder = Config.instance.images_folder
-      sounds_folder = Config.instance.sounds_folder
-      assets_folder = Config.instance.assets_folder
+      images_folder = Config.images_folder
+      sounds_folder = Config.sounds_folder
+      assets_folder = Config.assets_folder
       
       case type
         when 'images'
@@ -137,7 +177,8 @@ module Entityjs
           return self.find_files(sounds_folder+'/*').select{|i| i.match(/^*\.(mp3|ogg|aac|wav)$/i)}
           
         else
-          return self.find_files("#{assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(/^*\.(json)$/i)}
+          datas = self.valid_datas.join('|')
+          return self.find_files("#{assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(/^*\.(#{datas})$/i)}
           
       end
       

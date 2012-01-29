@@ -11,6 +11,8 @@ module Entityjs
         return 2
       end
       
+      Config.instance.reload
+      
       if name.nil? || name.empty?
         date = Time.now.strftime('%s')
         name = "build-#{date}"
@@ -18,11 +20,11 @@ module Entityjs
         name = name.first
       end
       
-      builds_folder = Config.instance.builds_folder
-      assets_folder = Config.instance.assets_folder
-      images_folder = Config.instance.images_folder
-      sounds_folder = Config.instance.sounds_folder
-      scripts_folder = Config.instance.scripts_folder
+      builds_folder = Config.builds_folder
+      assets_folder = Config.assets_folder
+      images_folder = Config.images_folder
+      sounds_folder = Config.sounds_folder
+      scripts_folder = Config.scripts_folder
       
       Dir.chdir(builds_folder)
       

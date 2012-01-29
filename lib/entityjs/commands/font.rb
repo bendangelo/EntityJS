@@ -1,11 +1,13 @@
 module Entityjs
   
-  class Test
+  class Font
     
     def self.generate(name)
       if !Dirc.game?
         return 2
       end
+      puts 'not implemented yet'
+      return 0
       
       tests = []
       

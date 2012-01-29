@@ -1,4 +1,10 @@
-require 'sinatra/base'
+begin
+  require "sinatra/base" 
+rescue LoadError
+  puts "Could not load 'sinatra'"
+  put "run 'gem install sinatra'"
+  exit
+end
 
 module Entityjs
   
