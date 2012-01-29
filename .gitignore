@@ -5,3 +5,4 @@ Gemfile.lock
 pkg/*
 .redcar
 mygame
+examples
