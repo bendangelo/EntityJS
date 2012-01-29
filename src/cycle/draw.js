@@ -49,8 +49,8 @@ re.c('draw')
 	posX:0,
 	posY:0,
 	
-	sizeX:1,
-	sizeY:1,
+	sizeX:10,
+	sizeY:10,
 	
 	regX:0,
 	regY:0

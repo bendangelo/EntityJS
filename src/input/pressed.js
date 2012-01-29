@@ -36,14 +36,6 @@ re.c('pressed')
 		return this;
 	}
 	
-})
-.init(function(){
-	
-	//int mouse and keyboard
-	re._c.keyboard.initListeners();
-	re._c.mouse.initListeners();
-	re._c.touch.initListeners();
-	
 });
 
 re.pressed = function(key){
@@ -61,21 +53,4 @@ re.pressed = function(key){
 		
 		return false;
 };
-
-re.preventDefault = function(key){
-	
-	var p = key.split(' ');
-	
-	if(p.length > 1){
-		
-		for(var k in p){
-			this.preventDefault(p[k]);	
-		}
-		
-		return this;
-	}
-	
-	 re.c('pressed').preventDefault[key] = true;
-	
-	return this;
-};
+re.pressed._down = {};

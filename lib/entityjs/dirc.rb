@@ -5,19 +5,28 @@ module Entityjs
   class Dirc
     
     def self.game?
+      @game_root = Dir.pwd
       #check if config.yml exists
       return File.file? Config.file_name
     end
     
-    def self.find_scripts(ignore=[], order=[])
+    def self.to_game_root
+      Dir.chdir(@game_root)
+    end
+    
+    def self.game_root
+      @game_root
+    end
+    
+    def self.find_scripts(ignore=nil, order=nil)
       
-      return Dir["#{Config.instance.scripts_folder}/**/*.js"]
+      return Dir["#{Dirc.game_root}/#{Config.instance.scripts_folder}/**/*.js"]
       
     end
     
-    def self.find_entity_files
+    def self.find_entity_src(ignore=nil)
 
-      ents = Dir[Entityjs::root+"/#{Config.instance.scripts_folder}/**/*.js"]
+      ents = Dir[Entityjs::root+"/src/**/*.js"]
       
       #push re.js to the top
       

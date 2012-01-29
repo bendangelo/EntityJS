@@ -28,24 +28,59 @@ module Entityjs
       return 'scripts'
     end
     
-    def images_folder
-      assets_folder+'/images'
-    end
-    
-    def license
-      f = File.open(Entityjs::root+'/license.txt', 'r')
-      
-      contents = f.read
-      
-      contents = contents.sub(/\$VERSION/, Entityjs::VERSION)
-      f.close
-      
-      return contents
+    def builds_folder
+      return 'builds'
     end
     
     def sounds_folder
       assets_folder+'/sounds'
     end
+    
+    def images_folder
+      assets_folder+'/images'
+    end
+    
+    def width
+      @yml['width'].to_i
+    end
+    
+    def height
+      @yml['height'].to_i
+    end
+    
+    def scripts_ignore
+      y = @yml['scripts-ignore']
+      if !y.nil?
+        y.split("\n")
+      end
+    end
+    
+    def scripts_order
+      y = @yml['order']
+      if !y.nil?
+        y.split("\n")
+      end
+    end
+    
+    def entity_ignore
+      y = @yml['entity-ignore']
+      if !y.nil?
+        y.split("\n")
+      end
+    end
+    
+    def canvas_id
+      @yml['canvas-id']
+    end
+    
+    def license
+      contents = IO.read(Entityjs::root+'/license.txt')
+      
+      contents = contents.sub(/\$VERSION/, Entityjs::VERSION)
+      
+      return contents+"\n"
+    end
+    
     
   end
   

@@ -2,6 +2,7 @@
 
 width: 500
 height: 400
+canvas-id: game-canvas
 
 #files to ignore in the scripts directory
 #regular expressions are allowed
@@ -12,10 +13,9 @@ scripts-ignore:
 #regular expressions are allowed
 #reduce file size by ignoring unused components
 entity-ignore:
-  socket.js
+  socket
   
-#although all files are compiled its
-#you might have to include dependencies first
+#type in js file names which should be added first
 #regular expressions are allowed
 order:
   

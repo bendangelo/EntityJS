@@ -54,7 +54,6 @@
     
     */
     var q = function(selector){
-        this._e = [];
         
         if(selector){
             this.query(selector);
@@ -108,7 +107,7 @@
     
     q.c = {};
     
-    var p = q.prototype;
+    var p = q.prototype = new Array;
     
     p.query = function(select){
         select = select || '';
@@ -118,7 +117,7 @@
             
             if(select == '*'){
                 
-                this._e = re._e.slice();
+                this.concat(re._e.slice());
                 
                 return this;
             }
@@ -132,7 +131,7 @@
                 
                 if(en.has(obj)){
                 
-                    this._e.push(en);
+                    this.push(en);
                 }
                 
             }
@@ -143,7 +142,7 @@
             for(; i<re._e.length; i++){
                 
                 if(select.call(re._e[i], i, re._e.length)){
-                    this._e.push(re._e[i]);
+                    this.push(re._e[i]);
                 }
                 
             }
@@ -151,13 +150,6 @@
         }
         
         return this;
-    }
-    
-    /*
-    Returns an array with all queried entities.
-    */
-    p.toArray = function(){
-        return this._e.slice();
     }
     
     /*
@@ -184,7 +176,7 @@
     returning false will break the loop
     */
     p.each = function(m){
-        var l = this._e.length, i = -1, e;
+        var l = this.length, i = -1, e;
         
         while(++i < l && (e = this._e[i]) && m.call(e, i, l) !== false);
         
@@ -196,7 +188,7 @@
     
     //map through and increase y every 3 entities.
     
-    re('draw').map(3, function(x, y){
+    re('draw').tileMap(3, function(x, y){
         this.x(x * width);
         this.y(Y * height);
     });
@@ -215,13 +207,13 @@
     returning false will break the loop
     
     */
-    p.map = function(w, method){
+    p.tilemap = function(w, method){
         var x = 0;
         var y = 0;
         
-        for(var i =0, l = this._e.length; i<l; i++){
+        for(var i =0, l = this.length; i<l; i++){
             
-            if(method.call(this._e[i], x, y, i, l) == false) break;
+            if(method.call(this[i], x, y, i, l) == false) break;
             
             x++;
             
@@ -235,7 +227,7 @@
     /*
     Returns an array of all components in the query.
     */
-    p.getComps = function(){
+    p.comps = function(){
         var l = [];
         
         this.each(function(){
@@ -249,7 +241,7 @@
     Returns a random entity.
     */
     p.random = function(){
-        return this._e[~~(Math.random()*this._e.length)];
+        return this[~~(Math.random()*this.length)];
     }
     
     /*
@@ -287,9 +279,9 @@
         return t;
     }
     
-        p.defines = function(){
-        throw 'Deprecated use attr'
-        }
+    p.defines = function(){
+      throw 'Deprecated use attr'
+    }
     
     p.attr = function(obj, value){
         this.each(function(){
@@ -299,13 +291,13 @@
         return this;
     }
     
-        p.defaults = function(){
-        throw 'Deprecated use defaults'
-        }
+    p.defaults = function(){
+      throw 'Deprecated use defaults'
+    }
     
-    p.defaults = function(obj, value){
+    p.def = function(obj, value){
         this.each(function(){
-            this.defaults(obj, value);
+            this.def(obj, value);
         });
         
         return this;
@@ -322,7 +314,7 @@
     
     p.removeComp = function(c){
         this.each(function(ref){
-            this.removeComp(c);
+          this.removeComp(c);
         });
     }
     
@@ -334,10 +326,6 @@
         });
         
         return this;
-    }
-    
-    p.length = function(){
-        return this._e.length;    
     }
     
     /*
@@ -376,13 +364,13 @@
     
     p.has = function(comp){
         
-        for(var i=0; i<this._e.length; i++){
-            if(!this._e.has(comp)){
-                return false;    
+        for(var i=0; i<this.length; i++){
+            if(!this[i].has(comp)){
+                return false;
             }
         }
         
-        return this;
+        return true;
     }
     
     p.dispose = function(){
@@ -400,7 +388,7 @@
     Get specific entity from given index.
     */
     p.get = function(index){
-        return this._e[index];
+        return this[index];
     }
     
     /*
@@ -408,7 +396,7 @@
     */
     p.put = function(entity){
         
-        this._e.push(entity);
+        this.push(entity);
         
         return this;
     }

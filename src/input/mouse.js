@@ -34,17 +34,6 @@ re.c('mouse')
 		
 		var c = false;
 		
-		if(re.c('pressed').preventDefault){
-			if(re.c('pressed').preventDefault[b]){
-				if(e.preventDefault)
-					e.preventDefault();
-				 else 
-					e.returnValue = false;
-					
-				c = true;
-			}
-		}
-		
 		re.c('mouse').mouseEvent(e);
 		
 		if(c) return false;

@@ -164,7 +164,7 @@
         var pieces;
         
         //handle array or string?
-        if(re.is(com, 'object')){
+        if(re.is(com, 'array')){
             pieces = com;
             //set in case length is 1
             com = com[0];

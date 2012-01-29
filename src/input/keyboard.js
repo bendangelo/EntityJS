@@ -107,22 +107,14 @@ re.c('keyboard')
 		
 		var key = that.keyCodes[c];
 		
-		if(re.c('pressed').preventDefault && re.c('pressed').preventDefault[key]){
-			if(e.preventDefault)
-				e.preventDefault();
-			 else 
-				e.returnValue = false;
-			
-		}
-		
 		if(re.c('pressed')._pressed){
 			re.c('pressed')._pressed[key] = (e.type == 'keydown');
 		}
 		
 		for(var k=0; k<that.listeners.length; k++){
 			that.listeners[k]
-			.bind(e.type, key, e)
-			.bind(e.type+':'+key, key, e);
+			.trigger(e.type, key, e)
+			.trigger(e.type+':'+key, key, e);
 		}
 		
 	},

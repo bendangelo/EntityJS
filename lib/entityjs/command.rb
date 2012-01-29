@@ -4,6 +4,7 @@ Dir.glob("#{Entityjs::root}/lib/entityjs/*/*.rb").each {|f| require f }
 # 0 - ok
 # 1 - command not found
 # 2 - not in game directory
+# 3 - file exists
 
 module Entityjs
   class Command

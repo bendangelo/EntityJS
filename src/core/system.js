@@ -19,8 +19,8 @@ re.c('system')
     
     running:false,
     
-    sizeX:0,
-    sizeY:0
+    sizeX:10,
+    sizeY:10
     
 })
 .defines({
@@ -72,6 +72,10 @@ re.c('system')
     },
     
     init:function(canvasId, screen, contextType){
+        //init listeners
+      	re._c.keyboard.initListeners();
+      	re._c.mouse.initListeners();
+      	re._c.touch.initListeners();
         
         //add comps here because system is definesed earlier
         this.comp('polyfill ticker timestep');

@@ -8,7 +8,7 @@ module Entityjs
         return 2
       end
       
-      ent = Dirc.find_entity_files
+      ent = Dirc.find_entity_src
       srcs = Dirc.find_scripts
       
       merg = ent | srcs
@@ -22,6 +22,15 @@ module Entityjs
         #add license
         f.write(license+"\n")
         
+        #add files
+        f.write(%Q(
+        window.addEventListener\('load', function(){
+        #{Assets.to_js}
+        re.version = '#{VERSION}';
+        
+        }\);
+        ))
+        
         #add javascript srcs
         merg.each do |s|
         
@@ -29,12 +38,6 @@ module Entityjs
         
           f.write("document.write(\"#{scrip}\");\n")
         end
-        
-        #add files
-        f.write(%Q(window.onload = function(){
-        #{Assets.to_js}
-        re.version = '#{VERSION}';
-        }))
         
       end
       

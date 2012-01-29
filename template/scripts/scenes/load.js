@@ -1,7 +1,7 @@
 re.scene('load')
 .enter(function(){
   
-  re.load(re.images.concat(re.sounds))
+  re.load(re.assets)
   .complete(function(){
     console.log('finished loading...')
     

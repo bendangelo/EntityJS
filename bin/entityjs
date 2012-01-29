@@ -12,7 +12,13 @@ command = args.shift.strip rescue 'help'
 
 code = Entityjs::Command.run(command, args)
 
-if code == 2
-  puts "EntityJS game not found"
-  puts "Move inside the root directory"
+case code
+  when 1
+    puts "Command not found"
+  when 2
+    puts "EntityJS game not found"
+    puts "Move inside the root directory"
+  when 3
+    puts "File/Directory exists"
+    
 end

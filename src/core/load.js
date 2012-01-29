@@ -50,9 +50,20 @@
     var l = function(assets){
         
         if(re.is(assets,'string')){
-            this.assets = assets.split(' ');
+          this.assets = assets.split(' ');
+          
+        } else if(re.is(assets,'object')){
+          this.assets = [];
+          for(var i in assets){
+            
+            if(assets.hasOwnProperty(i) && re.is(assets[i], 'array')){
+              this.assets = this.assets.concat(assets[i]);
+            }
+            
+          }
         } else {
-            this.assets = assets;
+          
+          this.assets = assets;
         }
         
         var a;
@@ -111,11 +122,11 @@
         re.c(a)
         .alias(n+re.load.imgExt)
         .statics({
-            bitmap:img
+            image:img
         })
         .defines({
             //save image for other components to copy or use
-            bitmap:img
+            image:img
         });
         
         img.onload = function(){
