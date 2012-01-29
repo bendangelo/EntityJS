@@ -19,3 +19,4 @@ entity-ignore:
 #regular expressions are allowed
 order:
   
+tests-ignore:

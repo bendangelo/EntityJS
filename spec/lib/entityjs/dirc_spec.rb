@@ -19,4 +19,17 @@ describe 'dirc' do
     Entityjs::Dirc.game?.should == false
   end
   
+  it 'should return script urls' do
+    Entityjs::Dirc.stub(:find_scripts).and_return(['asdfsdf/scripts/asdf.js', 'sfhs/scripts/sdf.js'])
+    
+    Entityjs::Dirc.find_scripts_url.should be_instance_of Array
+  end
+  
+  it 'should return entity src urls' do
+    Entityjs::Dirc.stub(:find_entity_src).and_return(['asdfsdf/src/asdf.js', 'sfhs/src/sdf.js'])
+    
+    Entityjs::Dirc.find_scripts_url.should be_instance_of Array
+    
+  end
+  
 end

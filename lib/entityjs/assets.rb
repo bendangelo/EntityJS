@@ -2,15 +2,15 @@ module Entityjs
   
   class Assets
     
-    def self.set_vars(contents)
+    def self.set_vars(contents, tests=false)
       contents = contents.gsub("$WIDTH", Config.instance.width.to_s)
       contents = contents.gsub("$HEIGHT", Config.instance.height.to_s)
       contents = contents.gsub("$CANVAS_ID", Config.instance.canvas_id)
       
-      contents.gsub("$JS", Assets.to_html)
+      contents.gsub("$JS", Assets.to_html(tests))
     end
     
-    def self.to_html
+    def self.to_html(tests=false)
       js = %Q(
       <script type='text/javascript'>
       window.addEventListener\('load', function(){
@@ -22,8 +22,13 @@ module Entityjs
 )
       ent = Dirc.find_entity_src_url(Config.instance.entity_ignore)
       srcs = Dirc.find_scripts_url(Config.instance.scripts_ignore, Config.instance.scripts_order)
+      if tests
+        tests_src = Dirc.find_tests_url(Config.instance.tests_ignore)
+      else
+        tests_src = []
+      end
       
-      merg = ent | srcs
+      merg = ent | srcs | tests_src
       
       merg.each do |s|
         js += "\t<script src='#{s}' type='text/javascript'></script>\n"

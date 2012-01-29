@@ -23,7 +23,7 @@ module Entityjs
     
     get '/tests' do
       
-      Assets.set_vars(IO.read("#{Entityjs::root}/public/tests.html"))
+      Assets.set_vars(IO.read("#{Entityjs::root}/public/tests.html"), true)
       
     end
     

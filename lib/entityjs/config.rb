@@ -66,6 +66,13 @@ module Entityjs
       end
     end
     
+    def tests_ignore
+      y = @yml['tests-ignore']
+      if !y.nil?
+        y.split("\n")
+      end
+    end
+    
     def entity_ignore
       y = @yml['entity-ignore']
       if !y.nil?

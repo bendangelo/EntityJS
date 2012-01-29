@@ -5,7 +5,6 @@ module Entityjs
   class Dirc
     
     def self.game?
-      @game_root = Dir.pwd
       #check if config.yml exists
       return File.file? Config.file_name
     end
@@ -15,15 +14,23 @@ module Entityjs
     end
     
     def self.game_root
+      if @game_root.nil?
+        @game_root = Dir.pwd
+      end
+      
       @game_root
     end
     
+    def self.find_tests_url(ignore=nil)
+      Dir["#{Dirc.game_root}/#{Config.instance.tests_folder}/*/*.js"]
+    end
+    
     def self.find_scripts_url(ignore=nil, order=nil)
-      self.find_scripts(ignore, order).collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
+      self.find_scripts(ignore, order).collect{|k| k[k.rindex('scripts/')..-1] }
     end
     
     def self.find_entity_src_url(ignore=nil)
-      self.find_entity_src(ignore).collect{|k| k[k.rindex('scripts/')..-1] }
+      self.find_entity_src(ignore).collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
     end
     
     def self.find_scripts(ignore=nil, order=nil)
