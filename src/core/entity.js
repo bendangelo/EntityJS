@@ -84,7 +84,7 @@
         var pieces;
         
         //handle string or array?
-        if(re.is(com,'object')){
+        if(re.is(com,'array')){
             pieces = com;
             
             com = com[0];
@@ -115,7 +115,7 @@
                 c._re_dispose.call(this, c);
             }
             
-            c.bind('dispose', this);
+            c.trigger('dispose', this);
             
         }
     };

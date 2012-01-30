@@ -7,7 +7,7 @@
     * identifies all
     ^ identifies a bind
     # identifies an id
-    - identifies not
+    ! identifies not
     
     //select all entities
     re('*');
@@ -84,7 +84,7 @@
             
             if(fl == '^'){
                 binds.push(val);
-            } else if(fl == '-'){
+            } else if(fl == '!'){
                 minus.push(val);
             } else if(fl == '#'){
                 id = val;
