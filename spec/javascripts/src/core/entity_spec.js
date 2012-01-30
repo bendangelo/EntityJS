@@ -188,15 +188,73 @@ describe('entity', function(){
   })
   
   it('attr', function(){
-    
+    //add attributes
+      e.attr({x:10, y:'sdd', func:function(){}})
+      
+      eq(e.x, 10)
+      eq(e.y, 'sdd')
+      is(e.func, 'function')
+      
+      e.attr('ok', 87)
+      eq(e.ok, 87)
+      
+     //run setter methods
+     e.posX = function(value1){
+       this.val = value1;   
+     };
+     
+      e.attr('posX', 154)
+      eq(e.val, 154)
+      
+      //multiple
+          e.size = function(width, height){
+              this.width = width
+              this.height = height
+          };
+      e.attr({
+          size:[45, 40]
+      });
+      
+      eq(e.width, 45)
+      eq(e.height, 40)
   })
   
   it('def', function(){
+      e.first = 99
+    e.def('first', 10)
+    eq(e.first, 99)
     
+        e.def({ok:10, yep:99});
+     eq(e.ok, 10)
+     eq(e.yep, 99)
   })
   
   it('dispose', function(){
-    
+  var called = false
+  var co;
+  var en;
+  var called2 = false;
+      c.dispose(function(comp){
+          called = true
+          co = comp
+      })
+          c.bind('dispose', function(e){
+          called2 = true
+          en = e
+          })
+      e.comp(c.name)
+      var called3 = false
+          e.bind('dispose', function(){
+              called3 = true
+          });
+      
+      e.dispose()
+      
+      ok(called)
+      eq(co, c)
+      ok(called2)
+      eq(en, e)
+      ok(called3)
   })
   
 })

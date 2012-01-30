@@ -467,8 +467,15 @@
             
         }else {
             //defines property
-            
-            this[obj] = value;
+            if(re.is(this[obj], 'function')){
+                if(re.is(value, 'array')){
+                    this[obj].apply(this, value);
+                } else {
+                    this[obj].call(this, value);
+                }
+            } else {
+                this[obj] = value;
+            }
         }
         
         return this;
