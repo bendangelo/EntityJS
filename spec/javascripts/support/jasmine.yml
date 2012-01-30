@@ -38,6 +38,8 @@ stylesheets:
 #   - helpers/**/*.js
 #
 helpers:
+  - helpers/jquery-1.7.1.min.js
+  - helpers/**/*.js
 
 # spec_files
 #

@@ -1,6 +1,7 @@
 function is(obj, type){
   if(arguments.length == 1){
     expect(obj).toNotBe(null)
+    expect(obj).toNotBe(undefined)
   } else{
     ok(obj != null && Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() == type.toLowerCase())
   }

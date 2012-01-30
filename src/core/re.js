@@ -33,7 +33,7 @@ re.ready.c = [];
 The $ method is used for selecting ids and tags.
 */
 re.$ = function(s){
-        return /*re.$.c[s] = re.$.c[s] ||*/ (s.charAt(0) == '#') ? document.getElementById(s.substr(1)) : document.getElementsByTagName(s);
+  return re.$.c[s] = re.$.c[s] || ((s.charAt(0) == '#') ? document.getElementById(s.substr(1)) : document.getElementsByTagName(s)[0]);
 };
 //caches dom queries
 re.$.c = {};

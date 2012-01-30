@@ -36,7 +36,7 @@
         this.name = name;
         this._re_signals = {};
         this._re_inherits = {};
-        this._re_definess = {};
+        this._re_defines = {};
         this._re_final = false;
     };
     
@@ -82,11 +82,11 @@ re.c.init.prototype = {
     },
     
     require:function(){
-        throw 'Deprecated use requiress'
+        throw 'Deprecated use requires'
     },
     
     requires:function(r){
-        return __z.call(this, '_re_requiress', r);
+        return __z.call(this, '_re_requires', r);
     },
     
     /*
@@ -114,7 +114,7 @@ re.c.init.prototype = {
     
     */
     interfaces:function(r){
-        return __z.call(this, '_re_implments', r);
+        return __z.call(this, '_re_implements', r);
     },
     
     /*
@@ -162,10 +162,6 @@ re.c.init.prototype = {
         return this;
     },
     
-    unbind:function(){
-        return re.e.init.prototype.unbind.apply(this, arguments);
-    },
-    
     /*
     Adds bind functionality to components.
     All components will automatically call two signals, init and dispose.
@@ -178,6 +174,14 @@ re.c.init.prototype = {
     */
     bind:function(){
         return re.e.init.prototype.bind.apply(this, arguments);
+    },
+    
+    unbind:function(){
+        return re.e.init.prototype.unbind.apply(this, arguments);
+    },
+    
+    trigger:function(){
+      return re.e.init.prototype.trigger.apply(this, arguments);
     },
     
   inherit:function(){
@@ -232,11 +236,11 @@ re.c.init.prototype = {
         if(arguments.length == 1){
         
             for(var k in obj){
-                this._re_definess[name+k] = obj[k];
+                this._re_defines[name+k] = obj[k];
             }
         
         } else {
-            this._re_definess[name+obj] = value;
+            this._re_defines[name+obj] = value;
         }
         
         return this;
@@ -253,17 +257,14 @@ re.c.init.prototype = {
     defines:function(d, value){
         this._checkFinal();
         
-        if(!this._re_definess){
-            this._re_definess = {};
-        }
         if(arguments.length == 1){
             
             for(var k in d){
-                this._re_definess[k] = d[k];    
+                this._re_defines[k] = d[k];    
             }
             
         } else {
-            this._re_definess[d] = value;
+            this._re_defines[d] = value;
         }
         
         return this;    

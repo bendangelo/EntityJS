@@ -13,7 +13,7 @@
     */
     var q = function(c, count){
         if(!count){
-            return new re.entity.init(c);
+          return new re.entity.init(c);
         }
         
         //optimize for multiple calls
@@ -21,7 +21,7 @@
         
         //create entity by number of count
         for(var i=0; i<count; i++){
-            q._e.push(re.e(c));
+            q.push(re.e(c));
         }
         
         return q;
@@ -57,11 +57,11 @@
         this._re_comp(com);
         
         //check implement
-        if(this._re_interface){
+        if(this._re_implements){
             
-            for(var i in this._re_interface){
-                if(!this.hasOwnProperty(this._re_interface[i])){
-                    throw 'implementation: '+this._re_interface[i]+' missing';
+            for(var i in this._re_implements){
+                if(!this.hasOwnProperty(this._re_implements[i])){
+                    throw 'interface: '+this._re_implements[i]+' missing';
                 }
             }
             
@@ -69,11 +69,11 @@
         
         //check asserts
         if(this._re_asserts){
-            for(var t in this._re_asserts){
-                if(this._re_comps.indexOf(c._re_asserts[t]) != -1){
-                    throw 'assert: '+c.name+' cannot be coupled with '+c._re_asserts[t];
-                }
-            }
+          for(var t in this._re_asserts){
+              if(this._re_comps.indexOf(this._re_asserts[t]) != -1){
+                  throw 'assert: '+this._re_asserts[t]+' is not allowed';
+              }
+          }
         }
         
         return this;
@@ -202,7 +202,7 @@
         
         //init component only if it exists
         if(c){
-            this._re_comp(c._re_requiress);
+            this._re_comp(c._re_requires);
             
             //add interface of component
             if(c._re_implements){
@@ -223,15 +223,15 @@
                 this.def(c._re_inherits);
             }
             
-            if(c._re_definess){
-                this.attr(c._re_definess);
+            if(c._re_defines){
+                this.attr(c._re_defines);
             }
             
             if(c._re_init){
                 c._re_init.apply(this, vals);
             }
             
-            c.bind('init', this);
+            c.trigger('init', this);
         }
         
         
@@ -243,7 +243,7 @@
     /*
     Returns component array
     */
-    p.getComps = function(){
+    p.comps = function(){
         return this._re_comps.slice();
     }
     
@@ -254,7 +254,7 @@
     /*
     Calls methods of parent components.
     
-    Use '' to call entities components when overriding
+    Use '' to call super of entity
     */
     p.parent = function(comp, method){
         
@@ -262,20 +262,16 @@
         
         if(comp == ''){
             //call entity parent methods
-            re.e.init[method].apply(this, a);
+            return re.e.init.prototype[method].apply(this, a);
         }
         
         var c = re._c[comp];
         
-        if(c._re_definess[method]){
-            return c._re_definess[method].apply(this, a);
+        if(c._re_defines[method]){
+            return c._re_defines[method].apply(this, a);
         }
         
-        if(c._re_inherits[method]){
-            return c._re_inherits[method].apply(this, a);
-        }
-        
-        return this;
+        return c._re_inherits[method].apply(this, a);
     }
     
     /*
@@ -520,10 +516,10 @@
             if(k._re_dispose){
                 k._re_dispose.call(this, k);
             }
-            k.bind('dispose', this);
+            k.trigger('dispose', this);
         }
         
-        this.bind('dispose');
+        this.trigger('dispose');
         
         return this;
     }

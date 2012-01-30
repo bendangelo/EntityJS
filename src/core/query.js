@@ -71,7 +71,7 @@
         //convert to object
         var temp = query.split(' ');
         var comps = [];
-        var signals = [];
+        var binds = [];
         var minus = [];
         var id = '';
         
@@ -83,7 +83,7 @@
             val = temp[j].substr(1);
             
             if(fl == '^'){
-                signals.push(val);
+                binds.push(val);
             } else if(fl == '-'){
                 minus.push(val);
             } else if(fl == '#'){
@@ -95,7 +95,7 @@
         
         var comp = {
             comp:comps,
-            bind:signals,
+            bind:binds,
             not:minus,
             id:id
         };    
@@ -178,7 +178,7 @@
     p.each = function(m){
         var l = this.length, i = -1, e;
         
-        while(++i < l && (e = this._e[i]) && m.call(e, i, l) !== false);
+        while(++i < l && (e = this[i]) && m.call(e, i, l) !== false);
         
         return this;
     }
@@ -231,7 +231,12 @@
         var l = [];
         
         this.each(function(){
-            l.concat(this.getComps());
+          var k = this.comps();
+          for(var i=0; i<k.length; i++){
+            if(l.indexOf(k[i]) == -1){
+              l.push(k[i])
+            }
+          }
         });
         
         return l;
