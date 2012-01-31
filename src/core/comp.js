@@ -172,12 +172,12 @@ re.c.init.prototype = {
     all entities that have its component. Check the cycle directory.
     
     */
-    bind:function(){
-        return re.e.init.prototype.bind.apply(this, arguments);
+    on:function(){
+        return re.e.init.prototype.on.apply(this, arguments);
     },
     
-    unbind:function(){
-        return re.e.init.prototype.unbind.apply(this, arguments);
+    off:function(){
+        return re.e.init.prototype.off.apply(this, arguments);
     },
     
     trigger:function(){

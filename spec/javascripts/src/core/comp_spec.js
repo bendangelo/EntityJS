@@ -57,7 +57,7 @@ describe('comp', function(){
   
   it('should unbind', function(){
     k
-    .unbind('test')
+    .off('test')
   })
   
   it('should trigger', function(){
@@ -68,7 +68,7 @@ describe('comp', function(){
   it('should bind', function(){
     
     k
-    .bind('init')
+    .on('init')
   })
 
   it('should defaults', function(){

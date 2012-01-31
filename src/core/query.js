@@ -95,7 +95,7 @@
         
         var comp = {
             comp:comps,
-            bind:binds,
+            on:binds,
             not:minus,
             id:id
         };    
@@ -111,13 +111,13 @@
     
     p.query = function(select){
         select = select || '';
-        var i = 0;
+        var l = re._e.length, i = -1, e;
         
-        if(typeof select == 'string'){
+        if(re.is(select, 'string')){
             
             if(select == '*'){
                 
-                this.concat(re._e.slice());
+                this.push.apply(this, re._e.slice());
                 
                 return this;
             }
@@ -125,26 +125,14 @@
             //optimize search and cache
             var obj = q._toObj(select);
             
-            var en;
-            main : for(; i<re._e.length; i++){
-                en = re._e[i];
-                
-                if(en.has(obj)){
-                
-                    this.push(en);
-                }
-                
+            while(++i < l && (e = re._e[i])){
+                if(e.has(obj)) this.push(e);
             }
-            
             
         } else if(re.is(select, 'function')){
             
-            for(; i<re._e.length; i++){
-                
-                if(select.call(re._e[i], i, re._e.length)){
-                    this.push(re._e[i]);
-                }
-                
+            while(++i < l && (e = re._e[i])){
+               if(select.call(e, i, l)) this.push(e);
             }
             
         }
@@ -188,7 +176,7 @@
     
     //map through and increase y every 3 entities.
     
-    re('draw').tileMap(3, function(x, y){
+    re('draw').tilemap(3, function(x, y){
         this.x(x * width);
         this.y(Y * height);
     });
@@ -323,49 +311,26 @@
         });
     }
     
-    p.bind = function(type, method){
-        var p = arguments;
+    p.on = function(type, method){
         
-        this.each(function(ref){
-            this.bind.apply(this, p);
+        return this.each(function(){
+            this.on(type,method);
         });
         
-        return this;
     }
     
-    /*
-    filters out entities that do not match credentials
+    p.off = function(type, method){
+        return this.each(function(){
+            this.off(type, method);
+        });
+    }
     
-    //spawns all entities that are dead
-    re('2d health').filter(function(i){
-        
-        if(this.health <= 0){
-            //keep entity
-            return true;    
+        p.trigger = function(){
+            var p = arguments;
+            return this.each(function(){
+                this.trigger.apply(this, p);
+            });
         }
-        
-        //remove entity
-        return false;
-        
-    }).bind('spawn');
-    
-    */
-    p.filter = function(method){
-        
-        var q = re();
-        var that = this;
-        
-        this.each(function(i, l){
-            
-            if(method.call(this, i, l)){
-                //add entity
-                q.push(this);
-            }
-            
-        });
-        
-        return q;
-    }
     
     p.has = function(comp){
         

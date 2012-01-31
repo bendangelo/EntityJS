@@ -26,7 +26,7 @@ describe('entity', function(){
               v2 = val2
           })
           var called2 = false
-              c.bind('init', function(y){
+              c.on('init', function(y){
               called2 = true
               ok(y == e)
               })
@@ -102,7 +102,7 @@ describe('entity', function(){
       })
       var called2 = false
       var en = null
-          c.bind('dispose', function(y){
+          c.on('dispose', function(y){
               called2 = true
               en = y
           })
@@ -144,7 +144,7 @@ describe('entity', function(){
     not(e.has('#asdsd'))
     not(e.has('sdcsdc'))
     
-        e.bind('values', function(){})
+        e.on('values', function(){})
         ok(e.has('^values'))
         
         e.comp('tst')
@@ -159,7 +159,7 @@ describe('entity', function(){
   
   it('bindings', function(){
       var called = false, va, va2
-      e.bind('values', function(v, v2){
+      e.on('values', function(v, v2){
           called = true
           va = v
           va2 = v2
@@ -174,16 +174,16 @@ describe('entity', function(){
       not(e.has('^values'))
       
           var func = function(){};
-          e.bind({
+          e.on({
           yep:function(){},
               ok:func
           })
           ok(e.has('^yep'))
-          e.unbind('yep')
+          e.off('yep')
           not(e.has('^yep'))
            
           ok(e.has('^ok'))
-              e.unbind({ok:func})
+              e.off({ok:func})
               not(e.has('^ok'))
   })
   
@@ -238,13 +238,13 @@ describe('entity', function(){
           called = true
           co = comp
       })
-          c.bind('dispose', function(e){
+          c.on('dispose', function(e){
           called2 = true
           en = e
           })
       e.comp(c.name)
       var called3 = false
-          e.bind('dispose', function(){
+          e.on('dispose', function(){
               called3 = true
           });
       

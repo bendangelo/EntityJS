@@ -290,7 +290,7 @@
     this.has({
         'comp':['draw'],
         'id':'bob',
-        'bind':['draw'],
+        'on':['draw'],
         'not':['update']
     });
     */
@@ -303,7 +303,7 @@
         
         comp.comp = comp.comp || [];
         comp.id = comp.id || '';
-        comp.bind = comp.bind || [];
+        comp.on = comp.on || [];
         comp.not = comp.not || [];
             
         //check if entitiy contains the correct components
@@ -324,8 +324,8 @@
         
         var s;
         //check if entity contains signals
-        for(p=0; p<comp.bind.length; p++){
-            s = comp.bind[p];
+        for(p=0; p<comp.on.length; p++){
+            s = comp.on[p];
             if(!this._re_signals[s] || this._re_signals[s].length == 0){
                 return false;
             }
@@ -354,12 +354,12 @@
         
     });
     */
-    p.bind = function(type, method){
+    p.on = function(type, method){
         
         if(re.is(type, 'object')){
             
             for(var k in type){
-                this.bind(k, type[k]);
+                this.on(k, type[k]);
             }
             
         } else {
@@ -389,12 +389,12 @@
         
     });
     */
-    p.unbind = function(type, method){
+    p.off = function(type, method){
         
         if(re.is(type, 'object')){
             
             for(var k in type){
-                this.unbind(k, type[k]);
+                this.off(k, type[k]);
             }
             
         } else {
