@@ -119,8 +119,9 @@
         var img = new Image();
         
         //create new image component
+        console.log(n+re.load.imageExt)
         re.c(a)
-        .alias(n+re.load.imgExt)
+        .alias(n+re.load.imageExt)
         .statics({
             image:img
         })
@@ -141,13 +142,13 @@
             that.current++;
             
             if(that._p){
-                that._p.call(that, that.current, that.total, a);
+                that._p();
             }
             
             if(that.current >= that.total){
             
                 if(that._s){
-                    that._s.call(that, that.assets);
+                  that._s();
                 }
                 
             }
@@ -187,12 +188,12 @@
             that.current++;
             
             if(that._p){
-                that._p.call(that, that.current, that.total, a);
+                that._p();
             }
             
             if(that.current >= that.total){
                 if(that._s){
-                    that._s.call(that, that.assets);
+                  that._s();
                 }
                 
             }
