@@ -6,7 +6,13 @@ describe('entity', function(){
   beforeEach(function(){
     e = re.e()
     c = re.c(f('name'))
-  })
+  });
+  
+  it('multiple', function(){
+      eq(re.e('bob', 10).length, 10);
+      eq(re.e('ki', 2).comps(), ['ki']);
+      
+  });
   
   it('comp', function(){
     e.comp('qwdqwd wer')

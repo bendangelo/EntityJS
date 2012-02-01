@@ -6,7 +6,7 @@ module Jasmine
 
        # Jasmine will pass in 8888, but you can change it to whatever you  
 
-       port = 2999
+       #port = 2999
 
        handler = Rack::Handler.default 
 

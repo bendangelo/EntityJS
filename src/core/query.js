@@ -147,12 +147,11 @@
     */
     p.method = function(m){
         var b = Array.prototype.slice.call(arguments, 1);
-        this.each(function(){
+        return this.each(function(){
         
             this[m].apply(this, b);
         });
         
-        return this;
     }
     
     /*
@@ -199,9 +198,9 @@
         var x = 0;
         var y = 0;
         
-        for(var i =0, l = this.length; i<l; i++){
+        return this.each(function(i, l){
             
-            if(method.call(this[i], x, y, i, l) == false) break;
+            if(method.call(this[i], x, y, i, l) == false) return false;
             
             x++;
             
@@ -209,7 +208,7 @@
                 x = 0;
                 y++;    
             }
-        }
+        });
     }
     
     /*
@@ -243,7 +242,7 @@
     //will return all pos objs from all entities.
     re('point').pluck('pos visible');
     
-    //if we echo...
+    //if we print...
     
     [
     {pos:0, visible:0}
@@ -277,11 +276,10 @@
     }
     
     p.attr = function(obj, value){
-        this.each(function(){
+        return this.each(function(){
             this.attr(obj,value);
         });
         
-        return this;
     }
     
     p.defaults = function(){
@@ -289,24 +287,22 @@
     }
     
     p.def = function(obj, value){
-        this.each(function(){
+        return this.each(function(){
             this.def(obj, value);
         });
         
-        return this;
     }
     
     p.comp = function(c){
         
-        this.each(function(ref){
+        return this.each(function(ref){
             this.comp(c);
         });
         
-        return this;
     }
     
     p.removeComp = function(c){
-        this.each(function(ref){
+        return this.each(function(ref){
           this.removeComp(c);
         });
     }
@@ -345,30 +341,12 @@
     
     p.dispose = function(){
         
-        this.each(function(){
+        return this.each(function(){
             
             this.dispose();
             
         });
         
-        return this;
-    }
-    
-    /*
-    Get specific entity from given index.
-    */
-    p.get = function(index){
-        return this[index];
-    }
-    
-    /*
-    Put entity into query array.
-    */
-    p.put = function(entity){
-        
-        this.push(entity);
-        
-        return this;
     }
     
     re.query = q;
