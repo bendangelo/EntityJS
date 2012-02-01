@@ -191,6 +191,11 @@ describe('entity', function(){
           ok(e.has('^ok'))
               e.off({ok:func})
               not(e.has('^ok'))
+              
+              //remove all
+       e.on('key', function(){});
+       is(e.off());
+      eq(e._re_signals, {});
   })
   
   it('attr', function(){

@@ -51,6 +51,7 @@ describe('query', function(){
     });
     
     it('tilemap', function(){
+    
       is(re.e('tile', 10).tilemap(5, function(x, y, i, l){
         ok(x < 5)
         ok(y < 2)
@@ -65,7 +66,7 @@ describe('query', function(){
     
     it('random', function(){
       is(re('tile').random(), 'object')
-    ));
+    });
     
     it('pluck', function(){
       re('tile').attr({f:10, y:'d'});
@@ -102,31 +103,55 @@ describe('query', function(){
     });
 
     it('comp', function(){
+      is(re.e('re',3).comp('yy'));
       
+      ok(re('re').has('yy'));
     });
     
     it('removeComp', function(){
-    
+        is(re.e('kw gg33', 2).removeComp('gg33'))
+        
+        eq(re('gg33').length, 0)
     });
     
     it('on', function(){
-    
+        is(re.e('ssss', 1).on('mousedown', function(){}));
+        
+        eq(re('ssss ^mousedown').length, 1)
     });
     
     it('off', function(){
-    
+        is(re.e('k54',1).on('mouse', function(){}).off());
+        ok(re('k54 ^mouse').length == 0)
     });
     
     it('trigger', function(){
-    
+        re.e('g55');
+        var called = null;
+        re('g55').on('bind', function(v){called=v});
+        re('g55').trigger('bind', 'bob');
+        
+        eq('bob', called);
     });
     
     it('has', function(){
-    
+        var k = re.e('bob ref',2).on('key', function(){});
+        
+        ok(k.has('bob'));
+        ok(k.has('ref'));
+        ok(k.has('^key'));
+        ok(k.has('!sddd'));
+        ok(k.has('bob ref ^key !sddd'));
+        
+        //empty query should always return false
+        not(re().has('ok'))
+        
+        not(re.e('sdf',2).has('^wef'));
     });
     
     it('dispose', function(){
-    
+        is(re.e('rgfdvdvdfv', 2).dispose());
+        eq(re('rgfdvdvdfv').length, 0);
     });
-  
+    
 })

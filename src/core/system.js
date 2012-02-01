@@ -11,8 +11,6 @@ FUTURE
 re.c('system')
 .defaults({
     
-    contextType:'2d',
-    
     clearColor:'#f9f9f9',
     
     stepSize:0.03,
@@ -71,34 +69,24 @@ re.c('system')
         return this;
     },
     
-    init:function(canvasId, screen, contextType){
+    init:function(canvasId, scale, contextType){
         //init listeners
-      	re._c.keyboard.initListeners();
-      	re._c.mouse.initListeners();
-      	re._c.touch.initListeners();
+          re._c.keyboard.initListeners();
+          re._c.mouse.initListeners();
+          re._c.touch.initListeners();
         
-        //add comps here because system is definesed earlier
+        //add comps here because system is defined earlier than other comps
         this.comp('polyfill ticker timestep');
         
         //setup canvas
         this.canvas = re.$(canvasId);
         
-        this.contextType = contextType || this.contextType;
+        this.scale = scale || 1;
         
-        this.context = this.canvas.getContext(this.contextType);
+        this.context = this.canvas.getContext(contextType);
         
         this.sizeX = this.canvas.width;
         this.sizeY = this.canvas.height;
-        
-        screen = screen || re.screen;
-        
-        if(screen){
-            screen.sizeX = this.sizeX;
-            screen.sizeY = this.sizeY;
-            
-            screen.regX = this.sizeX * 0.5;
-            screen.regY = this.sizeY * 0.5;
-        }
         
         return this;
     },
@@ -116,7 +104,7 @@ re.c('system')
         //clear
         this.clear(this.clearColor);
         
-        re._c.draw.draw.call(re._c.draw, this);
+        re._c.draw.draw();
     }
     
     

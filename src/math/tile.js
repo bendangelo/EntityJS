@@ -42,7 +42,7 @@ re.tile = re.c('tile')
     
 })
 .init(function(){
-    this.defaults({
+    this.def({
         sizeX: re.tile.sizeX,
         sizeY: re.tile.sizeY
     });

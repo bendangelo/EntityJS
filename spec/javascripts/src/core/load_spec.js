@@ -20,7 +20,7 @@ describe('load', function(){
           ok(false)
         })
         
-        waits(200)
+        waits(300)
         runs(function(){
           ok(called)
           ok(prog)

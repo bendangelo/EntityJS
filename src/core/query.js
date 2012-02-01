@@ -283,7 +283,7 @@
     }
     
     p.defaults = function(){
-      throw 'Deprecated use defaults'
+      throw 'Deprecated use def'
     }
     
     p.def = function(obj, value){
@@ -336,7 +336,7 @@
             }
         }
         
-        return true;
+        return this.length != 0;
     }
     
     p.dispose = function(){

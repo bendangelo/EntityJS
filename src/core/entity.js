@@ -378,16 +378,20 @@
     /*
     Added in V0.2.1
     
-    //remove single
-    unbind('draw', this.draw);
+    //remove bind from function
+    off('draw', this.draw);
     
     //remove multiple
-    unbind({
-        
+    off({ 
         draw:this.draw,
         update:this.update
-        
     });
+    
+    //remove all keydown binds
+    off('keydown')
+    
+    //remove all binds
+    off()
     */
     p.off = function(type, method){
         
@@ -399,7 +403,7 @@
             
         } else {
             
-            if(re.is(method, 'function')){
+            if(method){
             
                 for(var k in this._re_signals[type]){
                 
@@ -408,11 +412,14 @@
                     }
                     
                 }
-            } else {
+            } else if(type){
                 
                 //no method was passed. Remove all signals
                 this._re_signals[type] = [];
                 
+            } else {
+                //remove all signals
+                this._re_signals = {};
             }
         }
         
