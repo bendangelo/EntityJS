@@ -4,5 +4,6 @@ Thumbs.db
 Gemfile.lock
 pkg/*
 .redcar
+._redcar
 mygame
 examples

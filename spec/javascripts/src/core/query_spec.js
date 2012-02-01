@@ -43,59 +43,90 @@ describe('query', function(){
     });
   
     it('each', function(){
-    
+      var i = 0;
+      is(re('dd', 3).each(function(c, l){
+        eq(i++, c);
+        eq(l, 3)
+      }))
     });
     
     it('tilemap', function(){
-    
+      is(re.e('tile', 10).tilemap(5, function(x, y, i, l){
+        ok(x < 5)
+        ok(y < 2)
+        eq(l, 10)
+      }));
+      
     });
     
     it('comps', function(){
-    
+      eq(re('tile').comps(), ['tile'])
     });
     
     it('random', function(){
-    
-    );
+      is(re('tile').random(), 'object')
+    ));
     
     it('pluck', function(){
-        
+      re('tile').attr({f:10, y:'d'});
+      var k = re('tile').pluck('f y');
+      eq(k.length, re('tile').length);
+      eq(k[0].f, re('tile')[0].f);
+      eq(k[0].y, re('tile')[0].y);
     });
         
     it('attr', function(){
+        re('tile').attr('first', 'asdf');
+        re('tile').each(function(){
+          eq(this.first, 'asdf')
+        })
         
+        re('tile').attr({yap:'1232'});
+        re('tile').each(function(){
+          eq(this.yap, '1232')
+        })
     });
     
-        it('def', function(){
-        
-        });
-  
-        it('comp', function(){
-        
-        });
-        
-        it('removeComp', function(){
-        
-        });
-        
-        it('on', function(){
-        
-        });
-        
-        it('off', function(){
-        
-        });
-        
-        it('trigger', function(){
-        
-        });
-        
-        it('has', function(){
-        
-        });
-        
-        it('dispose', function(){
-        
-        });
+    it('def', function(){
+      re('tile').def('first', 'asdf');
+      re('tile').each(function(){
+        eq(this.first, 'asdf')
+      })
+      
+      re('tile').def({yap:'1232', first:'d'});
+      re('tile').each(function(){
+        eq(this.yap, '1232')
+        eq(this.first, 'asdf')
+      })
+    
+    });
+
+    it('comp', function(){
+      
+    });
+    
+    it('removeComp', function(){
+    
+    });
+    
+    it('on', function(){
+    
+    });
+    
+    it('off', function(){
+    
+    });
+    
+    it('trigger', function(){
+    
+    });
+    
+    it('has', function(){
+    
+    });
+    
+    it('dispose', function(){
+    
+    });
   
 })
