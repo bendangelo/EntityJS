@@ -4,11 +4,9 @@ re.c('draw')
     
     draw:function(s){
         var lis = this.l;
-        var i = lis.length;
         
-        while(i--){
-            b = lis[i];
-            b.drawable && b.isVisible() && b.draw_render(s.context);
+        for(var i=lis.length, b; i--; b = lis[i]){
+            b.drawable && b.visible() && b.draw_render(s.context);
         }
         
     }
@@ -17,7 +15,7 @@ re.c('draw')
 .interfaces('draw')
 .init(function(c){
     
-    c.l.push(this);
+    c.l.unshift(this);
     
 })
 .dispose(function(c){
@@ -72,7 +70,7 @@ re.c('draw')
         
         l.splice(l.indexOf(this), 1);
         
-        l.unshift(this);
+        l.push(this);
         return this;
     },
     
@@ -81,7 +79,7 @@ re.c('draw')
         
         l.splice(l.indexOf(this), 1);
         
-        l.push(this);
+        l.unshift(this);
         return this;
     },
     
@@ -135,7 +133,7 @@ re.c('draw')
     /*
     Returns true or false wether the object is visible on screen.
     */
-    isVisible:function(){
+    visible:function(){
         
         return re.screen.touches(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY);
         

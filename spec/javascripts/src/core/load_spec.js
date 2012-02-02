@@ -12,17 +12,6 @@ describe('load', function(){
         re.load([img, sfx])
         .complete(function(){
           called = true
-        })
-        .progress(function(){
-          prog = true
-        })
-        .error(function(){
-          ok(false)
-        })
-        
-        waits(300)
-        runs(function(){
-          ok(called)
           ok(prog)
           
           is(re.c(img).image)
@@ -38,6 +27,17 @@ describe('load', function(){
           
           b = re.e('alligator.sfx')
           is(b.sound)
+        })
+        .progress(function(){
+          prog = true
+        })
+        .error(function(){
+          ok(false)
+        })
+        
+        waits(400)
+        runs(function(){
+          ok(called)
         })
     });
     

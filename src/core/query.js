@@ -78,7 +78,7 @@
         //split string
         var fl;
         var val;
-        for(var j = 0; j<temp.length; j++){
+        for(var j = temp.length; j--;){
             fl = temp[j].charAt(0);
             val = temp[j].substr(1);
             
