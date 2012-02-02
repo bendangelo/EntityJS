@@ -6,3 +6,7 @@ function setup_canvas(){
 function teardown_canvas(){
   $('#game-canvas').remove()
 }
+
+$(function(){
+        setup_canvas();
+});

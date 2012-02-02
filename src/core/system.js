@@ -83,10 +83,11 @@ re.c('system')
         
         this.scale = scale || 1;
         
-        this.context = this.canvas.getContext(contextType);
+        this.context = this.canvas.getContext(contextType || '2d');
+        var s = re.screen = re.e('screen');
         
-        this.sizeX = this.canvas.width;
-        this.sizeY = this.canvas.height;
+        this.sizeX = s.sizeX = this.canvas.width;
+        this.sizeY = s.sizeY = this.canvas.height;
         
         return this;
     },
@@ -98,7 +99,7 @@ re.c('system')
         
         this.timestep(this.tick(), function(){
             //update
-            re._c.update.update.call(re._c.update, this, this.stepSize);
+            re._c.update.update(this, this.stepSize);
         });
         
         //clear
