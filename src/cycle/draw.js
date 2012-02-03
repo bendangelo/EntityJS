@@ -2,11 +2,12 @@ re.c('draw')
 .statics({
     l:[],
     
-    draw:function(s){
+    draw:function(c){
         var lis = this.l;
         
-        for(var i=lis.length, b; i--; b = lis[i]){
-            b.drawable && b.visible() && b.draw_render(s.context);
+        for(var i=lis.length, b; i--;){
+          b = lis[i];
+            b.drawable && b.visible() && b.draw_render(c);
         }
         
     }
@@ -88,7 +89,7 @@ re.c('draw')
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         
-        if(him > me){
+        if(him < me){
             //swap
             var t = l[him];
             l[him] = l[me];
@@ -104,7 +105,7 @@ re.c('draw')
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         
-        if(him < me){
+        if(him > me){
             //swap    
             var t = l[him];
             l[him] = l[me];
@@ -116,7 +117,7 @@ re.c('draw')
     
     screenX:function(x){
         if(x){
-            this.posX = x;
+            this.posX = x + re.screen.posX;
             return this;
         }
         return this.posX - re.screen.posX;
@@ -124,7 +125,7 @@ re.c('draw')
     
     screenY:function(y){
         if(y){
-            this.posY = y;
+            this.posY = y + re.screen.posY;
             return this;
         }
         return this.posY - re.screen.posY;

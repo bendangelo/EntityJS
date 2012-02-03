@@ -4,7 +4,7 @@ describe('load', function(){
         //add images
         re.load.path = '__spec__/helpers/'
         var img = 'accept.png'
-        var sfx = 'alligator.mp3'
+        var sfx = 'alligator.'+re.support('mp3', 'ogg')
         
         var called = false
         var prog = false
@@ -13,7 +13,6 @@ describe('load', function(){
         .complete(function(){
           called = true
           ok(prog)
-          
           is(re.c(img).image)
           is(re.c(sfx).sound)
           is(re.c('accept.img').image)
@@ -35,7 +34,7 @@ describe('load', function(){
           ok(false)
         })
         
-        waits(400)
+        waits(500)
         runs(function(){
           ok(called)
         })

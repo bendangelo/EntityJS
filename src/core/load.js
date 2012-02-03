@@ -119,7 +119,6 @@
         var img = new Image();
         
         //create new image component
-        console.log(n+re.load.imageExt)
         re.c(a)
         .alias(n+re.load.imageExt)
         .statics({
@@ -131,27 +130,13 @@
         });
         
         img.onload = function(){
-        
             re.c(a).defines({
             
             bisect:img.width,
             sizeX:img.width,
             sizeY:img.height
             });
-            
-            that.current++;
-            
-            if(that._p){
-                that._p();
-            }
-            
-            if(that.current >= that.total){
-            
-                if(that._s){
-                  that._s();
-                }
-                
-            }
+            that._loaded();
         };
         
         img.onerror = function(){
@@ -165,12 +150,27 @@
         img.src = re.load.path+src;
         
         return this;
-    }
+    };
+    
+    p._loaded = function(){
+      this.current++;
+            
+      if(this._p){
+          this._p();
+      }
+      
+      if(this.current >= this.total){
+          if(this._s){
+            this._s();
+          }
+        }
+    };
     
     p._loadSound = function(src, a, n){
         var that = this;
         
         var s = new Audio(re.load.path+src);
+        s.src = re.load.path+src;
         s.preload = "auto";
         s.load();
         
@@ -184,21 +184,9 @@
             sound:s
         });
         
-        s.addEventListener('canplaythrough',function(){
-            that.current++;
-            
-            if(that._p){
-                that._p();
-            }
-            
-            if(that.current >= that.total){
-                if(that._s){
-                  that._s();
-                }
-                
-            }
-            
-        },false);
+        s.addEventListener('load',function(){that._loaded()}, false);
+        s.addEventListener('MozAudioAvailable',function(){that._loaded()}, false);
+        s.addEventListener('canplaythrough',function(){that._loaded()},false);
         
         s.addEventListener('error',function(){
             

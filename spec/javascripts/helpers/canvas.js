@@ -9,4 +9,7 @@ function teardown_canvas(){
 
 $(function(){
         setup_canvas();
+        
+    re.sys.init('#game-canvas');
+    
 });

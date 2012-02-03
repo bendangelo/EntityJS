@@ -2,16 +2,14 @@ describe('system', function(){
     
     var s;
     
-    beforeEach(function(){
-        s = re.e('system').init('#game-canvas');
-    });
-    
     it('init', function(){
-        is(re.e('system').init('#game-canvas').context);
+      
+        is(re.sys.context);
     });
     
     it('clear', function(){
-        is(s.start());
+      var s = re.sys;
+        is(re.sys.start());
         
         spyOn(s.context, 'fillRect');
         
@@ -28,11 +26,14 @@ describe('system', function(){
     
     it('loop', function(){
         var called = false;
+        var old = re.sys.system_loop;
         //setup custom loop
-        s = re.e('system').init('#game-canvas')
+        re.sys
         .loop(function(){
             called = true;
         }).start().stop();
+        
+        re.sys.loop(old)
         
         ok(called);
     });

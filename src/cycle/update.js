@@ -3,34 +3,35 @@ The update component calls update signals to all listening entities.
 */
 re.c('update')
 .statics({
-	listeners:[],
-	update:function(s,t){
-		var l = this.listeners;
+	l:[],
+	update:function(t){
+		var l = this.l;
 		
-		for(var k=0, le = l.length, b; k < le; ++k){
+		for(var k=l.length, b; k--;){
 			b = l[k];
-			
-			if(b && b.sys == s && b.updatable){
-				b.trigger('update', t, s.time);
-			}
+			b.updateable && b.trigger('update', t);
 		}
 		
 	}
 })
 .defaults({
-	updatable:true,
-	sys:re.sys
+	updatable:true
 })
 .defines(function(){
 	
-	var l = re.c('update').listeners;
+	var l = re.c('update').l;
 	
 	return {
+  
+  update:function(method){
+    return (re.is(method, 'function')) ? this.on('update', method) : this.updatable && this.trigger('update', method);
+  },
+    
 	updateFirst:function(){
 		
 		l.splice(l.indexOf(this), 1);
 		
-		l.unshift(this);
+		l.push(this);
 		
 		return this;
 	},
@@ -39,7 +40,7 @@ re.c('update')
 		
 		l.splice(l.indexOf(this), 1);
 		
-		l.push(l);
+		l.unshift(this);
 		
 		return this;
 	},
@@ -78,9 +79,9 @@ re.c('update')
 	
 }())
 .init(function(c){
-	c.listeners.push(this);
+	c.l.unshift(this);
 })
 .dispose(function(c){
 	
-	c.listeners.splice(c.listeners.indexOf(this), 1);
+	c.l.splice(c.listeners.indexOf(this), 1);
 });

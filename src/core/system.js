@@ -14,6 +14,7 @@ re.c('system')
     clearColor:'#f9f9f9',
     
     stepSize:0.03,
+    maxTick:0.05,
     
     running:false,
     
@@ -40,17 +41,13 @@ re.c('system')
             this.running = true;
             
             var that = this;
-            
-            (function mainLoop(){
-                    
-                that.system_loop.call(that);
-                    
-                if(that.running){
-                    that.requestAnimationFrame(mainLoop, that.canvas);
-                }
-                
+            (function m(){
+              
+              that.system_loop();
+              if(that.running){
+                that.requestAnimationFrame(m, that.canvas);
+              }
             })();
-            
             
         }
         
@@ -76,7 +73,7 @@ re.c('system')
           re._c.touch.initListeners();
         
         //add comps here because system is defined earlier than other comps
-        this.comp('polyfill ticker timestep');
+        this.comp('polyfill tick timestep');
         
         //setup canvas
         this.canvas = re.$(canvasId);
@@ -97,15 +94,14 @@ re.c('system')
     */
     system_loop:function(){
         
-        this.timestep(this.tick(), function(){
+        this.timestep(Math.min(this.tick() / 1000, this.maxTick), function(){
             //update
-            re._c.update.update(this, this.stepSize);
+            re._c.update.update(this.stepSize);
         });
         
         //clear
         this.clear(this.clearColor);
-        
-        re._c.draw.draw();
+        re._c.draw.draw(this.context);
     }
     
     
