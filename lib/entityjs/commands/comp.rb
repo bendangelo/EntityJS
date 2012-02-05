@@ -66,7 +66,6 @@ module Entityjs
       
       Dir.chdir(Dirc.game_root)
       
-      
       Entityjs::Command.run('test', [name])
       
       return 0

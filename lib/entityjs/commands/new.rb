@@ -41,6 +41,8 @@ module Entityjs
         Entityjs::Command.run('comp', [c])
       end
       
+      Dirc.change_dir('..')
+      
       return 0
     end
     

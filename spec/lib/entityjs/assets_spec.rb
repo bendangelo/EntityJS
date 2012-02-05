@@ -164,8 +164,6 @@ describe 'Assets' do
     r.should match /"\$":\[\[0/
   end
   
-  it 'should convert tmx to json'
-  
   it 'should generate to js' do
     r = Entityjs::Assets.to_js
     r.should match /re\.assets/

@@ -12,6 +12,7 @@ describe 'test' do
   end
   
   it 'should create rock' do
+    Dir.pwd.should_not match /mygame\/mygame/
     Entityjs::Command.run('test', ["rock#{@n}"]).should == 0
     File.exists?("tests/rock#{@n}_test.js").should == true
   end
