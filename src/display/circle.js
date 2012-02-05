@@ -19,7 +19,7 @@ re.c('circle')
         c.closePath();
         
         c.fill();
-        
+        return this;
     },
     
     radius:function(r){

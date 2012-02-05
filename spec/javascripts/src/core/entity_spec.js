@@ -23,6 +23,25 @@ describe('entity', function(){
     ok(e.has('yep45 ok12'))
   })
   
+  it('should define properly', function(){
+    re.c('blah1')
+    .defines({
+      f:function(){
+        return false;
+      }
+    });
+    
+    re.c('sdfdff')
+    .requires('blah1')
+    .defines({
+      f:function(){
+        return true;
+      }
+    });
+    
+    ok(re.e('sdfdff').f())
+  })
+  
   it('should call init', function(){
       var called = false
       var v1, v2;

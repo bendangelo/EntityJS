@@ -474,7 +474,7 @@
             
         }else {
             //defines property
-            if(re.is(this[obj], 'function')){
+            if(re.is(this[obj], 'function') && !re.is(value, 'function')){
                 if(re.is(value, 'array')){
                     this[obj].apply(this, value);
                 } else {
