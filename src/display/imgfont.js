@@ -1,12 +1,12 @@
 /*
-The bitfont component writes text on the screen using a sprite image.
+The imgfont component writes text on the screen using a sprite image.
 This is a faster approach than using the text component for now.
 Plus you don't have to worry about the user not supporting the
 wanted font.
 
 */
 
-re.c('bitfont')
+re.c('imgfont')
 .requires('draw')
 .defaults({
 	
@@ -42,7 +42,7 @@ re.c('bitfont')
 				this.charCache[code] = charPos;
 			}
 			
-			c.drawImage(this.bitmap, this.charCache[code], 0, charWidth, this.bitmap.height, -this.regX + slot, -this.regY, charWidth, this.image.height);
+			c.drawImage(this.image, this.charCache[code], 0, charWidth, this.image.height, -this.regX + slot, -this.regY, charWidth, this.image.height);
 			
 			//append to next character slot
 			slot += charWidth;
