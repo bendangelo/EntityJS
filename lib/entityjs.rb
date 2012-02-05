@@ -6,8 +6,11 @@ module Entityjs
     @root = File.expand_path('../..',__FILE__)
   end
   
-  def self.template
-    Dir.glob("#{Entityjs::root}/template/*")
+  def self.template_path(name)
+    if name.nil? || name.empty?
+      name = 'platform'
+    end
+    Dir.glob("#{Entityjs::root}/template/#{name}/*")
   end
   
 end

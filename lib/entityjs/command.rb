@@ -14,6 +14,8 @@ module Entityjs
       case command
         when /^(new|n)$/
           return Entityjs::New.generate(args)
+        when 'templates'
+          return Entityjs::Templates.generate(args)
           
         when /^(build|b)$/
           return Entityjs::Build.generate(args)
@@ -38,11 +40,12 @@ module Entityjs
           puts ""
           puts '---- Commands ----'
           puts 'entityjs new [name]'
-          puts 'entityjs new [name] [comps]+'
+          puts 'entityjs new [name] [template]'
+          puts 'entityjs templates'
           puts 'entityjs comp [name]'
           puts 'entityjs test [name]'
           puts 'entityjs test [name] [tests]+'
-          puts 'entityjs font [name]'
+          puts 'entityjs font [name] (soon...)'
           puts 'entityjs build'
           puts 'entityjs build [name]'
           puts 'entityjs server'
