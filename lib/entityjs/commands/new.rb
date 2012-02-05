@@ -6,9 +6,9 @@ module Entityjs
     
     def self.generate(args)
       name = args.first
-      comps = args[1..-1] || []
+      template_name = args[1]
       
-      template = Entityjs::template
+      template = Entityjs::template_path(template_name)
       
       if !Dir.exists?(name)
         FileUtils.mkdir(name)
@@ -35,11 +35,8 @@ module Entityjs
         Dir.mkdir('plugins')
       end
       
+      #move back to root
       Dirc.change_dir('..')
-      
-      comps.each do |c|
-        Entityjs::Command.run('comp', [c])
-      end
       
       return 0
     end
