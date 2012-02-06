@@ -1,6 +1,20 @@
+/*
+The keyboard component allows an entity to listen for keyboard events.
+
+@usage
+re.e('keyboard')
+.keydown(function(key, event){
+  re.log('keydown', key, event);
+})
+.keyup(function(key, event){
+  re.log('keyup', key, event);
+});
+
+*/
 re.c('keyboard')
 .statics({
-	listeners:[],
+  //list of listing entities
+	l:[],
 	
 	keyCodes: { 
     /* start the a-z keys */
@@ -96,47 +110,43 @@ re.c('keyboard')
 	Add modifiers, shift, alt, ctrl.
 	.bind('ctrl+k')
 	*/
-	keyboardEvent: function(e){
-		var that = re.c('keyboard');
+	event: function(e){
+		var that = re._c.keyboard;
 		
+    //disable keyboard keys if focus lost
 		if(that.body != document.activeElement){
 			return;
 		}
 		
 		var c = e.keyCode || e.which;
-		
+    
 		var key = that.keyCodes[c];
 		
 		if(re.c('pressed')._pressed){
 			re.c('pressed')._pressed[key] = (e.type == 'keydown');
 		}
 		
-		for(var k=0; k<that.listeners.length; k++){
-			that.listeners[k]
+		for(var k=0, l = that.l.length; k<l; k++){
+			that.l[k]
 			.trigger(e.type, key, e)
 			.trigger(e.type+':'+key, key, e);
 		}
 		
 	},
 	
-	active:false,
-	
-	initListeners:function(){
-		if(!this.active){
-			this.active = true;
-			re.listener('keydown', this.keyboardEvent, false);
-			re.listener('keyup', this.keyboardEvent, false);
-			this.body = re.$('body')[0];
-		}
+  //initialize function
+	i:function(){
+		re.listener('keydown', this.event, false);
+		re.listener('keyup', this.event, false);
+		this.body = re.$('body');
 	}
 
 })
 .init(function(c){
-	c.initListeners();
 	//add to statics key array
-	c.listeners.push(this);
+	c.l.push(this);
 })
 .dispose(function(c){
 	//remove from statics key array
-	c.listeners.splice(c.listeners.indexOf(this), 1);
+	c.l.splice(c.l.indexOf(this), 1);
 });

@@ -68,9 +68,15 @@ re.c('system')
     
     init:function(canvasId, scale, contextType){
         //init listeners
-          re._c.keyboard.initListeners();
-          re._c.mouse.initListeners();
-          re._c.touch.initListeners();
+        if(re._c.keyboard){
+          re._c.keyboard.i();
+        }
+        if(re._c.mouse){
+          re._c.mouse.i();
+        }
+        if(re._c.touch){
+          re._c.touch.i();
+        }
         
         //add comps here because system is defined earlier than other comps
         this.comp('polyfill tick timestep');

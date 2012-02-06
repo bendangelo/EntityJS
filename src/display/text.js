@@ -22,22 +22,22 @@ re.c('text')
 .defines({
 	
 	visible:function(){
-		return this.font_text && this.parent('draw', 'visible')
+		return this._text && this.parent('draw', 'visible')
 	},
 	
 	text:function(t){
     if(re.is(t)){
-  		this.font_text = t;
+  		this._text = t;
       return this;
     }
-		return this.font_text;
+		return this._text;
 	},
 	
 	draw:function(c){
 		
 		c.font = this.font;
 		c.fillStyle = this.textColor;
-		c.fillText(this.font_text, -this.regX, -this.regY);
+		c.fillText(this._text, -this.regX, -this.regY);
 		return this;
 	}
 	

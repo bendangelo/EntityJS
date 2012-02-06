@@ -9,15 +9,18 @@ re.c('screen')
 .defines({
     
     pos:function(x, y){
-        if(arguments.length == 1){
-            y = x.posY;
-            x = x.posX;
-        }
-        
-        this.posX = x - this.regX;
-        this.posY = y - this.regY;
-        
+      if(!arguments.length){
         return this;
+      }
+      if(arguments.length == 1){
+          y = x.posY;
+          x = x.posX;
+      }
+      
+      this.posX = x - this.regX;
+      this.posY = y - this.regY;
+      
+      return this;
     },
     
     toScreenX:function(x){
@@ -26,6 +29,14 @@ re.c('screen')
     
     toScreenY:function(y){
         return y + this.posY + this.offY;
+    },
+    
+    toScreen:function(x, y){
+      if(arguments.length==1){
+          y = x.posY || x.y;
+          x = x.posX || x.x;
+      }
+      return {x: this.toScreenX(x), y: this.toScreenY(y)};
     }
     
 })

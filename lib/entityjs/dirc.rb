@@ -14,6 +14,7 @@ module Entityjs
         end
         return true
       end
+      
       return false
     end
     

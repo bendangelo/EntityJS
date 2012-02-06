@@ -45,18 +45,18 @@ describe('update', function(){
     
     var n;
     
-    k.update(function(v){
+    k.on('update',function(v){
       n = v
     });
     
-    k.update(10)
+    k.trigger('update', 10)
     
     eq(n, 10)
     
     k.updatable = false
     
-    k.update(0)
+    k.trigger('update', 0)
     
-    eq(n, 10)
+    eq(n, 0)
   })
 })

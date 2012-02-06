@@ -19,13 +19,13 @@ describe('load', function(){
           is(re.c('alligator.sfx').sound)
           
           var b = re.e('accept.png')
-          is(b.image)
-          eq(b.sizeX, b.image.width)
-          eq(b.sizeY, b.image.height)
-          eq(b.bisect, b.image.width)
+          is(b._image)
+          eq(b.sizeX, b._image.width)
+          eq(b.sizeY, b._image.height)
+          eq(b.bisect, b._image.width)
           
           b = re.e('alligator.sfx')
-          is(b.sound)
+          is(b._sound)
         })
         .progress(function(){
           prog = true

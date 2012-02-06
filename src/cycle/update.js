@@ -23,10 +23,6 @@ re.c('update')
 	
 	return {
   
-  update:function(method){
-    return (re.is(method, 'function')) ? this.on('update', method) : this.updatable && this.trigger('update', method);
-  },
-    
 	updateFirst:function(){
 		
 		l.splice(l.indexOf(this), 1);

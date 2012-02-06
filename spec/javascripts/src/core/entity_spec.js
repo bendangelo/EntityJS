@@ -163,6 +163,16 @@ describe('entity', function(){
       ok(e.parent('', 'has', c.name))
   })
   
+  it('should throw error on undefined parent method', function(){
+    var called = false;
+    try {
+      e.parent('image', 'asdfsdf')
+    } catch(e){
+      called = true;
+    }
+    ok(called)
+  })
+  
   it('has', function(){
     ok(e.has('!bob'))
     ok(!e.has('^sig'))

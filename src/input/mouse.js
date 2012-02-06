@@ -1,9 +1,22 @@
+/*
+The mouse component allows an entity to listen to mouse triggers.
+
+@usage
+re.e('mouse')
+.on('mousedown:middle', function(x, y){
+  x = re.screen.toScreenX(x)
+  y = re.screen.toScreenY(y)
+  //or
+  m = re.screen.toScreen(x, y)
+  
+})
+*/
 re.c('mouse')
 .statics({
-	listeners:[],
+	l:[],
 	
-	mouseAction:function(e){
-		var b;
+	pressed:function(e){
+		var b, c;
 		
 		//find which key
 		if(e.which == null){
@@ -25,27 +38,24 @@ re.c('mouse')
 			}
 		}
 		
-		b = 'mouse:'+b;
+		c = 'mouse:'+b;
 		
 		//register mouse action
 		if(re.c('pressed')._pressed){
-			re.c('pressed')._pressed[b] = (e.type == 'mousedown');
+			re.c('pressed')._pressed[c] = (e.type == 'mousedown');
 		}
+    
+		re.c('mouse').event(e, c);
 		
-		var c = false;
-		
-		re.c('mouse').mouseEvent(e);
-		
-		if(c) return false;
 	},
 	
-	mouseEvent:function(e){
+	event:function(e, extra){
 		
 		//calculate mouse coordinate
 		var x;
 		var y;
 		
-		if(e.pageX || e.pageY){
+		if(e.pageX){
 			x = e.pageX;
 			y = e.pageY;
 		} else {
@@ -54,10 +64,8 @@ re.c('mouse')
 		}
 		
 		//FUTURE fix, does not support multiple canvases
-		if(re.sys.canvas){
-			x -= re.sys.canvas.offsetLeft;
-			y -= re.sys.canvas.offsetTop;
-		}
+		x -= re.sys.canvas.offsetLeft;
+		y -= re.sys.canvas.offsetTop;
 		
 		//ignore if off canvas
 		if(x < 0 || y < 0 || y > re.sys.sizeY || x > re.sys.sizeX){
@@ -68,45 +76,32 @@ re.c('mouse')
 		
 		//FUTURE automatically transform screen coordinates?
 		var c, t, sx, sy;
-		for(var i=0, l = that.listeners.length; i<l; i++){
-			t = that.listeners[i];
-			if(t.toScreen && t.screen){
-				sx = t.screen.toScreenX(x);
-				sy = t.screen.toScreenY(y);
-			} else {
-				sx = x;
-				sy = y;
-			}
-			t.trigger(e.type, sx, sy, e);
+		for(var i=0, l = that.l.length; i<l; i++){
+			t = that.l[i];
+			t.trigger(e.type, {x:x, y:y}, e);
+      if(extra){
+  			t.trigger(e.type+':'+extra, {x:x, y:y}, e);
+      }
 		}
 		
 	},
 	
-	active:false,
-	initListeners:function(){
-		if(!this.active){
-			this.active = true;
-			
-			re.listener('mousedown', this.mouseAction, false);
-			re.listener('mouseup', this.mouseAction, false);
-			re.listener('mousemove', this.mouseEvent, false);
-			re.listener('click', this.mouseEvent, false);
-			re.listener('dblclick', this.mouseEvent, false);
-			re.listener('contextmenu', this.mouseEvent, false);
-		}
+	i:function(){
+		re.listener('mousedown', this.pressed, false);
+		re.listener('mouseup', this.pressed, false);
+		re.listener('mousemove', this.event, false);
+		re.listener('click', this.event, false);
+		re.listener('dblclick', this.event, false);
+		re.listener('contextmenu', this.event, false);
 	}
 	
 })
-.defaults({
-	toScreen:false
-})
 .init(function(c){
 	//add to listener array
-	c.initListeners();
-	c.listeners.push(this);
+	c.l.push(this);
 })
 .dispose(function(c){
 	//remove from listener array
 	
-	c.listeners.splice(c.listeners.indexOf(this), 1);
+	c.l.splice(c.l.indexOf(this), 1);
 });

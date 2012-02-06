@@ -4,6 +4,8 @@ function f(type){
     return re.c('asdf'+Math.random())
     case 'name':
     return 'sdfg'+Math.random();
+    case 'image':
+    return re.c('accept.png');
   }
   return null;
 }

@@ -6,6 +6,10 @@ module Entityjs
     @root = File.expand_path('../..',__FILE__)
   end
   
+  def self.default_template
+    'platform'
+  end
+  
   def self.template_path(name)
     if name.nil? || name.empty?
       name = 'platform'

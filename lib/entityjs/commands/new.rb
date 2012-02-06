@@ -12,6 +12,9 @@ module Entityjs
       
       if !Dir.exists?(name)
         FileUtils.mkdir(name)
+      else
+        puts "Directory already exists!"
+        puts "Aborting..."
       end
       
       FileUtils.cp_r template, name
@@ -36,7 +39,7 @@ module Entityjs
       end
       
       #move back to root
-      Dirc.change_dir('..')
+      Dirc.change_dir('../..')
       
       return 0
     end

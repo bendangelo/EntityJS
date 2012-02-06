@@ -126,12 +126,11 @@
         })
         .defines({
             //save image for other components to copy or use
-            image:img
+            _image:img
         });
         
         img.onload = function(){
-            re.c(a).defines({
-            
+          re.c(a).defines({
             bisect:img.width,
             sizeX:img.width,
             sizeY:img.height
@@ -181,7 +180,7 @@
             sound:s
         })
         .defines({
-            sound:s
+            _sound:s
         });
         
         s.addEventListener('load',function(){that._loaded()}, false);

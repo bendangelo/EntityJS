@@ -8,30 +8,28 @@ re.c('image')
 .requires('draw')
 .defines({
 	
-	setImage:function(b){
-		this.image = b;
-		if(b){
-			this.sizeX = b.width;
-			this.sizeY = b.height;
-		}
-		return this;
+	image:function(b){
+    if(re.is(b)){
+      this.attr({_image:b, sizeX:b.width, sizeY:b.height});
+  		return this;
+    }
+    return this._image;
 	},
 	
-	isVisible:function(){
-		return this.image && this.parent('draw', 'isVisible');
+	visible:function(){
+		return this._image && this.parent('draw', 'visible');
 	},
 	
 	draw:function(c){
-		
-		c.drawImage(this.image, -this.regX, -this.regY, this.sizeX, this.sizeY);
+		c.drawImage(this._image, -this.regX, -this.regY, this.sizeX, this.sizeY);
 		return this;
 	}
 	
 })
 .init(function(){
 	
-	if(this.image){
-		this.setImage(this.image);
+	if(this._image){
+		this.image(this._image);
 	}
 	
 });

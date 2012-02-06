@@ -10,7 +10,7 @@ re.c('touch')
 	
 	active:false,
 	
-	initListeners:function(){
+	i:function(){
 		if(!this.active){
 			this.active = true;
 			
@@ -20,9 +20,5 @@ re.c('touch')
 			
 		}
 	}
-	
-})
-.init(function(c){
-	c.initListeners();
 	
 });

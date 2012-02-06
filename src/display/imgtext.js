@@ -1,48 +1,63 @@
 /*
 The imgfont component writes text on the screen using a sprite image.
 This is a faster approach than using the text component for now.
-Plus you don't have to worry about the user not supporting the
-wanted font.
+Plus you don't have to worry about the font not being supported.
 
+@usage
+//Must be created as a component to implement the imgtext array.
+//imgtext is an array of all characters and defines the width
+//of each.
+
+re.c('serif')
+.requires('imgtext font serif.png')
+.defines('imgtext', [4,4,2,4,3,5,6,7,8,3,4,5])
+
+re.e('serif')
+.text('This displays on screen')
+
+//find all fonts
+re('font')
+
+*could be turned in to a special sprite component but wouldn't
+be very useful.
 */
 
-re.c('imgfont')
+re.c('imgtext')
 .requires('draw')
+.interfaces('imgtext')
 .defaults({
-	
-	text:'',
   //remove empty characters in ascii
 	charOffset:32
 	
 })
 .defines({
 	
-	isVisible:function(){
-		return this.text.length != 0 && this.image && this.parent('draw', 'isVisible');
+	visible:function(){
+		return this._text && this._image && this.parent('draw', 'visible');
 	},
 	
 	draw:function(c){
 	
 		var slot = 0, charWidth, code, charPos;
 		
-		for(var i=0, l = this.text.length; i<l; ++i){
+		for(var i=0, l = this._text.length; i<l; ++i){
 			
 			//get char code
-			code = this.text.charCodeAt(i) - this.charOffset;
+			code = this._text.charCodeAt(i) - this.charOffset;
 			
 			//find width of character
-			charWidth = this.charWidths[code];
+			charWidth = this.imgtext[code];
 			
 			//find source character position
 			if(!this.charCache[code]){
 				charPos = 0;
 				for(var p=0; p<code; ++p){
-					charPos += this.charWidths[p]+1;
+					charPos += this.imgtext[p]+1;
 				}
 				this.charCache[code] = charPos;
 			}
 			
-			c.drawImage(this.image, this.charCache[code], 0, charWidth, this.image.height, -this.regX + slot, -this.regY, charWidth, this.image.height);
+			c.drawImage(this._image, this.charCache[code], 0, charWidth, this._image.height, -this.regX + slot, -this.regY, charWidth, this._image.height);
 			
 			//append to next character slot
 			slot += charWidth;
@@ -50,35 +65,31 @@ re.c('imgfont')
 		}
 		
 		this.sizeX = slot;
-		this.sizeY = this.image.height;
-	
-	
+		this.sizeY = this._image.height;
+	  return this;
 	},
 	
-	updateSize:function(){
-		
-		var t = 0;
-		//TODO size is slightly off 
-		for(var p=0; p<this.text.length; p++){
-			t += this.charWidths[p];
-		}
-		
-		this.sizeX = t;
-		
-		if(this.image){
-			this.sizeY = this.bitmap.height;
-		} else {
-			this.sizeY = 0;
-		}
-		return this;
-	},
-	
-	setText:function(text){
-		
-		this.text = text;
-		this.updateSize();
-		
-		return this;
+	text:function(t){
+		if(re.is(t)){
+  		this._text = t;
+      
+  		var t = 0;
+  		//TODO size is slightly off 
+  		for(var p=0; p<this._text.length; p++){
+  			t += this.imgtext[p];
+  		}
+  		
+  		this.sizeX = t;
+  		
+  		if(this._image){
+  			this.sizeY = this._image.height;
+  		} else {
+  			this.sizeY = 0;
+  		}
+      
+      return this;
+    }
+		return this._text;
 	}
 	
 })
@@ -87,7 +98,5 @@ re.c('imgfont')
 	if(!this.charCache){
 		this.charCache = {};
 	}
-	
-	this.updateSize();
-	
+	this.text('');
 });

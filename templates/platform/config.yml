@@ -15,6 +15,7 @@ order:
 entity-ignore:
   socket
   wait
+  group
 
 #ignore tests in /tests
 tests-ignore:
