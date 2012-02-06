@@ -10,11 +10,16 @@ module Entityjs
     'platform'
   end
   
-  def self.template_path(name)
+  def self.template_path(name=nil)
     if name.nil? || name.empty?
-      name = 'platform'
+      name = self.default_template
     end
-    Dir.glob("#{Entityjs::root}/template/#{name}/*")
+    path = "#{Entityjs::root}/templates/#{name}"
+    if Dir.exists? path
+        return Dir.glob(path+'/*')
+    else
+        return nil
+    end
   end
   
 end

@@ -2,14 +2,14 @@ begin
   require "cobravsmongoose" 
 rescue LoadError
   puts "Could not load 'cobravsmongoose'"
-  put "run 'gem install cobravsmongoose'"
+  puts "run 'gem install cobravsmongoose'"
   exit
 end
 begin
   require "json" 
 rescue LoadError
   puts "Could not load 'json'"
-  put "run 'gem install json'"
+  puts "run 'gem install json'"
   exit
 end
 

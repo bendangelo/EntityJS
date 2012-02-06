@@ -41,7 +41,7 @@ module Entityjs
     end
     
     def reload
-      if File.exists(Config.file_name)
+      if File.exists?(Config.file_name)
         @yml = YAML::load(File.open(Config.file_name))
       end
     end

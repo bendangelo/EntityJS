@@ -127,13 +127,8 @@ module Entityjs
     
     def self.create_dir(name, move=false)
     
-    path = self.get_root("/#{name}")
-    
-      begin
-        Dir::mkdir(name)
-        puts "Created: #{path}"
-      rescue
-        puts "Directory: #{path} already exists!"
+      if !Dir.exists? name
+        Dir.mkdir(name)
       end
       
       if move
