@@ -25,30 +25,30 @@ re.c('sprite')
 .requires('image bisect')
 .defaults({
     
-    fraX:0,
-    fraY:0
+    frameX:0,
+    frameY:0
     
 })
 .defines({
     
-    fra:function(i){
+    frame:function(i){
       if(re.is(i)){
-        this.fraX = this.biToXt(i);
-        this.fraY = this.biToYt(i);
+        this.frameX = this.biToXt(i);
+        this.frameY = this.biToYt(i);
         return this;
       }
-      return this.toBi(this.fraX, this.fraY);
+      return this.toBi(this.frameX, this.frameY);
     },
     
     draw:function(c){
-        c.drawImage(this._image, this.fraX * this.sizeX, this.fraY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
+        c.drawImage(this._image, this.frameX * this.sizeX, this.frameY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
         
         return this;
     },
     
     //implement for flicker
     flick:function(c){
-        this.fra(c);
+        this.frame(c);
     }
     
 });

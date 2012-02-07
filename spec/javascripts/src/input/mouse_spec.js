@@ -1,14 +1,14 @@
 describe('mouse', function(){
-	
-	var e;
+    
+    var e;
 
-	beforeEach(function(){
-		e = re.e('mouse');
-	});
+    beforeEach(function(){
+        e = re.e('mouse');
+    });
 
-	it('mousedown', function(){
-		
-	});
+    it('mousedown', function(){
+        e.on('mousedown', function
+    });
 
   it('mouseup', function(){
     
