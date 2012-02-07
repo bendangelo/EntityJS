@@ -1,7 +1,7 @@
 /*
 The touch component handles touch events and dispatches signals.
 */
-re.c('touch')
+/*re.c('touch')
 .statics({
 	
 	touchEvent:function(e){
@@ -21,4 +21,4 @@ re.c('touch')
 		}
 	}
 	
-});
+});*/

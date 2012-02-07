@@ -6,13 +6,13 @@ describe('sprite', function(){
 		e = re.e('sprite '+f('image').name);
 	});
 
-	it('fra', function(){
-		eq(e.fra(), 0)
+	it('frame', function(){
+		eq(e.frame(), 0)
     
-    eq(e.fra(0), e)
+    eq(e.frame(0), e)
     
-    eq(e.fraX, 0)
-    eq(e.fraY, 0)
+    eq(e.frameX, 0)
+    eq(e.frameY, 0)
 	});
   
   it('draw', function(){

@@ -40,8 +40,8 @@ re.c('mouse')
         c = 'mouse:'+b;
         
         //register mouse action
-        if(re.c('pressed')._pressed){
-            re.c('pressed')._pressed[c] = (e.type == 'mousedown');
+        if(re.pressed.d){
+            re.pressed.d[c] = (e.type == 'mousedown');
         }
     
         re.c('mouse').event(e, c);
@@ -59,7 +59,7 @@ re.c('mouse')
             y = e.pageY;
         } else {
             x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-            y = e.clientY +    document.body.scrollTop + document.documentElement.scrollTop;
+            y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
         }
         
         //FUTURE fix, does not support multiple canvases
@@ -76,26 +76,27 @@ re.c('mouse')
         //FUTURE automatically transform screen coordinates?
         var c, t, obj;
         for(var i=0, l = that.l.length; i<l; i++){
-            t = that.l[i];
-            obj = {x:x, y:y};
-            obj.screenX = re.screen.toScreenX(x);
-            obj.screenY = re.screen.toScreenY(y);
-            
-            t.trigger(e.type, obj, e);
-      if(extra){
-              t.trigger(e.type+':'+extra, obj, e);
-      }
+          t = that.l[i];
+          obj = {x:x, y:y};
+          obj.screenX = re.screen.toScreenX(x);
+          obj.screenY = re.screen.toScreenY(y);
+          
+          t.trigger(e.type, obj, e);
+          
+          if(extra){
+            t.trigger(e.type+':'+extra, obj, e);
+          }
         }
         
     },
     
     i:function(){
-        re.listener('mousedown', this.pressed, false);
-        re.listener('mouseup', this.pressed, false);
-        re.listener('mousemove', this.event, false);
-        re.listener('click', this.event, false);
-        re.listener('dblclick', this.event, false);
-        re.listener('contextmenu', this.event, false);
+      re.listener('mousedown', this.pressed, false);
+      re.listener('mouseup', this.pressed, false);
+      re.listener('mousemove', this.event, false);
+      re.listener('click', this.event, false);
+      re.listener('dblclick', this.event, false);
+      re.listener('contextmenu', this.event, false);
     }
     
 })

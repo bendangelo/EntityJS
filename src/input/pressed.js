@@ -1,56 +1,41 @@
-re.c('pressed')
-.statics({
-	//contains pressed keys and mouse clicks
-	_pressed:{},
-	preventDefault:{}
-	
-})
-.defines({
-	
-	/*
-	This function is usually used in conjunction with mousemove or update for controls.
-	
-	//if either one is true
-	if(this.pressed('w', 'up')){
-		this.posY--;	
-	}
-	
-	//or
-	if(this.pressed(['w', 'up']){
-	
-	}
-	
-	*/
-	pressed:function(){
-		return re.pressed.apply(this, arguments);
-	},
-	
-	/*
-	Stops inputs default value.
-	
-	FUTURE
-	-be able to remove prevents
-	*/
-	preventDefault:function(){
-		re.preventDefault.apply(this, arguments);
-		return this;
-	}
-	
+/*
+The pressed method is used to check if a key or keys are currently pressed.
+This is most useful in mousemove, keydown or usually an update listener.
+
+@usage
+//move player
+re.e('update image player.png')
+.on('update', function(){
+  
+  if(re.pressed(['w', 'up'])){
+    this.posY -= 10;
+  }
+
 });
 
+//click based on key
+re.e('mouse image button.png')
+.on('click', function(){
+  
+  if(re.pressed('mouse:middle')){
+    //do something..
+  }
+
+});
+
+*/
 re.pressed = function(key){
-		var that = re.c('pressed');
 		
 		var c = arguments;
 		
 		if(re.is(key, 'array')) c = key;
 		
-		for(var i=0; i<c.length; i++){
-			if(that._pressed[c[i]]){
+		for(var i=0, l = c.length; i<l; i++){
+			if(re.pressed.d[c[i]]){
 				return true;
 			}
 		}
 		
 		return false;
 };
-re.pressed._down = {};
+re.pressed.d = {};
