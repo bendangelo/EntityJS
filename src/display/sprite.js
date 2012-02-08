@@ -33,11 +33,11 @@ re.c('sprite')
     
     frame:function(i){
       if(re.is(i)){
-        this.frameX = this.biToXt(i);
-        this.frameY = this.biToYt(i);
+        this.frameX = this.biToTileX(i);
+        this.frameY = this.biToTileY(i);
         return this;
       }
-      return this.toBi(this.frameX, this.frameY);
+      return this.tileToBi(this.frameX, this.frameY);
     },
     
     draw:function(c){

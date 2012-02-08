@@ -14,26 +14,32 @@ re.c('drag')
 })
 .defines({
 	
-	startDrag:function(x, y){
+	dragStart:function(x, y){
 		if(!this.dragging){
 			this.dragging = true;
 			this.dragX = x;
 			this.dragY = y;
+      this.trigger('drag:start');
 		}
+    return this;
 	},
 	
-	endDrag:function(){
+	dragEnd:function(){
 		this.dragging = false;
+    return this.trigger('drag:end');
 	},
 	
-	updateDrag:function(x, y){
+	dragUpdate:function(x, y){
 		if(this.dragging){
 			this.posX += x - this.dragX;
 			this.posY += y - this.dragY;
 			
 			this.dragX = x;
 			this.dragY = y;
+      
+      this.trigger('drag:update');
 		}
+    return this;
 	}
 	
 });
