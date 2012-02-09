@@ -10,9 +10,9 @@ re.load('run.ogg run.aac');
 //GOOD. load just one codec of the sound
 var codec;
 if(re.support('ogg')){
-	codec = 'ogg';
+    codec = 'ogg';
 } else if(re.support('aac')){
-	codec = 'aac';
+    codec = 'aac';
 }
 
 re.load('run.'+codec');
@@ -42,69 +42,69 @@ re('sound').method('play');
 */
 re.sound = re.c('sound')
 .statics({
-	
-	enabled:true
-	
+    
+    enabled:true
+    
 })
 .namespaces({
-	
-	hasEvent:false,
-	loops:0
-	
+    
+    hasEvent:false,
+    loops:0
+    
 })
 .defines({
 
-	play:function(loop){
-		if(!this.sound || !re.sound.enabled) return this;
-		
-		var c = this.sound;
-		var that = this;
-		
-		c.currentTime = 0;
-	
-		c.play();
-		
-		if(loop){
-			
-			this.sound_loops = 0;
-			
-			if(!this.sound_hasEvent){
-				this.sound_hasEvent = true;
-				
-				c.addEventListener('ended', function(){
-					
-					that.bind('sounded', that.sound_loops, loop);
-					
-					if(loop == -1 || that.sound_loops < loop){
-						c.currentTime = 0;
-						that.sound_loops++;
-					}
-					
-				}, false);
-			}
-			
-		}
-		
-		return this;
-	},
-	
-	resume:function(){
-		this.sound.play();
-		return this;
-	},
-	
-	pause:function(){
-		this.sound.pause();
-		
-		return this;
-	},
-	
-	currentTime:function(){
-		return this.sound.currentTime;
-	},
-	
-	ended:function(){
-		return this.sound.ended;
-	}
-	
+    play:function(loop){
+        if(!this.sound || !re.sound.enabled) return this;
+        
+        var c = this.sound;
+        var that = this;
+        
+        c.currentTime = 0;
+    
+        c.play();
+        
+        if(loop){
+            
+            this.sound_loops = 0;
+            
+            if(!this.sound_hasEvent){
+                this.sound_hasEvent = true;
+                
+                c.addEventListener('ended', function(){
+                    
+                    that.bind('sounded', that.sound_loops, loop);
+                    
+                    if(loop == -1 || that.sound_loops < loop){
+                        c.currentTime = 0;
+                        that.sound_loops++;
+                    }
+                    
+                }, false);
+            }
+            
+        }
+        
+        return this;
+    },
+    
+    resume:function(){
+        this.sound.play();
+        return this;
+    },
+    
+    pause:function(){
+        this.sound.pause();
+        
+        return this;
+    },
+    
+    currentTime:function(){
+        return this.sound.currentTime;
+    },
+    
+    ended:function(){
+        return this.sound.ended;
+    }
+    
 });

@@ -50,6 +50,7 @@ re.tile = re.c('tile')
 .defines({
 
     tile:function(x, y){
+        //should accept single object aswell
         if(arguments.length == 2){
             this.tileX(x);
             this.tileY(y);
