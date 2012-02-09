@@ -136,7 +136,7 @@ re.c('draw')
     */
     visible:function(){
         
-        return re.screen.touches(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY);
+        return re.screen.hit(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY);
         
     }
     

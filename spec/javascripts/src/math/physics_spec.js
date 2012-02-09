@@ -1,4 +1,4 @@
-describe('test', function(){
+describe('physics', function(){
 	
 	var e;
 

@@ -20,7 +20,7 @@ padX:2 //pushes the body in 2 pixels on both right and left
 re.c('body')
 .defines({
 	
-	touches:function(x, y, w, h){
+	hit:function(x, y, w, h){
     if(re.is(x,'object')){
       y = x.posY;
       w = x.sizeX;
@@ -36,7 +36,7 @@ re.c('body')
 		);
 	},
 	
-	touchesBody:function(x, y, bx, by, px, py){
+	hitBody:function(x, y, bx, by, px, py){
     if(re.is(x,'object')){
       y = x.posY;
       bx = x.bodyX;

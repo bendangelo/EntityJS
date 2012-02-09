@@ -28,8 +28,8 @@ re.c('hitmap')
             var velX = posX.velX;
             var velY = posX.velY;
             
-            var bodX = posX.bodX;
-            var bodY = posX.bodY;
+            var bodX = posX.bodyX;
+            var bodY = posX.bodyY;
             
             var padX = posX.padX;
             var padY = posX.padY;
@@ -107,8 +107,7 @@ re.c('hitmap')
                     
                     if(this.map[ty]){
                         
-                        //bind
-                        this.bind('hit', this.map[ty][tx], tx, ty);
+                        this.trigger('hit', this.map[ty][tx], tx, ty);
                         
                         if(this.checkAxisX(this.map[ty][tx], x, y, vx, vy)) {
                             res.hitX = true;
@@ -142,7 +141,7 @@ re.c('hitmap')
                     
                     if(this.map[ty]){
                         
-                        this.bind('hit', this.map[ty][tx], tx, ty);
+                        this.trigger('hit', this.map[ty][tx], tx, ty);
                         
                         if(this.checkAxisY(this.map[ty][tx], x, y, vx, vy)) {
                             res.hitY = true;

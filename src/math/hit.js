@@ -1,19 +1,25 @@
-re.c('hittest')
+re.c('hit')
 .defaults({
 	
 	posX:0,
 	posY:0,
 	
-	sizeX:0,
-	sizeY:0,
+	sizeX:1,
+	sizeY:1,
 	
 	/*
 	checks if the two targets intersect with each other.
 	
-	k.touches(x, y, width, height);
+	k.hit(x, y, width, height);
 	
 	*/
-	touches:function(x, y, w, h){
+	hit:function(x, y, w, h){
+    if(re.is(x, 'object')){
+      y = x.posY || x.y;
+      w = x.sizeX || x.w;
+      h = x.sizeY || x.h;
+      x = x.posX || x.x;
+    }
 		return !
 		(
 		x > this.posX + this.sizeX ||

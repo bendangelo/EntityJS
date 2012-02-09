@@ -1,7 +1,21 @@
 /*
-The Physics component adds new physical and time calculated variables to an entity.
+The Physics component adds velocity, acceleration and other properties to an entity.
 
 These variables will give the entity a more fluid movement in 2d space.
+
+You can add hit collision check by defining a hitmap. Like so:
+
+var mountainHits = re.e('hitmap');
+
+re.e('physics')
+.attr(hitmap:mountainHits);
+
+//or define a hitmap for all physics objects
+re.hitmap = re.e('hitmap');
+
+var e = re.e('physics');
+
+e.hitmap == re.hitmap //true
 
 Warning - this component is not delta time safe. It assumes a fixed timestep.
 */
@@ -9,10 +23,7 @@ re.physics = re.c('physics')
 .requires('update')
 .statics({
 	graX:0,
-	graY:0,
-	
-	//velocity lower than this will be rounded down
-	minVel:0.01
+	graY:0
 })
 .defaults({
 	
@@ -21,9 +32,6 @@ re.physics = re.c('physics')
 	
 	velX:0,
 	velY:0,
-	
-	velMaxX:100,
-	velMaxY:100,
 	
 	friX:0.9,
 	friY:0.4,
@@ -34,22 +42,21 @@ re.physics = re.c('physics')
 	resX:0,
 	resY:0,
 	
-	masX:1,
-	masY:1,
+	mass:1,
 	
 	padX:0,
 	padY:0,
 	
-	bodX:1,
-	bodY:1
+	bodyX:1,
+	bodyY:1
 	
 })
 .namespaces({
 	
-	update:function(t){
+	update:function(){
 		
-		this.velX = this.force(this.velX, this.accX, this.friX, this.graX, this.masX, this.velMaxX);
-		this.velY = this.force(this.velY, this.accY, this.friY, this.graY, this.masY, this.velMaxY);
+		this.velX = this.force(this.velX, this.accX, this.friX, this.graX, this.mass);
+		this.velY = this.force(this.velY, this.accY, this.friY, this.graY, this.mass);
 		
 		//check collisions and get result
 		if(this.hitmap){
@@ -82,7 +89,7 @@ re.physics = re.c('physics')
 		this.posX = posx;
 		this.posY = posy;
 		
-		this.bind('aftermath', hitx, hity, tarx, tary);
+		this.trigger('aftermath', hitx, hity, tarx, tary);
 		
 		if(hitx){
 			this.velX = this.forceRes(this.velX, this.resX);
@@ -107,13 +114,11 @@ re.physics = re.c('physics')
 		
 	},
 	
-	force:function(vel, acc, fri, gra, mas, max){
+	force:function(vel, acc, fri, gra, mas){
 		
 		var v = this.forceVel(vel, acc, fri) + this.forceGra(gra, mas);
 		
-		v = Math.min(max, Math.max(-max, v));
-		
-		if(Math.abs(v) < re.physics.minVel){
+		if(Math.abs(v) < 0.01){
 			v = 0;
 		}
 		
@@ -133,10 +138,10 @@ re.physics = re.c('physics')
 	this.graX = c.graX;
 	this.graY = c.graY;
 	
-	this.bind('update', this.physics_update);
+	this.on('update', this.physics_update);
 })
 .dispose(function(){
 	
-	this.unbind('update', this.physics_update);
+	this.off('update', this.physics_update);
 	
 });
