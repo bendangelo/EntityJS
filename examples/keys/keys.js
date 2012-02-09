@@ -97,7 +97,6 @@ re.c('arrow')
 	
 	//prevents default action of keys
 	this.preventDefault('up left right down space r');
-	
 })
 //define deconstructor
 .dispose(function(){
