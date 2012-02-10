@@ -1,13 +1,13 @@
-describe('test', function(){
-	
-	var e;
+describe('arraymap', function(){
+    
+    var e;
 
-	beforeEach(function(){
-		e = re.e();
-	});
+    beforeEach(function(){
+        e = re.e('arraymap');
+    });
 
-	it('test', function(){
-		
-	});
+    it('test', function(){
+        
+    });
 
 });
