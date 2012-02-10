@@ -26,15 +26,15 @@ re.c('point')
     },
     
     distanceTo:function(x, y){
-        if(arguments.length == 1){
-            y = x.posY;
-            x = x.posX;
+        if(re.is(x,'object')){
+            y = x.posY || x.y;
+            x = x.posX || x.x;
         }
         var kx, ky;
-        kx = x-this.posX>>31;
-        ky = y-this.posY>>31;
+        kx = x - this.posX;
+        ky = y - this.posY;
         
-        return Math.round(((x-this.posX ^kx)-kx)+((y-this.posY^ky)-ky));
+        return Math.sqrt(kx*kx + ky*ky) + 0.5 | 0;
     }
     
 });

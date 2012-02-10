@@ -1,25 +1,26 @@
 /*
-The Physics component adds velocity, acceleration and other properties to an entity.
+The Force component adds velocity, acceleration and other physical properties to an entity.
 
-These variables will give the entity a more fluid movement in 2d space.
+This does not implement collision detection! This allows an entity to move fluidly
+through 2d, with gravity, and friction.
 
 You can add hit collision check by defining a hitmap. Like so:
 
 var mountainHits = re.e('hitmap');
 
-re.e('physics')
+re.e('force')
 .attr(hitmap:mountainHits);
 
 //or define a hitmap for all physics objects
 re.hitmap = re.e('hitmap');
 
-var e = re.e('physics');
+var e = re.e('force');
 
 e.hitmap == re.hitmap //true
 
 Warning - this component is not delta time safe. It assumes a fixed timestep.
 */
-re.physics = re.c('physics')
+re.force = re.c('force')
 .requires('update')
 .statics({
     graX:0,
@@ -39,16 +40,10 @@ re.physics = re.c('physics')
     accX:0,
     accY:0,
     
-    resX:0,
-    resY:0,
+    resX:0.4,
+    resY:0.4,
     
-    mass:1,
-    
-    padX:0,
-    padY:0,
-    
-    bodyX:1,
-    bodyY:1
+    mass:1
     
 })
 .namespaces({
@@ -129,10 +124,11 @@ re.physics = re.c('physics')
 .init(function(c){
     
     //setup defaults
-    this.hitmap = re.hitmap;
-    
-    this.graX = c.graX;
-    this.graY = c.graY;
+    this.def({
+      hitmap:re.hitmap,
+      graX:c.graX,
+      graY:c.graY
+    });
     
     this.on('update', this.physics_update);
 })

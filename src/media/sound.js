@@ -5,7 +5,7 @@ all sound codecs at this time.
 
 //load a sound
 re.load('run.ogg run.aac');
-//BAD this will load both sounds. Even if the browser might not support one
+//BAD this will load both sounds. Even if the browser doesn't support one
 
 //GOOD. load just one codec of the sound
 var codec;
@@ -23,7 +23,7 @@ re.e('sound run.'+codec);
 //that is a pain, so a helper method has been created
 re('sound run.'+re.support('ogg', 'aac'));
 
-Its reccomended to save the supported codec somewhere staticsy
+Its recomended to save the supported codec somewhere
 //like so...
 re.codec = re.support('ogg', 'aac');
 
@@ -35,9 +35,11 @@ WARNING: Because the sound component has generic
 method names stop, play, watchout for overwrites.
 
 Sound Tip
-//find all sounds in game and play them all!
+//find all sounds in game and play them!
 re('sound').method('play');
 
+*note: A sound only only has one channel and cannot be played multiple times at once.
+This will be fixed with the channel component.
 
 */
 re.sound = re.c('sound')
@@ -55,33 +57,30 @@ re.sound = re.c('sound')
 .defines({
 
     play:function(loop){
-        if(!this.sound || !re.sound.enabled) return this;
+        if(!this._sound || !re.sound.enabled) return this;
         
-        var c = this.sound;
+        var c = this._sound;
         var that = this;
         
         c.currentTime = 0;
     
         c.play();
         
-        if(loop){
-            
-            this.sound_loops = 0;
-            
-            if(!this.sound_hasEvent){
-                this.sound_hasEvent = true;
+          this.sound_loops = 0;
+          
+          if(!this.sound_hasEvent){
+              this.sound_hasEvent = true;
+              
+              c.addEventListener('ended', function(){
                 
-                c.addEventListener('ended', function(){
-                    
-                    that.bind('sounded', that.sound_loops, loop);
-                    
-                    if(loop == -1 || that.sound_loops < loop){
-                        c.currentTime = 0;
-                        that.sound_loops++;
-                    }
-                    
-                }, false);
-            }
+                  that.trigger('sound:complete', that.sound_loops, loop);
+                  
+                  if(loop == -1 || that.sound_loops < loop){
+                      c.currentTime = 0;
+                      that.sound_loops++;
+                  }
+                  
+              }, false);
             
         }
         
@@ -89,22 +88,22 @@ re.sound = re.c('sound')
     },
     
     resume:function(){
-        this.sound.play();
+        this._sound.play();
         return this;
     },
     
     pause:function(){
-        this.sound.pause();
+        this._sound.pause();
         
         return this;
     },
     
     currentTime:function(){
-        return this.sound.currentTime;
+        return this._sound.currentTime;
     },
     
     ended:function(){
-        return this.sound.ended;
+        return this._sound.ended;
     }
     
 });

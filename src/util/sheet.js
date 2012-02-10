@@ -5,7 +5,9 @@ re.sheet = function(map, components, sizeX, sizeY, padX, padY){
         
     var frameWidth = sizeX || re.tile.sizeX;
     var frameHeight = sizeY || re.tile.sizeY;
-        
+    if(re.is(components,'array')){
+      components = components.join(' ');
+    }
     if(padX){
         frameWidth += padX;
     }
