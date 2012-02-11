@@ -11,7 +11,7 @@ re.e('storage:session');
 */
 re.c('storage')
 .init(function(c, type){
-	this.storage = (type == 'session')? sessionStorage : localStorage;
+	this.storage = window[type+'Storage'];
 })
 .defines({
 	
@@ -23,29 +23,20 @@ re.c('storage')
 		return this.storage.key(index);
 	},
 	
-	getItem:function(key){
-		return this.storage.getItem(key);
-	},
-	
-	getJson:function(key){
-		return JSON.parse(this.getItem(key));
-	},
-	
-	setItem:function(key, data){
+	item:function(key, data){
 		
-		if(!re.is(data, 'number') || !re.is(data, 'string')){
-			data = JSON.stringify(data);
-		}
-		
-		this.storage.setItem(key, data);
+    if(!re.is(data)){
+      return JSON.parse(this.storage.getItem(key));
+    }
+    
+		this.storage.setItem(key, JSON.stringify(data));
 		
 		return this;
 	},
 	
 	removeItem:function(key){
 		this.storage.removeItem(key);
-		
-		return this;
+    return this;
 	},
 	
 	clear:function(){

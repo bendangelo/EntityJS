@@ -98,6 +98,8 @@
                 //check if support component exists first
                 if(!re.support || re.support(ext)){
                     this._loadSound(s, a, n);
+                } else {
+                  throw "Browser doesn't support audio codec "+ext;
                 }
                 
             }
@@ -114,7 +116,6 @@
     p.total = 0;
     
     p._loadImg = function(src, a, n){
-    
         var that = this;
         var img = new Image();
         
@@ -135,7 +136,8 @@
             sizeX:img.width,
             sizeY:img.height
             });
-            that._loaded();
+            
+          that._loaded();
         };
         
         img.onerror = function(){
@@ -153,14 +155,15 @@
     
     p._loaded = function(){
       this.current++;
-            
-      if(this._p){
-          this._p();
-      }
       
-      if(this.current >= this.total){
+      if(this.current <= this.total){
+        if(this._p){
+            this._p(this.assets[this.current-1]);
+        }
+      }
+      if(this.current == this.total){
           if(this._s){
-            this._s();
+            this._s(this.assets);
           }
         }
     };
@@ -183,9 +186,15 @@
             _sound:s
         });
         
-        s.addEventListener('load',function(){that._loaded()}, false);
-        s.addEventListener('MozAudioAvailable',function(){that._loaded()}, false);
-        s.addEventListener('canplaythrough',function(){that._loaded()},false);
+        //s.addEventListener('load',function(){that._loaded()}, false);
+        //called multiple times in firefox
+        var f = function(){
+          that._loaded();
+          //remove after first call
+          s.removeEventListener('canplaythrough', f);
+          };
+          
+        s.addEventListener('canplaythrough',f,false);
         
         s.addEventListener('error',function(){
             

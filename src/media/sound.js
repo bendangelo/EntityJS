@@ -48,52 +48,57 @@ re.sound = re.c('sound')
     enabled:true
     
 })
+.defaults({
+  playing:false
+})
 .namespaces({
+  e:false,
+  
+  ended:function(){
     
-    hasEvent:false,
-    loops:0
+    this.trigger('sound:end');
     
+    this.currentTime = 0
+  }     
+  
 })
 .defines({
 
-    play:function(loop){
+    play:function(){
         if(!this._sound || !re.sound.enabled) return this;
+        if(this.playing) this.stop();
         
         var c = this._sound;
         var that = this;
         
         c.currentTime = 0;
-    
-        c.play();
         
-          this.sound_loops = 0;
+        if(!this.sound_e){
+          this.sound_e = true;
+          var f = function(){
+            that.sound_ended();
+            c.removeEventListener('ended', f);
+            that.sound_e = false;
+          };
           
-          if(!this.sound_hasEvent){
-              this.sound_hasEvent = true;
-              
-              c.addEventListener('ended', function(){
-                
-                  that.trigger('sound:complete', that.sound_loops, loop);
-                  
-                  if(loop == -1 || that.sound_loops < loop){
-                      c.currentTime = 0;
-                      that.sound_loops++;
-                  }
-                  
-              }, false);
-            
+          c.addEventListener('ended', f, false);
+          
         }
-        
+      
+        c.play();
         return this;
     },
     
     resume:function(){
         this._sound.play();
+        this.playing = true;
+        
         return this;
     },
     
     pause:function(){
         this._sound.pause();
+        this.playing = false;
         
         return this;
     },

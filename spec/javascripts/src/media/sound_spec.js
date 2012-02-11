@@ -9,13 +9,13 @@ describe('sound', function(){
 	it('play', function(){
     var called = false;
     
-    e.on('sound:complete', function(){
+    k = e.on('sound:end', function(){
       called = true;
     })
     
     is(e.play())
     
-    waits(1000)
+    waits(400)
     runs(function(){
       ok(called)
     })

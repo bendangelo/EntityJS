@@ -20,26 +20,21 @@ re.c('flicker')
 .defines({
 	
 	flicker_stop:function(){
-		if(this.flickering()){
-		
-			this.bind('animated', this.flicker_flickering);
+		var o = this.flicker_flickering;
+		this.flicker_flickering = '';
 			
-			this.flicker_flickering = '';
+		this.stepProgress = 0;
 			
-			this.stepProgress = 0;
-			this.frameX = this.flicker_oldX;
-			this.frameY = this.flicker_oldY;
-			
-			this.unbind('update', this.flicker_update);
-		}
-		return this;
+		this.off('update', this.flicker_update);
+    
+		return this.trigger('flicker:end', o);
 	},
 	
 	flicker_update:function(t){
 		
 		this.timestep(t, function(){
 			var c = this.flicker_reel;
-			
+      
 			//check if over
 			if(this.flicker_frame == this.flicker_reel.frames.length){
 				
@@ -58,7 +53,10 @@ re.c('flicker')
 			}
 			
 			//flick
-			this.flick(c.frames[this.flicker_frame]);
+			if(this.flick(c.frames[this.flicker_frame], this.flicker_flickering, this.flicker_loops) === false){
+        //stop
+        this.flicker();
+      }
 			
 			this.flicker_frame++;
 			
@@ -100,7 +98,7 @@ re.c('flicker')
 	
 	removeFlicker:function(id){
 		
-		if(typeof id == 'object'){
+		if(re.is(id,'object')){
 			
 			for(var i in id){
 				if(!id.hasOwnProperty(i)) continue;
@@ -145,7 +143,7 @@ re.c('flicker')
 	*/
 	flicker:function(id, loops, duration, frames){
 		
-		if(arguments.length == 0){
+		if(!re.is(id) && this.flickering()){
 			//stop flickering
 			return this.flicker_stop();
 		}
@@ -168,18 +166,15 @@ re.c('flicker')
 		//copy from saved animation or newly given
 		c.loops = (isNaN(loops))? r.loops : loops;
 		c.duration = (isNaN(duration))? r.duration : duration;
-		c.frames = (typeof frames == 'object')? frames : r.frames;
+		c.frames = (re.is(frames,'object'))? frames : r.frames;
 		
 		//setup counter for loops
 		this.flicker_loops = c.loops;
 		
 		this.stepProgress = 0;
-		this.stepSize = c.duration / c.frames.length;
+		this.stepSize = c.duration / c.frames.length / 1000;
 		
 		//save old frames for upon completion
-		
-		this.flicker_oldX = this.frameX;
-		this.flicker_oldY = this.frameY;
 		
 		this.flicker_frame = 0;
 		
@@ -187,20 +182,18 @@ re.c('flicker')
 		this.flick(c.frames[this.flicker_frame++]);
 		
 		if(!this.flickering()){
-			this.bind('update', this.flicker_update);
+			this.on('update', this.flicker_update);
 		}
 		
 		this.flicker_flickering = id;
-			
 		
-		
-		return this;
+		return this.trigger('flicker:start');
 	},
 	
 	/*
 	Check if flicker is running / compare current.
 	
-	this.flickering(); // false
+	this.flickering(); // returns current flicker name
 	this.flickering('idle'); // false
 	*/
 	flickering:function(id){
@@ -208,7 +201,7 @@ re.c('flicker')
 			return this.flicker_flickering == id;	
 		}
 		
-		return this.flicker_flickering != '';	
+		return this.flicker_flickering;
 	}
 	
 });

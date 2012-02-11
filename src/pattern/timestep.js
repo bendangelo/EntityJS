@@ -1,19 +1,16 @@
 /*
+The timestep component gathers steps over time and once the maximum steps
+are achieved it will dispatch the callback method. This method is also delta time
+safe, so you don't need to worry about alternate values over time.
 
-
-re.e('timestep')
-.timestep(progress, function(){
-    
-    
-    
-});
+  
 */
 
 re.c('timestep')
 .defaults({
     
     stepProgress:0,
-    stepSize:0.3
+    stepSize:100
     
 })
 .defines({

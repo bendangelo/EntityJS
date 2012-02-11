@@ -4,9 +4,9 @@ describe('sprite', function(){
 
 	beforeEach(function(){
 		e = re.e('sprite '+f('image').name);
-    e.bisect = 160;
-    e.sizeX = 60;
-    e.sizeY = 60;
+    e.bisect = 16;
+    e.sizeX = 2;
+    e.sizeY = 2;
 	});
 
 	it('frame', function(){
@@ -21,7 +21,6 @@ describe('sprite', function(){
 	});
   
   it('draw', function(){
-    
     is(e.draw(re.sys.context))
     
   });

@@ -1,13 +1,9 @@
-describe('test', function(){
+describe('log', function(){
 	
-	var e;
-
-	beforeEach(function(){
-		e = re.e();
-	});
-
-	it('test', function(){
+	it('should log', function(){
 		
+    re.log('test log')
+    
 	});
 
 });

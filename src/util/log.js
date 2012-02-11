@@ -1,7 +1,6 @@
 /*
 The log component definess a cross browser console.log command.
 
-//statics usage
 re.log('example log');
 
 */
