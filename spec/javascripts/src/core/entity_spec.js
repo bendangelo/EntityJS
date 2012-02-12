@@ -14,6 +14,12 @@ describe('entity', function(){
       
   });
   
+  it('should create 1 in query', function(){
+    eq(re.e('dfggggg', 1).length, 1)
+    
+    eq(re('dfggggg').length, 1)
+  })
+  
   it('comp', function(){
     e.comp('qwdqwd wer')
     
@@ -225,6 +231,24 @@ describe('entity', function(){
        e.on('key', function(){});
        is(e.off());
       eq(e._re_signals, {});
+  })
+  
+  it('should add multiple bindings', function(){
+    
+    var called = false;
+    var called2 = false;
+    
+    e.on({
+      call:function(){called = true},
+      call2:function(){called2 = true}
+    });
+    
+    e.trigger('call');
+    e.trigger('call2');
+    
+    ok(called)
+    ok(called2)
+    
   })
   
   it('attr', function(){

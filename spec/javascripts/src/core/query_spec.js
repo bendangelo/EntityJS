@@ -24,7 +24,7 @@ describe('query', function(){
     re.e(g)
     eq(re(g).length, 1)
   });
-    
+  
   it('should select *', function(){
       var c = re._e.length;
       eq(re('*').length, c);

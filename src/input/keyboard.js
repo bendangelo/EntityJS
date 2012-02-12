@@ -126,7 +126,7 @@ re.c('keyboard')
 			re.pressed.d[key] = (e.type == 'keydown');
 		}
 		
-		for(var k=0, l = that.l.length; k<l; k++){
+		for(var k=0; k<that.l.length; k++){
 			that.l[k]
 			.trigger(e.type, key, e)
 			.trigger(e.type+':'+key, key, e);

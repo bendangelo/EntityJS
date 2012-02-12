@@ -14,7 +14,7 @@ re.c('mouse')
 .statics({
     l:[],
     
-    pressed:function(e){
+    press:function(e){
         var b, c;
         
         //find which key
@@ -75,7 +75,7 @@ re.c('mouse')
         
         //FUTURE automatically transform screen coordinates?
         var c, t, obj;
-        for(var i=0, l = that.l.length; i<l; i++){
+        for(var i=0; i<that.l.length; i++){
           t = that.l[i];
           obj = {x:x, y:y};
           obj.screenX = re.screen.toScreenX(x);
@@ -91,8 +91,8 @@ re.c('mouse')
     },
     
     i:function(){
-      re.listener('mousedown', this.pressed, false);
-      re.listener('mouseup', this.pressed, false);
+      re.listener('mousedown', this.press, false);
+      re.listener('mouseup', this.press, false);
       re.listener('mousemove', this.event, false);
       re.listener('click', this.event, false);
       re.listener('dblclick', this.event, false);

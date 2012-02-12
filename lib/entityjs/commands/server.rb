@@ -40,7 +40,17 @@ module Entityjs
     
     get '/qunit/qunit.js' do
       content_type 'text/javascript'
-      IO.read(Entityjs::root+'/public/qunit.js')
+      IO.read(Entityjs::root+'/public/qunit/qunit.js')
+    end
+    
+    get '/qunit/qunit.mock.js' do
+      content_type 'text/javascript'
+      IO.read(Entityjs::root+'/public/qunit/qunit.mock.js')
+    end
+    
+    get '/qunit/qunit.input.js' do
+      content_type 'text/javascript'
+      IO.read(Entityjs::root+'/public/qunit/qunit.input.js')
     end
     
     get '/qunit/qunit.css' do

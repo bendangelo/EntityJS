@@ -29,9 +29,11 @@ describe('load', function(){
           b = re.e('alligator.sfx')
           is(b._sound)
         })
-        .progress(function(name){
+        .progress(function(current, total, name){
           prog = true
           is(name, 'string')
+          is(current, 'number')
+          is(total, 'number')
         })
         .error(function(){
           ok(false)

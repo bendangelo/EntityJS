@@ -5,7 +5,7 @@ re.c('draw')
     draw:function(c){
         var lis = this.l;
         
-        for(var i=0, b, l=lis.length; i<l; i++){
+        for(var i=0, b; i<lis.length; i++){
           b = lis[i];
             b.drawable && b.visible() && b.draw_render(c);
         }
