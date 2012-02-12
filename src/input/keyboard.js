@@ -136,9 +136,9 @@ re.c('keyboard')
 	
   //initialize function
 	i:function(){
+		this.body = re.$('body');
 		re.listener('keydown', this.event, false);
 		re.listener('keyup', this.event, false);
-		this.body = re.$('body');
 	}
 
 })

@@ -1,4 +1,11 @@
-require 'uglifier'
+begin
+  require "uglifier" 
+rescue LoadError
+  puts "Could not load 'uglifier'"
+  puts "run 'gem install uglifier'"
+  exit
+end
+
 require 'fileutils'
 
 module Entityjs
@@ -29,7 +36,7 @@ module Entityjs
       Dir.chdir(builds_folder)
       
       #create new directory
-      if Dir.exists?(name) || File.exists?(name)
+      if Dir.exists?(name)
         return 3
       end
       
@@ -42,11 +49,15 @@ module Entityjs
       
       assets_root = Dirc.game_root+'/'
       
-      puts "Copying images"
-      FileUtils.cp_r assets_root+images_folder, 'images'
+      if Dir.exists? assets_root+images_folder
+        puts "Copying images"
+        FileUtils.cp_r assets_root+images_folder, 'images'
+      end
       
-      puts "Copying sounds"
-      FileUtils.cp_r assets_root+sounds_folder, 'sounds'
+      if Dir.exists? assets_root+sounds_folder
+        puts "Copying sounds"
+        FileUtils.cp_r assets_root+sounds_folder, 'sounds'
+      end
       
       Dir.chdir('..')
       
@@ -78,9 +89,13 @@ module Entityjs
       #minify
       puts "Almost done..."
       
+      license = Config.instance.license
+      
       #save
       File.open('game.min.js', 'w') do |f|
-        f.write(Uglifier.compile(out))
+        f.write(license)
+        
+        f.write(Uglifier.compile(out, :copyright=>false))
         
         f.close
       end
@@ -91,15 +106,15 @@ module Entityjs
       
       File.open('play.html', 'w') do |f|
         f.write(%Q(<!DOCTYPE html>
-        <html>
-        <head>
-        <script src='game.min.js'></script>
-        </head>
-        <body>
-        <canvas id='#{Config.instance.canvas_id}' width='#{Config.instance.width}' height='#{Config.instance.height}'>Error browser does not support canvas element.</canvas>
-        </body>
-        </html>
-        ))
+<html>
+  <head>
+    <script src='game.min.js'></script>
+  </head>
+  <body>
+    <canvas id='#{Config.instance.canvas_id}' width='#{Config.instance.width}' height='#{Config.instance.height}'>Error browser does not support canvas element.</canvas>
+  </body>
+</html>
+))
         f.close
       end
       

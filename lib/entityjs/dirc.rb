@@ -1,5 +1,6 @@
 require 'fileutils'
 
+#The Dirc class manages all files and folders in the entityjs src and games.
 module Entityjs
   
   class Dirc
@@ -29,7 +30,7 @@ module Entityjs
     
     def self.find_tests_url(ignore=nil)
       ignore ||= []
-      tests = Dir["#{Dirc.game_root}/#{Config.tests_folder}/*/*.js"]
+      tests = Dir["#{Dirc.game_root}/#{Config.tests_folder}/**/*.js"]
       
       tests = tests.collect do |i|
         i[i.rindex('tests/')..-1]

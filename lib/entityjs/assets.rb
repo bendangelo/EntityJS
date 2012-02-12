@@ -32,19 +32,20 @@ module Entityjs
       contents.gsub("$JS", Assets.to_html(tests))
     end
     
+    #combine all sources into valid html scripts
     def self.to_html(tests=false)
       js = %Q(
       <script type='text/javascript'>
       window.addEventListener\('load', function(){
         #{Assets.to_js}
         re.version = '#{VERSION}';
-        re.canvas = '##{Config.instance.canvas_id}';
         
         }\);
       </script>
 )
       ent = Dirc.find_entity_src_url(Config.instance.entity_ignore)
       srcs = Dirc.find_scripts_url(Config.instance.scripts_ignore, Config.instance.scripts_order)
+      
       if tests
         tests_src = Dirc.find_tests_url(Config.instance.tests_ignore)
       else
@@ -66,6 +67,7 @@ module Entityjs
         images:#{self.images_to_js},
         sounds:#{self.sounds_to_js}
         };
+      re.canvas = '##{Config.instance.canvas_id}';
       #{self.datas_to_js}
       )
     end

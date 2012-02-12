@@ -81,7 +81,7 @@
     _a = args;
     for (i = 0, _b = _a.length; i < _b; i++) {
       arg = _a[i];
-      if ($.isFunction(arg)) {
+      if (typeof arg == 'function') {
         args[i] = mocked(arg);
       }
     }
