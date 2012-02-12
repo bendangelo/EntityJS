@@ -16,48 +16,25 @@ re.scene('game')
 });
 
 //go to scene
-re.scene('game', {tiles:[]} );
+re.scene('game').enter({tiles:[]} );
 
-//delete a scene
-re.scene('-home');
+*warning- bad idea passing in functions as the first argument
 
-//combine delete home goto title sceen
-re.scene('-home title');
+//create manually
+re.e('scene:game')
+.enter(function(){
+  
+})
 
 */
 re.scene = function(title){
 	var s = re.c('scene');
 	
-	//delete scene
-	if(title.charAt(0) == '-'){
-		
-		delete s._scenes[title.substr(1)];
-		
-		return s;
-		
-	} else if(s._scenes[title]){
-	//go to scene
-		
-		var current = arguments.callee.current;
-		
-		//call exit
-		var t = s._scenes[current];
-		if(t && re.is(t.scene_exit, 'function')){
-			t.scene_exit.call(t, title);
-		}
-		
-		arguments.callee.current = title;
-		s.curent = title;
-		
-		t = s._scenes[title];
-		
-		if(re.is(t.scene_enter, 'function')){
-			t.scene_enter.apply(t, Array.prototype.slice.call(arguments, 1));
-		}
-		
-		
-	} else {
-	
+  if(!re.is(title)){
+    return s._scenes[re.current.scene];
+  }
+  
+	if(!s._scenes[title]){
 		//add scene
 		re.e('scene:'+title);
 	}
@@ -84,13 +61,37 @@ re.c('scene')
 })
 .defines({
 	
-	enter:function(m){
-		this.scene_enter = m;
+	enter:function(title){
+    if(!re.is(title, 'function')){
+      
+      if(re.scene.current)
+      re.scene().exit(title);
+      
+      //set current scene
+  		re.scene.current = this.sceneName
+  		
+      if(this.scene_enter)
+  		this.scene_enter.apply(this, arguments);
+      
+    }
+    //set new enter method
+		this.scene_enter = title;
 		
 		return this;
 	},
 	
 	exit:function(m){
+    if(!re.is(m, 'function')){
+      
+      re.scene.current = '';
+      
+  		if(re.is(this.scene_exit, 'function')){
+  			this.scene_exit.apply(this, arguments);
+  		}
+      
+      if(this.scene_exit)
+      this.scene_exit.apply(this, arguments);
+    }
 		this.scene_exit = m;
 		
 		return this;

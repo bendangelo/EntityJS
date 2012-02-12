@@ -1,19 +1,13 @@
 /*
 The sheet component converts a each frame of a sprite sheet into their own components.
 */
-re.sheet = function(map, components, sizeX, sizeY, padX, padY){
+re.sheet = function(map, components, sizeX, sizeY){
         
     var frameWidth = sizeX || re.tile.sizeX;
     var frameHeight = sizeY || re.tile.sizeY;
+    
     if(re.is(components,'array')){
       components = components.join(' ');
-    }
-    if(padX){
-        frameWidth += padX;
-    }
-        
-    if(padY){
-        frameHeight += padY;    
     }
         
     //create new sprites for sheet
@@ -35,7 +29,7 @@ re.sheet = function(map, components, sizeX, sizeY, padX, padY){
       sizeY:frameHeight
         });
             
-  }
+    }
   
     return b;
 };

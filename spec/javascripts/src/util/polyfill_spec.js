@@ -1,12 +1,12 @@
-describe('test', function(){
+describe('polyfill', function(){
 	
 	var e;
 
 	beforeEach(function(){
-		e = re.e();
+		//e = re.e('polyfill');
 	});
 
-	it('test', function(){
+	it('not needed', function(){
 		
 	});
 

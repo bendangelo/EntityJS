@@ -2,11 +2,6 @@
 The support component contains information about supported 
 functionality of the browser.
 
-v0.1 currently only checks for support of canvas and canvas text.
-
-FUTURE
--check audio support
-
 //returns true if canvas AND text is supported
 if(re.support('canvas text')){
 	//supports
@@ -37,19 +32,14 @@ worker
 webgl
 
 */
-re.c('support')
-.statics({
-
-	support:function(s){
-		var that = re.c('support');
-		
+re.support = function(s){
 		if(arguments.length > 1){
 			//find first supported arg and return
 			
 			var d;
 			for(var i=0; i<arguments.length; i++){
 				d = arguments[i];
-				if(that.support(d)){
+				if(re.support(d)){
 					return d;
 				}
 			}
@@ -64,26 +54,14 @@ re.c('support')
 		
 		//check multiple supports
 		for(var j in k){
-				stat = stat && !!that[k[j]];
+				stat = stat && !!re.support[k[j]];
 		}
 		
 		return stat;
-	}
-	
-})
-.defines({
-	support:function(s){
-		return re.c('support').call(this, s);
-	}
-	
-})
-.run(function(){
+}
 	
 	//add supports to component
-	var c = re.c('support');
-	
-	//quick checking function
-	re.support = c.support;
+	var c = re.support;
 	
 	//check canvas support
 	c.canvas = !!document.createElement('canvas').getContext;
@@ -129,4 +107,3 @@ re.c('support')
 	
 	c.touch = 'ontouchstart' in window;
 	
-});
