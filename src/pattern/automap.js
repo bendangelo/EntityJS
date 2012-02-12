@@ -93,7 +93,9 @@ re.c('automap')
 			while(x >= this.map[this.map.length-1].length){
 				
 				for(var k=0; k<this.map.length; k++){
-					this.map[k].push(this.value);
+          if(this.map[k].length <= x){
+  					this.map[k].push(this.value);
+          }
 				}
 				
 			}

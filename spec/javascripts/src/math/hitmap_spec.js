@@ -15,8 +15,16 @@ describe('hitmap', function(){
     
     is(k)
     
-    //more tests later..
+    //pos should be vel + pos
+    eq(k.posX, 10)
+    eq(k.posY, 10)
     
 	});
-
+  
+  it('has automap', function(){
+    
+    e.automap(0,0,1);
+    
+  })
+  
 });

@@ -5,7 +5,8 @@ module Entityjs
     def self.generate(args)
       
       puts "Available Templates:"
-      temps = Dir[Entityjs::root+'/templates/*']
+      temps = Dir[Entityjs::root+'/templates/*'].sort
+      
       temps.each do |i|
         k = i.split('/').pop
         default = ''

@@ -8,7 +8,7 @@ Creating this bind system will allow other developers to easily implement
 their own hit collision system.
 */
 re.c('hitmap')
-.requires('arraymap')
+.requires('automap')
 .defines({
 
     hitValue:1,
