@@ -122,7 +122,7 @@ Setters can even be used in `attr()`
 * `signal()` is now `trigger()`
 
 ## Quick Start Guide
-First you should install [ruby](http://rubyinstaller.org/) and install the entityjs gem. In the command prompt type in:
+First you should install [ruby](http://rubyinstaller.org/) and install the [entityjs gem](http://rubygems.org/gems/entityjs). In the command prompt type in:
 `gem install entityjs`
 
 Now you can create a new game, type in `entityjs new mygame`. This will create a game using the default template.
