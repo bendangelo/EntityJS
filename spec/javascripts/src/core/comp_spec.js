@@ -55,7 +55,7 @@ describe('comp', function(){
     ok(re.c('bob') == k)
   })
   
-  it('should unbind', function(){
+  it('should on', function(){
     k
     .off('test')
   })
@@ -68,7 +68,7 @@ describe('comp', function(){
   it('should bind', function(){
     
     k
-    .on('init')
+    .on('init', function(){})
   })
 
   it('should defaults', function(){

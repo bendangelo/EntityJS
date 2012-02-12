@@ -131,11 +131,11 @@
         });
         
         img.onload = function(){
-          re.c(a).defines({
-            bisect:img.width,
+          re.c(a).defaults({
             sizeX:img.width,
             sizeY:img.height
-            });
+            })
+            .defines('bisect', img.width);
             
           that._loaded();
         };
@@ -158,7 +158,7 @@
       
       if(this.current <= this.total){
         if(this._p){
-            this._p(this.assets[this.current-1]);
+            this._p(this.current, this.total, this.assets[this.current-1]);
         }
       }
       if(this.current == this.total){

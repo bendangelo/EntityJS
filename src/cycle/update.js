@@ -7,9 +7,13 @@ re.c('update')
 	update:function(t){
 		var l = this.l;
 		
-		for(var k=l.length, b; k--;){
+		for(var k=0, b, j=l.length; k<j; k++){
 			b = l[k];
-			b.updateable && b.trigger('update', t);
+      
+			if(b.updatable){
+        b.trigger('update', t);
+      }
+      
 		}
 		
 	}
@@ -27,7 +31,7 @@ re.c('update')
 		
 		l.splice(l.indexOf(this), 1);
 		
-		l.push(this);
+		l.unshift(this);
 		
 		return this;
 	},
@@ -36,7 +40,7 @@ re.c('update')
 		
 		l.splice(l.indexOf(this), 1);
 		
-		l.unshift(this);
+		l.push(this);
 		
 		return this;
 	},
@@ -75,9 +79,9 @@ re.c('update')
 	
 }())
 .init(function(c){
-	c.l.unshift(this);
+	c.l.push(this);
 })
 .dispose(function(c){
 	
-	c.l.splice(c.listeners.indexOf(this), 1);
+	c.l.splice(c.l.indexOf(this), 1);
 });

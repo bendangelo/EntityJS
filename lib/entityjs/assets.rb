@@ -38,6 +38,7 @@ module Entityjs
       window.addEventListener\('load', function(){
         #{Assets.to_js}
         re.version = '#{VERSION}';
+        re.canvas = '##{Config.instance.canvas_id}';
         
         }\);
       </script>
@@ -135,6 +136,17 @@ module Entityjs
             end
             
             if ext == '.tmx'
+              
+              #fix single node issues
+              keys = ['layer', 'objectgroup', 'tileset']
+              keys.each do |i|
+                
+                if contents[i].is_a? Hash
+                  contents[i] = [contents[i]]
+                end
+                
+              end
+              
               #filter values
               contents['layer'].each do |k|
                 map = k['data']

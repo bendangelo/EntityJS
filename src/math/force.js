@@ -34,7 +34,7 @@ re.force = re.c('force')
     velX:0,
     velY:0,
     
-    friX:0.9,
+    friX:0.4,
     friY:0.4,
     
     accX:0,
@@ -130,10 +130,10 @@ re.force = re.c('force')
       graY:c.graY
     });
     
-    this.on('update', this.physics_update);
+    this.on('update', this.force_update);
 })
 .dispose(function(){
     
-    this.off('update', this.physics_update);
+    this.off('update', this.force_update);
     
 });

@@ -47,6 +47,13 @@ describe 'dirc' do
     
   end
   
+  it 'should be alpha ordered' do
+    s = Entityjs::Dirc.find_entity_src
+    
+    s[1].should_not match /socket\.js/
+    
+  end
+  
   it 'should ignore entity scripts' do
     Entityjs::Dirc.stub(:find_entity_src).and_return(['asdfsdf/src/first.js', 'sfhs/src/ignore.js', 'sdfds/src/ignore2.js'])
     

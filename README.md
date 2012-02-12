@@ -46,9 +46,15 @@ Creating a game is simple, move to any directory and type in:
 
 `entityjs new mygame`
 
-or create with components
+This will create a new game using the default template.
 
-`entityjs new mygame comp1 comp2`
+Create a game with a platform template:
+
+`entityjs new mygame platform`
+
+See all available templates:
+
+`entityjs templates`
 
 ### Creating a Component
 
@@ -74,41 +80,53 @@ This will minify all entityjs src code and game src code into one file inside /b
 `localhost:2345/tests` runs tests
 `localhost:2345/assets/*name` view sounds / images
 
-## Game Structure
+## Directory Structure
 
-**coming soon...**
+* Assets - Contains all external files
+  * Images - Add any images here and retrieve them with `re.assets.images`
+  * Sounds - Add any sounds and retrieve them with `re.assets.sounds`
+  * [Custom] - Create any folders or files and they will be available.
+    * json, tmx, xml are accepted.
 
+* Builds - Contains the finished builds
+
+* Scripts - Contains all code and will be included.
+  * Plugins - Will contain external plugins from other sources.
+
+* Tests - Contains test files to run in [QUnit](http://docs.jquery.com/QUnit)
+
+* config.yml - Optional, allows simple configuration
+* readme.txt - Optional, simple description of the game.
+  
 ## Name Changes In V0.3
 
 * `Inherit()` is now `defaults()`
+* `Extend()` is now `defines()`
+* `Inherit()` on entities is now `def()`
+* `Extend()` on entities is now `attr()`
 
-### Signals Changed to bind/unbind
+### Short getters and setters
 
-* `addSignal()` is now `bind()`
-* `removeSignal()` is now `unbind()`
+  var tile = re.e('tile');
+  tile.tileX(1); //sets
+  tile.tileX(); //gets
+
+Setters can even be used in `attr()`
+
+  tile.attr('tileX', 2); //sets
+  
+### Signals Changed to on/off
+
+* `addSignal()` is now `on()`
+* `removeSignal()` is now `off()`
 * `signal()` is now `trigger()`
 
 ## Quick Start Guide
-This will take you through some quick steps to display an image on a canvas element.
+First you should install [ruby](http://rubyinstaller.org/) and install the entityjs gem. In the command prompt type in:
+`gem install entityjs`
 
-* In the terminal:
-`entityjs new mygame`
+Now you can create a new game, type in `entityjs new mygame`. This will create a game using the default template.
 
-* Add an image to `mygame/assets/images` call it welcome.png
+Move into the mygame/ directory and type in `entityjs server`.
 
-* In `mygame/scripts/scenes/load.js` add:
-
-```
-re.scene('home')
-.enter(function(){
-  re.e('welcome.png bitmap');
-});
-```
-
-* `entityjs server` and head to `localhost:2345` to play the game
-
-* In the root directory type: `entityjs build`
-
-* Checkout `/mygame/builds` to see your finished game
-
-* You can now upload the game online and show people.
+Open your browser and navigate to `localhost:2345`.

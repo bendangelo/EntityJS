@@ -31,7 +31,7 @@ re.scene = function(title){
 	var s = re.c('scene');
 	
   if(!re.is(title)){
-    return s._scenes[re.current.scene];
+    return s._scenes[re.scene.current];
   }
   
 	if(!s._scenes[title]){

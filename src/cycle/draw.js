@@ -5,7 +5,7 @@ re.c('draw')
     draw:function(c){
         var lis = this.l;
         
-        for(var i=lis.length, b; i--;){
+        for(var i=0, b, l=lis.length; i<l; i++){
           b = lis[i];
             b.drawable && b.visible() && b.draw_render(c);
         }
@@ -16,7 +16,7 @@ re.c('draw')
 .interfaces('draw')
 .init(function(c){
     
-    c.l.unshift(this);
+    c.l.push(this);
     
 })
 .dispose(function(c){
@@ -71,7 +71,7 @@ re.c('draw')
         
         l.splice(l.indexOf(this), 1);
         
-        l.push(this);
+        l.unshift(this);
         return this;
     },
     
@@ -80,7 +80,7 @@ re.c('draw')
         
         l.splice(l.indexOf(this), 1);
         
-        l.unshift(this);
+        l.push(this);
         return this;
     },
     
@@ -89,7 +89,7 @@ re.c('draw')
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         
-        if(him < me){
+        if(him > me){
             //swap
             var t = l[him];
             l[him] = l[me];
@@ -105,7 +105,7 @@ re.c('draw')
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         
-        if(him > me){
+        if(him < me){
             //swap    
             var t = l[him];
             l[him] = l[me];

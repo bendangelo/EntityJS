@@ -367,7 +367,7 @@
             if(!this._re_signals[type]){
                 this._re_signals[type] = [];
             }
-            
+            if(!re.is(method)) throw 'Method is null'
             this._re_signals[type].push(method);
             
         }

@@ -16,29 +16,53 @@ describe('update', function(){
   it('update first', function(){
     
     is(k.updateFirst())
-    var l = re._c.update.l.length-1;
+    var l = 0;
     eq(re._c.update.l[l], k)
   })
   
   it('update last', function(){
     is(k.updateLast())
-    var l = 0;
+    var l = re._c.update.l.length-1;
     eq(re._c.update.l[l], k)
   })
   
   it('update after', function(){
     is(k.updateAfter(last))
     
-    var l = 0 + 1;
-    eq(re._c.update.l[l], k)
+    var him = re._c.update.l.indexOf(last)
+    eq(re._c.update.l[him+1], k)
   })
   
   it('update before', function(){
     is(k.updateBefore(last))
     
-    var l = 0;
-    eq(re._c.update.l[l], k)
+    var him = re._c.update.l.indexOf(last)
+    eq(re._c.update.l[him-1], k)
     
+  })
+  
+  it('should update all', function(){
+    
+    var called = false;
+    var called2 = false;
+    var val = 0;
+    
+    k.on('update', function(v){
+      called = true;
+      val = v;
+    })
+    
+    k.on('update', function(){
+      called2 = true
+    })
+    
+    re.c('update').update(10)
+    
+    ok(called2)
+    ok(called)
+    eq(val, 10)
+    
+    k.dispose();
   })
   
   it('updatable', function(){

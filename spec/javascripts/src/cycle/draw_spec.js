@@ -33,7 +33,7 @@ describe('draw', function(){
     re.e('shape b')
     is(re.e('shape ddd').drawFirst())
     
-    var l = re._c.draw.l.length-1
+    var l = 0
     ok(re._c.draw.l[l].has('ddd'))
   })
   
@@ -44,7 +44,7 @@ describe('draw', function(){
     
     is(k.drawLast())
     
-    var l = 0
+    var l = re._c.draw.l.length-1
     ok(re._c.draw.l[l].has('db77'))
     
   })
@@ -56,7 +56,8 @@ describe('draw', function(){
     
     is(k.drawBefore(b))
     
-    var l = re._c.draw.l.indexOf(b)+1
+    
+    var l = re._c.draw.l.indexOf(b)-1
     ok(re._c.draw.l[l].has('db777'))
     
   })
@@ -67,8 +68,7 @@ describe('draw', function(){
     var b = re.e('shape b')
     
     is(k.drawAfter(b))
-    
-    var l = re._c.draw.l.indexOf(b)-1
+    var l = re._c.draw.l.indexOf(b)+1
     ok(re._c.draw.l[l].has('db777y'))
     
   })

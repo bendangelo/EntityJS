@@ -44,6 +44,9 @@ describe('test', function(){
     eq(val1, 10)
     eq(val2, 's')
     
+    //current scene
+    eq(re.scene(), null)
+    
   })
   
 });

@@ -66,6 +66,7 @@ re.c('system')
         return this;
     },
     
+    //scale is currently not implemented!
     init:function(canvasId, scale, contextType){
         //init listeners
         if(re._c.keyboard){

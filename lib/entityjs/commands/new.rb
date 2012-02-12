@@ -6,7 +6,7 @@ module Entityjs
     
     def self.generate(args)
       name = args.first || 'entityjs_game'
-      template_name = args[1]
+      template_name = args[1] || Entityjs::default_template
       
       template = Entityjs::template_path(template_name)
       

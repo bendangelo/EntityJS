@@ -62,6 +62,18 @@ describe('force', function(){
           eq(e.forceRes(i, 3), i * -3)
     });
     
+    it('update being called', function(){
+      
+      var called = false;
+      
+      e.on('aftermath', function(){
+        called = true;
+      })
+      
+      e.trigger('update')
+      ok(called)
+    })
+    
     it('aftermath', function(){
       var called = false;
       

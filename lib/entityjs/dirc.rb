@@ -76,6 +76,8 @@ module Entityjs
     def self.find_entity_src_url(ignore=nil)
       ignore ||= []
       srcs = self.find_entity_src(ignore)
+      
+      #remove src directory and replace with entityjs
       srcs = srcs.collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
       
       if ignore.any?
@@ -87,13 +89,16 @@ module Entityjs
     
     def self.find_scripts(ignore=nil, order=nil)
       
-      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.js"]
+      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.js"].sort
       
     end
     
     def self.find_entity_src(ignore=nil)
 
       ents = Dir[Entityjs::root+"/src/**/*.js"]
+      
+      #sort by name
+      ents.sort!
       
       #push re.js to the top
       
