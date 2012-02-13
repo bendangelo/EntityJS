@@ -60,13 +60,19 @@ See all available templates:
 
 `entityjs comp rock`
 
-This will create a new component called *rock* at src/rock.js and will create a test file inside test/rock.js
+This will create a new component called *rock* at scripts/rock.js and will create a test file inside test/rock.js
 
 `entityjs comp display/hero`
 
-This will create a new component in the directory src/display.
+This will create a new component in the directory scripts/display.
 
-### Compiling Code
+### Creating a Test
+
+`entityjs test name test1 test1`
+
+Create a test in tests/name_test.js with two test methods.
+
+### Build Game
 
 `entityjs build`
 
@@ -74,28 +80,34 @@ This will minify all entityjs src code and game src code into one file inside /b
 
 ### Running the Game / Tests
 
+Make sure the server is running:
 `entityjs server`
 
-`localhost:2345` displays game
-`localhost:2345/tests` runs tests
-`localhost:2345/assets/*name` view sounds / images
+To play visit:
+`localhost:2345`
+
+To run tests visit:
+`localhost:2345/tests`
+
+Assets are located here:
+`localhost:2345/assets/*name`
 
 ## Directory Structure
 
-* Assets - Contains all external files
+* Assets - Contains all external assets
   * Images - Add any images here and retrieve them with `re.assets.images`
   * Sounds - Add any sounds and retrieve them with `re.assets.sounds`
-  * [Custom] - Create any folders or files and they will be available.
-    * json, tmx, xml are accepted.
+  * [Custom] - Create any folders or files and they will be available in code.
+  * json, tmx, xml, sounds and images are accepted files.
 
-* Builds - Contains the finished builds
+* Builds - Contains all finished builds
 
-* Scripts - Contains all code and will be included.
-  * Plugins - Will contain external plugins from other sources.
+* Scripts - Contains all javascript sources.
+  * Plugins - Contains external scripts from other authors.
 
 * Tests - Contains test files to run in [QUnit](http://docs.jquery.com/QUnit)
 
-* config.yml - Optional, allows simple configuration
+* config.yml - Optional, simple configuration.
 * readme.txt - Optional, simple description of the game.
   
 ## Changes In V0.3
@@ -121,7 +133,7 @@ There are many more name changes, make sure to read the component source code fo
 
     tile.tile(1, 2); //sets tilex and tiley
     //or
-    tile.attr('tile', [1,2]); //samething except chained
+    tile.attr('tile', [1,2]); //samething
   
 ### Signals Changed to on/off
 
@@ -133,24 +145,26 @@ There are many more name changes, make sure to read the component source code fo
 
 All games will now use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and awsome.
 
-Special methods like `keypress` and `click` are available to simulate user input. Check localhost:2345/qunit/qunit.input.js for more information.  
+Special methods like `keypress` and `click` are available to simulate user input. Check `localhost:2345/qunit/qunit.input.js` for more information.  
 
 ## Tile Map Editor
 
 The awsome [tiled](http://www.mapeditor.org/) map editor is now compatible and can be used in your projects. 
 
-Simply create a new directory in /assets named levels or anything you like to save your maps in. They can accessed like so:
+Simply create a new directory in /assets named levels or anything you like to save your maps in. They can accessed in code like so:
 
     re('level1.tmx')[0]; //assuming the file name is level1.tmx
-    re('level'); //find all levels that are in the /assets/level directory
+    re('level'); //find all levels that are in the /assets/levels directory
 
 If you are still confused create a new platform game and view how the levels are used.
 
 ## Quick Start Guide
-First you should install [ruby](http://rubyinstaller.org/) and install the [entityjs gem](http://rubygems.org/gems/entityjs). In the command prompt type in:
+First you should install [ruby](http://rubyinstaller.org/) and the [entityjs gem](http://rubygems.org/gems/entityjs). 
+
+To install entityjs gem type in:
 `gem install entityjs`
 
-Now you can create a new game, type in `entityjs new mygame`. This will create a game using the default template.
+Now you can create a new game, type in `entityjs new mygame`.
 
 Move into the mygame/ directory and type in `entityjs server`
 
