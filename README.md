@@ -64,7 +64,7 @@ This will create a new component called *rock* at src/rock.js and will create a 
 
 `entityjs comp display/hero`
 
-This will create a new component in the directory src/display instead of src/ like before.
+This will create a new component in the directory src/display.
 
 ### Compiling Code
 
@@ -98,22 +98,30 @@ This will minify all entityjs src code and game src code into one file inside /b
 * config.yml - Optional, allows simple configuration
 * readme.txt - Optional, simple description of the game.
   
-## Name Changes In V0.3
+## Changes In V0.3
 
 * `Inherit()` is now `defaults()`
 * `Extend()` is now `defines()`
 * `Inherit()` on entities is now `def()`
 * `Extend()` on entities is now `attr()`
 
+There are many more name changes, make sure to read the component source code for more information. Also every component has a usage example.
+
 ### Short getters and setters
 
-  var tile = re.e('tile');
-  tile.tileX(1); //sets
-  tile.tileX(); //gets
+    var tile = re.e('tile');
+    tile.tileX(1); //sets
+    tile.tileX(); //gets
 
-Setters can even be used in `attr()`
+#### Setters can even be used in `attr()`
 
-  tile.attr('tileX', 2); //sets
+    tile.attr('tileX', 2); //sets
+  
+#### Setter with multiple parameters
+
+    tile.tile(1, 2); //sets tilex and tiley
+    //or
+    tile.attr('tile', [1,2]); //samething except chained
   
 ### Signals Changed to on/off
 
@@ -121,12 +129,29 @@ Setters can even be used in `attr()`
 * `removeSignal()` is now `off()`
 * `signal()` is now `trigger()`
 
+## QUnit Testing
+
+All games will now use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and awsome.
+
+Special methods like `keypress` and `click` are available to simulate user input. Check localhost:2345/qunit/qunit.input.js for more information.  
+
+## Tile Map Editor
+
+The awsome [tiled](http://www.mapeditor.org/) map editor is now compatible and can be used in your projects. 
+
+Simply create a new directory in /assets named levels or anything you like to save your maps in. They can accessed like so:
+
+    re('level1.tmx')[0]; //assuming the file name is level1.tmx
+    re('level'); //find all levels that are in the /assets/level directory
+
+If you are still confused create a new platform game and view how the levels are used.
+
 ## Quick Start Guide
 First you should install [ruby](http://rubyinstaller.org/) and install the [entityjs gem](http://rubygems.org/gems/entityjs). In the command prompt type in:
 `gem install entityjs`
 
 Now you can create a new game, type in `entityjs new mygame`. This will create a game using the default template.
 
-Move into the mygame/ directory and type in `entityjs server`.
+Move into the mygame/ directory and type in `entityjs server`
 
-Open your browser and navigate to `localhost:2345`.
+Open your browser and navigate to `localhost:2345`
