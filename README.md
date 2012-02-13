@@ -161,11 +161,10 @@ If you are still confused create a new platform game and view how the levels are
 ## Quick Start Guide
 First you should install [ruby](http://rubyinstaller.org/) and the [entityjs gem](http://rubygems.org/gems/entityjs). 
 
-To install entityjs gem type in:
-`gem install entityjs`
+Now you can create a new game:
+`entityjs new mygame`
 
-Now you can create a new game, type in `entityjs new mygame`.
-
-Move into the mygame/ directory and type in `entityjs server`
+Move into the mygame/ directory and lets play the game:
+`entityjs server`
 
 Open your browser and navigate to `localhost:2345`
