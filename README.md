@@ -143,13 +143,13 @@ There are many more name changes, make sure to read the component source code fo
 
 ## QUnit Testing
 
-All games will now use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and awsome.
+All games will now use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and awesome.
 
 Special methods like `keypress` and `click` are available to simulate user input. Check `localhost:2345/qunit/qunit.input.js` for more information.  
 
 ## Tile Map Editor
 
-The awsome [tiled](http://www.mapeditor.org/) map editor is now compatible and can be used in your projects. 
+The awesome [tiled](http://www.mapeditor.org/) map editor is now compatible and can be used in your projects. 
 
 Simply create a new directory in /assets named levels or anything you like to save your maps in. They can accessed in code like so:
 
