@@ -24,17 +24,17 @@ re.c('hitmap')
     },
     
     checkHit:function(posX, posY, velX, velY, bodX, bodY, padX, padY){
-        if(arguments.length == 1){
-            var velX = posX.velX;
-            var velY = posX.velY;
+        if(re.is(posX,'object')){
+            velX = posX.velX;
+            velY = posX.velY;
             
-            var bodX = posX.bodyX;
-            var bodY = posX.bodyY;
+            bodX = posX.bodyX || posX.sizeX;
+            bodY = posX.bodyY || posX.sizeY;
             
-            var padX = posX.padX;
-            var padY = posX.padY;
+            padX = posX.padX || 0;
+            padY = posX.padY || 0;
             
-            var posY = posX.posY;
+            posY = posX.posY;
             posX = posX.posX;
         }
         
@@ -45,7 +45,7 @@ re.c('hitmap')
             tarY:-1
         };
         
-        var step = ~~(Math.max(Math.abs(velX), Math.abs(velY)) / ((re.tile.sizeX + re.tile.sizeY) * 0.5) + 0.5);
+        var step = (Math.max(Math.abs(velX), Math.abs(velY)) / ((re.tile.sizeX + re.tile.sizeY) * 0.5) + 0.5) | 0;
         
         if(step > 1) {
             var sx = velX / step;
@@ -101,7 +101,7 @@ re.c('hitmap')
             
             var offx = (vx < 0 ? t : 0);
             //is inside
-            if(tx >= 0 && tx < this.lengthX && lasty >= 0 && firsty < this.lengthY) {
+            if(tx >= 0 && tx < this.lenX && lasty >= 0 && firsty < this.lenY) {
                 
                 for(ty = firsty; ty<lasty; ty++){
                     
@@ -135,7 +135,7 @@ re.c('hitmap')
             
             var offy = (vy < 0 ? t : 0);
             // Still inside this collision map?
-            if(ty >= 0 && ty < this.lengthY && lastx >= 0 && firstx< this.lengthX) {
+            if(ty >= 0 && ty < this.lenY && lastx >= 0 && firstx< this.lenX) {
                     
                 for(tx = firstx; tx<lastx; tx++) {
                     

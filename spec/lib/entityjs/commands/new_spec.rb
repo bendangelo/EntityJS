@@ -9,12 +9,11 @@ describe 'new' do
     
   end
   
-  it 'should generate mygame with comps' do
-    Entityjs::New.generate(['mygame', 'comp1']).should == 0
+  it 'should generate mygame with template' do
+    Entityjs::New.generate(['mygame', 'blank']).should == 0
     Dir.pwd.should match /\/EntityJS$/i
     
     File.exists?('mygame/scripts/init.js').should == true
-    File.exists?('mygame/scripts/game.js').should == true
   end
   
 end

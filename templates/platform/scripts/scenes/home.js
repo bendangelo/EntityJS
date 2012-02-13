@@ -1,11 +1,10 @@
 re.scene('home')
 .enter(function(){
   
-  console.log('entering home scene. . .');
+  re.scene('play').enter('level1');
   
 })
 .exit(function(){
   
-  console.log('exiting home scene. . .');
   
 })

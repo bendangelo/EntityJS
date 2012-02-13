@@ -3,16 +3,15 @@ re.scene('load')
   
   re.load(re.assets)
   .complete(function(){
-    console.log('finished loading...')
     
     //move to home
-    re.scene('home');
+    re.scene('home').enter();
   })
   .error(function(e){
-    console.log('Error loading asset: '+e);
+    
   })
   .progress(function(i){
-    console.log('Finished loading: '+i);
+    
   });
   
 })

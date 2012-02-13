@@ -1,3 +1,27 @@
+begin
+  require "cobravsmongoose" 
+rescue LoadError
+  puts "Could not load 'cobravsmongoose'"
+  puts "run 'gem install cobravsmongoose'"
+  exit
+end
+
+begin
+  require "json" 
+rescue LoadError
+  puts "Could not load 'json'"
+  puts "run 'gem install json'"
+  exit
+end
+
+begin
+  require "uglifier" 
+rescue LoadError
+  puts "Could not load 'uglifier'"
+  puts "run 'gem install uglifier'"
+  exit
+end
+
 require "entityjs/version"
 
 module Entityjs

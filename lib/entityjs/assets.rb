@@ -1,17 +1,3 @@
-begin
-  require "cobravsmongoose" 
-rescue LoadError
-  puts "Could not load 'cobravsmongoose'"
-  puts "run 'gem install cobravsmongoose'"
-  exit
-end
-begin
-  require "json" 
-rescue LoadError
-  puts "Could not load 'json'"
-  puts "run 'gem install json'"
-  exit
-end
 
 module Entityjs
   
@@ -115,60 +101,24 @@ module Entityjs
     def self.data_to_json(file)
         contents = IO.read(file)
         #remove dot from extension
-        ext = File.extname(file)
+        ext = File.extname(file).downcase
         
         case ext
           when '.json'
             return contents
             
-          when /\.tmx|\.xml/
-            #might need different transfomration
-            #remove header
+          when '.tmx'
             
-            contents = contents.gsub(/<\?xml.*\?>/, '')
-            #convert to hash
-            contents = CobraVsMongoose.xml_to_hash(contents)
-            
-            #remove root
-            contents.each do |i,v|
-              if !v.nil?
-                contents = v
-                break
-              end
-            end
-            
-            if ext == '.tmx'
-              
-              #fix single node issues
-              keys = ['layer', 'objectgroup', 'tileset']
-              keys.each do |i|
-                
-                if contents[i].is_a? Hash
-                  contents[i] = [contents[i]]
-                end
-                
-              end
-              
-              #filter values
-              contents['layer'].each do |k|
-                map = k['data']
-                #remove encoding
-                map.delete '@encoding'
-                #convert csv to array
-                tiles = map['$'].split(",\n")
-                k['data']['$'] = tiles.collect{|i| i.split(',').collect{|j| j.to_i }}
-              end
-            end
-            #to string
-            contents = contents.to_json
-            #remove @
-            return contents.gsub('"@','"')
+            return ParseTMX.parse(contents)
+          
+          when '.xml'
+            return ParseXML.parse(contents)
             
           when '.csv'
-            raise 'Support coming soon..'
+            raise 'CSV files are not supported at the moment'
             
           when '.yml'
-            raise 'Support coming soon...'
+            raise 'YML files are not supported at the moment'
             
           else
             raise 'File '+file+' is invalid'

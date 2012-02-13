@@ -1,10 +1,4 @@
-begin
-  require "uglifier" 
-rescue LoadError
-  puts "Could not load 'uglifier'"
-  puts "run 'gem install uglifier'"
-  exit
-end
+
 
 require 'fileutils'
 
