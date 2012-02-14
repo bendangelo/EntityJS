@@ -21,7 +21,7 @@ re.c('level')
   
   placeTiles:function(){
     
-    var map = this.layer[0].data.$;
+    var map = this.layer.data.$;
     
     for(var y=0; y<map.length; y++){
       
@@ -66,7 +66,7 @@ re.c('level')
   placeHero:function(){
     
     var pos = this.objectgroup[0].object;
-    debugger
+    
     re.e('hero')
     .attr({
       frame:pos.gid,
