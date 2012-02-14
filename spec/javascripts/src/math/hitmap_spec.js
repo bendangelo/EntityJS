@@ -38,6 +38,8 @@ describe('hitmap', function(){
     var res = e.checkHit(posX, posY, velX, velY, bodX, bodY, 0, 0);
     
     ok(res.hitX);
+    is(res.tarX)
+    is(res.tarY)
     
   })
   

@@ -1,6 +1,13 @@
 re.scene('load')
 .enter(function(){
   
+  re.tile.sizeX = re.tile.sizeY = 25;
+  
+  re.sys.clearColor = '#D6F8FA';
+  
+  //setup gravity
+  re.force.graY = 30 * re.sys.stepSize;
+  
   re.load(re.assets)
   .complete(function(){
     
@@ -17,4 +24,4 @@ re.scene('load')
 })
 .exit(function(){
   //exit load scene
-})
+});

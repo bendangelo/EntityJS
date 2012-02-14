@@ -3,10 +3,10 @@ re.c('counter')
   
   _count:0,
   
-  counter:function(value){
+  add:function(value){
     if(re.is(value)){
       this._count += value;
-      this.coinText.text("Coins: "+value);
+      this.coinText.text("Coins: "+this._count);
       
       return this;
     }
@@ -20,10 +20,12 @@ re.c('counter')
   //define text
   this.coinText = re.e('bit')
   .alignLeft(5)
-  .alignTop(5);
+  .alignTop(5)
+  //ignore screen coordinates
+  .attr('screenable', false);
   
   //set default text
-  this.counter(0);
+  this.add(0);
 })
 .dispose(function(){
   

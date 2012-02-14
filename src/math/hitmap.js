@@ -38,11 +38,14 @@ re.c('hitmap')
             posX = posX.posX;
         }
         
+        /*
+        Can also include tarX, tarY.
+        They contain the target positions of the hit.
+        Useful information to calculate which axis was hit
+        */
         var res = {
             posX:posX,
-            posY:posY,
-            tarX:-1,
-            tarY:-1
+            posY:posY
         };
         
         var step = (Math.max(Math.abs(velX), Math.abs(velY)) / ((re.tile.sizeX + re.tile.sizeY) * 0.5) + 0.5) | 0;

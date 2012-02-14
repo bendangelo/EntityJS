@@ -9,9 +9,10 @@ re.c('level')
     
     this.placeTiles();
     
-    this.placeItems();
-    
     this.placeHero();
+    
+    //items requires hero to be defined first
+    this.placeItems();
     
   },
   
@@ -50,16 +51,21 @@ re.c('level')
   },
   
   placeItems:function(){
+    
+    var gid = this.tileset[2].firstgid;
     var items = this.objectgroup[1].object;
     
     for(var i in items){
       var it = items[i];
       
-      re.e('coin').attr({
+      var frame = items[i].gid - gid;
+      
+      re.e('t'+frame).attr({
         posX:it.x,
         posY:it.y - re.tile.sizeY,
-        frame:14
+        frame:frame
       });
+      
     }
   },
   
@@ -69,7 +75,6 @@ re.c('level')
     
     re.e('hero')
     .attr({
-      frame:pos.gid,
       posX:pos.x,
       posY:pos.y - re.tile.sizeY //tiled editor adds an extra tile to y
     });

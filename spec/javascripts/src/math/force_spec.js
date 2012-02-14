@@ -40,6 +40,10 @@ describe('force', function(){
         e.accY = 0;
         e.velX = 0;
         ok(e.isIdle())
+        
+        //offset
+        e.velY = 2;
+        ok(e.isIdle(2))
     });
 
     it('force', function(){

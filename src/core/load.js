@@ -73,10 +73,6 @@
             
             a = this.assets[i];
             
-            //find file extension
-            var j = a.lastIndexOf('.')+1;
-            var ext = a.substr(j).toLowerCase();
-            
             //copy full source path
             var s = a;
             
@@ -85,6 +81,10 @@
             if(d != -1){
                 a = a.substr(d+1, a.length);
             }
+            
+            //find file extension
+            var j = a.lastIndexOf('.')+1;
+            var ext = a.substr(j).toLowerCase();
             
             //find name
             var n = a.substr(0, j);
@@ -97,9 +97,15 @@
                 
                 //check if support component exists first
                 if(!re.support || re.support(ext)){
+                  //don't load the same sound twice
+                  if(re._c[n+re.load.soundExt]){ 
+                    //remove from array
+                    this.total--;
+                    this.assets.splice(i, 1); 
+                    continue; 
+                  }
+                  
                     this._loadSound(s, a, n);
-                } else {
-                  throw "Browser doesn't support audio codec "+ext;
                 }
                 
             }

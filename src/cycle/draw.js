@@ -25,7 +25,7 @@ re.c('draw')
     
 })
 .defaults({
-    
+    screenable:true,
     drawable:true,
     rotation:0,
     alpha:1,
@@ -157,9 +157,12 @@ re.c('draw')
         if(this.alpha != 1)
             c.staticsAlpha = this.alpha;
         
+      if(this.screenable)
         c.translate(this.screenX(), this.screenY());
+      else
+        c.translate(this.posX, this.posY);
         
-        if(this.rotation != 0)
+        if(this.rotation)
             c.rotate(this.rotation * Math.PI / 180);
         
         

@@ -68,11 +68,14 @@ re.force = re.c('force')
 })
 .defines({
     
-    aftermath:function(posx, posy, hitx, hity){
+    aftermath:function(posx, posy, hitx, hity, tarx, tary){
         
         if(re.is(posx, 'object')){
             hitx = posx.hitX;
             hity = posx.hitY;
+            
+            tarx = posx.tarX;
+            tary = posx.tarY;
             
             posy = posx.posY;
             posx = posx.posX;
@@ -89,7 +92,7 @@ re.force = re.c('force')
             this.velY = this.forceRes(this.velY, this.resY);
         }
         
-        return this.trigger('aftermath', hitx, hity);
+        return this.trigger('aftermath', hitx, hity, tarx, tary);
     },
     
     forceRes:function(vel, res){
@@ -116,8 +119,9 @@ re.force = re.c('force')
         return v;
     },
     
-    isIdle:function(){
-        return !(this.velY + this.velX + this.accX + this.accY);
+    isIdle:function(offset){
+      offset = offset || 0;
+        return Math.abs(this.velY + this.velX + this.accX + this.accY) <= offset;
     }
     
 })
