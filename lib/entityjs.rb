@@ -22,6 +22,14 @@ rescue LoadError
   exit
 end
 
+begin
+  require "sinatra/base" 
+rescue LoadError
+  puts "Could not load 'sinatra'"
+  puts "run 'gem install sinatra'"
+  exit
+end
+
 require "entityjs/version"
 
 module Entityjs

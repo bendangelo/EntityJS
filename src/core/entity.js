@@ -61,7 +61,7 @@
             
             for(var i in this._re_implements){
                 if(!this.hasOwnProperty(this._re_implements[i])){
-                    throw 'interface: '+this._re_implements[i]+' missing';
+                    throw 'Interface: '+this._re_implements[i]+' missing';
                 }
             }
             
@@ -71,7 +71,7 @@
         if(this._re_asserts){
           for(var t in this._re_asserts){
               if(this._re_comps.indexOf(this._re_asserts[t]) != -1){
-                  throw 'assert: '+this._re_asserts[t]+' is not allowed';
+                  throw 'Assert: '+this._re_asserts[t]+' is not allowed';
               }
           }
         }
@@ -255,6 +255,10 @@
     Calls methods of parent components.
     
     Use '' to call super of entity
+    
+    re.e('draw')
+    .parent('draw', 'screenX')()
+    
     */
     p.parent = function(comp, method){
         
@@ -446,6 +450,7 @@
             
             b = this._re_signals[type];
             
+            if(!b) break;
             if(!b[i]) continue;
             
             //return false remove?
