@@ -31,7 +31,7 @@ module Entityjs
   end
   
   def self.default_template
-    'platform'
+    'blank'
   end
   
   def self.template_path(name=nil)
