@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        
+        <title>EntityJS Play Game</title>
+		
+		    $JS
+		
+        <style type="text/css">
+        /*
+        Styling for play.html
+        */
+        canvas {
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+          border:1px #333 solid;
+        }
+        
+        body {
+        	background-color:#F2F2F2;
+        	font-family: sans-serif;
+        }
+        
+        #content {
+        	margin:15px 0 15px 0;
+        	padding:20px 10px 30px 10px;
+        	min-height:350px;
+        	border-radius:2px;
+        	color:#333333;
+        	background-color:#ffffff;
+        
+        }
+        h1, h2, h3 {
+        	font-weight:700;
+        }
+        
+        h1 {
+        	font-size:30px;
+        	margin:10px 0 20px 5px;
+        	color:#D94E4E;
+        }
+        a, a:visited {
+        	color:#5b9463;
+        }
+        
+        a:hover {
+        	color:#77b981;
+        }
+        
+        a.highlight, a.highlight:visited {
+        	color:#D94E4E;
+        }
+        
+        a.highlight:hover {
+        	color:#ec7979;
+        }
+        
+        .block {
+        	margin-top:25px;
+        }
+        
+        ul li{
+        	margin:5px;
+        	display:inline-block;
+        }
+        .links {
+          float:right;
+        }
+        .game-links {
+          float:left;
+        }
+        .clear {
+         
+          clear: both;
+          display: block;
+          overflow: hidden;
+          visibility: hidden;
+          width: 0;
+          height: 0; 
+        }
+        </style>
+    </head>
+    
+    <body>
+    
+  
+      <div id="content">
+        <h1>Play</h1>
+      
+        <div class="canvas-container">
+          <canvas id="$CANVAS_ID" width="$WIDTH" height="$HEIGHT">
+		  <p>
+		  Requires a modern browser to play. Try downloading <a href="http://google.com/chrome">Chrome</a>.
+		  </p>
+		  </canvas>
+        </div>
+      
+		<div class="block">
+      <ul class="game-links">
+        <li><a href="/tests">Test Suite</a></li>
+      </ul>
+      
+			<ul class="links">
+			  <li><a href="http://entityjs.com" class="highlight" target="_blank">EntityJS</a></li>
+			  <li><a href="http://entityjs.com/tutorials" target="_blank">Tutorials</a></li>
+			  <li><a href="http://entityjs.com/api" target="_blank">API</a></li>
+			  <li><a href="https://github.com/bendangelo/entityjs" target="_blank">Git Repo</a></li>
+			  <li><a href="http://entityjs.com/license" target="_blank">License</a></li>
+			</ul>
+      <div class="clear"></div>
+		</div>
+      
+    </div>
+    
+    
+    </body>
+
+
+</html>

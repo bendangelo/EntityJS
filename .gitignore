@@ -1,2 +1,8 @@
 Thumbs.db
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
 .redcar
+._redcar
+mygame
