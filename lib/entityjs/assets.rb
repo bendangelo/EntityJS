@@ -85,7 +85,7 @@ module Entityjs
           dirname = dirname[0..-2]
         end
         
-        contents = self.data_to_json(Config.assets_folder+'/'+i)
+        contents = self.file_to_json(Dirc.game_root+'/'+Config.assets_folder+'/'+i)
         
         out += %Q(
         re.e('#{basename} #{dirname}')
@@ -98,34 +98,37 @@ module Entityjs
       out
     end
     
-    def self.data_to_json(file)
-        contents = IO.read(file)
-        #remove dot from extension
-        ext = File.extname(file).downcase
-        
+    def self.data_to_json(data, ext)
         case ext
-          when '.json'
-            return contents
+          when /json/
+            return data
             
-          when '.tmx'
+          when /tmx/
             
-            return ParseTMX.parse(contents)
+            return ParseTMX.parse(data)
           
-          when '.xml'
-            return ParseXML.parse(contents)
+          when /xml/
+            return ParseXML.parse(data)
             
-          when '.csv'
+          when /csv/
             raise 'CSV files are not supported at the moment'
             
-          when '.yml'
+          when /yml/
             raise 'YML files are not supported at the moment'
             
           else
-            raise 'File '+file+' is invalid'
+            raise "Extension #{ext} not recognized"
             
         end
       
       return nil
+    end
+    
+    def self.file_to_json(file)
+        contents = IO.read(file)
+        #remove dot from extension
+        ext = File.extname(file).downcase
+        return self.data_to_json(contents, ext)
     end
     
     def self.search(type='*')
@@ -141,16 +144,21 @@ module Entityjs
           return self.find_files(sounds_folder+'/*').select{|i| i.match(/^*\.(mp3|ogg|aac|wav)$/i)}
           
         else
-          datas = self.valid_datas.join('|')
-          return self.find_files("#{assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(/^*\.(#{datas})$/i)}
+          return self.search_datas
           
       end
       
     end
     
+    def self.search_datas
+      datas = self.valid_datas.join('|')
+      return self.find_files("#{Config.assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(/^*\.(#{datas})$/i)}
+    end
+    
     def self.find_files(search)
-      Dir[search].collect do |i|
-        i = i.gsub("assets/", "")
+      Dir[Dirc.game_root+'/'+search].collect do |i|
+        #remove long string
+        i = i.split("assets/").pop
       end
     end
     

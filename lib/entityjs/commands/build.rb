@@ -14,6 +14,8 @@ module Entityjs
       
       Config.instance.reload
       
+      license = Config.instance.license
+      
       if name.nil? || name.empty?
         date = Time.now.strftime('%s')
         name = "build-#{date}"
@@ -27,33 +29,34 @@ module Entityjs
       sounds_folder = Config.sounds_folder
       scripts_folder = Config.scripts_folder
       
-      Dir.chdir(builds_folder)
+      #build if it doesn't exist
+      Dirc.create_dir('builds', true)
       
       #create new directory
       if Dir.exists?(name)
         return 3
       end
       
-      Dir.mkdir(name)
-      Dir.chdir(name)
-      
-      #copy images and sounds into assets
-      Dir.mkdir(assets_folder)
-      Dir.chdir(assets_folder)
-      
       assets_root = Dirc.game_root+'/'
       
-      if Dir.exists? assets_root+images_folder
-        puts "Copying images"
-        FileUtils.cp_r assets_root+images_folder, 'images'
+      Dir.mkdir(name)
+      Dir.chdir(name)
+        
+      #copy images and sounds into assets
+      Dirc.create_dir(assets_folder)
+      Dir.chdir(assets_folder) do
+        
+        if Dir.exists? assets_root+images_folder
+          puts "Copying images"
+          FileUtils.cp_r assets_root+images_folder, 'images'
+        end
+        
+        if Dir.exists? assets_root+sounds_folder
+          puts "Copying sounds"
+          FileUtils.cp_r assets_root+sounds_folder, 'sounds'
+        end
+        
       end
-      
-      if Dir.exists? assets_root+sounds_folder
-        puts "Copying sounds"
-        FileUtils.cp_r assets_root+sounds_folder, 'sounds'
-      end
-      
-      Dir.chdir('..')
       
       #append all files into one big file
       puts "Compiling code"
@@ -77,13 +80,12 @@ module Entityjs
         out += "\n"
       end
       
+      #add levels, animations etc data
       out += Assets.to_js
       
       
       #minify
       puts "Almost done..."
-      
-      license = Config.instance.license
       
       #save
       File.open('game.min.js', 'w') do |f|
@@ -102,7 +104,7 @@ module Entityjs
         f.write(%Q(<!DOCTYPE html>
 <html>
   <head>
-    <script src='game.min.js'></script>
+    <script src='game.min.js' type='text/javascript'></script>
   </head>
   <body>
     <canvas id='#{Config.instance.canvas_id}' width='#{Config.instance.width}' height='#{Config.instance.height}'>Error browser does not support canvas element.</canvas>

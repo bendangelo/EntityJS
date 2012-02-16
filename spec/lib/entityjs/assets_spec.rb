@@ -80,7 +80,7 @@ describe 'Assets' do
     File.stub(:extname).and_return('.xml')
     IO.stub(:read).and_return('<?xml ?><root><alice sid="4"><bob sid="1">charlie</bob><bob sid="2">david</bob></alice></root>')
     
-    r = Entityjs::Assets.data_to_json('convert.xml')
+    r = Entityjs::Assets.file_to_json('convert.xml')
     
     r.should match /alice/
     r.should_not match /root/
@@ -158,7 +158,7 @@ describe 'Assets' do
 </map>
 ))
     
-    r = Entityjs::Assets.data_to_json('map.tmx')
+    r = Entityjs::Assets.file_to_json('map.tmx')
     
     r.should_not match /map/
     r.should match /"\$":\[\[0/
@@ -201,7 +201,7 @@ describe 'Assets' do
 </map>))
 
 
-    r = Entityjs::Assets.data_to_json('map.tmx')
+    r = Entityjs::Assets.file_to_json('map.tmx')
     
     r.should_not match /map/
     r.should match /"\$":\[\[0/

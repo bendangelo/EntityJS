@@ -13,7 +13,8 @@ describe 'new' do
     Entityjs::New.generate(['mygame', 'blank']).should == 0
     Dir.pwd.should match /\/EntityJS$/i
     
-    File.exists?('mygame/scripts/init.js').should == true
+    File.exists?('mygame/config.yml').should == true
+    File.exists?('mygame/readme.txt').should == true
   end
   
 end

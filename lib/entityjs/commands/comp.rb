@@ -23,7 +23,7 @@ module Entityjs
       
       dir = Config.scripts_folder
       
-      Dirc.change_dir(dir)
+      Dirc.create_dir(dir, true)
       
       #create folder if they don't exist
       folders = filename.split('/')
@@ -31,11 +31,7 @@ module Entityjs
       
       if folders.size > 0
         folders.each do |i|
-          if !Dir.exists?(i)
-            Dir.mkdir(i)
-          end
-          
-          Dirc.change_dir(i)
+          Dirc.create_dir(i, true)
         end
         
       end
@@ -44,9 +40,11 @@ module Entityjs
         return 3
       end
       
+      comp_name = filename.split('.').shift
+      
       File.open(filename, 'w') do |f|
         
-        f.write(%Q(re.c\('#{name}'\)
+        f.write(%Q(re.c\('#{comp_name}'\)
 .requires\(''\)
 .defines\({
   

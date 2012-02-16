@@ -27,7 +27,7 @@ module Entityjs
       
       dir = Config.tests_folder
       
-      Dirc.change_dir(dir)
+      Dirc.create_dir(dir, true)
       
       #create folder if they don't exist
       folders = filename.split('/')
@@ -35,11 +35,7 @@ module Entityjs
       
       if folders.size > 0
         folders.each do |i|
-          if !Dir.exists?(i)
-            Dir.mkdir(i)
-          end
-          
-          Dirc.change_dir(i)
+          Dirc.create_dir(i, true)
         end
         
       end
@@ -48,9 +44,11 @@ module Entityjs
         return 3
       end
       
+      test_name = filename.split('_test.').shift
+      
       File.open(filename, 'w') do |f|
         
-        f.write("module('#{name}');")
+        f.write("module('#{test_name}');")
         
         tests.each do |i|
           f.write("\n\ntest('#{i}', function(){\n\t\n\t\n\t\n});")
