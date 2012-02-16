@@ -111,7 +111,7 @@ describe('entity', function(){
       try {
     re.e('temp');
       }catch(e){
-      eq(e, 'interface: yep missing')
+      eq(e, 'Interface: yep missing')
       }
   })
   
@@ -122,7 +122,7 @@ describe('entity', function(){
       try {
     re.e(c.name+' yep');
       }catch(e){
-      eq(e, 'assert: yep is not allowed')
+      eq(e, 'Assert: yep is not allowed')
       }
   })
   
