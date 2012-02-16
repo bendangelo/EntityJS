@@ -1,27 +1,28 @@
-module('coin', {
-  setup:function(){
-    c = re.e('coin');
-  },
-  teatdown:function(){
-    c.dispose();
-  }
+module('coin', lazy('coin'));
+
+test('valid', function(){
+  
+  expectListener(e, 'update');
+  
+  expectFlicker(e, 'glow');
+  
 });
 
 test('touch should collect', function(){
   
-  expectCall(c, 'collect');
+  expectCall(e, 'collect');
   
-  c.touch();
+  e.touch();
   
 })
 
 test('collect should dispose and stuff', function(){
   
-  expectCall(c.sfx, 'play');
-  expectCall(c, 'dispose');
+  expectCall(e.sfx, 'play');
+  expectCall(e, 'dispose');
   
-  expectTrigger(c, 'collect');
+  expectTrigger(e, 'collect');
   
-  c.collect();
+  e.collect();
   
 })

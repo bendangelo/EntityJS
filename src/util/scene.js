@@ -71,11 +71,12 @@ re.c('scene')
   		re.scene.current = this.sceneName
   		
       if(this.scene_enter)
-  		this.scene_enter.apply(this, arguments);
-      
+    		this.scene_enter.apply(this, arguments);
+      return this;
+    } else {
+      //set new enter method
+  		this.scene_enter = title;
     }
-    //set new enter method
-		this.scene_enter = title;
 		
 		return this;
 	},
@@ -91,8 +92,9 @@ re.c('scene')
       
       if(this.scene_exit)
       this.scene_exit.apply(this, arguments);
+    } else {
+  		this.scene_exit = m;
     }
-		this.scene_exit = m;
 		
 		return this;
 	}

@@ -10,7 +10,7 @@ re.c('update')
 		for(var k=0, b; k<l.length; k++){
 			b = l[k];
       
-			if(b.updatable){
+			if(b && b.updatable){
         b.trigger('update', t);
       }
       
