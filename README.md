@@ -9,10 +9,10 @@ Version 0.3 is a major release with many revisions and a brand new ruby gem to w
 
 There is a new directory structure, testing framework, better minifier, better config file and more. This is currently in alpha and most of it doesn't work!
 
-**Warning:** there are many name changes which will break older versions!
+**Warning:** there are many name changes which will break older entity games!
 
 ## API
-Currently the [API](http://entityjs.com/api) is out of date. It will be updated once version 0.3 is released.
+Currently the [API](http://entityjs.com/api) is out of date. It will slowly be updated everyday.
 
 ## What makes this different from other javascript game engines?
 Entity strives to be the most flexible game engine available. We understand no one likes rewritting the same functions and lines of code over and over. So we have developed a solution to this problem and that is the component-entity design. The traditional approach to game engine design is creating a hierarchy of classes. This is infact the **most** tightly coupled design. This creates close coupled classes whos functionality is strictly typed to one class, its not easily portable to other projects, good luck copying that one needed function and as game development progresses classes get bigger and more complex. You will eventually end up with *god-classes* who control most of the game logic.
@@ -35,8 +35,6 @@ This will install the latest version of the gem and now you can easily create so
 
 
 ## Usage
-
-**Warning** at the moment the gemfile is at version 0.2.2 and is **broken**. Wait until version 0.3 to try these commands.
 
 When using these commands make sure you are always in the root directory of your game.
 
@@ -143,13 +141,52 @@ There are many more name changes, make sure to read the component source code fo
 
 ## QUnit Testing
 
-All games will now use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and awesome.
+All games use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and easy to use. Checkout the platform template to see some example tests.
 
-Special methods like `keypress` and `click` are available to simulate user input. Check `localhost:2345/qunit/qunit.input.js` for more information.  
+### Factories
+
+Factories are used to create a complex entity in one line of code. During tests you may need to test a specific type of entity multiple times and its annoying constantly changing its values. Factories solve this issue.
+
+Simply create a new `factories.js` in the `/tests` directory and add something like below.
+    
+    factory('enemy', function(){
+      //make a custom coin
+      this.health = 100;
+      this.state = 'idle';
+      
+      //can use normal entity methods
+      this.on('update', function(){
+        //something
+      });
+    });
+    
+    //create new enemy entity anywhere in tests
+    var e = factory('enemy');
+    eq(e.state, 'idle') //true
+    
+    //Same as...
+    var e = re.e('enemy');
+    e.health = 100;
+    //etc...
+    
+What if you need multiple enemy factories?
+
+    //use f for laziness
+    f('enemy attacking', function()
+      this.state = 'attacking';
+    });
+    
+### EntityJS Helpers
+
+Some asserts have been added for checking entities, like `expectTrigger`, `expectFlicker` and `expectListener`. For more info check `localhost:2345/qunit/qunit.entity.js`
+
+### Input Helpers
+
+Special methods like `keypress()` and `click()` are available to simulate user input. Check `localhost:2345/qunit/qunit.input.js` for more information.  
 
 ## Tile Map Editor
 
-The awesome [tiled](http://www.mapeditor.org/) map editor is now compatible and can be used in your projects. 
+The awesome [tiled map editor](http://www.mapeditor.org/) is now compatible and can be used in your projects. 
 
 Simply create a new directory in /assets named levels or anything you like to save your maps in. They can accessed in code like so:
 
@@ -161,10 +198,10 @@ If you are still confused create a new platform game and view how the levels are
 ## Quick Start Guide
 First you should install [ruby](http://rubyinstaller.org/) and the [entityjs gem](http://rubygems.org/gems/entityjs). 
 
-Now you can create a new game:
-`entityjs new mygame`
+Now you can create a new game from the platform template:
+`entityjs new mygame platform`
 
-Move into the mygame/ directory and lets play the game:
+Move into the `mygame` directory and play the game:
 `entityjs server`
 
 Open your browser and navigate to `localhost:2345`

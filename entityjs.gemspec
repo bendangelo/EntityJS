@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["ben@entityjs.com"]
   s.homepage    = "http://entityjs.com"
   s.summary     = %q{Create HTML5 javascript games in EntityJS.}
-  s.description = %q{The EntityJS gem supplies easy to use commands for creating javascript games.}
+  s.description = %q{HTML5 Javascript game engine, quickly create robust, flexible and reusable games.}
   
   s.license = 'MIT'
   
