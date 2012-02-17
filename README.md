@@ -115,7 +115,7 @@ Assets are located here:
 * `Inherit()` on entities is now `def()`
 * `Extend()` on entities is now `attr()`
 
-There are many more name changes, make sure to read the component source code for more information. Also every component has a usage example.
+There are many more name changes, make sure to read the component source code for help. Most components have a usage example to help you along while the API / tutorials get up to date.
 
 ### Short getters and setters
 
@@ -141,11 +141,11 @@ There are many more name changes, make sure to read the component source code fo
 
 ## QUnit Testing
 
-All games use [QUnit](http://docs.jquery.com/QUnit) as the primary test framework. Its light weight and easy to use. Checkout the platform template to see some example tests.
+All games use [QUnit](http://docs.jquery.com/QUnit) for testing, its light weight and easy to use. Checkout the platform template to see some example tests.
 
 ### Factories
 
-Factories are used to create a complex entity in one line of code. During tests you may need to test a specific type of entity multiple times and its annoying constantly changing its values. Factories solve this issue.
+Factories are used to easily create complex entities. During tests you may need access to a specific type of entity multiple times. Factories make it easy to create any kind of entity at anytime.
 
 Simply create a new `factories.js` in the `/tests` directory and add something like below.
     
@@ -178,7 +178,7 @@ What if you need multiple enemy factories?
     
 ### EntityJS Helpers
 
-Some asserts have been added for checking entities, like `expectTrigger`, `expectFlicker` and `expectListener`. For more info check `localhost:2345/qunit/qunit.entity.js`
+Some asserts have been added for checking entities, like `expectTrigger`, `expectFlicker` and `expectListener`. For more info check `localhost:2345/qunit/qunit.entity.js`.
 
 ### Input Helpers
 
