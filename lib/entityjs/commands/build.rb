@@ -61,23 +61,11 @@ module Entityjs
       
       #append all files into one big file
       puts "Compiling code"
-      out = ''
       
       entity_src = self.compile_entity(Config.instance.entity_ignore)
-      scripts = Dirc.find_scripts(Config.instance.scripts_ignore, Config.instance.scripts_order)
+      scripts = self.compile_scripts(Config.instance.scripts_ignore, Config.instance.scripts_order)
       
-      #add version
-      out = out.gsub(/\$VERSION/, Entityjs::VERSION)
-      
-      scripts.each do |i|
-        out += "\n"
-        out += IO.read(i)
-        out += "\n"
-      end
-      
-      #add levels, animations etc data
-      out += Assets.to_js
-      
+      out = entity_src+scripts
       
       #minify
       puts "Almost done..."
@@ -89,7 +77,6 @@ module Entityjs
         
         f.close
       end
-      
       
       #create play.html
       puts "Creating play page"
@@ -127,12 +114,28 @@ module Entityjs
         out += "\n"
       end
       
+      #add version
+      out = out.gsub(/\$VERSION/, Entityjs::VERSION)
+      
       return out
     end
     
     #compiles all game source and returns it
-    def self.compile_src(ignore = nil, order=nil)
+    def self.compile_scripts(ignore = nil, order=nil)
+      scripts = Dirc.find_scripts(ignore, order)
       
+      out = ''
+      
+      scripts.each do |i|
+        out += "\n"
+        out += IO.read(i)
+        out += "\n"
+      end
+      
+      #add levels, animations etc data
+      out += Assets.to_js
+      
+      return out
     end
     
     #minifies source and returns it
@@ -145,6 +148,7 @@ module Entityjs
         code = Config.instance.license + code
       end
       
+      return code
     end
     
   end

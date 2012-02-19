@@ -46,27 +46,37 @@ module Entityjs
       js
     end
     
-    def self.to_js()
+    #converts all assets / info into a js game header
+    def self.to_js(path = nil, images = nil, sounds = nil, canvas = nil, datas = nil)
+      path ||= 'assets/'
+      images ||= self.images_to_js
+      sounds ||= self.sounds_to_js
+      canvas ||= Config.instance.canvas_id
+      datas ||= self.datas_to_js
       
       return %Q(
-      re.load.path = 'assets/';
+      re.load.path = '#{path}';
       re.assets = {
-        images:#{self.images_to_js},
-        sounds:#{self.sounds_to_js}
+        images:#{images},
+        sounds:#{sounds}
         };
-      re.canvas = '##{Config.instance.canvas_id}';
-      #{self.datas_to_js}
+      re.canvas = '##{canvas}';
+      #{datas}
       )
     end
     
-    def self.images_to_js
-      s = self.search('images').collect{|i| "'#{i}'"}.join(', ')
+    def self.images_to_js(images = nil)
+      images ||= self.search('images')
+      
+      s = images.collect{|i| "'#{i}'"}.join(', ')
       
       "[#{s}]"
     end
     
-    def self.sounds_to_js
-      s = self.search('sounds').collect{|i| "'#{i}'"}.join(', ')
+    def self.sounds_to_js(sounds = nil)
+      sounds ||= self.search('sounds')
+      
+      s = sounds.collect{|i| "'#{i}'"}.join(', ')
       
       "[#{s}]"
     end
@@ -78,20 +88,10 @@ module Entityjs
       
       s.each do |i|
         
-        basename = File.basename(i)
-        dirname = File.dirname(i)
+        file = i
+        data = IO.read(Dirc.game_root+'/'+Config.assets_folder+'/'+i)
         
-        #make singular
-        if dirname[-1] == 's'
-          dirname = dirname[0..-2]
-        end
-        
-        contents = self.file_to_json(Dirc.game_root+'/'+Config.assets_folder+'/'+i)
-        
-        out += %Q(
-        re.e('#{basename} #{dirname}')
-        .attr(#{contents});
-        )
+        out += self.data_to_ent(i, data)
         
       end
       
@@ -99,22 +99,49 @@ module Entityjs
       out
     end
     
-    def self.data_to_json(data, ext)
+    def self.data_to_ent(file, data)
+      contents = self.data_to_json(file, data)
+      
+      basename = File.basename(file)
+      dirname = File.dirname(file)
+      
+      comps = []
+      
+      dirname.split('/').each do |i|
+        
+        #make singular
+        if i[-1] == 's'
+          i = i[0..-2]
+        end
+        
+        comps.push i
+        
+      end
+      
+      %Q(
+      re.e('#{basename} #{comps.join(' ')}')
+      .attr(#{contents});
+      )
+    end
+    
+    def self.data_to_json(file, data)
+      ext = file.downcase
+      
         case ext
-          when /json/
+          when /json$/
             return data
             
-          when /tmx/
+          when /tmx$/
             
             return ParseTMX.parse(data)
           
-          when /xml/
+          when /xml$/
             return ParseXML.parse(data)
             
-          when /csv/
+          when /csv$/
             raise 'CSV files are not supported at the moment'
             
-          when /yml/
+          when /yml$/
             raise 'YML files are not supported at the moment'
             
           else
@@ -127,9 +154,8 @@ module Entityjs
     
     def self.file_to_json(file)
         contents = IO.read(file)
-        #remove dot from extension
-        ext = File.extname(file).downcase
-        return self.data_to_json(contents, ext)
+        
+        return self.data_to_json(file, contents)
     end
     
     def self.search(type='*')
