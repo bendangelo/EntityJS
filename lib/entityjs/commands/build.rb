@@ -14,8 +14,6 @@ module Entityjs
       
       Config.instance.reload
       
-      license = Config.instance.license
-      
       if name.nil? || name.empty?
         date = Time.now.strftime('%s')
         name = "build-#{date}"
@@ -28,6 +26,9 @@ module Entityjs
       images_folder = Config.images_folder
       sounds_folder = Config.sounds_folder
       scripts_folder = Config.scripts_folder
+      
+      final_name = 'game.min.js'
+      html_name = 'play.html'
       
       #build if it doesn't exist
       Dirc.create_dir('builds', true)
@@ -62,14 +63,8 @@ module Entityjs
       puts "Compiling code"
       out = ''
       
+      entity_src = self.compile_entity(Config.instance.entity_ignore)
       scripts = Dirc.find_scripts(Config.instance.scripts_ignore, Config.instance.scripts_order)
-      entities = Dirc.find_entity_src(Config.instance.entity_ignore)
-      
-      entities.each do |i|
-        out += "\n"
-        out += IO.read(i)
-        out += "\n"
-      end
       
       #add version
       out = out.gsub(/\$VERSION/, Entityjs::VERSION)
@@ -88,10 +83,9 @@ module Entityjs
       puts "Almost done..."
       
       #save
-      File.open('game.min.js', 'w') do |f|
-        f.write(license)
+      File.open(final_name, 'w') do |f|
         
-        f.write(Uglifier.compile(out, :copyright=>false))
+        f.write(self.minify(out))
         
         f.close
       end
@@ -100,11 +94,11 @@ module Entityjs
       #create play.html
       puts "Creating play page"
       
-      File.open('play.html', 'w') do |f|
+      File.open(html_name, 'w') do |f|
         f.write(%Q(<!DOCTYPE html>
 <html>
   <head>
-    <script src='game.min.js' type='text/javascript'></script>
+    <script src='#{final_name}' type='text/javascript'></script>
   </head>
   <body>
     <canvas id='#{Config.instance.canvas_id}' width='#{Config.instance.width}' height='#{Config.instance.height}'>Error browser does not support canvas element.</canvas>
@@ -121,6 +115,36 @@ module Entityjs
       Dirc.to_game_root
       
       return 0
+    end
+    
+    #compiles all entity source and returns it
+    def self.compile_entity(ignore = nil)
+      out = ''
+      entities = Dirc.find_entity_src(ignore)
+      entities.each do |i|
+        out += "\n"
+        out += IO.read(i)
+        out += "\n"
+      end
+      
+      return out
+    end
+    
+    #compiles all game source and returns it
+    def self.compile_src(ignore = nil, order=nil)
+      
+    end
+    
+    #minifies source and returns it
+    def self.minify(code, license=true)
+      
+      code = Uglifier.compile(code, :copyright=>false)
+      
+      #add entity license statement
+      if license
+        code = Config.instance.license + code
+      end
+      
     end
     
   end

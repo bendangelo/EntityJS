@@ -23,6 +23,9 @@ module Entityjs
         when /^(test|t)$/
           return Entityjs::Test.generate(args)
         
+        when 'release'
+          return Entityjs::Release.generate(args)
+          
         when /^(comp|c)$/
           return Entityjs::Comp.generate(args)
           

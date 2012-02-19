@@ -46,8 +46,9 @@ module Entityjs
       js
     end
     
-    def self.to_js
-      out = %Q(
+    def self.to_js()
+      
+      return %Q(
       re.load.path = 'assets/';
       re.assets = {
         images:#{self.images_to_js},

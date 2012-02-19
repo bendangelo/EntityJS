@@ -6,3 +6,4 @@ pkg/*
 .redcar
 ._redcar
 mygame
+*.min.js

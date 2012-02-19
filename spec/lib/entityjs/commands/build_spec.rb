@@ -11,6 +11,7 @@ describe 'build' do
   end
   
   it 'should run' do
+    #turn this off, too much garbage made
     #Entityjs::Command.run('build', []).should == 0
   end
   
@@ -65,5 +66,9 @@ describe 'build' do
       contents.should match /Tile Layer 1/i
     end
   end
-
+  
+  it 'should build a throwthegame' do
+    
+  end
+  
 end
