@@ -36,6 +36,8 @@ re.e('tile sprite tiles.png', map.length * map[0].length)
   this.frame(map[y][x]);
 });
 
+@warning moving to negative tiles will cause rounding issues.
+Its recommended you avoid negative maps
 
 */
 re.tile = re.c('tile')

@@ -1,5 +1,8 @@
 /*
 The align component contains helper methods for positioning entities relative to system size.
+
+@warning aligning with negative values will not round down but up!
+
 */
 re.c('align')
 .requires('draw')

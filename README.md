@@ -7,7 +7,7 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 
 Version 0.3 is a major release with many revisions and a brand new ruby gem to work with. You can now type `entityjs new game-name` and a new game will be created. Of course there are more commands, check below.
 
-There is a new directory structure, testing framework, better minifier, better config file and more. This is currently in alpha and most of it doesn't work!
+There is a new directory structure, testing framework, better minifier, better config file and more.
 
 **Warning:** there are many name changes which will break older entity games!
 
@@ -172,7 +172,7 @@ Simply create a new `factories.js` in the `/tests` directory and add something l
 What if you need multiple enemy factories?
 
     //use f for laziness
-    f('enemy attacking', function()
+    f('enemy attacking', function(){
       this.state = 'attacking';
     });
     
