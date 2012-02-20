@@ -19,7 +19,7 @@ begin
 rescue LoadError
   puts "Could not load 'uglifier'"
   puts "run 'gem install uglifier'"
-  exit
+    exit
 end
 
 begin

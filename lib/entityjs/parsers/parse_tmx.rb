@@ -3,6 +3,9 @@ module Entityjs
   class ParseTMX
     
     def self.parse(data)
+      if data.nil? || data.empty?
+        return '{}'
+      end
       
       contents = ParseXML.parse_to_hash(data)
       
@@ -11,21 +14,18 @@ module Entityjs
         contents['layer'].each do |k|
           self.parse_layer(k)
         end
-      else
+      elsif contents['layer'].is_a? Hash
         self.parse_layer(contents['layer'])
       end
       
-      #transform into string
-      out = ParseXML.parse(contents)
-      
-      #transform string-numbers into numbers
-      
-      out = out.gsub(/"[0-9\.]*"/){|s| s[1..-2] }
-      
-      return out
+      #transform into strin
+      return ParseXML.parse(contents)
     end
     
     def self.parse_layer(k)
+      if k.nil? || k.empty?
+        return 
+      end
       
         map = k['data']
         #remove encoding

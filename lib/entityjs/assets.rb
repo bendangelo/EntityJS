@@ -7,6 +7,10 @@ module Entityjs
       ['xml', 'json', 'tmx']
     end
     
+    def self.datas_regex
+      return /^.*\.#{self.valid_datas.join('|')}$/i
+    end
+    
     def self.set_vars(contents, tests=false)
       #read file for changes
       Config.instance.reload
@@ -91,7 +95,7 @@ module Entityjs
         file = i
         data = IO.read(Dirc.game_root+'/'+Config.assets_folder+'/'+i)
         
-        out += self.data_to_ent(i, data)
+        out += self.data_to_js(i, data)
         
       end
       
@@ -99,7 +103,7 @@ module Entityjs
       out
     end
     
-    def self.data_to_ent(file, data)
+    def self.data_to_js(file, data)
       contents = self.data_to_json(file, data)
       
       basename = File.basename(file)
@@ -117,6 +121,9 @@ module Entityjs
         comps.push i
         
       end
+      
+      #remove dot because no base dir was given
+      comps.delete_if{|i| i=='.'}
       
       %Q(
       re.e('#{basename} #{comps.join(' ')}')
@@ -145,11 +152,10 @@ module Entityjs
             raise 'YML files are not supported at the moment'
             
           else
-            raise "Extension #{ext} not recognized"
+            return data
             
         end
-      
-      return nil
+        
     end
     
     def self.file_to_json(file)
@@ -178,8 +184,7 @@ module Entityjs
     end
     
     def self.search_datas
-      datas = self.valid_datas.join('|')
-      return self.find_files("#{Config.assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(/^*\.(#{datas})$/i)}
+      return self.find_files("#{Config.assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(self.datas_regex)}
     end
     
     def self.find_files(search)

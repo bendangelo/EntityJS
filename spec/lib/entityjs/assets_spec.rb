@@ -207,6 +207,26 @@ describe 'Assets' do
     r.should match /"\$":\[\[0/
   end
   
+  it 'should return object for invalid xml' do
+    xml = '<sdf>'
+    
+    lambda {
+    Entityjs::Assets.data_to_json('sdf.xml', xml)
+    }.should raise_error
+  end
+  
+  it 'should return json from invalid tmx' do
+    tmx = "<root><bob>10</bob></root>"
+    
+    Entityjs::Assets.data_to_json('lsdf.tmx', tmx).should == '{"bob":{"$":10}}'
+  end
+  
+  it 'should convert blank tmx to json' do
+    tmx = ''
+    
+    Entityjs::Assets.data_to_json('level.tmx', tmx).should == '{}'
+  end
+  
   it 'should generate to js' do
     r = Entityjs::Assets.to_js
     r.should match /re\.assets/
