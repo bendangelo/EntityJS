@@ -101,11 +101,14 @@
                   if(re._c[n+re.load.soundExt]){ 
                     //remove from array
                     this.total--;
-                    this.assets.splice(i, 1); 
-                    continue; 
+                    continue;
+                  } else {
+                   this._loadSound(s, a, n);
                   }
-                  
-                    this._loadSound(s, a, n);
+                } else {
+                  //sound can't be loaded
+                  this.total--;
+                  continue;
                 }
                 
             }
@@ -191,7 +194,7 @@
         .defines({
             _sound:s
         });
-        
+        console.log('created '+a)
         //s.addEventListener('load',function(){that._loaded()}, false);
         //called multiple times in firefox
         var f = function(){

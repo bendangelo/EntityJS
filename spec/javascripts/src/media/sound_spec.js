@@ -15,7 +15,7 @@ describe('sound', function(){
     
     is(e.play())
     
-    waits(400)
+    waits(1000)
     runs(function(){
       ok(called)
     })

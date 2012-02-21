@@ -15,10 +15,9 @@ describe('entity', function(){
   });
   
   it('should create 1 in query', function(){
-    //length issues in ie, leave out for now
-    //eq(re.e('dfggggg', 1).length, 1)
+    eq(re.e('dfggggg', 1).length, 1)
     
-    //eq(re('dfggggg').length, 1)
+    eq(re('dfggggg').length, 1)
   })
   
   it('comp', function(){

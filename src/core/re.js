@@ -39,11 +39,7 @@ re.$new = function(n){
 Special polyfills and object additions
 */
 re.listener = function(t, c){
-    if(window.addEventListener){
-        window.addEventListener(t, c, true);
-    } else {
-        document.attachEvent('on'+t, c);
-    }
+  window.addEventListener(t, c, true);
 };
 
 /*
