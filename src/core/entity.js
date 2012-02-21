@@ -70,7 +70,7 @@
         //check asserts
         if(this._re_asserts){
           for(var t in this._re_asserts){
-              if(re.indexOf(this._re_comps, this._re_asserts[t]) != -1){
+              if(this._re_comps.indexOf(this._re_asserts[t]) != -1){
                   throw 'Assert: '+this._re_asserts[t]+' is not allowed';
               }
           }
@@ -106,7 +106,7 @@
         if(!this.has(com)) return this;
         
         //remove from array
-        this._re_comps.splice(re.indexOf(this._re_comps,com), 1);
+        this._re_comps.splice(this._re_comps.indexOf(com), 1);
         
         //only remove if it exists
         if(c){
@@ -128,34 +128,8 @@
     this.comp('health:100 physics');
     
     //remove components
-    this.comp('-point');
+    this.removeComp('point');
     */
-    /*p.comp = function(com){
-        
-        this._re_comp(com);
-        
-        //check implement
-        if(this._re_interface){
-            
-            for(var i in this._re_interface){
-                if(!this.hasOwnProperty(this._re_interface[i])){
-                    throw 'implementation: '+this._re_interface[i]+' missing';
-                }
-            }
-            
-        }
-        
-        //check asserts
-        if(this._re_asserts){
-            for(var t in this._re_asserts){
-                if(this._re_comps.indexOf(c._re_asserts[t]) != -1){
-                    throw 'assert: '+c.name+' cannot be coupled with '+c._re_asserts[t];
-                }
-            }
-        }
-        
-        return this;
-    }*/
     
     p._re_comp = function(com){
         if(!com) return this;
@@ -313,14 +287,14 @@
         for(p=0; p<comp.comp.length; p++){
             
             //check if not containing components
-            if(re.indexOf(this._re_comps, comp.comp[p]) == -1){
+            if(this._re_comps.indexOf(comp.comp[p]) == -1){
                 return false;
             }
         }
         
         //check if entity doesn't contain components
         for(p=0; p<comp.not.length; p++){
-            if(re.indexOf(this._re_comps, comp.not[p]) != -1){
+            if(this._re_comps.indexOf(comp.not[p]) != -1){
                 return false;
             }
         }
@@ -524,7 +498,7 @@
     
     p.dispose = function(){
         //delete from statics array
-        re._e.splice(re.indexOf(re._e, this), 1);
+        re._e.splice(re._e.indexOf(this), 1);
         
         for(var i in this._re_comps){
           var k = re.c(this._re_comps[i]);

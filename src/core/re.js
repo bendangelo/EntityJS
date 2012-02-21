@@ -54,29 +54,3 @@ re.is = function(obj, type){
   
   return obj != null && Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() == type.toLowerCase();
 };
-
-/*
-Crossbrowser indexof 
-re.indexOf([1,2,3], 1) //0
-*/
-re.indexOf = function(z, a,f){for(var c=z.length,r=-1,d=f>>>0;~(c-d);r=z[--c]===a?c:r);return r};
-
-/*
-Crossbrowser lastindexof
-re.lastIndexOf([1,2,3], 2) //1
-*/
-re.lastIndexOf = function(
-  z,
-   a, // item to be found
-   b  // index placeholder
-) { 
-   for (
-     // initialize index
-     b=z.length;
-     // if the index decreased by one is not already -1
-     // index is not set (sparse array)
-     // and the item at index is not identical to the searched one
-     ~--b && (!(b in z) || z[b] !== a););
-   // return index of last found item or -1
-   return b
-};

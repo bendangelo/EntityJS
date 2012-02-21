@@ -39,8 +39,9 @@ describe('load', function(){
           ok(false)
         })
         
-        waits(500)
+        waits(1000)
         runs(function(){
+          console.log('sadf ', called)
           ok(called)
         })
     });

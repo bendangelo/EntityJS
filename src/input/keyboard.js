@@ -114,7 +114,7 @@ re.c('keyboard')
 		var that = re._c.keyboard;
 		
     //disable keyboard keys if focus lost
-		if(that.body != document.activeElement){
+		if(re.is(document.activeElement, 'htmlinputelement') || re.is(document.activeElement, 'htmltextareaelement')){
 			return;
 		}
 		
@@ -136,7 +136,6 @@ re.c('keyboard')
 	
   //initialize function
 	i:function(){
-		this.body = re.$('body');
 		re.listener('keydown', this.event, false);
 		re.listener('keyup', this.event, false);
 	}

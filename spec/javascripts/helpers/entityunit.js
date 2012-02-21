@@ -39,6 +39,13 @@ function match(test, reg, i){
   
 }
 
+var indexOf = function(z, a,f){for(var c=z.length,r=-1,d=f>>>0;~(c-d);r=z[--c]===a?c:r);return r};
+
+function contains(array, item){
+  ok(indexOf(array, item) != -1);
+}
+
+
 function called(value){
   if(arguments.length == 1){
     expect(value).toHaveBeenCalled()

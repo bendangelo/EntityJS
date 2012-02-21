@@ -24,26 +24,25 @@ describe('comp', function(){
     k
     .requires('test test2');
     
-    ok(k._re_requires.indexOf('test') != -1)
-    ok(k._re_requires.indexOf('test2') != -1)
+    contains(k._re_requires, 'test')
+    contains(k._re_requires, 'test2')
     
     k.requires(['test3'])
-    ok(k._re_requires.indexOf('test3') != -1)
+    contains(k._re_requires, 'test3')
   })
   
   it('should asserts', function(){
     k
     .asserts('bob');
     
-    ok(k._re_asserts.indexOf('bob') != -1)
+    contains(k._re_asserts, 'bob')
   })
   
   it('should interfaces', function(){
     k
     .interfaces('bob');
     
-    ok(k._re_implements.indexOf('bob') != -1)
-    
+    contains(k._re_implements, 'bob')
   })
   
   it('should alias', function(){

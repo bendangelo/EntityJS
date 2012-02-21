@@ -85,6 +85,7 @@ module Entityjs
         f.write(%Q(<!DOCTYPE html>
 <html>
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <script src='#{final_name}' type='text/javascript'></script>
   </head>
   <body>

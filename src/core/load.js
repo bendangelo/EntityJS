@@ -89,11 +89,11 @@
             //find name
             var n = a.substr(0, j);
             
-            if(re.indexOf(re.load.images, ext) != -1){
+            if(re.load.images.indexOf(ext) != -1){
 
                 this._loadImg(s, a, n);
                 
-            } else if(re.indexOf(re.load.sounds, ext) != -1){
+            } else if(re.load.sounds.indexOf(ext) != -1){
                 
                 //check if support component exists first
                 if(!re.support || re.support(ext)){

@@ -20,8 +20,6 @@ describe('keyboard', function(){
       called2 = key
     });
     
-    ok(re.c('keyboard').body, document.activeElement)
-    
     //manually call
     re.c('keyboard').event({type:type, keyCode:68})//d
     
@@ -48,8 +46,6 @@ describe('keyboard', function(){
       is(e)
       called2 = key
     });
-    
-    ok(re.c('keyboard').body, document.activeElement)
     
     //manually call
     re.c('keyboard').event({type:type, keyCode:68})//d
