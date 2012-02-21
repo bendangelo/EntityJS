@@ -19,15 +19,8 @@ re._e = [];
 re._c = {};
 
 re.ready = function(r){
-    re.ready.c.push(r);
-    
-    window.onload = function(){
-        for(var k in re.ready.c){
-            re.ready.c[k].call(re);
-        }
-    };
+    re.listener('load', r);
 };
-re.ready.c = [];
 
 /*
 The $ method is used for selecting ids and tags.
@@ -62,13 +55,28 @@ re.is = function(obj, type){
   return obj != null && Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() == type.toLowerCase();
 };
 
-if(!Array.prototype.indexOf){
-    Array.prototype.indexOf = function(o){
-        for(var i=0; i<this.length; i++){
-            if(this[i]==o){
-                return i;
-            }
-        }
-        return -1;
-    }
-}
+/*
+Crossbrowser indexof 
+re.indexOf([1,2,3], 1) //0
+*/
+re.indexOf = function(z, a,f){for(var c=z.length,r=-1,d=f>>>0;~(c-d);r=z[--c]===a?c:r);return r};
+
+/*
+Crossbrowser lastindexof
+re.lastIndexOf([1,2,3], 2) //1
+*/
+re.lastIndexOf = function(
+  z,
+   a, // item to be found
+   b  // index placeholder
+) { 
+   for (
+     // initialize index
+     b=z.length;
+     // if the index decreased by one is not already -1
+     // index is not set (sparse array)
+     // and the item at index is not identical to the searched one
+     ~--b && (!(b in z) || z[b] !== a););
+   // return index of last found item or -1
+   return b
+};

@@ -70,7 +70,7 @@
         //check asserts
         if(this._re_asserts){
           for(var t in this._re_asserts){
-              if(this._re_comps.indexOf(this._re_asserts[t]) != -1){
+              if(re.indexOf(this._re_comps, this._re_asserts[t]) != -1){
                   throw 'Assert: '+this._re_asserts[t]+' is not allowed';
               }
           }
@@ -106,7 +106,7 @@
         if(!this.has(com)) return this;
         
         //remove from array
-        this._re_comps.splice(this._re_comps.indexOf(com), 1);
+        this._re_comps.splice(re.indexOf(this._re_comps,com), 1);
         
         //only remove if it exists
         if(c){
@@ -173,10 +173,9 @@
         }
         
         if(pieces.length > 1){
-            for(var k in pieces){
-                this._re_comp(pieces[k]);    
+          for(var i =0;i<pieces.length; i++){
+                this._re_comp(pieces[i]);
             }
-            
             return this;
         }
         
@@ -196,7 +195,7 @@
         //if already has component
         if(this.has(com)) return this;
         
-        //add comp first thing, to avoid dupe requiresment calls
+        //add comp first thing, to avoid dupe requirement calls
         //and this lets the init remove the comp too.
         this._re_comps.push(com);
         
@@ -314,14 +313,14 @@
         for(p=0; p<comp.comp.length; p++){
             
             //check if not containing components
-            if(this._re_comps.indexOf(comp.comp[p]) == -1){
+            if(re.indexOf(this._re_comps, comp.comp[p]) == -1){
                 return false;
             }
         }
         
         //check if entity doesn't contain components
         for(p=0; p<comp.not.length; p++){
-            if(this._re_comps.indexOf(comp.not[p]) != -1){
+            if(re.indexOf(this._re_comps, comp.not[p]) != -1){
                 return false;
             }
         }
@@ -363,6 +362,7 @@
         if(re.is(type, 'object')){
             
             for(var k in type){
+              if(type.hasOwnProperty(k))
                 this.on(k, type[k]);
             }
             
@@ -402,17 +402,18 @@
         if(re.is(type, 'object')){
             
             for(var k in type){
+              if(type.hasOwnProperty(k))
                 this.off(k, type[k]);
             }
             
         } else {
             
             if(method){
-            
-                for(var k in this._re_signals[type]){
+               var i = this._re_signals[type];
+                for(var k in i){
                 
-                    if(this._re_signals[type][k] == method){
-                        this._re_signals[type].splice(k, 1);
+                    if(i.hasOwnProperty(k) && i[k] == method){
+                        i.splice(k, 1);
                     }
                     
                 }
@@ -471,9 +472,7 @@
         
         if(re.is(obj,  'object')){
             
-            for(var key in obj){
-                if(!obj.hasOwnProperty(key)) continue;
-                
+          for(var key in obj){
                 this.attr(key, obj[key]);
             }
             
@@ -506,11 +505,8 @@
         
         if(re.is(obj , 'object')){
         
-            for(var key in obj){
-                if(!obj.hasOwnProperty(key)) continue;
-                
-                this.def(key, obj[key]);
-                
+          for(var key in obj){
+              this.def(key, obj[key]);
             }
             
         } else {
@@ -528,14 +524,14 @@
     
     p.dispose = function(){
         //delete from statics array
-        re._e.splice(re._e.indexOf(this), 1);
+        re._e.splice(re.indexOf(re._e, this), 1);
         
         for(var i in this._re_comps){
-            var k = re.c(this._re_comps[i]);
-            if(k._re_dispose){
-                k._re_dispose.call(this, k);
-            }
-            k.trigger('dispose', this);
+          var k = re.c(this._re_comps[i]);
+          if(k._re_dispose){
+              k._re_dispose.call(this, k);
+          }
+          k.trigger('dispose', this);
         }
         
         this.trigger('dispose');

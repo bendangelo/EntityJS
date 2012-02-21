@@ -26,6 +26,17 @@ describe('re', function(){
     teardown_canvas()
   })
   
+  it('indexOf', function(){
+    eq(re.indexOf([1,2,3,4,3], 3), 2)
+    eq(re.indexOf([1,3,2,4,3], 3), 1)
+  })
+  
+  it('lastIndexOf', function(){
+    eq(re.lastIndexOf([1,3,2,4,3], 3), 4)
+    eq(re.lastIndexOf([6,3,2,4,1], 3), 1)
+    
+  })
+  
   it('should create element', function(){
     is(re.$new('canvas'), 'htmlcanvaselement')
   })

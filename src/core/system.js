@@ -87,7 +87,13 @@ re.c('system')
         
         this.scale = scale || 1;
         
+        //init flash canvas if it exists
+        if(window['FlashCanvas']){
+          FlashCanvas.initElement(this.canvas);
+        }
+        
         this.context = this.canvas.getContext(contextType || '2d');
+        
         var s = re.screen = re.e('screen');
         
         this.sizeX = s.sizeX = this.canvas.width;

@@ -5,6 +5,10 @@ module Entityjs
     
     def self.generate(name=nil)
       
+      if name.is_a? Array
+        name = name.first
+      end
+      
       name ||= self.release_name
       
       puts "Collecting files"

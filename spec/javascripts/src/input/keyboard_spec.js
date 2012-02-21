@@ -1,4 +1,4 @@
-describe('test', function(){
+describe('keyboard', function(){
 	
 	var e;
 

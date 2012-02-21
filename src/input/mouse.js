@@ -62,7 +62,6 @@ re.c('mouse')
             y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
         }
         
-        //FUTURE fix, does not support multiple canvases
         x -= re.sys.canvas.offsetLeft;
         y -= re.sys.canvas.offsetTop;
         
