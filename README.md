@@ -90,7 +90,7 @@ To run tests visit:
 Assets are located here:
 `localhost:2345/assets/*name`
 
-View [all commands](commands)
+View [all commands](/bendangelo/EntityJS/wiki/commands)
 
 ## Directory Structure
 
