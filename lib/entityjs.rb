@@ -47,7 +47,7 @@ module Entityjs
       name = self.default_template
     end
     path = "#{Entityjs::root}/templates/#{name}"
-    if Dir.exists? path
+    if File.directory? path
         return Dir.glob(path+'/*')
     else
         return nil
