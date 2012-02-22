@@ -133,7 +133,7 @@ module Entityjs
     
     def self.create_dir(name, move=false)
     
-      if !Dir.exists? name
+      if !File.directory? name
         Dir.mkdir(name)
       end
       
