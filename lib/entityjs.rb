@@ -30,8 +30,6 @@ rescue LoadError
   exit
 end
 
-require "entityjs/version"
-
 module Entityjs
   
   def self.root

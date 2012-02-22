@@ -35,11 +35,11 @@ module Entityjs
         when /^(font|f)$/
           return Entityjs::Font.generate(args)
           
-        when /^(version|v)$/
+        when /^(version|v|-v)$/
           puts 'EntityJS V'+Entityjs::VERSION
           return 0
           
-        when /^(help|h)$/
+        when /^(help|h|-h)$/
           puts ""
           puts '---- Commands ----'
           puts 'entityjs new [name]'
@@ -49,6 +49,7 @@ module Entityjs
           puts 'entityjs test [name]'
           puts 'entityjs test [name] [tests]+'
           puts 'entityjs font [name] (soon...)'
+          puts 'entityjs release'
           puts 'entityjs build'
           puts 'entityjs build [name]'
           puts 'entityjs server'

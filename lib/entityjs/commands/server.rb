@@ -32,11 +32,13 @@ module Entityjs
       
     end
     
+    #entity source code
     get '/entityjs/*' do
       content_type 'text/javascript'
       IO.read(Entityjs::root+'/src/'+params[:splat].first)
     end
     
+    #qunit testing stuff
     get '/qunit/*' do
       file = params[:splat].first
       if file.match /\.js$/

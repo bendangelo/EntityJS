@@ -34,7 +34,7 @@ module Entityjs
       Dirc.create_dir('builds', true)
       
       #create new directory
-      if Dir.exists?(name)
+      if File.directory?(name)
         return 3
       end
       
@@ -47,12 +47,12 @@ module Entityjs
       Dirc.create_dir(assets_folder)
       Dir.chdir(assets_folder) do
         
-        if Dir.exists? assets_root+images_folder
+        if File.directory? assets_root+images_folder
           puts "Copying images"
           FileUtils.cp_r assets_root+images_folder, 'images'
         end
         
-        if Dir.exists? assets_root+sounds_folder
+        if File.directory? assets_root+sounds_folder
           puts "Copying sounds"
           FileUtils.cp_r assets_root+sounds_folder, 'sounds'
         end

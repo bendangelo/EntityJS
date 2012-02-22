@@ -27,7 +27,7 @@ describe 'Assets' do
     r.each do |i|
       i.should match /images/
       i.should_not match /levels|sounds|assets/
-      i.should match /^*\.(png|gif|jpg|jpeg)$/i
+      i.should match /^.*\.(png|gif|jpg|jpeg)$/i
     end
     
   end
@@ -38,7 +38,7 @@ describe 'Assets' do
     r.each do |i|
       i.should match /sounds/
       i.should_not match /levels|images|assets/
-      i.should match /^*\.(mp3|aac|wav|ogg)$/i
+      i.should match /^.*\.(mp3|aac|wav|ogg)$/i
     end
     
     r.should include(@sounds_file.gsub('assets/', ''))
@@ -51,7 +51,7 @@ describe 'Assets' do
     r.each do |i|
       i.should match /levels|blag/
       i.should_not match /sounds|images|assets/
-      i.should match /^*\.(#{Entityjs::Assets.valid_datas.join('|')})$/i
+      i.should match /^.*\.(#{Entityjs::Assets.valid_datas.join('|')})$/i
     end
     
     r.should include(@data_file.gsub('assets/', ''))
@@ -59,13 +59,13 @@ describe 'Assets' do
   
   it 'should generate sounds to js' do
     r = Entityjs::Assets.sounds_to_js
-    r.should match /\[*\]/
+    r.should match /\[.*\]/
     
   end
   
   it 'should generate images to js' do
     r = Entityjs::Assets.images_to_js
-    r.should match /\[*\]/
+    r.should match /\[.*\]/
     
   end
   

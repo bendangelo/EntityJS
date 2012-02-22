@@ -58,17 +58,17 @@ See all available templates:
 
 `entityjs comp rock`
 
-This will create a new component called *rock* at scripts/rock.js and will create a test file inside test/rock.js
+This will create a new component called *rock* at scripts/rock.js and will create a test file.
 
 `entityjs comp display/hero`
 
-This will create a new component in the directory scripts/display.
+This will create a hero component in the directory scripts/display.
 
 ### Creating a Test
 
 `entityjs test name test1 test1`
 
-Create a test in tests/name_test.js with two test methods.
+Create a test in /tests/name_test.js with two test methods.
 
 ### Build Game
 
@@ -90,6 +90,8 @@ To run tests visit:
 Assets are located here:
 `localhost:2345/assets/*name`
 
+View [all commands](wiki/commands)
+
 ## Directory Structure
 
 * Assets - Contains all external assets
@@ -101,7 +103,7 @@ Assets are located here:
 * Builds - Contains all finished builds
 
 * Scripts - Contains all javascript sources.
-  * Plugins - Contains external scripts from other authors.
+  * Plugins - Contains minified scripts for plugin play.
 
 * Tests - Contains test files to run in [QUnit](http://docs.jquery.com/QUnit)
 
@@ -193,7 +195,7 @@ Simply create a new directory in /assets named levels or anything you like to sa
     re('level1.tmx')[0]; //assuming the file name is level1.tmx
     re('level'); //find all levels that are in the /assets/levels directory
 
-If you are still confused create a new platform game and view how the levels are used.
+If you are still confused create a new platform game and view levels are used.
 
 ## Quick Start Guide
 First you should install [ruby](http://rubyinstaller.org/) and the [entityjs gem](http://rubygems.org/gems/entityjs). 
@@ -205,3 +207,9 @@ Move into the `mygame` directory and play the game:
 `entityjs server`
 
 Open your browser and navigate to `localhost:2345`
+
+## Contributing
+
+Before sending a pull request it would be a good idea to run `rspec` and `rake jasmine` to make sure all tests pass in both ruby and javascript.
+
+Running rspec will generate a /mygame/ folder with test files. It will be ignored by git so don't worry about it.

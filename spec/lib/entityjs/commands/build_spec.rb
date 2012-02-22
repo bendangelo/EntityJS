@@ -22,7 +22,7 @@ describe 'build' do
     
     dir = Entityjs::Config.builds_folder+"/"+name
     
-    Dir.exists?(dir).should == true
+    File.directory?(dir).should == true
     
     Dir.chdir(dir) do
       contents = IO.read('game.min.js')

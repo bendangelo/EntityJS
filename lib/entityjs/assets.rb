@@ -4,13 +4,14 @@ module Entityjs
   class Assets
     
     def self.valid_datas
-      ['xml', 'json', 'tmx']
+      ['xml', 'json', 'tmx', 'csv', 'yml']
     end
     
     def self.datas_regex
       return /^.*\.#{self.valid_datas.join('|')}$/i
     end
     
+    #pastes width, height and canvas-id from config file into play server
     def self.set_vars(contents, tests=false)
       #read file for changes
       Config.instance.reload
@@ -69,6 +70,7 @@ module Entityjs
       )
     end
     
+    #returns all images in a js array
     def self.images_to_js(images = nil)
       images ||= self.search('images')
       
@@ -77,6 +79,7 @@ module Entityjs
       "[#{s}]"
     end
     
+    #returns all sounds in a js array
     def self.sounds_to_js(sounds = nil)
       sounds ||= self.search('sounds')
       
@@ -85,6 +88,7 @@ module Entityjs
       "[#{s}]"
     end
     
+    #converts all data files in /assets/ into js code
     def self.datas_to_js
       s = self.search
       
@@ -103,6 +107,7 @@ module Entityjs
       out
     end
     
+    #converts the given file name and data into js code
     def self.data_to_js(file, data)
       contents = self.data_to_json(file, data)
       
@@ -131,6 +136,7 @@ module Entityjs
       )
     end
     
+    #converts the given data into json
     def self.data_to_json(file, data)
       ext = file.downcase
       
@@ -171,10 +177,10 @@ module Entityjs
       
       case type
         when 'images'
-          return self.find_files(images_folder+'/.*').select{|i| i.match(/^*\.(gif|png|jpg|jpeg)$/i)}
+          return self.find_files(images_folder+'/.*').select{|i| i.match(/^.*\.(gif|png|jpg|jpeg)$/i)}
           
         when 'sounds'
-          return self.find_files(sounds_folder+'/.*').select{|i| i.match(/^*\.(mp3|ogg|aac|wav)$/i)}
+          return self.find_files(sounds_folder+'/.*').select{|i| i.match(/^.*\.(mp3|ogg|aac|wav)$/i)}
           
         else
           return self.search_datas
