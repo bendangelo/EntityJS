@@ -90,7 +90,7 @@ To run tests visit:
 Assets are located here:
 `localhost:2345/assets/*name`
 
-View [all commands](/wiki/commands)
+View [all commands](commands)
 
 ## Directory Structure
 
