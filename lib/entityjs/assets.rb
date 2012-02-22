@@ -171,10 +171,10 @@ module Entityjs
       
       case type
         when 'images'
-          return self.find_files(images_folder+'/*').select{|i| i.match(/^*\.(gif|png|jpg|jpeg)$/i)}
+          return self.find_files(images_folder+'/.*').select{|i| i.match(/^*\.(gif|png|jpg|jpeg)$/i)}
           
         when 'sounds'
-          return self.find_files(sounds_folder+'/*').select{|i| i.match(/^*\.(mp3|ogg|aac|wav)$/i)}
+          return self.find_files(sounds_folder+'/.*').select{|i| i.match(/^*\.(mp3|ogg|aac|wav)$/i)}
           
         else
           return self.search_datas
