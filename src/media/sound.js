@@ -58,8 +58,7 @@ re.sound = re.c('sound')
     
     this.trigger('sound:end');
     
-    this.currentTime = 0
-  }     
+  }
   
 })
 .defines({
@@ -71,21 +70,30 @@ re.sound = re.c('sound')
         var c = this._sound;
         var that = this;
         
-        c.currentTime = 0;
-        
-        if(!this.sound_e){
-          this.sound_e = true;
-          var f = function(){
+        if(window['soundManager']){
+          
+          c.play({onfinish:function(){
             that.sound_ended();
-            c.removeEventListener('ended', f);
-            that.sound_e = false;
-          };
+            }
+          });
           
-          c.addEventListener('ended', f, false);
+        } else {
+          c.currentTime = 0;
           
+          if(!this.sound_e){
+            this.sound_e = true;
+            var f = function(){
+              that.sound_ended();
+              c.removeEventListener('ended', f);
+              that.sound_e = false;
+            };
+            
+            c.addEventListener('ended', f, false);
+            
+          }
+          c.play();
         }
       
-        c.play();
         return this;
     },
     
@@ -101,14 +109,6 @@ re.sound = re.c('sound')
         this.playing = false;
         
         return this;
-    },
-    
-    currentTime:function(){
-        return this._sound.currentTime;
-    },
-    
-    ended:function(){
-        return this._sound.ended;
     }
     
 });

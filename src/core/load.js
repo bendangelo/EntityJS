@@ -1,6 +1,6 @@
 (function(re){
     
-    var b = function(assets){
+  var b = function(assets){
         return new re.load.init(assets);    
     }
     
@@ -89,14 +89,14 @@
             //find name
             var n = a.substr(0, j);
             
-            if(re.load.images.indexOf(ext) != -1){
+            if(re.load.images.indexOf(ext) != -1){ //make sure image is allowed
 
                 this._loadImg(s, a, n);
                 
-            } else if(re.load.sounds.indexOf(ext) != -1){
+            } else if(re.load.sounds.indexOf(ext) != -1){ //make sure sound is allowed
                 
-                //check if support component exists first
-                if(!re.support || re.support(ext)){
+                //soundmanager only supports mp3, so use it if the sound is mp3
+                if(window['soundManager'] && ext == 'mp3' || re.support(ext)){
                   //don't load the same sound twice
                   if(re._c[n+re.load.soundExt]){ 
                     //remove from array
@@ -177,41 +177,71 @@
         }
     };
     
+    /*
+    src - original string
+    a - filename
+    n - filename without extension
+    */
     p._loadSound = function(src, a, n){
-        var that = this;
+        var that = this, s;
         
-        var s = new Audio(re.load.path+src);
-        s.src = re.load.path+src;
-        s.preload = "auto";
-        s.load();
-        
-        re.c(a)
-        //create statics codec for easy use
-        .alias(n+re.load.soundExt)
-        .statics({
-            sound:s
-        })
-        .defines({
-            _sound:s
-        });
-        console.log('created '+a)
-        //s.addEventListener('load',function(){that._loaded()}, false);
-        //called multiple times in firefox
-        var f = function(){
-          that._loaded();
-          //remove after first call
-          s.removeEventListener('canplaythrough', f);
-          };
+        if(window['soundManager']){
+          //use soundmanager!
           
-        s.addEventListener('canplaythrough',f,false);
+          soundManager.onready(function(){
+          
+            s = soundManager.createSound({
+              id:a,
+              url:re.load.path+src,
+              autoLoad:true,
+              onload:function(){
+                that._loaded();
+              }
+            });
+          
+            that._def_sfx(s, a, n);
         
-        s.addEventListener('error',function(){
+          });
+        
+        } else {
+          s = new Audio(re.load.path+src);
+          s.src = re.load.path+src;
+          s.preload = "auto";
+          s.load();
+          
+          //called multiple times in firefox
+          var f = function(){
+            that._loaded();
+            //remove after first call
+            s.removeEventListener('canplaythrough', f);
+            };
             
-            if(that._e){
-                that._e.call(that, a);
-            }
-        },false);
+          s.addEventListener('canplaythrough',f,false);
+          
+          s.addEventListener('error',function(){
+              
+              if(that._e){
+                  that._e.call(that, a);
+              }
+          },false);
+          
+          this._def_sfx(s, a, n);
         
+        }
+        
+    }
+    
+    p._def_sfx = function(s, a, n){
+      
+      re.c(a)
+      //create statics codec for easy use
+      .alias(n+re.load.soundExt)
+      .statics({
+          sound:s
+      })
+      .defines({
+          _sound:s
+      });
     }
     
     p.progress = function(m){

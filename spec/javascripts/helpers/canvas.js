@@ -8,6 +8,9 @@ function teardown_canvas(){
 }
 
 $(function(){
+  //disable soundmanager
+  soundManager = null;
+  
         setup_canvas();
         
     re.sys.init('#game-canvas');

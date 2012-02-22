@@ -43,6 +43,7 @@ describe('load', function(){
         runs(function(){
           ok(called)
         })
+        
     });
     
     it('should call complete on empty load', function(){
