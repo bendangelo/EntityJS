@@ -90,7 +90,7 @@ To run tests visit:
 Assets are located here:
 `localhost:2345/assets/*name`
 
-View [all commands](entityjs/wiki/commands)
+View [all commands](/wiki/commands)
 
 ## Directory Structure
 
