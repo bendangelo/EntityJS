@@ -51,7 +51,7 @@ re.c('system')
             
         }
         
-        return this;
+        return  this;
     },
     
     loop:function(m){
@@ -83,7 +83,11 @@ re.c('system')
         this.comp('polyfill tick timestep');
         
         //setup canvas
-        this.canvas = re.$(canvasId);
+        if(re.is(canvasId, 'htmlcanvaselement')){
+          this.canvas = canvasId;
+        } else {
+          this.canvas = re.$(canvasId);
+        }
         
         this.scale = scale || 1;
         

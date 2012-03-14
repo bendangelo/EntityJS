@@ -15,6 +15,14 @@ rescue LoadError
 end
 
 begin
+  require "coffee-script" 
+rescue LoadError
+  puts "Could not load 'coffee-script'"
+  puts "run 'gem install coffee-script'"
+    exit
+end
+
+begin
   require "uglifier" 
 rescue LoadError
   puts "Could not load 'uglifier'"
