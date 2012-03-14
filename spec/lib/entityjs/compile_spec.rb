@@ -2,16 +2,52 @@ require 'spec_helper'
 
 describe 'Compile' do
   
-  before do
+  it 'should ignore js to js' do
     
+    js = 're.e("test");'
+    
+    out = Entityjs::Compile.script_to_js('script.js', js)
+    
+    out.should == js
+    
+  end
+  
+  it 'should ignore file with no extension' do
+    
+    js = 're.e("test");'
+    
+    out = Entityjs::Compile.script_to_js('script', js)
+    
+    out.should == js
+    
+  end
+  
+  it 'should convert coffee script to js' do
+    coffee = 'square = (x) -> x * x'
+    
+    js = Entityjs::Compile.script_to_js('blah.coffee', coffee)
+    
+    js.should == "var square;\n\nsquare = function(x) {\n  return x * x;\n};\n"
+  end
+  
+  it 'should convert to entity' do
+    
+    data = '{"ok":10}'
+    comps = ['levels', 'level1.json']
+    
+    entity = Entityjs::Compile.to_entity(comps, data)
+    
+    entity.should match /ok/
+    entity.should_not match /levels/
+    entity.should match /level/
+    entity.should match /level1\.json/
   end
   
   it 'should convert xml to json' do
     
-    File.stub(:extname).and_return('.xml')
     IO.stub(:read).and_return('<?xml ?><root><alice sid="4"><bob sid="1">charlie</bob><bob sid="2">david</bob></alice></root>')
     
-    r = Entityjs::Assets.file_to_json('convert.xml')
+    r = Entityjs::Compile.script_to_js('convert.xml')
     
     r.should match /alice/
     r.should_not match /root/
@@ -19,7 +55,7 @@ describe 'Compile' do
   end
   
   it 'should convert tmx to json' do
-    File.stub(:extname).and_return('.tmx')
+    
     IO.stub(:read).and_return(%q(
     <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="37" height="15" tilewidth="25" tileheight="25">
@@ -89,15 +125,15 @@ describe 'Compile' do
 </map>
 ))
     
-    r = Entityjs::Compile.tmx_to_json('map.tmx')
+    r = Entityjs::Compile.script_to_js('blap.tmx')
     
     r.should_not match /map/
     r.should match /"\$":\[\[0/
   end
   
   it 'should tmx should convert to json' do
-    File.stub(:extname).and_return('.tmx')
-    IO.stub(:read).and_return(%q(<?xml version="1.0" encoding="UTF-8"?>
+    
+    data = %q(<?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="40" height="20" tilewidth="25" tileheight="25">
  <tileset firstgid="1" name="tiles" tilewidth="25" tileheight="25">
   <image source="../images/tiles.png" width="200" height="25"/>
@@ -129,10 +165,10 @@ describe 'Compile' do
  <objectgroup name="Hero" width="40" height="20">
   <object name="hero" x="43" y="356"/>
  </objectgroup>
-</map>))
+</map>)
 
 
-    r = Entityjs::Assets.file_to_json('map.tmx')
+    r = Entityjs::Compile.script_to_js('level1.tmx', data)
     
     r.should_not match /map/
     r.should match /"\$":\[\[0/
@@ -142,20 +178,20 @@ describe 'Compile' do
     xml = '<sdf>'
     
     lambda {
-    Entityjs::Assets.data_to_json('sdf.xml', xml)
+    Entityjs::Compile.xml_to_json('sdf.xml', xml)
     }.should raise_error
   end
   
   it 'should return json from invalid tmx' do
     tmx = "<root><bob>10</bob></root>"
     
-    Entityjs::Assets.data_to_json('lsdf.tmx', tmx).should == '{"bob":{"$":10}}'
+    Entityjs::Compile.to_json('.tmx', tmx).should == '{"bob":{"$":10}}'
   end
   
   it 'should convert blank tmx to json' do
     tmx = ''
     
-    Entityjs::Assets.data_to_json('level.tmx', tmx).should == '{}'
+    Entityjs::Compile.to_json('.xml', tmx).should == '{}'
   end
   
 end

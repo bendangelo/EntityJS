@@ -22,20 +22,21 @@ module Entityjs
     
     get '/' do
       
-      Assets.set_vars(IO.read("#{Entityjs::root}/public/play.html"))
+      Page.render_play()
       
     end
     
     get '/tests' do
       
-      Assets.set_vars(IO.read("#{Entityjs::root}/public/tests.html"), true)
+      Page.render_test()
       
     end
     
     #entity source code
     get '/entityjs/*' do
       content_type 'text/javascript'
-      IO.read(Entityjs::root+'/src/'+params[:splat].first)
+     
+      Page.render_entityjs_src(params[:splat].first)
     end
     
     #qunit testing stuff
@@ -47,7 +48,7 @@ module Entityjs
         content_type 'text/css'
       end
       
-      IO.read(Entityjs::root+"/public/qunit/#{file}")
+      Page.render_eunit(file)
     end
     
     

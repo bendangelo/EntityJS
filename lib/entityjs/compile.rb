@@ -16,7 +16,7 @@ module Entityjs
       return file.match(datas_regex) != nil
     end
     
-    def path
+    def self.path
       if @path.nil?
         @path = ''
       end
@@ -24,7 +24,7 @@ module Entityjs
       @path
     end
     
-    def path=(v)
+    def self.path=(v)
       @path = v
     end
     
@@ -55,7 +55,13 @@ module Entityjs
       end
       
       #find extension for compiling, or else treat it as json
-      ext = comps.select{|i| !File.extname(i).empty? } || '.json'
+      ext = comps.select{|i| !File.extname(i).empty? }.first
+      
+      if ext.nil?
+        ext = '.json'
+      else
+        ext = File.extname(ext)
+      end
       
       json = self.to_json(ext, data)
       
@@ -67,16 +73,22 @@ module Entityjs
     def self.to_entity(comps, json)
       
       #remove plurals
-      comps.collect do |i|
+      comps.collect! do |i|
         
         if i[-1] == 's'
-          return i[0..-2]
+          i[0..-2]
+        else
+          i
         end
-        return i
+        
       end
       
-      %Q(re.e('#{comps}')
-      .attr(#{data}))
+      #turn into one long strng
+      comps = comps.join(' ')
+      
+      #output entity
+      return %Q(re.e('#{comps}')
+      .attr(#{json}))
     end
     
     #converts the given data to json
