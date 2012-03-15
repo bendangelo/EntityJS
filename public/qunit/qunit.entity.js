@@ -20,12 +20,16 @@ EUnit = {
 Disable re.ready for testing
 */
 
-re.ready.c = [];
     
-window.onload = function(){
+window.addEventListener('load', function(){
+  //prevent ready from running
+  re.ready = function(){};
+  console.log('hey')
   //auto start system for helpfulness
   re.sys.init(re.canvas).start();
-};
+  
+  //TODO: auto load sounds, images
+}, true);
 
 /*
 Expects a trigger call from the given obj.

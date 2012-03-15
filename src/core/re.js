@@ -7,7 +7,7 @@ Licensed under MIT http://entityjs.com/license
 
 */
 re = function(selector){
-    return new re.query(selector);
+  return new re.query(selector);
 };
 
 //automatically filled when compiled
@@ -19,7 +19,7 @@ re._e = [];
 re._c = {};
 
 re.ready = function(r){
-    re.listener('load', r);
+  re.listener('load', r);
 };
 
 /*
