@@ -47,8 +47,8 @@ module Entityjs
       js = %Q(
       <script type='text/javascript'>
       window.addEventListener\('load', function(){
-        #{Build.js_config}
-        re.version = '#{VERSION}';
+          #{Build.js_config}
+          re.version = '#{VERSION}';
         
         }\);
       </script>

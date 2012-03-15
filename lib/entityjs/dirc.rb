@@ -90,7 +90,7 @@ module Entityjs
     
     def self.find_scripts(ignore=nil, order=nil)
       
-      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.js"].sort
+      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*"].sort
       
     end
     
