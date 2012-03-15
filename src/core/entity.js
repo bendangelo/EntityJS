@@ -47,11 +47,6 @@
     
     p.id = '';
     
-    p.addComp = function(c){
-      re.log('AddComp deprecated use comp')
-      this.comp(c);
-    };
-    
     p.comp = function(com){
         
         this._re_comp(com);
@@ -438,10 +433,6 @@
         return this;
     };
     
-    p.extend = function(){
-        throw 'Deprecated use attr'
-    };
-    
     p.attr = function(obj, value){
         
         if(re.is(obj,  'object')){
@@ -466,15 +457,6 @@
         return this;
     };
     
-  p.inherit = function(){
-    
-    throw 'Deprecated use def'
-  }
-  
-    p.defaults = function(){
-       throw 'Deprecated use def'
-    }
-  
     p.def = function(obj, value){
         
         if(re.is(obj , 'object')){

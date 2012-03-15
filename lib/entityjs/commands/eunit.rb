@@ -1,7 +1,7 @@
 module Entityjs
   
-  #compiles entity source code and outputs it
-  class Release
+  #outputs eunit compiled code
+  class Eunit
     
     def self.generate(name=nil)
       
@@ -9,15 +9,17 @@ module Entityjs
         name = name.first
       end
       
-      name ||= self.release_name
+      name ||= self.eunit_name
       
-      puts "Collecting files"
+      puts "Collecting test src files"
       
-      min = Entityjs::Build.compile_entity
+      min = Entityjs::Build.compile_eunit
       
       puts "Minifying"
       
-      min = Entityjs::Build.minify(min)
+      license = "/* QUnit V1.5.0pre with EntityJS Entensions | http://docs.jquery.com/QUnit */\n"
+      
+      min = Entityjs::Build.minify(min, license)
       
       File.open(name, 'w') do |f|
         
@@ -33,8 +35,8 @@ module Entityjs
       return 0
     end
     
-    def self.release_name
-      return "entity-#{Entityjs::VERSION}.min.js"
+    def self.eunit_name
+      return "eunit-#{Entityjs::VERSION}.min.js"
     end
     
   end

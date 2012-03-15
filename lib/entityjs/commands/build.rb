@@ -109,8 +109,24 @@ module Entityjs
       return out
     end
     
+    #finds all js inside public/qunit and compiles into one string
+    def self.compile_eunit()
+      out = ''
+      
+      units = Dirc.find_eunit_src
+      
+      units.each do |i|
+        out += "\n"
+        out += IO.read(i)
+        out += "\n"
+      end
+      
+      return out
+    end
+    
     #compiles all game source and returns it
     def self.compile_scripts(ignore = nil, order=nil)
+      #find with short urls for proper data processing
       scripts = Dirc.find_scripts_short(ignore, order)
       
       out = ''
@@ -133,7 +149,9 @@ module Entityjs
       code = Uglifier.compile(code, :copyright=>false)
       
       #add entity license statement
-      if license
+      if license.is_a? String
+        code = license + code
+      elsif license
         code = Config.instance.license + code
       end
       

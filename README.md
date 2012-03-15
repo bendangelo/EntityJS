@@ -6,7 +6,7 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 ## Version 0.3.2
 
 * Coffeescript is now supported.
-* Assets directory is now used for external loading.
+* Assets directory is now used for external loading only.
 * Scripts directory now accepts, tmx, xml, json and coffee files.
 
 ## API

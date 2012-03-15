@@ -44,6 +44,14 @@ module Entityjs
     @root = File.expand_path('../..',__FILE__)
   end
   
+  def self.source_folder
+    Entityjs::root+'/src'
+  end
+  
+  def self.eunit_folder
+    Entityjs::root+'/public/qunit'
+  end
+  
   def self.default_template
     'blank'
   end

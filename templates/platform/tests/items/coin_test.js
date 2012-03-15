@@ -14,7 +14,7 @@ test('touch should collect', function(){
   
   e.touch();
   
-})
+});
 
 test('collect should dispose and stuff', function(){
   
@@ -25,4 +25,4 @@ test('collect should dispose and stuff', function(){
   
   e.collect();
   
-})
+});

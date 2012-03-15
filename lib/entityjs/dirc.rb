@@ -34,7 +34,7 @@ module Entityjs
       tests = Dir["#{Dirc.game_root}/#{Config.tests_folder}/**/*.{#{valids}}"].sort
       
       tests = tests.collect do |i|
-        i[i.rindex('tests/')..-1]
+        i[i.rindex(Config.tests_folder+'/')..-1]
       end
       
       if ignore.any?
@@ -50,7 +50,7 @@ module Entityjs
       
       scripts.collect do |i|
         
-        i.sub('scripts/', '')
+        i.sub(Config.scripts_folder+'/', '')
         
       end
     end
@@ -62,7 +62,7 @@ module Entityjs
       scripts = self.find_scripts()
       
       #change filenames
-      scripts = scripts.collect{|k| k[k.rindex('scripts/')..-1] }
+      scripts = scripts.collect{|k| k[k.rindex(Config.scripts_folder+'/')..-1] }
       
       #ignore files
       if ignore.any?
@@ -106,9 +106,30 @@ module Entityjs
       return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.{#{valids}}"].sort
     end
     
+    def self.find_eunit_src
+      ents = Dir[Entityjs::eunit_folder+"/**/*.js"].sort
+      
+      #make sure qunit is at the top
+      
+      i = ents.index{|i| i.match(/qunit\.js$/) }
+      
+      if i.nil?
+        puts 'Error cannot find qunit.js!'
+        return ents
+      end
+      
+      #remove
+      k = ents.delete_at(i)
+      
+      #push at front
+      ents.unshift(k)
+      
+      return ents
+    end
+    
     def self.find_entity_src(ignore=nil)
 
-      ents = Dir[Entityjs::root+"/src/**/*.js"]
+      ents = Dir[Entityjs::source_folder+"/**/*.js"]
       
       #sort by name
       ents.sort!

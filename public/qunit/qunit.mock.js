@@ -56,7 +56,7 @@
     var _a, expectation, stb;
     while (mocking.expectations.length > 0) {
       expectation = mocking.expectations.pop();
-      equals(expectation.callCount, expectation.expectedCalls, "method " + (expectation.method) + " should be called " + (expectation.expectedCalls) + " times");
+      equal(expectation.callCount, expectation.expectedCalls, "method " + (expectation.method) + " should be called " + (expectation.expectedCalls) + " times");
       expectation.object[expectation.method] = expectation.originalMethod;
     }
     _a = [];

@@ -25,6 +25,8 @@ module Entityjs
         
         when 'release'
           return Entityjs::Release.generate(args)
+        when 'eunit'
+          return Entityjs::Eunit.generate(args)
           
         when /^(comp|c)$/
           return Entityjs::Comp.generate(args)

@@ -15,6 +15,18 @@ EUnit = {
     return QUnit.config.queue.unshift(EUnit.runStack);
   }
 };
+
+/*
+Disable re.ready for testing
+*/
+
+re.ready.c = [];
+    
+window.onload = function(){
+  //auto start system for helpfulness
+  re.sys.init(re.canvas).start();
+};
+
 /*
 Expects a trigger call from the given obj.
 

@@ -25,8 +25,9 @@ describe 'build' do
     File.directory?(dir).should == true
     
     Dir.chdir(dir) do
+      File.file?('game.min.js').should == true
       contents = IO.read('game.min.js')
-      
+      contents.should match /re\.canvas/
     end
   end
   
