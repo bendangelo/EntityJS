@@ -51,34 +51,9 @@ describe 'Assets' do
     r.each do |i|
       i.should match /levels|blag/
       i.should_not match /sounds|images|assets/
-      i.should match /^.*\.(#{Entityjs::Assets.valid_datas.join('|')})$/i
     end
     
     r.should include(@data_file.gsub('assets/', ''))
-  end
-  
-  it 'should generate sounds to js' do
-    r = Entityjs::Assets.sounds_to_js
-    r.should match /\[.*\]/
-    
-  end
-  
-  it 'should generate images to js' do
-    r = Entityjs::Assets.images_to_js
-    r.should match /\[.*\]/
-    
-  end
-  
-  it 'should generate datas to js' do
-    r = Entityjs::Assets.datas_to_js
-    r.should match /re\.e\('/
-    
-  end
-  
-  it 'should generate to js' do
-    r = Entityjs::Assets.to_js
-    r.should match /re\.assets/
-    
   end
   
 end

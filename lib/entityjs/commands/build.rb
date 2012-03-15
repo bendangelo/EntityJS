@@ -38,7 +38,7 @@ module Entityjs
         return 3
       end
       
-      assets_root = Dirc.game_root+'/'
+      assets_root = Dirc.game_root+'/'+assets_folder
       
       Dir.mkdir(name)
       Dir.chdir(name)

@@ -30,15 +30,27 @@ describe 'build' do
     end
   end
   
+  it 'should generate sounds to js' do
+    r = Entityjs::Build.sounds_to_js
+    r.should match /\[.*\]/
+    
+  end
+  
+  it 'should generate images to js' do
+    r = Entityjs::Build.images_to_js
+    r.should match /\[.*\]/
+    
+  end
+  
+  
   it 'should build a throwthegame' do
     #compile given source
-    images = "['images/sff.png', 'images/sddd.png']"
     sounds = "[]"
-    levels = "re.e('df').attr({})"
+    images = "['blah.png']"
     canvas = 'game-canvas'
     scripts = "re.ready(function(){});"
     
-    scripts += Entityjs::Assets.to_js('', images, sounds, canvas, levels)
+    scripts += Entityjs::Build.js_config('', images, sounds, canvas)
     
     #min
     min = Entityjs::Build.minify(scripts)
