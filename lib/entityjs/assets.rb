@@ -3,19 +3,29 @@ module Entityjs
   
   class Assets
     
+    def self.valid_images
+      ['gif', 'png', 'jpg', 'jpeg']
+    end
+    
+    def self.valid_sounds
+      ['mp3', 'ogg', 'aac', 'wav']
+    end
+    
     def self.search(type='*')
-      images_folder = Config.images_folder
-      sounds_folder = Config.sounds_folder
-      assets_folder = Config.assets_folder
       
       case type
         when 'images'
-          return self.find_files(images_folder+'/.*').select{|i| i.match(/^.*\.(gif|png|jpg|jpeg)$/i)}
+          images_folder = Config.images_folder
+          valid_images = self.valid_images.join(',')
+          return self.find_files(images_folder+"/**/*.{#{valid_images}}")
           
         when 'sounds'
-          return self.find_files(sounds_folder+'/.*').select{|i| i.match(/^.*\.(mp3|ogg|aac|wav)$/i)}
+          sounds_folder = Config.sounds_folder
+          valid_sounds = self.valid_sounds.join(',')
+          return self.find_files(sounds_folder+"/**/*.{#{valid_sounds}}")
           
         else
+          #TODO: fix up
           return self.search_datas
           
       end

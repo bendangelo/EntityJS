@@ -3,13 +3,11 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 
 [EntityJS Website](http://entityjs.com) | [Demos](http://entityjs.com/demos) | [Tutorials](http://entityjs.com/tutorials) | [API](http://entityjs.com/api)
 
-## Version 0.3
+## Version 0.3.2
 
-Version 0.3 is a major release with many revisions and a brand new ruby gem to work with. You can now type `entityjs new game-name` and a new game will be created. Of course there are more commands, check below.
-
-There is a new directory structure, testing framework, better minifier, better config file and more.
-
-**Warning:** there are many name changes which will break older entity games!
+* Coffeescript is now supported.
+* Assets directory is now used for external loading.
+* Scripts directory now accepts, tmx, xml, json and coffee files.
 
 ## API
 Currently the [API](http://entityjs.com/api) is out of date. It will slowly be updated everyday.
@@ -97,12 +95,10 @@ View [all commands](/bendangelo/EntityJS/wiki/commands)
 * Assets - Contains all external assets
   * Images - Add any images here and retrieve them with `re.assets.images`
   * Sounds - Add any sounds and retrieve them with `re.assets.sounds`
-  * [Custom] - Create any folders or files and they will be available in code.
-  * json, tmx, xml, sounds and images are accepted files.
 
 * Builds - Contains all finished builds
 
-* Scripts - Contains all javascript sources.
+* Scripts - Contains all js, coffee sources. Xml, tmx and json files will be converted into js.
   * Plugins - Contains minified scripts for plugin play.
 
 * Tests - Contains test files to run in [QUnit](http://docs.jquery.com/QUnit)

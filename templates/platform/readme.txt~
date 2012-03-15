@@ -35,7 +35,7 @@ TMX is a special XML format for a tile map editor.
 ## /tests
 
 Contains tests for the game. It is good practice to keep this structured exactly the same as the scripts
-directory. Tests can also be in coffeescript.
+directory.
 
 ## /tmp
 

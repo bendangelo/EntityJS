@@ -28,7 +28,7 @@ module Entityjs
     
     get '/tests' do
       
-      Page.render_test()
+      Page.render_tests()
       
     end
     
@@ -42,13 +42,13 @@ module Entityjs
     get '/scripts/*' do
       content_type 'text/javascript'
       
-      Page.render_script('scripts/'+params[:splat].first)
+      Page.render_script(params[:splat].first)
     end
     
     get '/tests/*' do
       content_type 'text/javascript'
       
-      Page.render_script('tests/'+params[:splat].first)
+      Page.render_test(params[:splat].first)
     end
     
     #qunit testing stuff

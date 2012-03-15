@@ -9,7 +9,7 @@ scripts-ignore:
   
 #specify files to be loaded first in /scripts
 order:
-  .*\.js
+  *\.js
   
 #components to ignore in the entityjs source
 #reduce file size by ignoring unused components

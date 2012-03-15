@@ -3,6 +3,10 @@ module Entityjs
   
   class Page
     
+    def self.processor_ext
+      return '.js'
+    end
+    
     def self.render_play
       self.set_vars("play.html")
     end
@@ -17,8 +21,15 @@ module Entityjs
       return IO.read(path)
     end
     
+    def self.render_test(path)
+      file = path.split(self.processor_ext)[0]
+      
+      return Compile.test_to_js(file)
+    end
+    
     def self.render_script(path)
-      return Compile.script_to_js(path)
+      file = path.split(self.processor_ext)[0]
+      return Compile.script_to_js(file)
     end
     
     def self.render_eunit(path)
@@ -45,11 +56,10 @@ module Entityjs
     #compiles html js tags for render on webpage
     def self.compile_js_html(tests=false)
       js = %Q(
-      <script type='text/javascript'>
-      window.addEventListener\('load', function(){
+      <script type=\"text/javascript\">
+      window.addEventListener\(\"load\", function(){
           #{Build.js_config}
-          re.version = '#{VERSION}';
-        
+          re.version = \"#{VERSION}\";
         }\);
       </script>
 )
@@ -65,7 +75,13 @@ module Entityjs
       merg = ent | srcs | tests_src
       
       merg.each do |s|
-        js += "\t<script src='#{s}' type='text/javascript'></script>\n"
+        
+        #add processor extension to non-js files so the server processes it into js
+        if s.match(/\.js$/).nil?
+          s += self.processor_ext
+        end
+        
+        js += "\t<script src=\"#{s}\" type=\"text/javascript\"></script>\n"
       end
       
       return js

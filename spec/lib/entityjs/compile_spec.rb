@@ -27,7 +27,6 @@ describe 'Compile' do
     out = Entityjs::Compile.script_to_js('script', js)
     
     out.should == js
-    
   end
   
   it 'should convert coffee script to js' do

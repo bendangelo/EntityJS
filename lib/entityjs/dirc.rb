@@ -29,8 +29,9 @@ module Entityjs
     end
     
     def self.find_tests_url(ignore=nil)
+      valids = Compile.valid_scripts.join(",")
       ignore ||= []
-      tests = Dir["#{Dirc.game_root}/#{Config.tests_folder}/**/*.js"]
+      tests = Dir["#{Dirc.game_root}/#{Config.tests_folder}/**/*.{#{valids}}"].sort
       
       tests = tests.collect do |i|
         i[i.rindex('tests/')..-1]
@@ -43,11 +44,22 @@ module Entityjs
       return tests
     end
     
+    #returns all game scripts with short paths
+    def self.find_scripts_short(ignore=nil, order=nil)
+      scripts = self.find_scripts_url(ignore, order)
+      
+      scripts.collect do |i|
+        
+        i.sub('scripts/', '')
+        
+      end
+    end
+    
     def self.find_scripts_url(ignore=nil, order=nil)
       ignore ||= []
       order ||= []
       
-      scripts = self.find_scripts(ignore, order)
+      scripts = self.find_scripts()
       
       #change filenames
       scripts = scripts.collect{|k| k[k.rindex('scripts/')..-1] }
@@ -88,10 +100,10 @@ module Entityjs
       return srcs
     end
     
-    def self.find_scripts(ignore=nil, order=nil)
+    def self.find_scripts()
+      valids = Compile.valid_scripts.join(",")
       
-      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*"].sort
-      
+      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.{#{valids}}"].sort
     end
     
     def self.find_entity_src(ignore=nil)

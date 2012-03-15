@@ -8,6 +8,10 @@ module Entityjs
       ['xml', 'json', 'tmx', 'csv', 'yml']
     end
     
+    def self.valid_scripts
+      ['js', 'coffee'] + self.valid_datas
+    end
+    
     def self.datas_regex
       return /^.*\.#{self.valid_datas.join('|')}$/i
     end
@@ -18,7 +22,7 @@ module Entityjs
     
     def self.path
       if @path.nil?
-        @path = Dirc.game_root+'/'+Config.scripts_folder
+        @path = Dirc.game_root
       end
       
       @path
@@ -28,12 +32,25 @@ module Entityjs
       @path = v
     end
     
+    def self.test_to_js(path, data=nil)
+      if data.nil?
+        #load
+        data = self.read_contents(Config.tests_folder+'/'+path)
+      end
+      
+      return self.data_to_js(path, data)
+    end
+    
     def self.script_to_js(path, data=nil)
       if data.nil?
         #load
-        data = self.read_contents(path)
+        data = self.read_contents(Config.scripts_folder+'/'+path)
       end
       
+      return self.data_to_js(path, data)
+    end
+    
+    def self.data_to_js(path, data)
       js = ''
       
       if self.valid_data?(path)
@@ -75,7 +92,8 @@ module Entityjs
       #remove plurals
       comps.collect! do |i|
         
-        if i[-1] == 's'
+        #115 for ruby 1.8.7
+        if i[-1] == 's' || i[-1] == 115
           i[0..-2]
         else
           i
@@ -87,8 +105,7 @@ module Entityjs
       comps = comps.join(' ')
       
       #output entity
-      return %Q(re.e('#{comps}')
-      .attr(#{json}))
+      return "re.e('#{comps}')\n.attr(#{json})"
     end
     
     #converts the given data to json

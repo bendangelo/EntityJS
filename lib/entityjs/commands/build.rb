@@ -111,13 +111,13 @@ module Entityjs
     
     #compiles all game source and returns it
     def self.compile_scripts(ignore = nil, order=nil)
-      scripts = Dirc.find_scripts(ignore, order)
+      scripts = Dirc.find_scripts_short(ignore, order)
       
       out = ''
       
       scripts.each do |i|
         out += "\n"
-        out += IO.read(i)
+        out += Compile.script_to_js(i)
         out += "\n"
       end
       
@@ -147,12 +147,12 @@ module Entityjs
       canvas ||= Config.instance.canvas_id
       
       return %Q(
-      re.load.path = '#{path}';
+      re.load.path = \"#{path}\";
       re.assets = {
         images:#{images},
         sounds:#{sounds}
         };
-      re.canvas = '##{canvas}';
+      re.canvas = \"##{canvas}\";
       )
     end
     
