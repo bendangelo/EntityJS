@@ -42,22 +42,10 @@ module Entityjs
       
       Dir.mkdir(name)
       Dir.chdir(name)
-        
-      #copy images and sounds into assets
-      Dirc.create_dir(assets_folder)
-      Dir.chdir(assets_folder) do
-        
-        if File.directory? assets_root+images_folder
-          puts "Copying images"
-          FileUtils.cp_r assets_root+images_folder, 'images'
-        end
-        
-        if File.directory? assets_root+sounds_folder
-          puts "Copying sounds"
-          FileUtils.cp_r assets_root+sounds_folder, 'sounds'
-        end
-        
-      end
+      
+      #copy everything inside the assets folder
+      puts "Copying assets folder"
+      FileUtils.cp_r assets_root, assets_folder
       
       #append all files into one big file
       puts "Compiling code"
@@ -133,8 +121,8 @@ module Entityjs
         out += "\n"
       end
       
-      #add levels, animations etc data
-      out += Assets.to_js
+      #add js config
+      out += self.js_config
       
       return out
     end
@@ -150,6 +138,40 @@ module Entityjs
       end
       
       return code
+    end
+    
+    def self.js_config(path = nil, images = nil, sounds = nil, canvas = nil)
+      path ||= 'assets/'
+      images ||= self.images_to_js
+      sounds ||= self.sounds_to_js
+      canvas ||= Config.instance.canvas_id
+      
+      return %Q(
+      re.load.path = '#{path}';
+      re.assets = {
+        images:#{images},
+        sounds:#{sounds}
+        };
+      re.canvas = '##{canvas}';
+      )
+    end
+    
+    #returns all images in a js array
+    def self.images_to_js(images = nil)
+      images ||= Assets.search('images')
+      
+      s = images.collect{|i| "'#{i}'"}.join(', ')
+      
+      "[#{s}]"
+    end
+    
+    #returns all sounds in a js array
+    def self.sounds_to_js(sounds = nil)
+      sounds ||= Assets.search('sounds')
+      
+      s = sounds.collect{|i| "'#{i}'"}.join(', ')
+      
+      "[#{s}]"
     end
     
   end

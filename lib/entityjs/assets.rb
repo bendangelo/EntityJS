@@ -11,53 +11,12 @@ module Entityjs
       return /^.*\.#{self.valid_datas.join('|')}$/i
     end
     
-    #pastes width, height and canvas-id from config file into play server
-    def self.set_vars(contents, tests=false)
-      #read file for changes
-      Config.instance.reload
-      
-      contents = contents.gsub("$WIDTH", Config.instance.width.to_s)
-      contents = contents.gsub("$HEIGHT", Config.instance.height.to_s)
-      contents = contents.gsub("$CANVAS_ID", Config.instance.canvas_id)
-      
-      contents.gsub("$JS", Assets.to_html(tests))
-    end
-    
-    #combine all sources into valid html scripts
-    def self.to_html(tests=false)
-      js = %Q(
-      <script type='text/javascript'>
-      window.addEventListener\('load', function(){
-        #{Assets.to_js}
-        re.version = '#{VERSION}';
-        
-        }\);
-      </script>
-)
-      ent = Dirc.find_entity_src_url(Config.instance.entity_ignore)
-      srcs = Dirc.find_scripts_url(Config.instance.scripts_ignore, Config.instance.scripts_order)
-      
-      if tests
-        tests_src = Dirc.find_tests_url(Config.instance.tests_ignore)
-      else
-        tests_src = []
-      end
-      
-      merg = ent | srcs | tests_src
-      
-      merg.each do |s|
-        js += "\t<script src='#{s}' type='text/javascript'></script>\n"
-      end
-      js
-    end
-    
     #converts all assets / info into a js game header
-    def self.to_js(path = nil, images = nil, sounds = nil, canvas = nil, datas = nil)
+    def self.to_js(path = nil, images = nil, sounds = nil, canvas = nil)
       path ||= 'assets/'
       images ||= self.images_to_js
       sounds ||= self.sounds_to_js
       canvas ||= Config.instance.canvas_id
-      datas ||= self.datas_to_js
       
       return %Q(
       re.load.path = '#{path}';
@@ -66,26 +25,7 @@ module Entityjs
         sounds:#{sounds}
         };
       re.canvas = '##{canvas}';
-      #{datas}
       )
-    end
-    
-    #returns all images in a js array
-    def self.images_to_js(images = nil)
-      images ||= self.search('images')
-      
-      s = images.collect{|i| "'#{i}'"}.join(', ')
-      
-      "[#{s}]"
-    end
-    
-    #returns all sounds in a js array
-    def self.sounds_to_js(sounds = nil)
-      sounds ||= self.search('sounds')
-      
-      s = sounds.collect{|i| "'#{i}'"}.join(', ')
-      
-      "[#{s}]"
     end
     
     #converts all data files in /assets/ into js code
@@ -190,7 +130,9 @@ module Entityjs
     end
     
     def self.search_datas
-      return self.find_files("#{Config.assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(self.datas_regex)}
+      #TODO: find all other folders and generate a key in re.assets
+      return []
+      #return self.find_files("#{Config.assets_folder}/*/*").select{|i| !i.match(/\/(images|sounds)\//i) && i.match(self.datas_regex)}
     end
     
     def self.find_files(search)

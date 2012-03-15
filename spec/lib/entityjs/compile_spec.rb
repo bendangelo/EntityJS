@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe 'Compile' do
   
+  before do
+    setup_mygame
+  end
+  
+  after(:all) do
+    teardown_mygame
+  end
+  
   it 'should ignore js to js' do
     
     js = 're.e("test");'

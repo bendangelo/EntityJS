@@ -18,7 +18,7 @@ module Entityjs
     
     def self.path
       if @path.nil?
-        @path = ''
+        @path = Dirc.game_root+'/'+Config.scripts_folder
       end
       
       @path
@@ -31,7 +31,7 @@ module Entityjs
     def self.script_to_js(path, data=nil)
       if data.nil?
         #load
-        data = IO.read(self.path+'/'+path)
+        data = self.read_contents(path)
       end
       
       js = ''
@@ -123,6 +123,11 @@ module Entityjs
     
     def self.xml_to_json(data)
       return ParseXML.parse(data)     
+    end
+    
+    #used for stubbing
+    def self.read_contents(path)
+      IO.read(self.path+'/'+path)
     end
     
   end

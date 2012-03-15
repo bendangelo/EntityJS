@@ -39,6 +39,18 @@ module Entityjs
       Page.render_entityjs_src(params[:splat].first)
     end
     
+    get '/scripts/*' do
+      content_type 'text/javascript'
+      
+      Page.render_script('scripts/'+params[:splat].first)
+    end
+    
+    get '/tests/*' do
+      content_type 'text/javascript'
+      
+      Page.render_script('tests/'+params[:splat].first)
+    end
+    
     #qunit testing stuff
     get '/qunit/*' do
       file = params[:splat].first
