@@ -26,7 +26,7 @@ describe 'dirc' do
   end
   
   it 'should ignore and order game scripts' do
-    Entityjs::Dirc.stub(:find_scripts).and_return(['asdfsdf/scripts/second.js', 'sfhs/scripts/first.js', 
+    Dir.stub(:'[]').and_return(['asdfsdf/scripts/second.js', 'sfhs/scripts/first.js', 
       'sdf/scripts/kill.js','sdf/scripts/kill2.js'])
     
     out = Entityjs::Dirc.find_scripts_url(['kill'], ['first'])
@@ -55,7 +55,7 @@ describe 'dirc' do
   end
   
   it 'should ignore entity scripts' do
-    Entityjs::Dirc.stub(:find_entity_src).and_return(['asdfsdf/src/first.js', 'sfhs/src/ignore.js', 'sdfds/src/ignore2.js'])
+    Dir.stub(:'[]').and_return(['asdfsdf/src/first.js', 'sfhs/src/ignore.js', 'sdfds/src/ignore2.js'])
     
     out = Entityjs::Dirc.find_entity_src_url(['ignore', 'ignore2'])
     

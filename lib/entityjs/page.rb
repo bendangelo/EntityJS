@@ -68,13 +68,23 @@ module Entityjs
       
       if tests
         tests_src = Dirc.find_tests_url(Config.instance.tests_ignore)
+        ent += Dirc.find_eunit_src_url
       else
         tests_src = []
       end
       
       merg = ent | srcs | tests_src
       
+      last = ''
+      
       merg.each do |s|
+        
+        #output a divider for each js root
+        first_folder = s.split('/').shift
+        if last != first_folder
+          js += "\n\n\t<!-- #{first_folder} -->\n"
+          last = first_folder
+        end
         
         #add processor extension to non-js files so the server processes it into js
         if s.match(/\.js$/).nil?

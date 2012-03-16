@@ -56,13 +56,30 @@ module Entityjs
     end
     
     def self.find_scripts_url(ignore=nil, order=nil)
-      ignore ||= []
-      order ||= []
       
-      scripts = self.find_scripts()
+      scripts = self.find_scripts(ignore, order)
       
       #change filenames
       scripts = scripts.collect{|k| k[k.rindex(Config.scripts_folder+'/')..-1] }
+      
+      return scripts
+    end
+    
+    def self.find_entity_src_url(ignore=nil)
+      srcs = self.find_entity_src(ignore)
+      
+      #remove src directory and replace with entityjs
+      srcs = srcs.collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
+      
+      return srcs
+    end
+    
+    def self.find_scripts(ignore=nil, order=nil)
+      ignore ||= []
+      order ||= []
+      valids = Compile.valid_scripts.join(",")
+      
+      scripts = Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.{#{valids}}"].sort
       
       #ignore files
       if ignore.any?
@@ -86,27 +103,18 @@ module Entityjs
       return scripts
     end
     
-    def self.find_entity_src_url(ignore=nil)
-      ignore ||= []
-      srcs = self.find_entity_src(ignore)
+    def self.find_eunit_src_url(ignore=nil)
+      srcs = self.find_eunit_src(ignore)
       
       #remove src directory and replace with entityjs
-      srcs = srcs.collect{|k| k[k.rindex('src/')..-1].gsub('src', 'entityjs') }
-      
-      if ignore.any?
-        srcs.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
-      end
+      srcs = srcs.collect{|k| k[k.rindex('qunit/')..-1] }
       
       return srcs
-    end
-    
-    def self.find_scripts()
-      valids = Compile.valid_scripts.join(",")
       
-      return Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.{#{valids}}"].sort
     end
     
-    def self.find_eunit_src
+    def self.find_eunit_src(ignore=nil)
+      ignore ||= []
       ents = Dir[Entityjs::eunit_folder+"/**/*.js"].sort
       
       #make sure qunit is at the top
@@ -124,10 +132,15 @@ module Entityjs
       #push at front
       ents.unshift(k)
       
+      if ignore.any?
+        ents.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
+      end
+      
       return ents
     end
     
     def self.find_entity_src(ignore=nil)
+      ignore ||= []
 
       ents = Dir[Entityjs::source_folder+"/**/*.js"]
       
@@ -146,6 +159,10 @@ module Entityjs
       k = ents.delete_at(i)
       
       ents.unshift(k)
+      
+      if ignore.any?
+        ents.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
+      end
       
       return ents
     end
