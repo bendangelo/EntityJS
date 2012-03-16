@@ -125,7 +125,11 @@ re.c('keyboard')
 		if(re.pressed.d){
 			re.pressed.d[key] = (e.type == 'keydown');
 		}
-
+    
+    if(re.preventDefault && re.preventDefault.d[key]){
+      e.preventDefault();
+    }
+    
 		for(var k=0; k<that.l.length; k++){
 			that.l[k]
 			.trigger(e.type, key, e)

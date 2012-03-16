@@ -16,13 +16,14 @@ re.c('text')
 .defaults({
 	font:"14px sans-serif",
 	textColor:'#000000',
-	textAlign:'',
+	textAlign:'left',
+  textBaseline:'top',
 	font_text:''
 })
 .defines({
 	
 	visible:function(){
-		return this._text && this.parent('draw', 'visible')
+		return this._text && this.parent('draw', 'visible');
 	},
 	
 	text:function(t){
@@ -37,7 +38,10 @@ re.c('text')
 		
 		c.font = this.font;
 		c.fillStyle = this.textColor;
+    c.textAlign = this.textAlgin;
+    c.textBaseline = this.textBaseline;
 		c.fillText(this._text, -this.regX, -this.regY);
+    
 		return this;
 	}
 	

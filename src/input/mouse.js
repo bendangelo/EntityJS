@@ -72,7 +72,12 @@ re.c('mouse')
         
         var that = re.c('mouse');
         
-        //FUTURE automatically transform screen coordinates?
+        /*
+        if(re.preventDefault && re.preventDefault.d[key]){
+          e.preventDefault();
+        }
+        */
+        
         var c, t, obj;
         for(var i=0; i<that.l.length; i++){
           t = that.l[i];
