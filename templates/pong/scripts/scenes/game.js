@@ -3,22 +3,29 @@ re.scene('game')
   
   //setup counters
   var p2 = re.e('counter')
-  .alignHor(-60);
+  .alignHor(-60)
+  .on('win', function(){
+    re.scene('over').enter('You lost!');
+  });
   
   var p1 = re.e('counter')
-  .alignHor(40);
+  .alignHor(40)
+  .on('win', function(){
+    re.scene('over').enter('You win!');
+  });
+  
+  //setup hitmap
+  re.hitmap = re.e('hitmap')
+  .on('hit:left', function(){
+    p2.up();
+  })
+  .on('hit:right', function(){
+    p1.up();
+  });
   
   this.arena = re.e('arena')
   .attr({
     twoPlayer:twoPlayer
-  })
-  .on({
-    oneScore:function(){
-      p1.up();
-    },
-    twoScore:function(){
-      p2.up();
-    }
   })
   .startRound();
   
@@ -27,5 +34,5 @@ re.scene('game')
   
   this.arena.dispose();
   re('counter').dispose();
-  
+  re.hitmap.dispose();
 });

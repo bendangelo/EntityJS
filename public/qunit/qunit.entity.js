@@ -1,35 +1,28 @@
-EUnit = {
-  stack:[],
-  
-  runStack:function(){
-    for(var i in EUnit.stack){
-      var k = EUnit.stack[i];
-      
-      ok(k.called, k.message);
-    }
-  },
-  
-  push:function(obj){
-    this.stack.push(obj);
-    
-    return QUnit.config.queue.unshift(EUnit.runStack);
+ETest = function(){
+};
+
+ETest.prototype.push = function(){
+  var that = this;
+  if(QUnit.config.blocking){
+    that.run();
+  } else {
+    QUnit.config.queue.unshift(function(){
+      that.run();
+    });
   }
+};
+
+ETest.prototype.run = function(){
+  ok(this.check(), this.message);
 };
 
 /*
 Disable re.ready for testing
 */
-
-//prevent ready from running
 re.ready = function(){};
 
 window.addEventListener('load', function(){
-  //auto start system for helpfulness
-  //re.sys.init(re.canvas).start();
-    
-  //TODO: auto load sounds, images
-  
-  
+  re.sys.init(re.canvas);
 }, true);
 
 /*
@@ -41,22 +34,63 @@ expectTrigger(e, 'flicker:end', function(){
   //if triggered this will be called
 });
 
+var e = re.e('counter');
+
+//expect given arguments
+expectTrigger(e, 'maxed', [10]);
+
 */
 function expectTrigger(obj, trigger, func){
-  var trig = {
-    called:0,
-    message:"Expected "+trigger+" to be triggered"
+  var trig = new ETest();
+  trig.called = 0;
+  trig.message = "Expected "+trigger+" to be triggered";
+  
+  trig.check = function(){
+    return this.called;
   };
   
   trig.meth = function(){
     trig.called++;
-    if(func) func.apply(obj, arguments);
+    
+    if(typeof func == 'object'){
+      
+      var args = Array.prototype.slice.call(arguments, 0);
+      
+      ok(!(args>func || args<func), "trigger "+trigger+" should have same arguments");
+      
+    } else if(typeof func == 'function'){
+      func.apply(obj, arguments);
+    }
   };
   
   obj.on(trigger, trig.meth);
   
-  EUnit.push(trig);
-}
+  trig.push();
+};
+
+function expectValueUp(obj, prop){
+  var trig = new ETest();
+  trig.message = "Expected "+prop+" to value up";
+  trig.old = obj[prop];
+  
+  trig.check = function(){
+    return this.old < obj[prop];
+  };
+  
+  trig.push();
+};
+
+function expectValueDown(obj, prop){
+  var trig = new ETest();
+  trig.message = "Expected "+prop+" to value down";
+  trig.old = obj[prop];
+  
+  trig.check = function(){
+    return this.old > obj[prop];
+  };
+  
+  trig.push();
+};
 
 /*
 Expects the given entity to have the given flicker present
@@ -75,22 +109,22 @@ function expectFlicker(ent, flick){
 }
 
 /*
-Expects an entity or component to have a current listener attached.
+Expects an entity or component to have a current event attached.
 
 var e = re.e();
 
-expectListener(e, 'update'); //false
+expectEvent(e, 'update'); //false
 
 e.on('update', function(){
   
 });
 
-expectListener(e, 'update') //true
+expectEvent(e, 'update') //true
 
 */
-function expectListener(ent, trigger, func){
+function expectEvent(ent, trigger, func){
   if(arguments.length == 2){
-    ok(ent.has('^'+trigger), "Expected entity to have listener "+trigger);
+    ok(ent.has('^'+trigger), "Expected entity to have event "+trigger);
   } else {
     var fin = false;
     for(var i in ent._re_signals[trigger]){
@@ -98,7 +132,7 @@ function expectListener(ent, trigger, func){
       if(fin) break;
     }
     
-    ok(fin, "Expected entity to have listener "+trigger+" with function");
+    ok(fin, "Expected entity to have event "+trigger+" with function");
     
   }
 }
@@ -144,7 +178,7 @@ var f = factory;
 Generates a factory entity for easy use in the module()
 
 //light weight
-//a new coin in e will be created for every test()
+//a new coin in coin will be created for every test()
 module('coin', lazy('coin'));
 
 //do something after coin creation
@@ -163,17 +197,23 @@ teardown:function(e){
 }));
 
 test('coin should have valid of 10', function(){
-  equal(e.value, 10);
+  equal(coin.value, 10);
 })
 
 etc..
 
 */
-var e;
 function lazy(comps, obj){
+  var name;
+  if(typeof comps == 'string') comps = comps.split(' ');
+  name = comps[0];
+  var e;
+  
   return {
     setup:function(){
-      e = f(comps);
+      
+      window[name] = e = f(comps.join(' '));
+      
       if(typeof obj == 'function') obj(e);
       if(obj && obj.setup) obj.setup(e);
     },

@@ -6,7 +6,8 @@ re.c('arena')
   },
   
   stopRound:function(){
-    
+    //reset players
+    re('paddle').alignVer();
   },
   
   restartRound:function(){
@@ -18,7 +19,7 @@ re.c('arena')
 .init(function(){
   
   //player
-  re.e('paddle player');
+  re.e('player');
   
   //ai or player 2
   this.paddle2 = re.e('paddle');
@@ -29,9 +30,10 @@ re.c('arena')
     this.paddle2.comp('ai');
   }
   
-  //setup hitmap
-  re.hitmap = re.e('hitmap');
-  
   this.ball = re.e('ball');
   
+})
+.dispose(function(){
+  re('paddle').dispose();
+  this.ball.dispose();
 });

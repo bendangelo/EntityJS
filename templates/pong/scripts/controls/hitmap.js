@@ -18,16 +18,13 @@ re.c('hitmap')
       
     }
     
-    if(obj.posX < 0 || obj.posX + obj.sizeX > re.sys.sizeX){
+    //score..
+    if(obj.posX - obj.sizeX < 0){
       res.hitX = 1;
-      
-      if(obj.posX < 0){
-        res.posX = 0;
-      } else {
-        res.posX = re.sys.sizeX - obj.sizeX;
-      }
-      
-      //trigger score
+      this.trigger('hit:left');
+    } else if(obj.posX + obj.sizeX > re.sys.sizeX){
+      this.trigger('hit:right');
+      res.hitX = 1;
     }
     
     //check hits on paddles

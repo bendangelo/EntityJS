@@ -2,8 +2,11 @@ re.c('ball')
 .requires('rect align force limit')
 .defines({
   color:'#fff',
-  sizeX:5,
-  sizeY:5,
+  sizeX:6,
+  sizeY:6,
+  
+  regX:3,
+  regY:3,
   
   resX:1.01,
   resY:1.01,
@@ -20,7 +23,4 @@ re.c('ball')
     this.velY = re.random(-this.initVel, this.initVel);
   }
   
-})
-.init(function(){
-  
-})
+});

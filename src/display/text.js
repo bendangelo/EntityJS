@@ -29,7 +29,10 @@ re.c('text')
     if(re.is(t)){
   		this._text = ''+t;
       //set text width
-      this.sizeX = re.sys.context.measureText(t).width;
+      if(re.sys.context){
+        this.sizeX = re.sys.context.measureText(t).width;
+      }
+      
       return this;
     }
 		return this._text;

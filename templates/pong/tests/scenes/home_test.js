@@ -15,7 +15,7 @@ test('create home screen', function(){
 
 test('z should go to single player', function(){
   
-  expectCall(re.scene('game'), 'enter');
+  expectCall(re.scene('game'), 'enter', [false]);
   
   keyup('z');
   
@@ -23,7 +23,7 @@ test('z should go to single player', function(){
 
 test('x should go to two player', function(){
   
-  expectCall(re.scene('game'), 'enter');
+  expectCall(re.scene('game'), 'enter', [true]);
   
   keyup('x');
   

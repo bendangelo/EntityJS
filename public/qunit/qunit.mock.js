@@ -1,15 +1,43 @@
+//TODO: fix up
+/*
+
+Implements:
+
+//expects the method to be called before the end of the test
+expectCall(re, 'pressed')
+
+//expects a method to be called with the given arguments
+expectCall(re, 'pressed', ['a'])
+
+//expects a method to be called a number of times
+expectCall(re, 'pressed', null, 2)
+
+//stubs a method with a custom method
+stub(re, 'pressed', function(value){
+  return false;
+});
+
+//method does nothing
+stub(re, 'pressed');
+
+//method returns 10
+stub(re, 'pressed', 10);
+
+*/
 (function() {
   var expectCall, finishMock, mock, mocked, mocking, stack, stub, testExpectations;
   var __slice = Array.prototype.slice;
   mocking = null;
   stack = [];
-  expectCall = function(object, method, calls) {
+  expectCall = function(object, method, args, calls) {
     var expectation;
     calls = (typeof calls !== "undefined" && calls !== null) ? calls : 1;
+    
     expectation = {
       object: object,
       method: method,
       expectedCalls: calls,
+      expectedArgs: args,
       originalMethod: object[method],
       callCount: 0
     };
@@ -17,12 +45,24 @@
       var args;
       args = __slice.call(arguments, 0);
       expectation.originalMethod.apply(object, args);
+      
+      expectation.args = args;
+      
       return expectation.callCount += 1;
     };
     return mocking.expectations.push(expectation);
   };
   stub = function(object, method, fn) {
     var stb;
+    
+    if(fn == null){
+      fn = function(){};
+    } else if(typeof fn != 'function'){
+      fn = function(){
+        return fn;
+      };
+    }
+    
     stb = {
       object: object,
       method: method,
@@ -57,6 +97,17 @@
     while (mocking.expectations.length > 0) {
       expectation = mocking.expectations.pop();
       equal(expectation.callCount, expectation.expectedCalls, "method " + (expectation.method) + " should be called " + (expectation.expectedCalls) + " times");
+      
+      if(expectation.expectedArgs){
+        //equal(expectation.expectedArgs.length, expectation.args.length, "method " + (expectation.method) + " should have " + (expectation.expectedArgs.length) + " arguments")
+        
+        //check args
+        var eargs = expectation.expectedArgs;
+        var args = expectation.args;
+        ok(!(eargs>args || eargs<args), "method "+ expectation.method +" should have same arguments");
+        
+      }
+      
       expectation.object[expectation.method] = expectation.originalMethod;
     }
     _a = [];

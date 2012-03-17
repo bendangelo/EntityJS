@@ -1,14 +1,16 @@
 re.c('player')
-.requires('update')
+.requires('update paddle')
 .defines({
   
+  upKey:'w',
+  downKey:'s',
   alignRight:-10,
   
   update:function(){
     
-    if(re.pressed('w')){
+    if(re.pressed(this.upKey)){
       this.posY -= this.speed;
-    } else if(re.pressed('s')){
+    } else if(re.pressed(this.downKey)){
       this.posY += this.speed;
     }
     

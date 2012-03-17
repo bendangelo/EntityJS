@@ -1,1 +1,2 @@
-re.c('ai');
+re.c('ai')
+.requires('paddle');
