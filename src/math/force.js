@@ -85,11 +85,11 @@ re.force = re.c('force')
         this.posY = posy;
         
         if(hitx){
-            this.velX = this.forceRes(this.velX, this.resX);
+          this.velX = this.forceRes(this.velX, this.resX);
         }
         
         if(hity){
-            this.velY = this.forceRes(this.velY, this.resY);
+          this.velY = this.forceRes(this.velY, this.resY);
         }
         
         return this.trigger('aftermath', hitx, hity, tarx, tary);

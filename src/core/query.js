@@ -167,7 +167,7 @@
         
         while(++i < l && (e = this[i]) && m.call(e, i, l) !== false);
         
-        return this;
+      return this;
     }
     
     /*

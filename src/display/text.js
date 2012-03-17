@@ -17,8 +17,7 @@ re.c('text')
 	font:"14px sans-serif",
 	textColor:'#000000',
 	textAlign:'left',
-  textBaseline:'top',
-	font_text:''
+  textBaseline:'top'
 })
 .defines({
 	
@@ -28,7 +27,9 @@ re.c('text')
 	
 	text:function(t){
     if(re.is(t)){
-  		this._text = t;
+  		this._text = ''+t;
+      //set text width
+      this.sizeX = re.sys.context.measureText(t).width;
       return this;
     }
 		return this._text;
