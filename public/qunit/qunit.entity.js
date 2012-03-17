@@ -25,7 +25,7 @@ re.ready = function(){};
 
 window.addEventListener('load', function(){
   //auto start system for helpfulness
-  re.sys.init(re.canvas).start();
+  //re.sys.init(re.canvas).start();
     
   //TODO: auto load sounds, images
   
