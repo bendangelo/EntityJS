@@ -4,7 +4,6 @@ re.c('player')
   
   upKey:'w',
   downKey:'s',
-  alignRight:-10,
   
   update:function(){
     

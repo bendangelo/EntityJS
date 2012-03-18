@@ -4,6 +4,11 @@ re.c('paddle')
   color:'#fff',
   sizeX:6,
   sizeY:30,
+  
+  hsizeX:3,
+  
+  regX:3,
+  
   alignVer:0,
   alignLeft:10,
   speed:10,

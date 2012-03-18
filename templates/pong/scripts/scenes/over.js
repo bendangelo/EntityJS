@@ -1,19 +1,19 @@
 re.scene('over')
 .enter(function(message){
   
-  re.e('text align')
+  re.e('text')
   .attr({
     font:'30px sans-serif',
     text:message,
     alignVer:-60,
-    alignHor:-20
+    alignHor:-40
   })
   
-  re.e('text align keyboard')
+  re.e('text keyboard')
   .attr({
     text:'Press Z to continue',
     alignVer:-20,
-    alignHor:0
+    alignHor:-15
   })
   .on('keyup:z', function(){
     

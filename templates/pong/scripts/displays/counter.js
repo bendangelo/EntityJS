@@ -11,7 +11,7 @@ re.c('counter')
     this.text(this.count);
     
     if(this.count >= this.maxCount){
-      this.trigger('win', this.name);
+      this.trigger('max', this.name);
     }
   }
   

@@ -1,38 +1,53 @@
 re.scene('game')
 .enter(function(twoPlayer){
   
+  re.hitmap = re.e('hitmap');
+  
   //setup counters
+  //counter for player 2
   var p2 = re.e('counter')
   .alignHor(-60)
-  .on('win', function(){
-    re.scene('over').enter('You lost!');
+  .on('max', function(){
+    var message = 'You win!';
+    if(twoPlayer) message = 'Player 1 wins!';
+    
+    re.scene('over').enter(message);
   });
   
+  //counter for player 1
   var p1 = re.e('counter')
   .alignHor(40)
-  .on('win', function(){
-    re.scene('over').enter('You win!');
+  .on('max', function(){
+    var message = 'You lose!';
+    
+    if(twoPlayer) message = 'Player 2 wins!';
+    
+    re.scene('over').enter(message);
   });
   
+  //setup arena playing field
+  var arena = re.e((twoPlayer)?'twoarena':'arena');
+  
   //setup hitmap
-  re.hitmap = re.e('hitmap')
-  .on('hit:left', function(){
+  re.hitmap
+  .on('score:left', function(){
+    arena.restartRound();
     p2.up();
   })
-  .on('hit:right', function(){
+  .on('score:right', function(){
+    arena.restartRound();
     p1.up();
   });
   
-  this.arena = re.e('arena')
-  .attr({
-    twoPlayer:twoPlayer
-  })
-  .startRound();
+  //start game
+  arena.startRound();
   
 })
 .exit(function(){
   
-  this.arena.dispose();
+  re('arena').dispose();
   re('counter').dispose();
   re.hitmap.dispose();
+  delete re.hitmap;
+  
 });

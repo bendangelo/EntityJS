@@ -6,7 +6,7 @@ test('counting up should trigger win', function(){
   counter.maxCount = 1;
   counter.count = 0;
   
-  expectTrigger(counter, 'win', [counter.name]);
+  expectTrigger(counter, 'max', [counter.name]);
   
   counter.up();
   

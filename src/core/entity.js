@@ -113,6 +113,7 @@
             c.trigger('dispose', this);
             
         }
+        return this;
     };
     
     /*
@@ -491,6 +492,9 @@
         }
         
         this.trigger('dispose');
+        
+        //remove all events
+        this.off();
         
         return this;
     }

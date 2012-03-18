@@ -2,12 +2,14 @@ re.scene('home')
 .enter(function(){
   
   //default text color to white
-  re.c('text').defines('textColor', '#fff');
+  re.c('text')
+  .defines('textColor', '#fff')
+  .requires('align');
   
   //prevent default for all keys used in game
   re.preventDefault('left right up down');
   
-  re.e('text align')
+  re.e('text')
   .attr({
     font:'30px sans-serif',
     text:'Pong',
@@ -15,9 +17,9 @@ re.scene('home')
     alignVer:-100
   });
   
-  re.e('text align keyboard')
+  re.e('text keyboard')
   .attr({
-    text:'Press space to start!',
+    text:'Press z to start!',
     alignHor:-20,
     alignVer:0
   })
@@ -28,7 +30,15 @@ re.scene('home')
   .on('keyup:x', function(){
     re.scene('game').enter(true);
   });
-
+  
+  //credits
+  re.e('text')
+  .attr({
+    text:'http://www.entityjs.com',
+    alignBottom:-8,
+    alignLeft:5
+  });
+  
 })
 .exit(function(){
   

@@ -5,6 +5,9 @@ re.c('ball')
   sizeX:6,
   sizeY:6,
   
+  hsizeX:3,
+  hsizeY:3,
+  
   regX:3,
   regY:3,
   
@@ -14,13 +17,13 @@ re.c('ball')
   friX:1,
   friY:1,
   
-  initVel:5,
+  initVel:4,
   
   reset:function(){
     this.alignHor();
     this.alignVer();
-    this.velX = re.random(-this.initVel, this.initVel);
-    this.velY = re.random(-this.initVel, this.initVel);
+    this.velX = re.random(this.initVel * 0.5, this.initVel) * re.random([-1, 1]);
+    this.velY = re.random(this.initVel * 0.5, this.initVel) * re.random([-1, 1]);
   }
   
 });

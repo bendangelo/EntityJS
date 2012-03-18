@@ -2,10 +2,19 @@ module('controls/arena', lazy('arena'));
 
 test('start round', function(){
   
+  arena.startRound();
+  
   is(arena.ball);
   
   ok(re('ball').length == 1);
   
-  arena.startRound();
+  
+});
+
+test('stop round', function(){
+  
+  arena.stopRound();
+  
+  expect(0);
   
 });
