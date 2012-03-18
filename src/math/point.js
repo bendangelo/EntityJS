@@ -25,7 +25,7 @@ re.c('point')
         return this;
     },
     
-    distanceTo:function(x, y){
+    distance:function(x, y){
         if(re.is(x,'object')){
             y = x.posY || x.y;
             x = x.posX || x.x;

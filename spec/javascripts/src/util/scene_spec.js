@@ -49,4 +49,19 @@ describe('test', function(){
     
   })
   
+  it('should exit once', function(){
+    
+    var called = 0;
+    
+    re.scene('bob')
+    .exit(function(){
+      called++;
+    }).enter();
+    
+    re.scene('blah').enter(10);
+    
+    eq(called, 1);
+    
+  });
+  
 });

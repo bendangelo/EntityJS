@@ -21,12 +21,12 @@ describe('keyboard', function(){
     });
     
     //manually call
-    re.c('keyboard').event({type:type, keyCode:68})//d
+    re.c('keyboard').event({type:type, keyCode:68, target:'body'})//d
     
     eq(called, 'd')
     eq(called2, null)
     
-    re.c('keyboard').event({type:type, keyCode:82})//r
+    re.c('keyboard').event({type:type, keyCode:82, target:'body'})//r
     
     eq(called, 'r')
     eq(called2, 'r')
@@ -48,12 +48,12 @@ describe('keyboard', function(){
     });
     
     //manually call
-    re.c('keyboard').event({type:type, keyCode:68})//d
+    re.c('keyboard').event({type:type, keyCode:68, target:'body'})//d
     
     eq(called, 'd')
     eq(called2, null)
     
-    re.c('keyboard').event({type:type, keyCode:82})//r
+    re.c('keyboard').event({type:type, keyCode:82, target:'body'})//r
     
     eq(called, 'r')
     eq(called2, 'r')

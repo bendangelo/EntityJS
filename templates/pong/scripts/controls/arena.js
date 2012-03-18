@@ -9,6 +9,7 @@ re.c('arena')
   stopRound:function(){
     //reset players
     if(this.ball) this.ball.dispose();
+    return this;
   },
   
   restartRound:function(){

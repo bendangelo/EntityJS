@@ -6,15 +6,17 @@ re.c('paddle')
   sizeY:30,
   
   hsizeX:3,
+  hsizeY:15,
   
   regX:3,
+  regY:15,
   
   alignVer:0,
   alignLeft:10,
   speed:10,
   
   checkBounds:function(){
-    this.limit('posY', 0, re.sys.sizeY - this.sizeY);
+    this.limit('posY', this.hsizeY, re.sys.sizeY - this.hsizeY);
   }
   
 });

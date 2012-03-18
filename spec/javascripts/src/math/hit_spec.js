@@ -25,4 +25,16 @@ describe('hit', function(){
     not(e.hit({x:100, y:0, w:30, h:30}))
   })
   
+  it('should hit object with reg', function(){
+    
+    e.sizeX = 6;
+    e.sizeY = 6;
+    e.regX = 3;
+    e.regY = 3;
+    
+    //TODO: fix reg
+    ok(e.hit({x:6, y:0, w:6, h:6, rx:3, ry:3}));
+    
+  });
+  
 });

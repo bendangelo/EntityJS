@@ -65,14 +65,14 @@ re.c('scene')
     if(!re.is(title, 'function')){
       
       if(re.scene.current)
-      re.scene().exit(title);
+      re.scene().exit();
       
       //set current scene
   		re.scene.current = this.sceneName
   		
       if(this.scene_enter)
     		this.scene_enter.apply(this, arguments);
-      return this;
+        
     } else {
       //set new enter method
   		this.scene_enter = title;
@@ -85,10 +85,6 @@ re.c('scene')
     if(!re.is(m, 'function')){
       
       re.scene.current = '';
-      
-  		if(re.is(this.scene_exit, 'function')){
-  			this.scene_exit.apply(this, arguments);
-  		}
       
       if(this.scene_exit)
       this.scene_exit.apply(this, arguments);

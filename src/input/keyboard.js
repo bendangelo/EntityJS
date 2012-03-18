@@ -113,8 +113,10 @@ re.c('keyboard')
 	event: function(e){
 		var that = re._c.keyboard;
 		
+    var tagName = (e.target || e.srcElement).tagName;
+    
     //disable keyboard keys if focus lost
-		if(re.is(document.activeElement, 'htmlinputelement') || re.is(document.activeElement, 'htmltextareaelement')){
+		if(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA'){
 			return;
 		}
 		
@@ -140,8 +142,12 @@ re.c('keyboard')
 	
   //initialize function
 	i:function(){
-		re.listener('keydown', this.event, false);
-		re.listener('keyup', this.event, false);
+		re.listener('keydown', this.event);
+		re.listener('keyup', this.event);
+    //reset all keys
+    re.listener('focus', function(){
+      re.pressed.d = {};
+    });
 	}
 
 })

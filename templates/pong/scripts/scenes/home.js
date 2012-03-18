@@ -31,6 +31,13 @@ re.scene('home')
     re.scene('game').enter(true);
   });
   
+  re.e('text')
+  .attr({
+    text:'Press x for two player',
+    alignHor:-20,
+    alignVer:25
+  });
+  
   //credits
   re.e('text')
   .attr({
@@ -41,7 +48,7 @@ re.scene('home')
   
 })
 .exit(function(){
-  
+  console.log('exit home')
   //remove all draw objects
   re('draw').dispose();
 

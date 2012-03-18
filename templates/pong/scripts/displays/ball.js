@@ -11,8 +11,8 @@ re.c('ball')
   regX:3,
   regY:3,
   
-  resX:1.01,
-  resY:1.01,
+  resX:1.1,
+  resY:1.1,
   
   friX:1,
   friY:1,
