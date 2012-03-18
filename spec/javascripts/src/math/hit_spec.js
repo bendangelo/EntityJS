@@ -32,8 +32,7 @@ describe('hit', function(){
     e.regX = 3;
     e.regY = 3;
     
-    //TODO: fix reg
-    ok(e.hit({x:6, y:0, w:6, h:6, rx:3, ry:3}));
+    not(e.hit({x:-7, y:-7, w:6, h:6, rx:3, ry:3}));
     
   });
   

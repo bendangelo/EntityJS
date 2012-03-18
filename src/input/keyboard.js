@@ -124,7 +124,7 @@ re.c('keyboard')
     
 		var key = that.keyCodes[c];
 		
-		if(re.pressed.d){
+		if(re.pressed && re.pressed.d){
 			re.pressed.d[key] = (e.type == 'keydown');
 		}
     
