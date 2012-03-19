@@ -25,6 +25,7 @@ describe('cycle/tween', function(){
     
     tween.tween(0, {x:100});
     
+    for(var i=60; i--;)
     tween.tween_update(re.sys.stepSize)
     
     eq(tween.x, 100);
@@ -34,49 +35,25 @@ describe('cycle/tween', function(){
   });
   
   it('should move object in 60ms', function(){
-    tween.y = 0;
-    tween.tween(2*re.sys.stepSize, {x:50, y:100});
+    
+    tween.comp('tile');
+    
+    tween.x = -10;
+    tween.tween(1, {x:50, tileY:10});
     
     var step = re.sys.stepSize;
     
+    tween.tween_time = tween.tween_maxTime * 0.5;
+    
     tween.tween_update(step)
     
-    eq(tween.x, 25);
+    eq(tween.x, 23.240000000000002);
     
+    for(var i=60; i--;)
     tween.tween_update(step);
     
     eq(tween.x, 50);
-    eq(tween.y, 100);
-  });
-  
-  it('should tween object with initial value', function(){
-    
-    tween.x = 50;
-    //also accepts seconds
-    tween.tween(re.sys.stepSize * 2, {x:100});
-    
-    tween.tween_update(re.sys.stepSize);
-    
-    eq(tween.x, 75);
-    
-    tween.tween_update(re.sys.stepSize);
-    
-    eq(tween.x, 100);
-  });
-  
-  it('should tween object with negative initial value', function(){
-    
-    tween.x = 50;
-    //also accepts seconds
-    tween.tween(re.sys.stepSize * 2, {x:0});
-    
-    tween.tween_update(re.sys.stepSize);
-    
-    eq(tween.x, 25);
-    
-    tween.tween_update(re.sys.stepSize);
-    
-    eq(tween.x, 0);
+    eq(tween.tileY(), 10);
   });
   
 });

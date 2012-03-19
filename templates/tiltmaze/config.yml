@@ -1,0 +1,22 @@
+# Configure your game settings
+
+width: 500
+height: 400
+canvas-id: game-canvas
+
+#files to ignore in /scripts
+scripts-ignore:
+  
+#specify files to be loaded first in /scripts
+order:
+  
+#components to ignore in the entityjs source
+#reduce file size by ignoring unused components
+entity-ignore:
+  socket
+  wait
+  group
+
+#ignore tests in /tests
+tests-ignore:
+  

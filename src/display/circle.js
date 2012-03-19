@@ -14,7 +14,7 @@ re.c('circle')
         
         c.beginPath();
         
-            c.arc(-this.regX + this.sizeX * 0.5, -this.regY + this.sizeX * 0.5, this.sizeX, 0, Math.PI*2, true);
+            c.arc(-this.regX + this.sizeX , -this.regY + this.sizeX , this.sizeX, 0, Math.PI*2, true);
         
         c.closePath();
         

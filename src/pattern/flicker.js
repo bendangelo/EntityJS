@@ -69,7 +69,6 @@ re.c('flicker')
 		if(re.is(id, 'object')){
 			
 			for(var i in id){
-				if(!id.hasOwnProperty(i)) continue;
 					
 					//copy formed array and insert
 					var c = id[i].slice();
@@ -101,7 +100,6 @@ re.c('flicker')
 		if(re.is(id,'object')){
 			
 			for(var i in id){
-				if(!id.hasOwnProperty(i)) continue;
 				
 				this.removeFlicker.call(this, id[i]);
 			}

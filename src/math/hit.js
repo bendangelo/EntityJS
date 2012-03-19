@@ -19,8 +19,8 @@ re.c('hit')
       y = x.posY || x.y;
       w = x.sizeX || x.w;
       h = x.sizeY || x.h;
-      rx = x.regX || x.rx || 0;
-      ry = x.regY || x.ry || 0;
+      rx = x.regX || 0;
+      ry = x.regY || 0;
       x = x.posX || x.x;
     }
     

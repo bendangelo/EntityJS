@@ -22,18 +22,37 @@ re.c('tween')
 		
     var tween = this.tween_queue[0];
 		
+    this.tween_time += t;
+    
+    var elapsed = this.tween_time / this.tween_maxTime;
+    
+    if(elapsed > 1) elapsed = 1;
+    
+    //easing function
+    value = this.tweenEase(elapsed);
+    
     //advance
     for(var i in tween.d){
-      this[i] += tween.d[i];
+      //TODO: support setter methods
+      
+      //set deltas
+      var ease = tween.s[i] + tween.d[i] * value;
+      if(re.is(this[i], 'function')){
+        this[i](ease);
+      } else {
+        this[i] = ease;
+      }
     }
-    
-    tween.t -= t;
     
     this.trigger('tween:update');
     
-    if(tween.t <= 0){
+    if(elapsed == 1){
+      
+      //remove from queue
       this.tween_queue.shift();
+      
       this.tweening = !!this.tween_queue.length;
+      
       this.trigger('tween:finish');
     }
     
@@ -53,22 +72,31 @@ re.c('tween')
       time /= 1000;
     }
     
+    this.tween_maxTime = (time || 1)/ (re.sys.stepSize * 60);
+    this.tween_time = 0;
     //steps are substracted until it reaches zero
-		var steps = time / re.sys.stepSize;
     
     var deltas = {};
+    var starts = {};
     for(var i in props){
-      deltas[i] = (props[i] - this[i]) / (steps || 1);
+      var value = this[i];
+      if(re.is(value, 'function')) value = value();
+      
+      //TODO: support get functions
+      deltas[i] = props[i] - value;
+      starts[i] = value;
     }
     
-    this.tween_queue.push({t:steps, d:deltas});
+    this.tween_queue.push({s:starts, d:deltas});
     
     this.tweening = true;
     
-    this.trigger('tween:start');
-    
-		return this;
-	}
+    return this.trigger('tween:start');
+	},
+  
+  tweenEase:function(v){
+    return v;
+  }
 	
 })
 .init(function(){
