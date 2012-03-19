@@ -22,4 +22,9 @@ re.c('ai')
   
   this.on('update', this.update);
   
+})
+.dispose(function(){
+  
+  this.off();
+  
 });

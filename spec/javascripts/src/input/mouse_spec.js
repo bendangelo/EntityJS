@@ -15,8 +15,8 @@ describe('mouse', function(){
         is(m)
         is(m.screenX)
         is(m.screenY)
-        is(m.x)
-        is(m.y)
+        is(m.posX)
+        is(m.posY)
       });
       
       e.on(type+':middle', function(m, e){
@@ -24,7 +24,7 @@ describe('mouse', function(){
         is(m)
       })
       
-      re.c('mouse').event({type:type, pageX:0, pageY:0}, 'middle')
+      re.c('mouse').event({type:type, offsetX:0, offsetY:0}, 'middle')
       
       ok(called2)
       ok(called)
@@ -39,8 +39,8 @@ describe('mouse', function(){
         is(m)
         is(m.screenX)
         is(m.screenY)
-        is(m.x)
-        is(m.y)
+        is(m.posX)
+        is(m.posY)
       });
       
       e.on(type+':middle', function(m, e){
@@ -48,7 +48,7 @@ describe('mouse', function(){
         is(m)
       })
       
-      re.c('mouse').event({type:type, pageX:0, pageY:0}, 'middle')
+      re.c('mouse').event({type:type, offsetX:0, offsetY:0}, 'middle')
       
       ok(called2)
       ok(called)
@@ -65,11 +65,11 @@ describe('mouse', function(){
         is(m)
         is(m.screenX)
         is(m.screenY)
-        is(m.x)
-        is(m.y)
+        is(m.posX)
+        is(m.posY)
       });
       
-      re.c('mouse').event({type:type, pageX:0, pageY:0})
+      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   });
@@ -84,11 +84,11 @@ describe('mouse', function(){
         is(m)
         is(m.screenX)
         is(m.screenY)
-        is(m.x)
-        is(m.y)
+        is(m.posX)
+        is(m.posY)
       });
       
-      re.c('mouse').event({type:type, pageX:0, pageY:0})
+      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })
@@ -103,11 +103,11 @@ describe('mouse', function(){
         is(m)
         is(m.screenX)
         is(m.screenY)
-        is(m.x)
-        is(m.y)
+        is(m.posX)
+        is(m.posY)
       });
       
-      re.c('mouse').event({type:type, pageX:0, pageY:0})
+      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })
@@ -122,11 +122,11 @@ describe('mouse', function(){
         is(m)
         is(m.screenX)
         is(m.screenY)
-        is(m.x)
-        is(m.y)
+        is(m.posX)
+        is(m.posY)
       });
       
-      re.c('mouse').event({type:type, pageX:0, pageY:0})
+      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })

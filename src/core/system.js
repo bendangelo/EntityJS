@@ -68,16 +68,6 @@ re.c('system')
     
     //scale is currently not implemented!
     init:function(canvasId, scale, contextType){
-        //init listeners
-        if(re._c.keyboard){
-          re._c.keyboard.i();
-        }
-        if(re._c.mouse){
-          re._c.mouse.i();
-        }
-        if(re._c.touch){
-          re._c.touch.i();
-        }
         
         //add comps here because system is defined earlier than other comps
         this.comp('polyfill tick timestep');
@@ -97,6 +87,17 @@ re.c('system')
         
         this.sizeX = s.sizeX = this.canvas.width;
         this.sizeY = s.sizeY = this.canvas.height;
+        
+        //init listeners
+        if(re._c.keyboard){
+          re._c.keyboard.i();
+        }
+        if(re._c.mouse){
+          re._c.mouse.i();
+        }
+        if(re._c.touch){
+          re._c.touch.i();
+        }
         
         return this;
     },

@@ -51,24 +51,8 @@ re.c('mouse')
     event:function(e, extra){
         
         //calculate mouse coordinate
-        var x;
-        var y;
-        
-        if(e.pageX){
-            x = e.pageX;
-            y = e.pageY;
-        } else {
-            x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-            y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-        }
-        
-        x -= re.sys.canvas.offsetLeft;
-        y -= re.sys.canvas.offsetTop;
-        
-        //ignore if off canvas
-        if(x < 0 || y < 0 || y > re.sys.sizeY || x > re.sys.sizeX){
-            return;
-        }
+        var x = e.offsetX;
+        var y = e.offsetY;
         
         var that = re.c('mouse');
         
@@ -81,7 +65,7 @@ re.c('mouse')
         var c, t, obj;
         for(var i=0; i<that.l.length; i++){
           t = that.l[i];
-          obj = {x:x, y:y};
+          obj = {posX:x, posY:y};
           obj.screenX = re.screen.toScreenX(x);
           obj.screenY = re.screen.toScreenY(y);
           
@@ -95,12 +79,13 @@ re.c('mouse')
     },
     
     i:function(){
-      re.listener('mousedown', this.press, false);
-      re.listener('mouseup', this.press, false);
-      re.listener('mousemove', this.event, false);
-      re.listener('click', this.event, false);
-      re.listener('dblclick', this.event, false);
-      re.listener('contextmenu', this.event, false);
+      var c = re.sys.canvas;
+      re.listener('mousedown', this.press, c);
+      re.listener('mouseup', this.press, c);
+      re.listener('mousemove', this.event, c);
+      re.listener('click', this.event, c);
+      re.listener('dblclick', this.event, c);
+      re.listener('contextmenu', this.event, c);
     }
     
 })

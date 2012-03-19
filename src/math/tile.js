@@ -37,7 +37,7 @@ re.e('tile sprite tiles.png', map.length * map[0].length)
 });
 
 @warning moving to negative tiles will cause rounding issues.
-Its recommended you avoid negative maps
+Its recommended you avoid negative tile values
 
 */
 re.tile = re.c('tile')
@@ -93,19 +93,19 @@ re.tile = re.c('tile')
     },
     
     tileX:function(v){
-        if(re.is(v)){
-          this.posX = v * this.sizeX;
-            return this;
-        }
-        return re.tile.toTileX(this.posX, this.sizeX);
+      if(re.is(v)){
+        this.posX = v * this.sizeX;
+        return this;
+      }
+      return re.tile.toTileX(this.posX, this.sizeX);
     },
     
     tileY:function(v){
-        if(re.is(v)){
-            this.posY = v * this.sizeY; 
-            return this;
-        }
-        return re.tile.toTileY(this.posY, this.sizeY);
+      if(re.is(v)){
+        this.posY = v * this.sizeY;
+        return this;
+      }
+      return re.tile.toTileY(this.posY, this.sizeY);
     }
     
 });
