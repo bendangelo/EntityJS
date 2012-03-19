@@ -2,35 +2,35 @@ module('hero', lazy('hero'));
 
 test('has flicks', function(){
   
-  expectFlicker(e, 'idle');
-  expectFlicker(e, 'run');
-  expectFlicker(e, 'jump');
-  expectFlicker(e, 'ladder');
+  expectFlicker(hero, 'idle');
+  expectFlicker(hero, 'run');
+  expectFlicker(hero, 'jump');
+  expectFlicker(hero, 'ladder');
   
 });
 
 test('has components', function(){
-  ok(e.has('hero.png tsprite update force flicker body'));
+  ok(hero.has('hero.png tsprite update force flicker body'));
 });
 
 test('flickers idle when not moving', function(){
   
-  e.flicker('run');
+  hero.flicker('run');
   
-  stub(e, 'isIdle', function(){return true});
+  stub(hero, 'isIdle', true);
   
-  e.update();
+  hero.update();
   
-  ok(e.flickering('idle'));
+  ok(hero.flickering('idle'));
   
 });
 
 test('moves right', function(){
   
-  expectCall(e, 'flicker');
+  expectCall(hero, 'flicker');
   
   keypress('d', function(){
-    e.update();
+    hero.update();
   });
   
   
@@ -38,10 +38,10 @@ test('moves right', function(){
 
 test('moves left', function(){
   
-  expectCall(e, 'flicker');
+  expectCall(hero, 'flicker');
   
   keypress('a', function(){
-    e.update();
+    hero.update();
   });
   
 });
@@ -49,25 +49,25 @@ test('moves left', function(){
 test('jumps when w pressed', function(){
   
   //setup requrements for jumping
-  e.ground = true;
-  e.jump = false;
+  hero.ground = true;
+  hero.jump = false;
   
-  expectCall(e, 'forceJump');
+  expectCall(hero, 'forceJump');
   
   keypress('w', function(){
-    e.update();
+    hero.update();
   });
   
 });
 
 test('resets jump when hitting the y axis', function(){
   
-  e.ground = false;
-  e.jump = true;
+  hero.ground = false;
+  hero.jump = true;
   
-  e.jumpReset(false, true, 10, 999);
+  hero.jumpReset(false, true, 10, 999);
   
-  ok(e.ground);
-  ok(!e.jump);
+  ok(hero.ground);
+  ok(!hero.jump);
   
 });

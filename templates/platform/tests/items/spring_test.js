@@ -2,7 +2,7 @@ module('spring', lazy('spring'));
 
 test('flicker animation', function(){
   
-  expectFlicker(e, 'bounce');
+  expectFlicker(spring, 'bounce');
   
 });
 
@@ -14,8 +14,8 @@ test('bounce on touch and key press', function(){
     return true;
   });
   
-  expectCall(e, 'flicker');
+  expectCall(spring, 'flicker');
   
-  e.touch();
+  spring.touch();
   
 });

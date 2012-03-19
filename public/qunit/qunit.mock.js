@@ -58,8 +58,9 @@ stub(re, 'pressed', 10);
     if(fn == null){
       fn = function(){};
     } else if(typeof fn != 'function'){
+      var value = fn;
       fn = function(){
-        return fn;
+        return value;
       };
     }
     

@@ -11,7 +11,7 @@ test('entities should exist', function(){
   is(circle);
   
   //has update listener
-  expectListener(circle, 'update');
+  expectEvent(circle, 'update');
   
   var xBefore = circle.posX;
   

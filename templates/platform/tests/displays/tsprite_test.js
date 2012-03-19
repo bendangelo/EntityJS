@@ -2,7 +2,7 @@ module('tsprite', lazy('tsprite'));
 
 test('valid', function(){
   
-  eq(e.sizeX, re.tile.sizeX)
-  eq(e.sizeY, re.tile.sizeY)
+  eq(tsprite.sizeX, re.tile.sizeX)
+  eq(tsprite.sizeY, re.tile.sizeY)
   
 });

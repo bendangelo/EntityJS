@@ -14,7 +14,7 @@ test('keys move arrow', function(){
   
   //mock/stub methods in qunit/qunit.mock.js
   //expects 4 calls to frame
-  expectCall(arrow, 'frame', 4);
+  expectCall(arrow, 'frame', null, 4);
   
   //simulate keypress / mouse clicks with qunit/qunit.input.js
   //dispatches a keydown on each key, calls the given method

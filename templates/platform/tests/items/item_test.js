@@ -2,35 +2,35 @@ module('item', lazy('item'));
 
 test('has components', function(){
   
-  ok(e.has('tsprite update items.png'))
+  ok(item.has('tsprite update items.png'))
   
 });
 
 test('update method', function(){
   
   //touching default to false
-  ok(!e.touching)
+  ok(!item.touching)
   
-  expectListener(e, 'update');
+  expectEvent(item, 'update');
   
 });
 
 test('hitting hero should call touch', function(){
   
-  expectCall(e, 'touch');
+  expectCall(item, 'touch');
   
   //fake hitBody and always return true
-  stub(e.hero, 'hitBody', function(){ return true; });
+  stub(item.hero, 'hitBody', true);
   
-  e.item_update();
+  item.item_update();
   
   //should call untouch afterwards
   
   //force hitbody to always return false now...
-  stub(e.hero, 'hitBody', function(){ return false; });
+  stub(item.hero, 'hitBody', false);
   
-  expectCall(e, 'untouch');
+  expectCall(item, 'untouch');
   
-  e.item_update();
+  item.item_update();
   
 });

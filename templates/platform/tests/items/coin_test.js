@@ -2,27 +2,27 @@ module('coin', lazy('coin'));
 
 test('valid', function(){
   
-  expectListener(e, 'update');
+  expectEvent(coin, 'update');
   
-  expectFlicker(e, 'glow');
+  expectFlicker(coin, 'glow');
   
 });
 
 test('touch should collect', function(){
   
-  expectCall(e, 'collect');
+  expectCall(coin, 'collect');
   
-  e.touch();
+  coin.touch();
   
 });
 
 test('collect should dispose and stuff', function(){
   
-  expectCall(e.sfx, 'play');
-  expectCall(e, 'dispose');
+  expectCall(coin.sfx, 'play');
+  expectCall(coin, 'dispose');
   
-  expectTrigger(e, 'collect');
+  expectTrigger(coin, 'collect');
   
-  e.collect();
+  coin.collect();
   
 });

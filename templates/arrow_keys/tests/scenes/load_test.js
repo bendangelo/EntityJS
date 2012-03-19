@@ -13,4 +13,6 @@ test('load assets', function(){
   //the home scene should then call start()
   stop();
   
+  expect(0);
+  
 });
