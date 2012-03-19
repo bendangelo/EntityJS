@@ -13,8 +13,6 @@ re.scene('game')
     if(twoPlayer) message = 'Player 1 wins!';
     
     re.scene('over').enter(message);
-    
-    return false;
   });
   
   //counter for player 2
@@ -26,8 +24,6 @@ re.scene('game')
     if(twoPlayer) message = 'Player 2 wins!';
     
     re.scene('over').enter(message);
-    
-    return false;
   });
   
   //setup arena playing field
@@ -42,6 +38,12 @@ re.scene('game')
   .on('score:right', function(){
     arena.restartRound();
     p2.up();
+  });
+  
+  //exit game
+  re.e('keyboard')
+  .on('keyup:q', function(){
+    re.scene('home').enter();
   });
   
   //start game

@@ -113,7 +113,7 @@ re.c('keyboard')
 	event: function(e){
 		var that = re._c.keyboard;
 		
-    var tagName = (e.target || e.srcElement).tagName;
+    var tagName = (e.target || e.srcElement || {}).tagName;
     
     //disable keyboard keys if focus lost
 		if(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA'){

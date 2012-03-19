@@ -48,7 +48,7 @@ re.scene('home')
   
 })
 .exit(function(){
-  console.log('exit home')
+  
   //remove all draw objects
   re('draw').dispose();
 

@@ -32,7 +32,20 @@ describe('hit', function(){
     e.regX = 3;
     e.regY = 3;
     
-    not(e.hit({x:-7, y:-7, w:6, h:6, rx:3, ry:3}));
+    not(e.hit({x:-3.1, y:-3.1, w:6, h:6, rx:6, ry:6}));
+    
+  });
+  
+  it('should hit object with op reg', function(){
+    
+    e.sizeX = 6;
+    e.sizeY = 6;
+    e.regX = 6;
+    e.regY = 6;
+    e.posX = -3.1;
+    e.posY = -3.1;
+    
+    not(e.hit({x:0, y:0, w:6, h:6, rx:3, ry:3}));
     
   });
   

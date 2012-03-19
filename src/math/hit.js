@@ -31,10 +31,10 @@ re.c('hit')
     
 		return !
 		(
-		x > this.posX + this.sizeX ||
-		x + w < this.posX ||
-		y > this.posY + this.sizeY ||
-		y + h < this.posY
+		x - rx > this.posX + this.sizeX - regX ||
+		x + w - rx < this.posX - regX ||
+		y - ry > this.posY + this.sizeY - regY ||
+		y + h - ry < this.posY - regY
 		);
 	}
 	
