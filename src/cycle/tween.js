@@ -4,25 +4,39 @@ The tween component tweens properties of entities to the given value over a peri
 This is useful for animations.
 
 re.e('tween')
-.tween(0.8, {x:10});
+.tween(800, {x:10})
+.wait(500)
+
+EVENTS:
+tween:start
+tween:finish
+tween:update
 
 */
 re.c('tween')
 .requires('update')
-.statics({
-	
-	tween:function(obj, time, props){
-		return obj.comp('tween')
-		.tween(time, props);
-	}
-	
-})
 .namespaces({
 
 	update:function(t){
+		if(!this.tweening) return;
 		
+    var tween = this.tween_queue[0];
 		
-		
+    //advance
+    for(var i in tween.d){
+      this[i] += tween.d[i];
+    }
+    
+    tween.t -= t;
+    
+    this.trigger('tween:update');
+    
+    if(tween.t <= 0){
+      this.tween_queue.shift();
+      this.tweening = !!this.tween_queue.length;
+      this.trigger('tween:finish');
+    }
+    
 	}
 
 })
@@ -34,28 +48,36 @@ re.c('tween')
 .defines({
 	
 	tween:function(time, props){
-		this.time = time || 5;
-		
-		if(this.tweening){
-			this.unbind('update', this.tween_update);
-		}
-		
-		//collect properties
-		for(var i in props){
-			
-			if(!props.hasOwnProperty(i)) continue;
-			
-			this.tween_props[i] = {s:re.sys.stepSize, i:props[i]};
-			
-		}
-		
+    //accepts ms or seconds
+    if(time >= 30){
+      time /= 1000;
+    }
+    
+    //steps are substracted until it reaches zero
+		var steps = time / re.sys.stepSize;
+    
+    var deltas = {};
+    for(var i in props){
+      deltas[i] = (props[i] - this[i]) / (steps || 1);
+    }
+    
+    this.tween_queue.push({t:steps, d:deltas});
+    
+    this.tweening = true;
+    
+    this.trigger('tween:start');
+    
 		return this;
 	}
 	
 })
 .init(function(){
 	
-	this.tween_props = {};
+  this.on('update', this.tween_update);
+  this.tween_queue = [];
 	
 });
-re.tween = re.c('tween').tween;
+
+re.tween = function(obj, time, props){
+  return obj.comp('tween').tween(time, props);
+};

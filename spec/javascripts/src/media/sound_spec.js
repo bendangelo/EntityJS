@@ -9,7 +9,7 @@ describe('sound', function(){
 	it('play', function(){
     var called = false;
     
-    k = e.on('sound:end', function(){
+    k = e.on('sound:finish', function(){
       called = true;
     })
     

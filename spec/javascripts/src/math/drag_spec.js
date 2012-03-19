@@ -16,7 +16,7 @@ describe('drag', function(){
     .on('drag:update', function(){
       called2 = true;
     })
-    .on('drag:end', function(){
+    .on('drag:finish', function(){
       called3 = true;
     })
     
@@ -29,7 +29,7 @@ describe('drag', function(){
     
     ok(called2)
     
-    is(e.dragEnd());
+    is(e.dragFinish());
     
     ok(called3)
     

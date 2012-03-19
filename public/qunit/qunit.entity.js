@@ -30,7 +30,7 @@ Expects a trigger call from the given obj.
 
 var e = re.e('flicker');
 
-expectTrigger(e, 'flicker:end', function(){
+expectTrigger(e, 'flicker:finish', function(){
   //if triggered this will be called
 });
 

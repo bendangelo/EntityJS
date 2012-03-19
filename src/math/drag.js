@@ -24,9 +24,9 @@ re.c('drag')
     return this;
 	},
 	
-	dragEnd:function(){
+	dragFinish:function(){
 		this.dragging = false;
-    return this.trigger('drag:end');
+    return this.trigger('drag:finish');
 	},
 	
 	dragUpdate:function(x, y){

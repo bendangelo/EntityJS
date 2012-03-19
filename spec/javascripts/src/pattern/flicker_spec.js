@@ -19,6 +19,7 @@ describe('flicker', function(){
     e.addFlicker('heal', 5, 200, [10])
     
     is(e.flicker_reels['heal'])
+    
 	});
   
   it('removeFlicker', function(){
@@ -42,7 +43,7 @@ describe('flicker', function(){
     e.on('flicker:start', function(){
       called = true;
     })
-    .on('flicker:end', function(v){
+    .on('flicker:finish', function(v){
       called2 = true;
       is(v, 'string')
     })

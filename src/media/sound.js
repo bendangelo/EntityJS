@@ -56,7 +56,7 @@ re.sound = re.c('sound')
   
   ended:function(){
     
-    this.trigger('sound:end');
+    this.trigger('sound:finish');
     
   }
   

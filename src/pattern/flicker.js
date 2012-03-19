@@ -27,7 +27,7 @@ re.c('flicker')
 			
 		this.off('update', this.flicker_update);
     
-		return this.trigger('flicker:end', o);
+		return this.trigger('flicker:finish', o);
 	},
 	
 	flicker_update:function(t){
@@ -166,14 +166,20 @@ re.c('flicker')
 		//copy from saved animation or newly given
 		c.loops = (isNaN(loops))? r.loops : loops;
 		c.duration = (isNaN(duration))? r.duration : duration;
+    
+    //convert to seconds
+    if(c.duration >= 30){
+      c.duration /= 1000;
+    }
+    
 		c.frames = (re.is(frames,'object'))? frames : r.frames;
 		
 		//setup counter for loops
 		this.flicker_loops = c.loops;
 		
 		this.stepProgress = 0;
-		this.stepSize = c.duration / c.frames.length / 1000;
-		
+		this.stepSize = c.duration / c.frames.length;
+    
 		//save old frames for upon completion
 		
 		this.flicker_frame = 0;
