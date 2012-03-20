@@ -44,7 +44,7 @@ re.c('tween')
       }
     }
     
-    this.trigger('tween:update');
+    this.trigger('tween:update', value);
     
     if(elapsed == 1){
       
@@ -61,7 +61,11 @@ re.c('tween')
 })
 .defaults({
 	
-	tweening:false
+	tweening:false,
+  
+  tweenEase:function(v){
+    return v;
+  }
 	
 })
 .defines({
@@ -91,13 +95,9 @@ re.c('tween')
     
     this.tweening = true;
     
-    return this.trigger('tween:start');
-	},
+    return this.trigger('tween:start', s);
+	}
   
-  tweenEase:function(v){
-    return v;
-  }
-	
 })
 .init(function(){
 	
