@@ -20,11 +20,9 @@ re.c('tween')
 	update:function(t){
 		if(!this.tweening) return;
 		
-    var tween = this.tween_queue[0];
-		
     this.tween_time += t;
     
-    var elapsed = this.tween_time / this.tween_maxTime;
+    var elapsed = this.tween_time / this.tween_t;
     
     if(elapsed > 1) elapsed = 1;
     
@@ -32,11 +30,10 @@ re.c('tween')
     value = this.tweenEase(elapsed);
     
     //advance
-    for(var i in tween.d){
-      //TODO: support setter methods
+    for(var i in this.tween_d){
       
       //set deltas
-      var ease = tween.s[i] + tween.d[i] * value;
+      var ease = this.tween_s[i] + this.tween_d[i] * value;
       if(re.is(this[i], 'function')){
         this[i](ease);
       } else {
@@ -48,12 +45,17 @@ re.c('tween')
     
     if(elapsed == 1){
       
-      //remove from queue
-      this.tween_queue.shift();
-      
-      this.tweening = !!this.tween_queue.length;
+      this.tweening = false;
       
       this.trigger('tween:finish');
+      
+      //remove from queue
+      var next = this.tween_queue.shift();
+      
+      if(next){
+        this.tween.apply(this, next);
+      }
+      
     }
     
 	}
@@ -71,12 +73,17 @@ re.c('tween')
 .defines({
 	
 	tween:function(time, props){
+    if(this.tweening){
+      this.tween_queue.push(arguments);
+      return;
+    }
+    
     //accepts ms or seconds
     if(time >= 30){
       time /= 1000;
     }
     
-    this.tween_maxTime = (time || 1)/ (re.sys.stepSize * 60);
+    var maxTime = (time || 1) / (re.sys.stepSize * 60);
     this.tween_time = 0;
     //steps are substracted until it reaches zero
     
@@ -86,16 +93,21 @@ re.c('tween')
       var value = this[i];
       if(re.is(value, 'function')) value = value();
       
-      //TODO: support get functions
       deltas[i] = props[i] - value;
       starts[i] = value;
     }
     
-    this.tween_queue.push({s:starts, d:deltas});
+    //tween initial values
+    this.tween_s = starts;
+    //tween deltas
+    this.tween_d = deltas;
+    //tween maximum time
+    this.tween_t = maxTime;
+    
     
     this.tweening = true;
     
-    return this.trigger('tween:start', s);
+    return this.trigger('tween:start', starts);
 	}
   
 })

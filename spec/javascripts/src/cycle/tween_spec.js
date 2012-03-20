@@ -43,7 +43,7 @@ describe('cycle/tween', function(){
     
     var step = re.sys.stepSize;
     
-    tween.tween_time = tween.tween_maxTime * 0.5;
+    tween.tween_time = tween.tween_t * 0.5;
     
     tween.tween_update(step)
     
