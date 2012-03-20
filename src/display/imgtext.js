@@ -20,6 +20,11 @@ re('font')
 
 *could be turned in to a special sprite component but wouldn't
 be very useful.
+
+
+//TODO:
+add multi line text
+
 */
 
 re.c('imgtext')
@@ -27,8 +32,8 @@ re.c('imgtext')
 .interfaces('imgtext')
 .defaults({
   //remove empty characters in ascii
-	charOffset:32
-	
+	charOffset:32,
+	lineHeight:15
 })
 .defines({
 	
@@ -37,13 +42,22 @@ re.c('imgtext')
 	},
 	
 	draw:function(c){
+	  
+    for(var i=0; i<this.text_lines.length; i++){
+      this.drawText(c, this.text_lines[i], i * this.lineHeight);
+    }
+		
+	  return this;
+	},
 	
+  drawText:function(c, text, yPos){
+    
 		var slot = 0, charWidth, code, charPos;
 		
-		for(var i=0, l = this._text.length; i<l; ++i){
+		for(var i=0, l = text.length; i<l; ++i){
 			
 			//get char code
-			code = this._text.charCodeAt(i) - this.charOffset;
+			code = text.charCodeAt(i) - this.charOffset;
 			
 			//find width of character
 			charWidth = this.imgtext[code];
@@ -57,35 +71,35 @@ re.c('imgtext')
 				this.charCache[code] = charPos;
 			}
 			
-			c.drawImage(this._image, this.charCache[code], 0, charWidth, this._image.height, -this.regX + slot, -this.regY, charWidth, this._image.height);
+			c.drawImage(this._image, this.charCache[code], 0, charWidth, this._image.height, -this.regX + slot, -this.regY + yPos, charWidth, this._image.height);
 			
 			//append to next character slot
 			slot += charWidth;
 			
 		}
-		
-		this.sizeX = slot;
-		this.sizeY = this._image.height;
-	  return this;
-	},
-	
+  },
+  
 	text:function(t){
 		if(re.is(t)){
   		this._text = t;
       
-  		var t = 0;
-  		//TODO size is slightly off 
-  		for(var p=0; p<this._text.length; p++){
-  			t += this.imgtext[p];
-  		}
+      this.text_lines = this._text.split('\n');
+      
+  		this.sizeX = 0;
   		
-  		this.sizeX = t;
+      //find the longest line and set that as the width
+      for(var i in this.text_lines){
+    		var w = 0;
+    		//TODO size is slightly off 
+    		for(var p=0; p<this.text_lines[i].length; p++){
+    			w += this.imgtext[p];
+    		}
+        if(w > this.sizeX){
+          this.sizeX = w;
+        }
+      }
   		
-  		if(this._image){
-  			this.sizeY = this._image.height;
-  		} else {
-  			this.sizeY = 0;
-  		}
+      this.sizeY = this.text_lines.length * this.lineHeight;
       
       return this;
     }

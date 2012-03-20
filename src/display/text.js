@@ -17,7 +17,8 @@ re.c('text')
 	font:"14px sans-serif",
 	textColor:'#000000',
 	textAlign:'left',
-  textBaseline:'top'
+  textBaseline:'top',
+  lineHeight:15
 })
 .defines({
 	
@@ -27,11 +28,30 @@ re.c('text')
 	
 	text:function(t){
     if(re.is(t)){
-  		this._text = ''+t;
+      t += '';
+      this.text_lines = t.split('\n');
+  		this._text = t;
       //set text width
       if(re.sys.context){
-        this.sizeX = re.sys.context.measureText(t).width;
+        var c = re.sys.context;
+        c.save();
+        c.font = this.font;
+        
+        this.sizeX = 0;
+        
+        var w = 0;
+        for(var i in this.text_lines){
+          w = c.measureText(this.text_lines[i]).width;
+          if(w > this.sizeX){
+            this.sizeX = w;
+          }
+        }
+        
+        c.restore();
       }
+      
+      //set height
+      this.sizeY = this.text_lines.length * this.lineHeight;
       
       return this;
     }
@@ -44,7 +64,12 @@ re.c('text')
 		c.fillStyle = this.textColor;
     c.textAlign = this.textAlgin;
     c.textBaseline = this.textBaseline;
-		c.fillText(this._text, -this.regX, -this.regY);
+    
+    //multi-line
+    var lines = this.text_lines;
+    for(var i=0, l=lines.length; i<l; i++){
+  		c.fillText(lines[i], -this.regX, -this.regY + (i * this.lineHeight));
+    }
     
 		return this;
 	}

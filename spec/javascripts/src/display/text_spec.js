@@ -24,7 +24,11 @@ describe('text', function(){
   })
   
   it('should draw', function(){
+    f.text('m\nlinesdfsdfsdfsdsdfsdfsdfsdfsdfsfsf')
     is(f.draw(re.sys.context))
+    
+    //make sure correct width is set
+    ok(f.sizeX > 40)
   })
   
 })

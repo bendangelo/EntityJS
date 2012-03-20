@@ -6,14 +6,14 @@ re.scene('over')
     font:'30px sans-serif',
     text:message,
     alignVer:-60,
-    alignHor:-40
+    alignHor:0
   })
   
   re.e('text keyboard')
   .attr({
     text:'Press Z to continue',
     alignVer:-20,
-    alignHor:-15
+    alignHor:0
   })
   .on('keyup:z', function(){
     
