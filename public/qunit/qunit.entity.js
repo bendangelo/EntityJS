@@ -224,6 +224,18 @@ function lazy(comps, obj){
   }
 }
 
+function lazyScene(scene, args){
+  return {
+    setup:function(){
+      var s = re.scene(scene);
+      s.enter.apply(s, args);
+    },
+    teardown:function(){
+      re.scene().exit();
+    }
+  };
+};
+
 /*
 Some super lazy evaluations
 */
