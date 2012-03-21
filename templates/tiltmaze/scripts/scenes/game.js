@@ -1,9 +1,16 @@
 re.scene('game')
 .enter(function(levelNum){
   
+  //prevent default browser actions
+  re.preventDefault('left right up down');
+  
   this.setLevel(levelNum);
   this.currentLevel.setup();
   
+  //set keyboard shortcuts
+  re.e('keyboard')
+  .on('keyup:q', this.quit)
+  .on('keyup:r', this.restart);
   
 })
 .attr({
@@ -13,7 +20,7 @@ re.scene('game')
     this.currentLevel = re.level.get(num);
     this.num = num;
     
-    if(!re.is(level)){
+    if(!re.is(this.currentLevel)){
       this.num = 0;
       this.currentLevel = re.level.get(0);
     }
@@ -38,5 +45,6 @@ re.scene('game')
 .exit(function(){
   
   this.currentLevel.teardown();
+  re('keyboard').dispose();
   
 });

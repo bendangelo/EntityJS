@@ -20,9 +20,13 @@ describe 'dirc' do
   end
   
   it 'should return script urls' do
-    Entityjs::Dirc.stub(:find_scripts).and_return(['asdfsdf/scripts/asdf.js', 'sfhs/scripts/sdf.js'])
+    Dir.stub(:'[]').and_return(['asdfsdf/scripts/asdf.js', 'sfhs/scripts/sdf.js', 'asdf/scripts/sdf.json', 'asdf/scripts/sdf.tmx'])
     
-    Entityjs::Dirc.find_scripts_url.should be_instance_of Array
+    scripts = Entityjs::Dirc.find_scripts_url
+    scripts.should be_instance_of Array
+    
+    scripts.last.should match /\.tmx/
+    scripts[-2].should match /\.json/
   end
   
   it 'should ignore and order game scripts' do

@@ -5,6 +5,4 @@ re.c('tile')
 })
 .defines({
   
-  
-  
 });

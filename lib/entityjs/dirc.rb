@@ -81,6 +81,9 @@ module Entityjs
       
       scripts = Dir["#{Dirc.game_root}/#{Config.scripts_folder}/**/*.{#{valids}}"].sort
       
+      #sort again by extension
+      scripts.sort! {|x,y| File.extname(x) <=> File.extname(y) }
+      
       #ignore files
       if ignore.any?
         scripts = scripts.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
