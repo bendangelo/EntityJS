@@ -5,13 +5,16 @@ re.scene('home')
   re.e('text align')
   .attr({
     font:'bold 30px Verdina',
-    text:'Tilemaze'
+    text:'Tiltmaze'
   })
-  .alignHor()
-  .alignVer(-60);
+  .align(0, -60);
   
-  re.e('text align')
+  re.e('text align keyboard')
   .text('Press any key to begin\nQ - Quit\nR - Restart')
+  .align()
+  .on('keyup', function(){
+    re.scene('game').enter(1);
+  });
   
 })
 .exit(function(){

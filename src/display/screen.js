@@ -29,14 +29,6 @@ re.c('screen')
     
     toScreenY:function(y){
         return y + this.posY + this.offY;
-    },
-    
-    toScreen:function(x, y){
-      if(arguments.length==1){
-          y = x.posY || x.y;
-          x = x.posX || x.x;
-      }
-      return {x: this.toScreenX(x), y: this.toScreenY(y)};
     }
     
 })

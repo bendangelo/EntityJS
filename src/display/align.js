@@ -8,6 +8,11 @@ re.c('align')
 .requires('draw')
 .defines({
     
+  align:function(x, y){
+    this.alignHor(x);
+    return this.alignVer(y);
+  },
+  
     alignHor:function(o){
         o = o || 0;
         this.posX = re.sys.sizeX * 0.5 - (this.sizeX - this.regX)*0.5 + o | 0;

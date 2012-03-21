@@ -22,13 +22,13 @@ module Entityjs
     end
     
     def self.render_test(path)
-      file = path.split(self.processor_ext)[0]
+      file = path.sub(/#{self.processor_ext}$/i, '');
       
       return Compile.test_to_js(file)
     end
     
     def self.render_script(path)
-      file = path.split(self.processor_ext)[0]
+      file = path.sub(/#{self.processor_ext}$/i, '');
       return Compile.script_to_js(file)
     end
     

@@ -22,9 +22,6 @@ re('font')
 be very useful.
 
 
-//TODO:
-add multi line text
-
 */
 
 re.c('imgtext')
