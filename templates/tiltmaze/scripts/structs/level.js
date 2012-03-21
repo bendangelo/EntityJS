@@ -17,7 +17,7 @@ re.level = re.c('level')
         if(!tile) continue;
         
         //place tiles
-        re.e('tile'+tile)
+        re.walltile.factory(tile)
         .tile(x, y);
         
       }
@@ -28,11 +28,21 @@ re.level = re.c('level')
     .tile(this.ball[0], this.ball[1]);
     
     //place target
+    for(var i in this.targets){
+      var targ = this.targets[i];
+      
+      var e = re.e('target')
+      .tile(targ[0], targ[1]);
+      debugger
+    }
     
   },
   
   teardown:function(){
     //remove tiles
+    re('walltile').dispose();
+    
+    re('target').dispose();
     
     //remove ball
     re('ball').dispose();

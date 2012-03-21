@@ -22,7 +22,7 @@ Disable re.ready for testing
 re.ready = function(){};
 
 window.addEventListener('load', function(){
-  re.sys.init(re.canvas);
+  re.sys.init(re.canvas).start();
 }, true);
 
 /*
@@ -91,6 +91,19 @@ function expectValueDown(obj, prop){
   
   trig.push();
 };
+
+/*
+
+re.e('circle')
+.attr('color', '#ff0000');
+
+pixelEqual(10, 10, 255, 0, 0, 0);
+
+*/
+function pixelEqual(x, y, r, g, b, a, message){
+  var actual = Array.prototype.slice.apply(re.sys.context.getImageData(x, y, 1, 1).data), expected = [r, g, b, a];
+	QUnit.push(QUnit.equiv(actual, expected), actual, expected, message);
+}
 
 /*
 Expects the given entity to have the given flicker present
