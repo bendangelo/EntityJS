@@ -1,4 +1,5 @@
 re.level = re.c('level')
+.requires('automap')
 .statics({
   get:function(num){
     //find entity with component
@@ -17,8 +18,10 @@ re.level = re.c('level')
         if(!tile) continue;
         
         //place tiles
-        re.walltile.factory(tile)
+        var e = re.walltile.factory(tile)
         .tile(x, y);
+        
+        this.automap(x, y, e);
         
       }
     }

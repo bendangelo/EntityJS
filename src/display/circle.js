@@ -13,8 +13,9 @@ re.c('circle')
         c.fillStyle = this.color;
         
         c.beginPath();
-        
-            c.arc(-this.regX + this.sizeX , -this.regY + this.sizeX , this.sizeX, 0, Math.PI*2, true);
+            var r = this.radius();
+            
+            c.arc(-this.regX + r , -this.regY + r , r, 0, Math.PI*2, true);
         
         c.closePath();
         
@@ -24,10 +25,10 @@ re.c('circle')
     
     radius:function(r){
         if(re.is(r)){
-            this.sizeX = this.sizeY = r;
+            this.sizeX = this.sizeY = r * 2;
             return this;
         }
-        return this.sizeX;
+        return this.sizeX * 0.5;
     }
     
 });

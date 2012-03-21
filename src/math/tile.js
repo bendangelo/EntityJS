@@ -95,7 +95,8 @@ re.tile = re.c('tile')
         this.posX = v * this.sizeX;
         return this;
       }
-      return re.tile.toTileX(this.posX, this.sizeX);
+
+      return (this.posX - this.regX) / this.sizeX + 0.5 | 0;
     },
     
     tileY:function(v){
@@ -103,7 +104,8 @@ re.tile = re.c('tile')
         this.posY = v * this.sizeY;
         return this;
       }
-      return re.tile.toTileY(this.posY, this.sizeY);
+      
+      return (this.posY - this.regY) / this.sizeY + 0.5 | 0;
     }
     
 });

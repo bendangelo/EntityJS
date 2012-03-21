@@ -30,11 +30,11 @@ re.scene('game')
   advance:function(){
     this.num++;
     
-    re.scene('game').enter(this.num);
+    this.enter(this.num);
   },
   
   restart:function(){
-    re.scene('game').enter(this.num);
+    this.enter(this.num);
   },
   
   quit:function(){

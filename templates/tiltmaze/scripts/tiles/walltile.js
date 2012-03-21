@@ -87,12 +87,33 @@ re.walltile = re.c('walltile')
     
   },
   
-  leftOpen:function(){
-    return false;
+  checkWall:function(x, y){
+    if(y == 1){
+      return this.topWall;
+    } else if(y == -1){
+      return this.bottomWall;
+    }
+    
+    if(x == 1){
+      return this.leftWall;
+    } else if(x == -1){
+      return this.rightWall;
+    }
+    
   },
   
-  rightOpen:function(){
-    return false;
+  checkWallInside:function(x, y){
+    if(y == 1){
+      return this.bottomWall;
+    } else if(y == -1){
+      return this.topWall;
+    }
+    
+    if(x == 1){
+      return this.rightWall;
+    } else if(x == -1){
+      return this.leftWall;
+    }
   }
   
 });

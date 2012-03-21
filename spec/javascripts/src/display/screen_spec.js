@@ -29,19 +29,4 @@ describe('screen', function(){
 		is(e.toScreenY(10))
 	});
   
-  it('toscreen', function(){
-    
-    var k = e.toScreen(10, 2);
-    eq(k.x, 10)
-    eq(k.y, 2)
-    
-    k = e.toScreen({posX:3, posY:1})
-    eq(k.x, 3)
-    eq(k.y, 1)
-    
-    k = e.toScreen({x:6, y:5})
-    eq(k.x, 6)
-    eq(k.y, 5)
-  })
-  
 });
