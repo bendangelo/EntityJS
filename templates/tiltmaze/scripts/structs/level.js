@@ -31,9 +31,9 @@ re.level = re.c('level')
     for(var i in this.targets){
       var targ = this.targets[i];
       
-      var e = re.e('target')
+      re.e('target')
       .tile(targ[0], targ[1]);
-      debugger
+      
     }
     
   },

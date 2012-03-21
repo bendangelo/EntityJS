@@ -21,8 +21,8 @@ re.scene('game')
     this.num = num;
     
     if(!re.is(this.currentLevel)){
-      this.num = 0;
-      this.currentLevel = re.level.get(0);
+      this.num = 1;
+      this.currentLevel = re.level.get(1);
     }
     
   },
