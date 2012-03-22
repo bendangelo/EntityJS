@@ -7,7 +7,7 @@ re.c('target')
     
     c.fillStyle = this.color;
     
-    c.fillRect(this.sizeX / 2 - 10, this.sizeY / 2 - 10, 20, 20);
+    c.fillRect(this.sizeX / 2 - 5, this.sizeY / 2 - 5, 10, 10);
   }
   
 });
