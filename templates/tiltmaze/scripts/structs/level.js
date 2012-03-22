@@ -10,6 +10,9 @@ re.level = re.c('level')
   
   setup:function(){
     
+    //default value for blanks in automap
+    this.automapDefault = re.e('walltile');
+    
     for(var y=0; y<this.map.length; y++){
       for(var x=0; x<this.map[0].length; x++){
         
@@ -27,8 +30,13 @@ re.level = re.c('level')
     }
     
     //place ball
-    re.e('ball')
-    .tile(this.ball[0], this.ball[1]);
+    this.ball = re.e('ball')
+    .tile(this.ball[0], this.ball[1])
+    .on('move:update', this.checkTargets);
+    
+    this.ball.level = this;
+    
+    re('target').dispose();
     
     //place target
     for(var i in this.targets){
@@ -41,6 +49,23 @@ re.level = re.c('level')
     
   },
   
+  checkTargets:function(){
+    
+    var ball = this;
+    
+    re('target').each(function(){
+      
+      if(ball.tileX() == this.tileX() && this.tileY() == ball.tileY()){
+        this.dispose();
+      }
+      
+    });
+    
+    if(re('target').length == 0){
+      re.scene('game').advance();
+    }
+  },
+  
   teardown:function(){
     //remove tiles
     re('walltile').dispose();
@@ -48,7 +73,10 @@ re.level = re.c('level')
     re('target').dispose();
     
     //remove ball
-    re('ball').dispose();
+    this.ball.dispose();
   }
   
+})
+.dispose(function(){
+  this.teardown();
 });

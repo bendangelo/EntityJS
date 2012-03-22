@@ -49,6 +49,10 @@ module Entityjs
       contents = contents.sub("$HEIGHT", Config.instance.height.to_s)
       contents = contents.sub("$CANVAS_ID", Config.instance.canvas_id)
       
+      if !Config.instance.canvas_border
+        contents = contents.sub('border:1px #333 solid;', '')
+      end
+      
       #set javascript srcs
       contents.sub("$JS", self.compile_js_html(tests))
     end

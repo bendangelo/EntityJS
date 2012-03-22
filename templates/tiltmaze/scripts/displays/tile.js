@@ -1,8 +1,2 @@
-re.c('tile')
-.statics({
-  sizeX:52,
-  sizeY:52
-})
-.defines({
-  
-});
+re.tile.sizeX = 30;
+re.tile.sizeY = 30;

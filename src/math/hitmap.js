@@ -108,11 +108,11 @@ re.c('hitmap')
                 
                 for(ty = firsty; ty<lasty; ty++){
                     
-                    if(this.map[ty]){
+                    if(this._automap[ty]){
                         
-                        this.trigger('hit', this.map[ty][tx], tx, ty);
+                        this.trigger('hit', this._automap[ty][tx], tx, ty);
                         
-                        if(this.checkAxisX(this.map[ty][tx], x, y, vx, vy)) {
+                        if(this.checkAxisX(this._automap[ty][tx], x, y, vx, vy)) {
                             res.hitX = true;
                             res.posX = tx * t + offx  - offsetx;
                             res.tarX = tx * t;
@@ -142,11 +142,11 @@ re.c('hitmap')
                     
                 for(tx = firstx; tx<lastx; tx++) {
                     
-                    if(this.map[ty]){
+                    if(this._automap[ty]){
                         
-                        this.trigger('hit', this.map[ty][tx], tx, ty);
+                        this.trigger('hit', this._automap[ty][tx], tx, ty);
                         
-                        if(this.checkAxisY(this.map[ty][tx], x, y, vx, vy)) {
+                        if(this.checkAxisY(this._automap[ty][tx], x, y, vx, vy)) {
                             res.hitY = true;
                             res.posY = ty * t + offy - offsety;
                             res.tarX = tx * t;

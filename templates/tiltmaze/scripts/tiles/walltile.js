@@ -46,6 +46,27 @@ re.walltile = re.c('walltile')
         topWall:true,
         leftWall:true
       });
+      
+      case 10:
+      return e.attr({
+        leftWall:true,
+        bottomWall:true,
+        rightWall:true
+      });
+      
+      case 11:
+      return e.attr({
+        rightWall:true,
+        topWall:true,
+        bottomWall:true
+      });
+      
+      case 12:
+      return e.attr({
+        topWall:true,
+        rightWall:true,
+        leftWall:true
+      })
     }
     
     return null;
@@ -59,7 +80,7 @@ re.walltile = re.c('walltile')
   topWall:false,
   bottomWall:false,
   
-  thick:5,
+  thick:3,
   
   draw:function(c){
     
@@ -72,7 +93,7 @@ re.walltile = re.c('walltile')
     
     //bottom wall
     if(this.bottomWall){
-      c.fillRect(0, this.sizeY - this.thick-1, this.sizeX, this.thick+1);
+      c.fillRect(0, this.sizeY - this.thick, this.sizeX, this.thick);
     }
     
     //left wall
@@ -82,7 +103,7 @@ re.walltile = re.c('walltile')
     
     //right wall
     if(this.rightWall){
-      c.fillRect(this.sizeX - this.thick-1, 0, this.thick+1, this.sizeY); 
+      c.fillRect(this.sizeX - this.thick, 0, this.thick, this.sizeY); 
     }
     
   },

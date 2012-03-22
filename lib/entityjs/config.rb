@@ -57,6 +57,14 @@ module Entityjs
       @yml['width']
     end
     
+    def canvas_border
+      if @yml.nil?
+        return true
+      end
+      
+      return @yml['canvas-border']
+    end
+    
     def height
       if @yml.nil?
         return 400

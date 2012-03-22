@@ -58,7 +58,7 @@ describe('tile', function(){
     eq(e.posX, 80)
     eq(e.posY, 40)
     
-    is(e.tile({posX:2, posY:2}))
+    is(e.tile({posX:2 * e.sizeX, posY:2 * e.sizeY}))
     
     eq(e.posX, 80)
     eq(e.posY, 80)

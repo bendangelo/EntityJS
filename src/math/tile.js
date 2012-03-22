@@ -82,8 +82,9 @@ re.tile = re.c('tile')
 
     tile:function(x, y){
       if(re.is(x,'object')){
-        y = x.posY || x.y;
-        x = x.posX || x.x;
+        //will mess up if regX is not top right corner
+        y = x.y || re.tile.toTileY(x.posY);
+        x = x.x || re.tile.toTileX(x.posX);
       }
       this.tileX(x);
       this.tileY(y);
@@ -91,21 +92,25 @@ re.tile = re.c('tile')
     },
     
     tileX:function(v){
+      var s = this.sizeX || re.tile.sizeX;
+      var r = this.regX || 0;
       if(re.is(v)){
-        this.posX = v * this.sizeX;
-        return this;
-      }
-
-      return (this.posX - this.regX) / this.sizeX + 0.5 | 0;
-    },
-    
-    tileY:function(v){
-      if(re.is(v)){
-        this.posY = v * this.sizeY;
+        this.posX = (v - r) * s;
         return this;
       }
       
-      return (this.posY - this.regY) / this.sizeY + 0.5 | 0;
+      return (this.posX - r) / s + 0.5 | 0;
+    },
+    
+    tileY:function(v){
+      var s = this.sizeX || re.tile.sizeY;
+      var r = this.regY || 0;
+      if(re.is(v)){
+        this.posY = (v - r)* s;
+        return this;
+      }
+      
+      return (this.posY - r) / s + 0.5 | 0;
     }
     
 });

@@ -36,10 +36,10 @@ map.lenY
 re.c('automap')
 .defaults({
 	lenX:0,
-	lenY:0
+	lenY:0,
+	automapDefault:0
 })
 .defines({
-	value:0,
 	
 	automap:function(x, y, value){
     if(re.is(x, 'array')){
@@ -47,7 +47,7 @@ re.c('automap')
       if(y){
         //non-deep copy
 		  
-		    this.map = x;
+		    this._automap = x;
 		
     		if(x.length > 0){
     			this.lenX = x[0].length;
@@ -72,38 +72,38 @@ re.c('automap')
     
     if(!re.is(value)){
         if(this.within(x,y)){
-            return this.map[y][x];
+            return this._automap[y][x];
         }
         return null;
     }
     
 			//increate y length
-			while(y >= this.map.length){
-				var m = new Array(this.map[0]);
+			while(y >= this._automap.length){
+				var m = new Array(this._automap[0]);
 				
 				for(var l in m){
-					m[l] = this.value;
+					m[l] = this.automapDefault;
 				}
 				
-				this.map.push(m);
+				this._automap.push(m);
 				
 			}
 			
 			//increase x length
-			while(x >= this.map[this.map.length-1].length){
+			while(x >= this._automap[this._automap.length-1].length){
 				
-				for(var k=0; k<this.map.length; k++){
-          if(this.map[k].length <= x){
-  					this.map[k].push(this.value);
+				for(var k=0; k<this._automap.length; k++){
+          if(this._automap[k].length <= x){
+  					this._automap[k].push(this.automapDefault);
           }
 				}
 				
 			}
 			
-			this.lenX = this.map[y].length;
-			this.lenY = this.map.length;
+			this.lenX = this._automap[y].length;
+			this.lenY = this._automap.length;
 			
-			this.map[y][x] = value;
+			this._automap[y][x] = value;
 			
 			return this;
 	},
@@ -114,20 +114,9 @@ re.c('automap')
 			return false;
 		}
 		return true;
-	},
-	
-	copy:function(a){
-		
-		return this;
-	},
-	
-	copyByRef:function(m){
-		
-		
-		return this;
 	}
 	
 })
 .init(function(){
-	this.map = [];
+	this._automap = [];
 });

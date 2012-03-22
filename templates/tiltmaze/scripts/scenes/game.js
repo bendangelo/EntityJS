@@ -7,10 +7,16 @@ re.scene('game')
   this.setLevel(levelNum);
   this.currentLevel.setup();
   
+  var self = this;
+  
   //set keyboard shortcuts
   re.e('keyboard')
-  .on('keyup:q', this.quit)
-  .on('keyup:r', this.restart);
+  .on('keyup:q', function(){
+    self.quit();
+  })
+  .on('keyup:r', function(){
+    self.restart();
+  });
   
 })
 .attr({
@@ -24,7 +30,7 @@ re.scene('game')
       this.num = 1;
       this.currentLevel = re.level.get(1);
     }
-    
+    console.log(this.num)
   },
   
   advance:function(){

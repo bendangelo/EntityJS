@@ -61,7 +61,7 @@ describe('automap', function(){
     eq(e.automap(0, 0), 1)
     eq(e.automap(0, 1), 6)
     
-    eq(e.map, level)
+    eq(e._automap, level)
   })
   
   it('should contain right length', function(){
@@ -85,8 +85,8 @@ describe('automap', function(){
     
     eq(e.lenX, m[0].length)
     eq(e.lenY, m.length)
-    eq(e.map.length, m.length)
-    eq(e.map[0].length, m[0].length)
+    eq(e._automap.length, m.length)
+    eq(e._automap[0].length, m[0].length)
     
   });
   

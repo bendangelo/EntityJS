@@ -1,8 +1,10 @@
 # Configure your game settings
 
-width: 260
-height: 260
+width: 180
+height: 180
 canvas-id: game-canvas
+
+canvas-border: false
 
 #files to ignore in /scripts
 scripts-ignore:

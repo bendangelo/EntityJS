@@ -1,8 +1,8 @@
 re.c('ball')
-.requires('tile circle hit keyboard update')
+.requires('tile circle keyboard update')
 .defines({
   color:'#ff0000',
-  speed:13,
+  speed:6,
   moving:false,
   pad:5,
   
@@ -14,7 +14,6 @@ re.c('ball')
     var tile = this.level.automap(tx, ty);
     var tileAfter = this.level.automap(tx+x, ty+y);
     
-    console.log(tile.checkWallInside(x, y), tileAfter.checkWall(x, y))
     if(tileAfter && !tile.checkWallInside(x, y) && !tileAfter.checkWall(x, y)){
       
       if(y){
@@ -25,25 +24,13 @@ re.c('ball')
       }
       
     } else {
-      this.tileX(tx);
-      this.tileY(ty);
+      this.tile(tx, ty);
       this.moving = false;
       this.off('update');
-    }
-  },
-  
-  checkHit:function(){
-    var that = this;
-    re('target').each(function(){
-      if(that.hit(this)){
-        this.dispose();
-      }
-    });
-    
-    if(re('target').length == 0){
-      re.scene().advance();
+      this.trigger('move:finish')
     }
     
+    this.trigger('move:update');
   },
   
   keydown:function(key){
@@ -88,8 +75,6 @@ re.c('ball')
   
 })
 .init(function(){
-  //this.regX = this.regY = -this.pad;
-  this.level = re.scene().currentLevel;
   
   this.on('keydown', this.keydown);
 });

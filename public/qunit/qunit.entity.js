@@ -240,7 +240,7 @@ function lazy(comps, obj){
 function lazyScene(scene, args){
   return {
     setup:function(){
-      var s = re.scene(scene);
+      var s = window[scene] = re.scene(scene);
       s.enter.apply(s, args);
     },
     teardown:function(){
