@@ -31,7 +31,7 @@ re.level = re.c('level')
     
     //place ball
     this.ball = re.e('ball')
-    .tile(this.ball[0], this.ball[1])
+    .tile(this.start[0], this.start[1])
     .on('move:update', this.checkTargets);
     
     this.ball.level = this;

@@ -1,7 +1,7 @@
 factory('level', function(){
   this.targets = [];
   this.map = [[]];
-  this.ball = [0,0];
+  this.start = [0,0];
   
   this.setup();
 });
@@ -20,7 +20,7 @@ factory('level box', function(){
   [7,3,3,3,6]
   ];
   
-  this.ball = [0,0];
+  this.start = [0,0];
   
   this.setup();
 });

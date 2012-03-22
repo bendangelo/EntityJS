@@ -30,7 +30,7 @@ re.scene('game')
       this.num = 1;
       this.currentLevel = re.level.get(1);
     }
-    console.log(this.num)
+    
   },
   
   advance:function(){

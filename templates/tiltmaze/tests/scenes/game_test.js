@@ -42,3 +42,17 @@ test('test level3.json', function(){
   
   expect(0);
 });
+
+test('test level4.json', function(){
+  stop();
+  re.scene('game').enter(4);
+  
+  expect(0);
+});
+
+test('test level5.json', function(){
+  //stop();
+  re.scene('game').enter(5);
+  
+  expect(0);
+});

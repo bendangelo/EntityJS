@@ -67,6 +67,13 @@ re.walltile = re.c('walltile')
         rightWall:true,
         leftWall:true
       })
+      
+      case 13:
+      return e.attr({
+        topWall:true,
+        leftWall:true,
+        bottomWall:true
+      })
     }
     
     return null;
