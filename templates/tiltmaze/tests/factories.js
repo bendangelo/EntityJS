@@ -12,6 +12,7 @@ factory('level box', function(){
   [4, 4],
   [3, 1]
   ];
+  
   this.map = [
   [8,1,1,1,5],
   [4,0,0,0,2],

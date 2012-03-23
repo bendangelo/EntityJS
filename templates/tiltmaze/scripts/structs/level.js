@@ -73,7 +73,7 @@ re.level = re.c('level')
     re('target').dispose();
     
     //remove ball
-    this.ball.dispose();
+    re('ball').dispose();
   }
   
 })

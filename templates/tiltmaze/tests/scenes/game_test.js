@@ -22,6 +22,7 @@ test('restart on keyup', function(){
   
 });
 
+//uncomment the stop to test the level
 test('test level1.json', function(){
   //stop();
   re.scene('game').enter(2);
@@ -37,14 +38,14 @@ test('test level2.json', function(){
 });
 
 test('test level3.json', function(){
-  stop();
+  //stop();
   re.scene('game').enter(3);
   
   expect(0);
 });
 
 test('test level4.json', function(){
-  stop();
+  //stop();
   re.scene('game').enter(4);
   
   expect(0);

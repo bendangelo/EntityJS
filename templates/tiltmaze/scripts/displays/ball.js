@@ -1,10 +1,23 @@
 re.c('ball')
-.requires('tile circle keyboard update')
+.requires('tile draw update')
 .defines({
   color:'#ff0000',
   speed:6,
   moving:false,
   pad:5,
+  
+  draw:function(c){
+    c.fillStyle = this.color;
+    
+    c.beginPath();
+        var r = 10;
+        
+        c.arc(r + 5, r + 5, r, 0, Math.PI*2, true);
+    
+    c.closePath();
+    
+    c.fill();
+  },
   
   move:function(x, y){
     
@@ -27,48 +40,33 @@ re.c('ball')
       this.tile(tx, ty);
       this.moving = false;
       this.off('update');
-      this.trigger('move:finish')
+      this.on('update', this.update);
+      this.trigger('move:finish');
     }
     
     this.trigger('move:update');
   },
   
-  keydown:function(key){
+  keydown:function(x, y){
     if(this.moving) return;
     this.moving = true;
+    this.on('update', function(){
+      this.move(x, y);
+    });
+  },
+  
+  update:function(){
     
-    switch(key){
-      case 'a':
-      case 'left':
-        this.on('update', function(){
-          this.move(-1, 0);
-        });
-      break;
-      
-      case 'd':
-      case 'right':
-        this.on('update', function(){
-          this.move(1, 0);
-        });
-      break;
-      
-      case 's':
-      case 'down':
-        this.on('update', function(){
-          this.move(0, 1);
-        });
-      break;
-      
-      case 'w':
-      case 'up':
-        this.on('update', function(){
-          this.move(0, -1);
-        });
-      break;
-      
-      default:
-      this.moving = false;
-      break;
+    if(re.pressed('a', 'left')){
+      this.keydown(-1, 0);
+    } else if(re.pressed('d', 'right')){
+      this.keydown(1, 0);
+    }
+    
+    if(re.pressed('s', 'down')){
+      this.keydown(0, 1);
+    } else if(re.pressed('w', 'up')){
+      this.keydown(0, -1);
     }
     
   }
@@ -76,5 +74,5 @@ re.c('ball')
 })
 .init(function(){
   
-  this.on('keydown', this.keydown);
+  this.on('update', this.update);
 });
