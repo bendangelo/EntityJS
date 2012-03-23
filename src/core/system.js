@@ -67,7 +67,7 @@ re.c('system')
     },
     
     //scale is currently not implemented!
-    init:function(canvasId, scale, contextType){
+    init:function(canvasId, contextType){
         
         //add comps here because system is defined earlier than other comps
         this.comp('polyfill tick timestep');
@@ -78,8 +78,6 @@ re.c('system')
         } else {
           this.canvas = re.$(canvasId);
         }
-        
-        this.scale = scale || 1;
         
         this.context = this.canvas.getContext(contextType || '2d');
         
