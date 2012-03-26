@@ -78,14 +78,14 @@ re.c('mouse')
         var c, t, obj;
         for(var i=0; i<that.l.length; i++){
           t = that.l[i];
-          obj = {posX:x, posY:y};
-          obj.screenX = re.screen.toScreenX(x);
-          obj.screenY = re.screen.toScreenY(y);
-          
-          t.trigger(e.type, obj, e);
+          if(t.screenable){
+            x = re.screen.toScreenX(x);
+            y = re.screen.toScreenY(y);
+          }
+          t.trigger(e.type, x, y, e);
           
           if(extra){
-            t.trigger(e.type+':'+extra, obj, e);
+            t.trigger(e.type+':'+extra, x, y, e);
           }
         }
         

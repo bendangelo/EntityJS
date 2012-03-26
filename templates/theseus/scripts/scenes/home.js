@@ -22,13 +22,14 @@ re.scene('home')
   var cursor = re.e('isoimage');
   
   re.e('mouse')
-  .on('mousemove', function(pos){
+  .attr('screenable', true)
+  .on('mousemove', function(x, y){
     
-    cursor.attr(re.iso.toPos(pos.screenX, pos.screenY));
+    cursor.attr(re.iso.toPos(x, y));
     
   })
-  .on('click', function(pos){
-    var iso = re.iso.toIso(pos.screenX, pos.screenY);
+  .on('click', function(x, y){
+    var iso = re.iso.toIso(x, y);
     console.log(iso.isoX, iso.isoY)
   })
   
