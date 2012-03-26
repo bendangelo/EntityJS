@@ -349,6 +349,10 @@
         
     }
     
+    p.last = function(){
+      return this[this.length-1];
+    }
+    
     re.query = q;
     
 }(re));

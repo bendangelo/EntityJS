@@ -10,13 +10,11 @@ describe('mouse', function(){
       var type = 'mousedown'
       var called, called2;
       
-      e.on(type, function(m, e){
+      e.on(type, function(x,y, e){
         called = true
-        is(m)
-        is(m.screenX)
-        is(m.screenY)
-        is(m.posX)
-        is(m.posY)
+        is(x)
+        is(y)
+        is(e)
       });
       
       e.on(type+':middle', function(m, e){
@@ -34,13 +32,11 @@ describe('mouse', function(){
       var type = 'mouseup'
       var called, called2;
       
-      e.on(type, function(m, e){
+      e.on(type, function(x,y, e){
         called = true
-        is(m)
-        is(m.screenX)
-        is(m.screenY)
-        is(m.posX)
-        is(m.posY)
+        is(x)
+        is(y)
+        is(e)
       });
       
       e.on(type+':middle', function(m, e){
@@ -60,13 +56,11 @@ describe('mouse', function(){
       var type = 'mousemove'
       var called;
       
-      e.on(type, function(m, e){
+      e.on(type, function(x,y, e){
         called = true
-        is(m)
-        is(m.screenX)
-        is(m.screenY)
-        is(m.posX)
-        is(m.posY)
+        is(x)
+        is(y)
+        is(e)
       });
       
       re.c('mouse').event({type:type, offsetX:0, offsetY:0})
@@ -79,13 +73,11 @@ describe('mouse', function(){
       var type = 'click'
       var called;
       
-      e.on(type, function(m, e){
+      e.on(type, function(x,y, e){
         called = true
-        is(m)
-        is(m.screenX)
-        is(m.screenY)
-        is(m.posX)
-        is(m.posY)
+        is(x)
+        is(y)
+        is(e)
       });
       
       re.c('mouse').event({type:type, offsetX:0, offsetY:0})
@@ -98,13 +90,11 @@ describe('mouse', function(){
       var type = 'dblclick'
       var called;
       
-      e.on(type, function(m, e){
+      e.on(type, function(x,y, e){
         called = true
-        is(m)
-        is(m.screenX)
-        is(m.screenY)
-        is(m.posX)
-        is(m.posY)
+        is(x)
+        is(y)
+        is(e)
       });
       
       re.c('mouse').event({type:type, offsetX:0, offsetY:0})
@@ -117,13 +107,11 @@ describe('mouse', function(){
       var type = 'contextmenu'
       var called;
       
-      e.on(type, function(m, e){
+      e.on(type, function(x,y, e){
         called = true
-        is(m)
-        is(m.screenX)
-        is(m.screenY)
-        is(m.posX)
-        is(m.posY)
+        is(x)
+        is(y)
+        is(e)
       });
       
       re.c('mouse').event({type:type, offsetX:0, offsetY:0})

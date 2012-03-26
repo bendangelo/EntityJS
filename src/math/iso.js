@@ -98,7 +98,7 @@ re.iso = re.c('iso')
     
     //all values should be in screen space from here
     this.posX = x - y;
-    this.posY = (x + y) * 0.5 + z;
+    this.posY = (x + y) * 0.5 - z;
     this.posZ = z;
     
     return this;
@@ -110,7 +110,7 @@ re.iso = re.c('iso')
       return this.iso(value);
     }
     
-    return (this.posX + (2*(this.posY-this.posZ) - this.posX) * 0.5) / re.iso.sizeX;
+    return (this.posX + (2*(this.posY+this.posZ) - this.posX) * 0.5) / re.iso.sizeX;
   },
   
   isoY:function(value){
@@ -119,7 +119,7 @@ re.iso = re.c('iso')
       return this.iso({y:value});
     }
     
-    return re.iso.toIsoY(this.posX, this.posY) + this.posZ;
+    return ((2*(this.posY+this.posZ) - this.posX) * 0.5) / re.iso.sizeY;
   },
   
   isoZ:function(value){

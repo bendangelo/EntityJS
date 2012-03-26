@@ -6,15 +6,25 @@ re.scene('home')
   re.iso.sizeZ = 25;
   
   var map = [
+  [1,1,0,0],
   [0,0,0,0],
-  [0,0,0,0],
-  [0,0,0,0]
+  [0,0,1,1]
   ];
   
   for(var y=0; y<map.length; y++){
     for(var x=0; x<map[0].length; x++){
-      var e = re.e('isoimage')
-      .iso(x, y);
+      
+      var e = re.e('isoimage');
+      
+      var tile = map[y][x];
+      
+      if(tile == 1){
+        e.frame(1);
+        e.sizeY = 35;
+        e.posZ = 10;
+      }
+      
+      e.iso(x, y);
       
     }
   }

@@ -59,14 +59,14 @@ re.c('mouse')
         
         //calculate offset
         //TODO: fix scale
-        /*
+        
         var canvas = re.sys.canvas;
-        var sx = canvas.style.width / canvas.width;
-        var sy = canvas.style.height / canvas.height;
+        var sx = canvas.width / canvas.offsetWidth;
+        var sy = canvas.height / canvas.offsetHeight;
         
         x *= sx;
         y *= sy;
-        */
+        
         var that = re.c('mouse');
         
         /*
