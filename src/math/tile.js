@@ -70,13 +70,10 @@ re.tile = re.c('tile')
 .defaults({
     
     posX:0,
-    posY:0
+    posY:0,
+    regX:0,
+    regY:0
     
-})
-.init(function(){
-  this.sizeX = re.tile.sizeX;
-  this.sizeY = re.tile.sizeY;
-  
 })
 .defines({
 
@@ -92,25 +89,26 @@ re.tile = re.c('tile')
     },
     
     tileX:function(v){
-      var s = this.sizeX || re.tile.sizeX;
-      var r = this.regX || 0;
       if(re.is(v)){
-        this.posX = (v - r) * s;
+        this.posX = (v - this.regX) * this.sizeX + 0.5 | 0;
         return this;
       }
       
-      return (this.posX - r) / s + 0.5 | 0;
+      return (this.posX - this.regX) / this.sizeX + 0.5 | 0;
     },
     
     tileY:function(v){
-      var s = this.sizeX || re.tile.sizeY;
-      var r = this.regY || 0;
       if(re.is(v)){
-        this.posY = (v - r)* s;
+        this.posY = (v - this.regY)* this.sizeY + 0.5 | 0;
         return this;
       }
       
-      return (this.posY - r) / s + 0.5 | 0;
+      return (this.posY - this.regY) / this.sizeY + 0.5 | 0;
     }
     
-});
+})
+.init(function(){
+  this.sizeX = re.tile.sizeX;
+  this.sizeY = re.tile.sizeY;
+  
+})
