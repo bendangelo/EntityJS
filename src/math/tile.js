@@ -39,6 +39,7 @@ re.e('tile sprite tiles.png', map.length * map[0].length)
 @warning moving to negative tiles will cause rounding issues.
 Its recommended you avoid negative tile values
 
+TODO: remove size vars from entity. Use global size instead
 */
 re.tile = re.c('tile')
 .statics({

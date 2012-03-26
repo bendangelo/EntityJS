@@ -6,9 +6,12 @@ re.e('mouse')
 .on('mousedown:middle', function(m){
     //m.x - x position
     //m.y - y position
-    //m.scrX - screen x position
-    //m.scrY - screen y position
+    //m.screenX - screen x position
+    //m.screenY - screen y position
 })
+
+FUTURE: rename triggers to the standard format
+mousemove -> mouse:move
 */
 re.c('mouse')
 .statics({
@@ -56,13 +59,14 @@ re.c('mouse')
         
         //calculate offset
         //TODO: fix scale
+        /*
         var canvas = re.sys.canvas;
         var sx = canvas.style.width / canvas.width;
         var sy = canvas.style.height / canvas.height;
         
         x *= sx;
         y *= sy;
-        
+        */
         var that = re.c('mouse');
         
         /*

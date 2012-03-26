@@ -140,12 +140,12 @@
         });
         
         img.onload = function(){
-          re.c(a).defaults({
+          re.c(a).defines({
             sizeX:img.width,
-            sizeY:img.height
-            })
-            .defines('bisect', img.width);
-            
+            sizeY:img.height,
+            bisect:img.width
+          });
+          
           that._loaded();
         };
         

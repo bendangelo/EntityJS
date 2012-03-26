@@ -15,7 +15,7 @@ describe('math/iso', function(){
     
     eq(re.iso.toIsoX(125, 82), 4)
     eq(re.iso.toIsoY(125, 82), 1)
-    eq(re.iso.toX(125, 82), 90);
+    eq(re.iso.toPosX(125, 82), 90);
     
   })
   
@@ -23,7 +23,7 @@ describe('math/iso', function(){
     eq(re.iso.toIsoX(65, 96), 3)
     eq(re.iso.toIsoY(65, 96), 2)
     
-    eq(re.iso.toY(65, 96), 75);
+    eq(re.iso.toPosY(65, 96), 75);
     
   })
   

@@ -2,7 +2,7 @@
 The image component draws an image on screen.
 
 
-FUTURE - add bitdata component for image manipulation.
+FUTURE - add imagedata component for image manipulation.
 */
 re.c('image')
 .requires('draw')
