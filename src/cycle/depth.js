@@ -11,10 +11,11 @@ re.depth = re.c('depth')
   sort:function(){
     //collect draw entities
     var entities = re.c('draw').l;
+    var that = this;
     
     entities.sort(function(a, b){
-      var v1 = (a.depth) ? a.depth() : this.defaultDepth(a);
-      var v2 = (b.depth) ? b.depth() : this.defaultDepth(b);
+      var v1 = (a.depth) ? a.depth() : that.defaultDepth(a);
+      var v2 = (b.depth) ? b.depth() : that.defaultDepth(b);
       
       return v1 - v2;
     });

@@ -1,8 +1,10 @@
 re.scene('home')
 .enter(function(){
   
-  re('level')[0].setup();
+  re.currentLevel = re('level')[0];
   
-  re.screen.posX -= 100;
+  re.currentLevel.setup();
+  
+  re.screen.pos(-150, -120);
   
 });

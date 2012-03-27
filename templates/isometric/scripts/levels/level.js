@@ -1,4 +1,5 @@
 re.c('level')
+.requires('automap')
 .defines({
   
   setup:function(){
@@ -6,6 +7,10 @@ re.c('level')
     re.iso.sizeX = 25;
     re.iso.sizeY = 25;
     re.iso.sizeZ = 25;
+    
+    //setups layers for objects on the same tile
+    re.depth.cursor = 1;
+    re.depth.box = 2;
     
     for(var y=0; y<this.map.length; y++){
       for(var x=0; x<this.map[0].length; x++){
@@ -21,16 +26,30 @@ re.c('level')
         
         e.iso(x, y);
         
+        //place in map
+        this.automap(x, y, e);
       }
     }
     
-    this.cursor = re.e('cursor');
+    this.cursor = re.e('cursor')
+    .attr('layer', re.depth.cursor);
     
-    this.box = re.e('isoimage');
-    this.box.id = 'box';
-    this.box.frameX = 3;
-    this.box.drawable = false;
+    this.box = re.e('isoimage')
+    .attr({
+      id:'box',
+      frameX:3,
+      drawable:false,
+      layer:re.depth.box
+    });
     
+  },
+  
+  tileHeight:function(x, y){
+    var tile =  this.automap(x, y);
+    if(!tile){
+      return 0;
+    }
+    return tile.isoHeight();
   }
   
 })

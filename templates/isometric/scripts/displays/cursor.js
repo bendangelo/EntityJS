@@ -12,13 +12,19 @@ re.c('cursor')
     
     var box = re('#box')[0];
     
-    box.iso(iso.isoX, iso.isoY);
+    box.place(iso.isoX, iso.isoY);
     box.drawable = true;
+    
+    //make sure to sort before you alter posY
+    re.depth.sort();
   },
   
   move:function(x, y){
-    this.attr(re.iso.toPos(x, y));
+    var iso = re.iso.toIso(x, y);
     
+    this.place(iso.isoX, iso.isoY);
+    
+    re.depth.sort();
   }
   
 })

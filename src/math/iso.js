@@ -72,7 +72,10 @@ re.iso = re.c('iso')
   */
   iso:function(x, y, z){
     if(re.is(x,'object')){
-      z = x.z;
+      z = x.z
+      if(re.is(x.posZ)){
+        z = x.posZ / re.iso.sizeZ;
+      }
       y = x.y;
       
       //copy attributes

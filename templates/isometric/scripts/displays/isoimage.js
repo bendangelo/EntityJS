@@ -1,11 +1,32 @@
 re.c('isoimage')
-.requires('sprite isotiles.png')
+.requires('iso sprite isotiles.png')
 .defines({
   
-  sizeX:51
+  sizeX:51,
+  layer:0,
+  
+  isoHeight:function(){
+    //high tile
+    if(this.frameX == 1){
+      return 10;
+    }
+    return 0;
+  },
+  
+  place:function(x, y){
+    //so I can remove it during depth sort
+    var height = re.currentLevel.tileHeight(x, y);
+    
+    this.iso(x, y, height / re.iso.sizeZ);
+    
+  },
+  
+  depth:function(){
+    return this.posY + this.layer + this.posZ;
+  }
   
 })
 .init(function(){
   //pushes tiles up so they are leveled
-  this.regY = this.sizeY-re.iso.sizeY;
+  this.regY = this.sizeY - re.iso.sizeY;
 });
