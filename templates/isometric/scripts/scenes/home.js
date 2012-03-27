@@ -5,6 +5,6 @@ re.scene('home')
   
   re.currentLevel.setup();
   
-  re.screen.pos(-150, -120);
+  re.screen.pos(-200, -120);
   
 });

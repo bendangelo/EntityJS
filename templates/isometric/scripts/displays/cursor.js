@@ -13,9 +13,8 @@ re.c('cursor')
     var box = re('#box')[0];
     
     box.place(iso.isoX, iso.isoY);
-    box.drawable = true;
     
-    re.depth.sort();
+    re.draw.sort();
   },
   
   move:function(x, y){
@@ -23,7 +22,7 @@ re.c('cursor')
     
     this.place(iso.isoX, iso.isoY);
     
-    re.depth.sort();
+    re.draw.sort();
   }
   
 })

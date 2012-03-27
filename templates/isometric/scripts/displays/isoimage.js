@@ -14,7 +14,7 @@ re.c('isoimage')
   },
   
   place:function(x, y){
-    //so I can remove it during depth sort
+    //find the tile height
     var height = re.currentLevel.tileHeight(x, y);
     
     this.iso(x, y, height / re.iso.sizeZ);

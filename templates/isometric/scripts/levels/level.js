@@ -9,8 +9,8 @@ re.c('level')
     re.iso.sizeZ = 25;
     
     //setups layers for objects on the same tile
-    re.depth.cursor = 1;
-    re.depth.box = 2;
+    re.draw.cursor = 1;
+    re.draw.box = 2;
     
     for(var y=0; y<this.map.length; y++){
       for(var x=0; x<this.map[0].length; x++){
@@ -32,14 +32,14 @@ re.c('level')
     }
     
     this.cursor = re.e('cursor')
-    .attr('layer', re.depth.cursor);
+    .attr('layer', re.draw.cursor);
     
     this.box = re.e('isoimage')
     .attr({
       id:'box',
       frameX:3,
-      drawable:false,
-      layer:re.depth.box
+      layer:re.draw.box,
+      place:[0,0]
     });
     
   },
