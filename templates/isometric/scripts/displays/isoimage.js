@@ -1,5 +1,5 @@
 re.c('isoimage')
-.requires('iso sprite isotiles.png')
+.requires('isodepth sprite isotiles.png')
 .defines({
   
   sizeX:51

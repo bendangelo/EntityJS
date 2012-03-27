@@ -9,27 +9,42 @@ describe('tile', function(){
 		e = re.e('tile');
 	});
 
-	it('toX', function(){
+  
+  it('toPos', function(){
+    var e = re.tile.toPos(88, 40);
+    
+    eq(e.posX, 80);
+    eq(e.posY, 40);
+  })
+  
+	it('toPosX', function(){
 		
-    eq(re.tile.toX(88, 40), 80);
+    eq(re.tile.toPosX(88, 40), 80);
     
     re.tile.sizeX = 40;
-    eq(re.tile.toX(88), 80);
+    eq(re.tile.toPosX(88), 80);
     
 	});
 
-  it('toY', function(){
+  it('toPosY', function(){
     
-    eq(re.tile.toY(88, 40), 80);
+    eq(re.tile.toPosY(88, 40), 80);
     
     re.tile.sizeY = 40;
-    eq(re.tile.toY(88), 80);
+    eq(re.tile.toPosY(88), 80);
     
   });
   
+  it('toTile', function(){
+    var e = re.tile.toTile(88, 40);
+    
+    eq(e.tileX, 2);
+    eq(e.tileY, 1);
+  })
+  
   it('toTileX', function(){
     
-    eq(re.tile.toTileX(88, 40), 2);
+    eq(re.tile.toTileX(88), 2);
     
     re.tile.sizeX = 40;
     eq(re.tile.toTileX(88), 2);

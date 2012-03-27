@@ -11,7 +11,15 @@ describe('math/iso', function(){
     
   });
   
-  it('toX', function(){
+  it('toPos', function(){
+    var e = re.iso.toPos(125, 82)
+    
+    eq(e.posX, 90)
+    e = re.iso.toPos(125, 82)
+    eq(e.posY, 75)
+  })
+  
+  it('toPosX', function(){
     
     eq(re.iso.toIsoX(125, 82), 4)
     eq(re.iso.toIsoY(125, 82), 1)
@@ -19,12 +27,22 @@ describe('math/iso', function(){
     
   })
   
-  it('toY', function(){
+  it('toPosY', function(){
     eq(re.iso.toIsoX(65, 96), 3)
     eq(re.iso.toIsoY(65, 96), 2)
     
     eq(re.iso.toPosY(65, 96), 75);
     
+  })
+  
+  it('toIso', function(){
+    var e = re.iso.toIso(-9, 90)
+    
+    eq(e.isoX, 2)
+    
+    e = re.iso.toIso(-5, 30)
+    
+    eq(e.isoY, 1)
   })
   
   it('toIsoX', function(){

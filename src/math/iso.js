@@ -1,7 +1,3 @@
-/*
-
-TODO: add reg points
-*/
 re.iso = re.c('iso')
 .statics({
   sizeX:30,

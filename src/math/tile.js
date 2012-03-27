@@ -46,25 +46,39 @@ re.tile = re.c('tile')
     sizeX:40,
     sizeY:40,
     
-    toX:function(x, size){
-        size = size || this.sizeX;
-        return this.toTileX(x, size) * size;
+    toPosX:function(x){
+        return this.toTileX(x) * this.sizeX;
     },
     
-    toY:function(y, size){
-      size = size || this.sizeY;
-        return this.toTileY(y, size) * size;
+    toPosY:function(y){
+        return this.toTileY(y) * this.sizeY;
+    },
+    
+    toPos:function(x, y){
+      if(re.is(x,'object')){
+        y = x.posY || x.y;
+        x = x.posX || x.x;
+      }
+      
+      return {posX:this.toPosX(x), posY:this.toPosY(y)};
     },
     
     //converts the given coordinate to a tile position
-    toTileX:function(x, size){
-        size = size || this.sizeX;
-        return (x - size * 0.5) / size + 0.5 | 0
+    toTileX:function(x){
+        return (x - this.sizeX * 0.5) / this.sizeX + 0.5 | 0
     },
     
-    toTileY:function(y, size){
-        size = size || this.sizeY;
-        return (y - size * 0.5) / size + 0.5 | 0
+    toTileY:function(y){
+        return (y - this.sizeY * 0.5) / this.sizeY + 0.5 | 0
+    },
+    
+    toTile:function(x, y){
+      if(re.is(x,'object')){
+        y = x.posY || x.y;
+        x = x.posX || x.x;
+      }
+      
+      return {tileX:this.toTileX(x), tileY:this.toTileY(y)};
     }
     
 })
