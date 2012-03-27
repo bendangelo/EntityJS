@@ -349,6 +349,10 @@
         
     }
     
+    p.first = function(){
+      return this[0];
+    }
+    
     p.last = function(){
       return this[this.length-1];
     }

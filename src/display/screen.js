@@ -12,9 +12,9 @@ re.c('screen')
       if(!arguments.length){
         return this;
       }
-      if(arguments.length == 1){
-          y = x.posY;
-          x = x.posX;
+      if(re.is(x,'object')){
+        y = x.posY;
+        x = x.posX;
       }
       
       this.posX = x - this.regX;

@@ -91,20 +91,20 @@ re.tile = re.c('tile')
     
     tileX:function(v){
       if(re.is(v)){
-        this.posX = (v - this.regX) * this.sizeX + 0.5 | 0;
+        this.posX = v * this.sizeX + 0.5 | 0;
         return this;
       }
       
-      return (this.posX - this.regX) / this.sizeX + 0.5 | 0;
+      return this.posX / this.sizeX + 0.5 | 0;
     },
     
     tileY:function(v){
       if(re.is(v)){
-        this.posY = (v - this.regY)* this.sizeY + 0.5 | 0;
+        this.posY = v* this.sizeY + 0.5 | 0;
         return this;
       }
       
-      return (this.posY - this.regY) / this.sizeY + 0.5 | 0;
+      return this.posY / this.sizeY + 0.5 | 0;
     }
     
 })

@@ -53,19 +53,12 @@ re.c('mouse')
     
     event:function(e, extra){
         
+        var canvas = re.sys.canvas;
         //calculate mouse coordinate
-        var x = e.offsetX;
-        var y = e.offsetY;
+        var x = e.offsetX * (canvas.width / canvas.offsetWidth);
+        var y = e.offsetY * (canvas.height / canvas.offsetHeight);
         
         //calculate offset
-        //TODO: fix scale
-        
-        var canvas = re.sys.canvas;
-        var sx = canvas.width / canvas.offsetWidth;
-        var sy = canvas.height / canvas.offsetHeight;
-        
-        x *= sx;
-        y *= sy;
         
         var that = re.c('mouse');
         
