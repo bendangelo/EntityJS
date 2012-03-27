@@ -15,7 +15,6 @@ re.c('cursor')
     box.place(iso.isoX, iso.isoY);
     box.drawable = true;
     
-    //make sure to sort before you alter posY
     re.depth.sort();
   },
   

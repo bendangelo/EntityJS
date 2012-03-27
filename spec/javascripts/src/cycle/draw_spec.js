@@ -4,12 +4,26 @@ describe('draw', function(){
   
   beforeEach(function(){
     re.c('shape')
-    .requires('draw').defines('draw', function(){
+    .requires('draw')
+    .defines('draw', function(){
     })
     
     d = re.e('shape')
   })
   
+  
+  it('should sort rect first', function(){
+    
+    var rect = re.e('shape');
+    rect.depth = function(){
+      return -1000;
+    };
+    
+    re.draw.sort();
+    
+    eq(re.draw.l[0], rect);
+    
+  })
   
   it('create', function(){
     var called = false

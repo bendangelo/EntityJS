@@ -1,4 +1,4 @@
-re.c('draw')
+re.draw = re.c('draw')
 .statics({
     l:[],
     
@@ -10,6 +10,14 @@ re.c('draw')
             b.drawable && b.visible() && b.draw_render(c);
         }
         
+    },
+    
+    sort:function(){
+      
+      this.l.sort(function(a, b){
+        return a.depth() - b.depth();
+      });
+      
     }
     
 })
@@ -45,6 +53,10 @@ re.c('draw')
 })
 .defines({
     
+  depth:function(){
+    return this.posY;
+  },
+  
     cache:function(){
         if(!this.image) return this;
         
