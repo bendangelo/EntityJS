@@ -1,5 +1,7 @@
 /*
 The wait component delays function calls.
+
+//TODO: fix this comp up
 */
 re.c('wait')
 .requires('update')
@@ -8,7 +10,7 @@ re.c('wait')
 	wait:function(time, callback){
 		var c = 0;
 		
-		this.bind('update',  function(t){
+		this.on('update',  function(t){
 			c += t;
 			
 			if(c >= time){

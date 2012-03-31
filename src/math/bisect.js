@@ -18,22 +18,22 @@ Note: width is called the bisect and the bi is the transformed x,y positions.
 re.bisect = re.c('bisect')
 .statics({
 	
-	biToX:function(bi, width, size){
+	toX:function(bi, width, size){
 		
-		return this.biToTileX(bi, width, size) * size;
+		return this.toTileX(bi, width, size) * size;
 	},
 	
-	biToY:function(bi, width, size){
+	toY:function(bi, width, size){
 		
-		return this.biToTileY(bi, width, size) * size;
+		return this.toTileY(bi, width, size) * size;
 	},
 	
-	biToTileX:function(bi, width, size){
+	toTileX:function(bi, width, size){
 		
 		return bi % (width / size) | 0;
 	},
 	
-	biToTileY:function(bi, width, size){
+	toTileY:function(bi, width, size){
 		return (bi * size) / (width - 0.1) | 0;
 	},
 	
@@ -51,21 +51,22 @@ re.bisect = re.c('bisect')
 	
 	biToX:function(bi){
 		
-		return re.bisect.biToX(bi, this.bisect, this.sizeX);
+		return re.bisect.toX(bi, this.bisect, this.sizeX);
 	},
 	
 	biToY:function(bi){
 		
-		return re.bisect.biToY(bi, this.bisect, this.sizeY);
+		return re.bisect.toY(bi, this.bisect, this.sizeX);
 	},
 	
 	biToTileX:function(bi){
 		
-		return re.bisect.biToTileX(bi, this.bisect, this.sizeX);
+		return re.bisect.toTileX(bi, this.bisect, this.sizeX);
 	},
 	
 	biToTileY:function(bi){
-		return re.bisect.biToTileY(bi, this.bisect, this.sizeY);
+    //sizeY doesn't matter when dealing with bisects
+		return re.bisect.toTileY(bi, this.bisect, this.sizeX);
 	},
 	
 	tileToBi:function(xt, yt){

@@ -10,21 +10,21 @@ describe('bisect', function(){
 	});
   
   it('static biToX', function(){
-		eq(re.bisect.biToX(1, 160, 60), 60)
+		eq(re.bisect.toX(1, 160, 60), 60)
 	});
   
   it('static biToY', function(){
-		eq(re.bisect.biToY(1, 160, 60), 0)
+		eq(re.bisect.toY(1, 160, 60), 0)
 		
 	});
   
   it('static biToTileX', function(){
-		eq(re.bisect.biToTileX(1, 160, 60), 1)
+		eq(re.bisect.toTileX(1, 160, 60), 1)
 		
 	});
   
   it('static biToTileY', function(){
-		eq(re.bisect.biToTileY(1, 160, 60), 0)
+		eq(re.bisect.toTileY(1, 160, 60), 0)
 		
 	});
   

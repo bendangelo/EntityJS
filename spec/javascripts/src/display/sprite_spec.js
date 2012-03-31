@@ -20,6 +20,24 @@ describe('sprite', function(){
     eq(e.frame(), 1)
 	});
   
+  it('should display second row', function(){
+    
+    e.bisect = 2001;
+    e.sizeY = 80;
+    e.sizeX = 87;
+    
+    e.frame(22);
+    
+    eq(e.frameX, 22)
+    eq(e.frameY, 0)
+    
+    //tricky part
+    e.frame(23);
+    eq(e.frameX, 0);
+    eq(e.frameY, 1);
+    
+  })
+  
   it('draw', function(){
     is(e.draw(re.sys.context))
     
