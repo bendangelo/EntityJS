@@ -25,6 +25,10 @@ describe('query', function(){
     eq(re(g).length, 1)
   });
   
+  it('should return empty query', function(){
+    eq(re().length, 0);
+  })
+  
   it('should select *', function(){
       var c = re._e.length;
       eq(re('*').length, c);
@@ -38,13 +42,13 @@ describe('query', function(){
         }).length, 1)
     });
   
-    it('method', function(){
-        eq(re.e('ok', 3).method('comp', 'b').comps(), ['ok', 'b'])
+    it('invoke', function(){
+        eq(re.e('ok', 3).invoke('comp', 'b').comps(), ['ok', 'b'])
     });
   
     it('each', function(){
       var i = 0;
-      is(re('dd', 3).each(function(c, l){
+      is(re('dd', 3).each(function(e, c, l){
         eq(i++, c);
         eq(l, 3)
       }))
@@ -52,10 +56,10 @@ describe('query', function(){
     
     it('tilemap', function(){
     
-      is(re.e('tile', 10).tilemap(5, function(x, y, i, l){
+      is(re.e('tile', 10).tilemap(5, function(e, x, y, i, l){
         ok(x < 5)
         ok(y < 2)
-        eq(l, 10)
+        is(l)
       }));
       
     });
@@ -78,26 +82,26 @@ describe('query', function(){
         
     it('attr', function(){
         re('tile').attr('first', 'asdf');
-        re('tile').each(function(){
-          eq(this.first, 'asdf')
+        re('tile').each(function(e){
+          eq(e.first, 'asdf')
         })
         
         re('tile').attr({yap:'1232'});
-        re('tile').each(function(){
-          eq(this.yap, '1232')
+        re('tile').each(function(e){
+          eq(e.yap, '1232')
         })
     });
     
     it('def', function(){
       re('tile').def('first', 'asdf');
-      re('tile').each(function(){
-        eq(this.first, 'asdf')
+      re('tile').each(function(e){
+        eq(e.first, 'asdf')
       })
       
       re('tile').def({yap:'1232', first:'d'});
-      re('tile').each(function(){
-        eq(this.yap, '1232')
-        eq(this.first, 'asdf')
+      re('tile').each(function(e){
+        eq(e.yap, '1232')
+        eq(e.first, 'asdf')
       })
     
     });
@@ -148,6 +152,97 @@ describe('query', function(){
         
         not(re.e('sdf',2).has('^wef'));
     });
+    
+    it('include', function(){
+      
+      var en = re.e();
+      
+      var query = re();
+      
+      not(query.include(en));
+      
+      query.push(en);
+      
+      ok(query.include(en));
+      
+    })
+    
+    it('min', function(){
+      var query = re();
+      
+      query.push(0)
+      query.push(10)
+      query.push(2)
+      query.push(5)
+      
+      eq(query.min(function(e, i, l){
+        eq(this, 'ok')
+        is(i)
+        is(l)
+        
+        return e;
+        
+        }, 'ok'), 0)
+    })
+    
+    it('max', function(){
+      
+      var query = re();
+      
+      query.push(0)
+      query.push(10)
+      query.push(2)
+      query.push(5)
+      
+      eq(query.max(function(e, i, l){
+        eq(this, 'ok')
+        is(i)
+        is(l)
+        
+        return e;
+        
+        }, 'ok'), 10)
+    })
+    
+    it('find', function(){
+      var e = re();
+      e.push(1);
+      e.push(10);
+      
+      //find index with 10
+      eq(e.find(function(t){
+        eq(e, this)
+        return t == 10;
+        }), 10);
+    })
+    
+    it('isEmpty', function(){
+      ok(re().isEmpty())
+    })
+    
+    it('every', function(){
+      
+      //check if all entities in query have value blah
+      var e = re();
+      e.push(re.e());
+      e.push(re.e().attr('blah', true));
+      
+      not(e.every(function(e){
+        return e.blah;
+        }));
+      
+      e.attr('blah', true)
+        
+      //should now all have blah
+      ok(e.every(function(e){
+        return e.blah;
+        }));
+        
+      //length zero..
+      ok(re().every(function(){
+        return false;
+      }))
+    })
     
     it('dispose', function(){
         is(re.e('rgfdvdvdfv', 2).dispose());

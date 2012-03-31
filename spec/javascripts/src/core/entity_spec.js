@@ -29,6 +29,18 @@ describe('entity', function(){
     ok(e.has('yep45 ok12'))
   })
   
+  it('should add events from comp', function(){
+    var func = function(){
+      
+    }
+    c.events('mousedown', func);
+    
+    e.comp(c.name);
+    
+    ok(e.has('^mousedown'));
+    is(e.mousedown);
+  })
+  
   it('should define properly', function(){
     re.c('blah1')
     .defines({

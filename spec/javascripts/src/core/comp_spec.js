@@ -20,6 +20,17 @@ describe('comp', function(){
     eq(k.yep, 'yep')
   })
   
+  it('should add events', function(){
+    k.events('mouseup', function(){})
+    k.events({
+      mousedown:function(){}
+    });
+    
+    is(k._re_events.mouseup)
+    is(k._re_events.mousedown)
+    
+  })
+  
   it('should requires', function(){
     k
     .requires('test test2');

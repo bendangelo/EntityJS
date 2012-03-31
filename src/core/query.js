@@ -143,13 +143,12 @@
     /*
     Calls the given method name on all entities.
     
-    re('enemies').method('rest');
+    re('enemies').invoke('rest');
     */
-    p.method = function(m){
+    p.invoke = function(m){
         var b = Array.prototype.slice.call(arguments, 1);
-        return this.each(function(){
-        
-            this[m].apply(this, b);
+        return this.each(function(e){
+            e[m].apply(e, b);
         });
         
     }
@@ -162,10 +161,10 @@
     
     returning false will break the loop
     */
-    p.each = function(m){
-        var l = this.length, i = -1, e;
-        
-        while(++i < l && (e = this[i]) && m.call(e, i, l) !== false);
+    p.each = function(m, context){
+      var l = this.length, i = -1, e;
+      
+      while(++i < l && (e = this[i]) != null && m.call(context || this, e, i, this) !== false);
         
       return this;
     }
@@ -175,9 +174,9 @@
     
     //map through and increase y every 3 entities.
     
-    re('draw').tilemap(3, function(x, y){
-        this.x(x * width);
-        this.y(Y * height);
+    re('draw').tilemap(3, function(e, x, y){
+        e.x(x * width);
+        e.y(Y * height);
     });
     
     //so instead of getting this back
@@ -194,13 +193,13 @@
     returning false will break the loop
     
     */
-    p.tilemap = function(w, method){
+    p.tilemap = function(w, method, context){
         var x = 0;
         var y = 0;
         
         return this.each(function(i, l){
             
-            if(method.call(this[i], x, y, i, l) == false) return false;
+            if(method.call(context, this[i], x, y, i, this) == false) return false;
             
             x++;
             
@@ -217,8 +216,8 @@
     p.comps = function(){
         var l = [];
         
-        this.each(function(){
-          var k = this.comps();
+        this.each(function(e){
+          var k = e.comps();
           for(var i=0; i<k.length; i++){
             if(l.indexOf(k[i]) == -1){
               l.push(k[i])
@@ -233,7 +232,64 @@
     Returns a random entity.
     */
     p.random = function(){
-        return this[~~(Math.random()*this.length)];
+        return this[(Math.random()*this.length)|0];
+    }
+    
+    p.attr = function(obj, value){
+        return this.each(function(e){
+            e.attr(obj,value);
+        });
+        
+    }
+    
+    p.def = function(obj, value){
+        return this.each(function(e){
+            e.def(obj, value);
+        });
+        
+    }
+    
+    p.comp = function(c){
+        
+        return this.each(function(e){
+            e.comp(c);
+        });
+        
+    }
+    
+    p.removeComp = function(c){
+        return this.each(function(e){
+          e.removeComp(c);
+        });
+    }
+    
+    p.on = function(type, method){
+        
+        return this.each(function(e){
+            e.on(type,method);
+        });
+        
+    }
+    
+    p.off = function(type, method){
+        return this.each(function(e){
+            e.off(type, method);
+        });
+    }
+    
+    p.trigger = function(){
+        var p = arguments;
+        return this.each(function(e){
+            e.trigger.apply(e, p);
+        });
+    }
+    
+    p.has = function(comp){
+      //return false if empty
+      if(!this.length) return false;
+        return this.every(function(e){
+          return e.has(comp);
+        });
     }
     
     /*
@@ -255,13 +311,12 @@
         
         var k = value.split(' ');
         
-        this.each(function(){
+        this.each(function(e){
             var o = {};
             
             for(var p in k){
-                if(k.hasOwnProperty(p)){
-                    o[k[p]] = this[k[p]];
-                }
+              var name = k[p];
+              o[name] = e[name];
             }
             
             t.push(o);
@@ -271,79 +326,70 @@
         return t;
     }
     
-    p.defines = function(){
-      throw 'Deprecated use attr'
+    p.isEmpty = function(){
+      return !this.length;
     }
     
-    p.attr = function(obj, value){
-        return this.each(function(){
-            this.attr(obj,value);
-        });
-        
+    /*
+    Returns the first entity that passes the truth iterator method.
+    
+    re('tile').find(function(){
+      return this.tileX() == 0 && this.tileY() == 1;
+    });
+    
+    */
+    p.find = function(method, context){
+      for(var i=0, l=this.length; i<l; i++){
+        if(method.call(context || this, this[i], i, this)) return this[i];
+      }
+      
+      return null;
     }
     
-    p.defaults = function(){
-      throw 'Deprecated use def'
-    }
+    /*
+    Returns the lowest entity from the given iterator.
     
-    p.def = function(obj, value){
-        return this.each(function(){
-            this.def(obj, value);
-        });
-        
-    }
+    var weakestRat = re('rat').min(function(e){
+      return e.health;
+    });
     
-    p.comp = function(c){
-        
-        return this.each(function(ref){
-            this.comp(c);
-        });
-        
-    }
-    
-    p.removeComp = function(c){
-        return this.each(function(ref){
-          this.removeComp(c);
-        });
-    }
-    
-    p.on = function(type, method){
-        
-        return this.each(function(){
-            this.on(type,method);
-        });
-        
-    }
-    
-    p.off = function(type, method){
-        return this.each(function(){
-            this.off(type, method);
-        });
-    }
-    
-        p.trigger = function(){
-            var p = arguments;
-            return this.each(function(){
-                this.trigger.apply(this, p);
-            });
-        }
-    
-    p.has = function(comp){
-        
-        for(var i=0; i<this.length; i++){
-            if(!this[i].has(comp)){
-                return false;
-            }
+    */
+    p.min = function(method, context){
+      var lowest = Infinity, val;
+      this.each(function(e, i, l){
+        var next = method.call(context || this, e, i, l);
+        if(next < lowest){
+          lowest = next;
+          val = e;
         }
         
-        return this.length != 0;
+      });
+      
+      return val;
+    }
+    
+    p.max = function(method, context){
+      var lowest = -Infinity, val;
+      this.each(function(e, i, l){
+        var next = method.call(context || this, e, i, l);
+        if(next > lowest){
+          lowest = next;
+          val = e;
+        }
+      });
+      
+      return val;
+    }
+    
+    p.include = function(ref){
+      return this.indexOf(ref) != -1;
     }
     
     p.dispose = function(){
         
-        return this.each(function(){
+        return this.each(function(e){
             
-            this.dispose();
+            e.dispose();
             
         });
         

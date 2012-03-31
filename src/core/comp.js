@@ -37,6 +37,7 @@
         this._re_signals = {};
         this._re_inherits = {};
         this._re_defines = {};
+        this._re_events = {};
         this._re_final = false;
     };
     
@@ -61,14 +62,10 @@ re.c.init.prototype = {
         }
     },
     
-    global:function(){
-        throw 'Deprecated use statics'
-    },
-    
     statics:function(obj, value){
         this._checkFinal();
         
-        if(arguments.length == 1){
+        if(!re.is(value)){
             
             for(var type in obj){
                 this[type] = obj[type];    
@@ -81,8 +78,20 @@ re.c.init.prototype = {
         return this;
     },
     
-    require:function(){
-        throw 'Deprecated use requires'
+    events:function(obj, value){
+      this._checkFinal();
+      
+      if(!re.is(value)){
+          
+          for(var type in obj){
+              this._re_events[type] = obj[type];    
+          }
+          
+      } else {
+          this._re_events[obj] = value;    
+      }
+      
+      return this;
     },
     
     requires:function(r){
@@ -184,10 +193,6 @@ re.c.init.prototype = {
       return re.e.init.prototype.trigger.apply(this, arguments);
     },
     
-  inherit:function(){
-    throw 'Deprecated use defaults'
-  },
-  
     /*
     Default adds onto but doesn't overwrite values.
     */
@@ -244,11 +249,6 @@ re.c.init.prototype = {
         }
         
         return this;
-    },
-    
-    extend:function(){
-        this.defines.apply(this, arguments);
-        re.log('warning extend is deprecated, use defines');
     },
     
     /*

@@ -195,6 +195,10 @@
             if(c._re_defines){
                 this.attr(c._re_defines);
             }
+            if(c._re_events){
+              this.attr(c._re_events)
+              .on(c._re_events);
+            }
             
             if(c._re_init){
                 c._re_init.apply(this, vals);
@@ -469,7 +473,7 @@
         } else {
             //defines property
             
-            if(!this.hasOwnProperty(obj) || !re.is(this[obj])){
+            if(!re.is(this[obj])){
                 
                 this[obj] = value;    
                 
@@ -483,13 +487,8 @@
         //delete from statics array
         re._e.splice(re._e.indexOf(this), 1);
         
-        for(var i in this._re_comps){
-          var k = re.c(this._re_comps[i]);
-          if(k._re_dispose){
-              k._re_dispose.call(this, k);
-          }
-          k.trigger('dispose', this);
-        }
+        //trigger dispose on all components
+        this.removeComp(this._re_comps);
         
         this.trigger('dispose');
         
