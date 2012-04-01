@@ -55,8 +55,16 @@ re.c('mouse')
         
         var canvas = re.sys.canvas;
         //calculate mouse coordinate
-        var x = e.offsetX * (canvas.width / canvas.offsetWidth);
-        var y = e.offsetY * (canvas.height / canvas.offsetHeight);
+        var x = canvas.width / canvas.offsetWidth;
+        var y = canvas.height / canvas.offsetHeight;
+        
+        if(e.offsetX != null){ //chrome, opera
+          x *= e.offsetX;
+          y *= e.offsetY;
+        } else { //firefox
+          x *= e.layerX - canvas.offsetLeft;
+          y *= e.layerY - canvas.offsetTop;
+        }
         
         //calculate offset
         

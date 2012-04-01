@@ -333,8 +333,8 @@
     /*
     Returns the first entity that passes the truth iterator method.
     
-    re('tile').find(function(){
-      return this.tileX() == 0 && this.tileY() == 1;
+    re('tile').find(function(e){
+      return e.tileX() == 0 && e.tileY() == 1;
     });
     
     */
