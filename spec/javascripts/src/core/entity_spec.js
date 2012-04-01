@@ -245,7 +245,25 @@ describe('entity', function(){
       eq(e._re_signals, {});
   })
   
-  it('should add multiple bindings', function(){
+  it('should change context of event', function(){
+    
+    var obj = {};
+    
+    e.on({
+      blah:function(){
+        eq(obj, this);
+      }
+    }, obj);
+    
+    e.on('blah2', function(){
+      eq(obj, this);
+    }, obj);
+    
+    e.trigger('blah2').trigger('blah');
+    
+  });
+  
+  it('should add multiple events', function(){
     
     var called = false;
     var called2 = false;
@@ -310,22 +328,32 @@ describe('entity', function(){
   var co;
   var en;
   var called2 = false;
+  
+  //listen for dispose call on component
       c.dispose(function(comp){
           called = true
           co = comp
       })
+      
+      //component dispose trigger
           c.on('dispose', function(e){
           called2 = true
           en = e
           })
+      
+          //add comp to testing entity
       e.comp(c.name)
+      
       var called3 = false
+      //listen for dispose trigger on entity
           e.on('dispose', function(){
               called3 = true
           });
       
+          //call it
       e.dispose()
       
+      //asserts
       ok(called)
       eq(co, c)
       ok(called2)

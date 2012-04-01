@@ -58,6 +58,7 @@ re.c('mouse')
         var x = canvas.width / canvas.offsetWidth;
         var y = canvas.height / canvas.offsetHeight;
         
+        //calculate offset
         if(e.offsetX != null){ //chrome, opera
           x *= e.offsetX;
           y *= e.offsetY;
@@ -66,9 +67,8 @@ re.c('mouse')
           y *= e.layerY - canvas.offsetTop;
         }
         
-        //calculate offset
         
-        var that = re.c('mouse');
+        var listeners = re.c('mouse').l;
         
         /*
         if(re.preventDefault && re.preventDefault.d[key]){
@@ -77,8 +77,8 @@ re.c('mouse')
         */
         
         var c, t, obj;
-        for(var i=0; i<that.l.length; i++){
-          t = that.l[i];
+        for(var i=0; i<listeners.length; i++){
+          t = listeners[i];
           if(t.screenable){
             x = re.screen.toScreenX(x);
             y = re.screen.toScreenY(y);

@@ -317,7 +317,6 @@
     };
     
     /*
-    New way to add signals version 0.2.1.
     
     //single
     bind('draw', function(){});
@@ -331,14 +330,13 @@
         
     });
     */
-    p.on = function(type, method){
+    p.on = function(type, method, context){
         
         if(re.is(type, 'object')){
             
-            for(var k in type){
-              if(type.hasOwnProperty(k))
-                this.on(k, type[k]);
-            }
+          for(var k in type){
+            this.on(k, type[k], method);
+          }
             
         } else {
             
@@ -346,6 +344,9 @@
                 this._re_signals[type] = [];
             }
             if(!re.is(method)) throw 'Method is null'
+            //save context
+            //WARNING: this could cause issues if someone uses a for in loop
+            method.c = context || this;
             this._re_signals[type].push(method);
             
         }
@@ -407,8 +408,6 @@
     
     /*
     Signal dispatches events to entities. 
-    Modified V0.3
-    
     
     -dispatch signals
     this.trigger('click');
@@ -428,8 +427,8 @@
             if(!b) break;
             if(!b[i]) continue;
             
-            //return false remove?
-            if(b[i].apply( (b[i].c)?b[i].c : this , Array.prototype.slice.call(arguments, 1)) === false){
+            //return false remove
+            if(b[i].apply(b[i].c, Array.prototype.slice.call(arguments, 1)) === false){
                 b.splice(i, 1);
             }
             
@@ -484,13 +483,21 @@
     }
     
     p.dispose = function(){
+      var dis = 'dispose';
         //delete from statics array
         re._e.splice(re._e.indexOf(this), 1);
         
         //trigger dispose on all components
-        this.removeComp(this._re_comps);
+        //this.removeComp(this._re_comps);
+        for(var i in this._re_comps){
+          var k = re.c(this._re_comps[i]);
+          if(k._re_dispose){
+              k._re_dispose.call(this, k);
+          }
+          k.trigger(dis, this);
+        }
         
-        this.trigger('dispose');
+        this.trigger(dis);
         
         //remove all events
         this.off();
