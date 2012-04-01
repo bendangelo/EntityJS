@@ -90,7 +90,7 @@
         if(pieces.length > 1){
             
             for(var k in pieces){
-                this._re_comp(pieces[k]);    
+                this.removeComp(pieces[k]);    
             }
             
             return this;
@@ -488,14 +488,7 @@
         re._e.splice(re._e.indexOf(this), 1);
         
         //trigger dispose on all components
-        //this.removeComp(this._re_comps);
-        for(var i in this._re_comps){
-          var k = re.c(this._re_comps[i]);
-          if(k._re_dispose){
-              k._re_dispose.call(this, k);
-          }
-          k.trigger(dis, this);
-        }
+        this.removeComp(this._re_comps);
         
         this.trigger(dis);
         
