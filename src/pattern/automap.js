@@ -18,12 +18,12 @@ var level =
 [2,3,4,5,6,4]
 ]
 
-//value copy
+//reference copy
 map.automap(level)
 
 map.automap(0, 1) // 1
 
-//reference copy
+//value copy
 map.automap(level, true)
 
 map.map == level //true
@@ -45,6 +45,16 @@ re.c('automap')
     if(re.is(x, 'array')){
       
       if(y){
+        
+        //deep copy
+        for(var y=0; y<x.length; y++){
+			   for(var k=0; k<x[0].length; k++){
+				   this.automap(k, y, x[y][k]);
+			    }
+		    }
+        
+      } else {
+    		
         //non-deep copy
 		  
 		    this._automap = x;
@@ -56,15 +66,6 @@ re.c('automap')
     		}
     		
     		this.lenY = x.length;
-        
-      } else {
-    		
-        //deep copy
-        for(var y=0; y<x.length; y++){
-			   for(var k=0; k<x[0].length; k++){
-				   this.automap(k, y, x[y][k]);
-			    }
-		    }
       }
       
       return this;  

@@ -37,7 +37,7 @@ describe('automap', function(){
     [6,5,4,3,2,1]
     ];
     
-    is(e.automap(level))
+    is(e.automap(level, true))
     eq(e.lenX, level[0].length)
     eq(e.lenY, level.length)
     
@@ -54,7 +54,7 @@ describe('automap', function(){
     [6,5,4,3,2,1]
     ];
     
-    is(e.automap(level, true))
+    is(e.automap(level))
     eq(e.lenX, level[0].length)
     eq(e.lenY, level.length)
     
