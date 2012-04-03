@@ -178,7 +178,7 @@ describe('entity', function(){
       eq(e.parent(c.name, 'd', 100), 100)
       eq(e.parent(c.name, 'y', 'bob'), 'bob')
       e.comp(c.name)
-      ok(e.parent('', 'has', c.name))
+      ok(e.parent('','has', c.name))
   })
   
   it('should throw error on undefined parent method', function(){

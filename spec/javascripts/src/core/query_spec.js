@@ -79,7 +79,17 @@ describe('query', function(){
       eq(k[0].f, re('tile')[0].f);
       eq(k[0].y, re('tile')[0].y);
     });
-        
+    
+    it('e', function(){
+      
+      var q = re();
+      
+      q.e('blah');
+      
+      ok(q.last().has('blah'))
+      
+    })
+    
     it('attr', function(){
         re('tile').attr('first', 'asdf');
         re('tile').each(function(e){

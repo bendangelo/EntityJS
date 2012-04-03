@@ -381,6 +381,32 @@
       return val;
     }
     
+    /*
+    Finds first entity with components
+    
+    re('draw').findWith('circle !red');
+    
+    */
+    p.findWith = function(comps){
+      return this.find(function(e){
+        return e.has(comps);
+      });
+    }
+    
+    p.e = function(comps, count){
+      var e = re.e(comps, count);
+      if(count){
+        //add all in query
+        for(var i in e){
+          this.push(e[i]);
+        }
+      } else {
+        this.push(e);
+      }
+      
+      return this;
+    }
+    
     p.include = function(ref){
       return this.indexOf(ref) != -1;
     }

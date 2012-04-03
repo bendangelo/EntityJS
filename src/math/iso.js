@@ -91,11 +91,15 @@ re.iso = re.c('iso')
     }
     
     //convert to screen space
-    x = (re.is(x)) ? x * re.iso.sizeX : this.posX;
+    x = (re.is(x)) ? x : this.isoX();
+    x *= re.iso.sizeX;
     
     //posY handles a lot of transformations, its safest to recalculate it
-    y = (re.is(y)) ? y * re.iso.sizeY : this.isoY() * re.iso.sizeY;
-    z = (re.is(z)) ? z * re.iso.sizeZ : this.posZ;
+    y = (re.is(y)) ? y : this.isoY();
+    y *= re.iso.sizeY;
+    
+    z = (re.is(z)) ? z : this.isoZ();
+    z *= re.iso.sizeZ;
     
     //all values should be in screen space from here
     this.posX = x - y;
