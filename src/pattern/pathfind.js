@@ -53,7 +53,15 @@ while(ints.length){
 }
 
 */
-re.c('pathfind')
+re.pathfind = re.c('pathfind')
+.statics({
+  search:function(){
+    var p = re.e('pathfind');
+    var path = p.pathfind.apply(p, arguments);
+    p.dispose();
+    return path;
+  }
+})
 .requires('point')
 .defines({
   
@@ -77,7 +85,7 @@ re.c('pathfind')
       n = this.nodes.shift();
       
       if(n.x == this.targetX && n.y == this.targetY){
-        return this.makePath(n, x, y);
+        return this.makePath(n);
       } else {
         
         this.searchNodes(n.x, n.y, n.px, n.py);
@@ -105,76 +113,59 @@ re.c('pathfind')
     return true;
   },
   
-  makePath:function(node, x, y){
-    var path = [];
+  makePath:function(node){
+    var path = [], num=0;
     
-    var num = 0;
-    
-    //incase player selected its current tile
-    if(this.targetX == x && this.targetY == y){
-      path[num++] = x;
-      path[num] = y;
-    } else {
+    do{
+      //starts at target and moves backwards to initial position
       
-      do{
-        //starts at target and moves backwards to initial position
-        
-        path[num++] = node.x;
-        path[num++] = node.y;
-        
-        node = this.nodes[node.px+'_'+node.py];
-        
-      }while(node && node.px != -1);
+      path[num++] = node.x;
+      path[num++] = node.y;
       
-    }
+      node = this.nodes[node.px+'_'+node.py];
+      
+    }while(node && node.px != -1);
     
     return path;
   },
   
-  nodeAdded:function(){
-    
-  },
-  
   addNode:function(x, y, px, py){
     
-    if(this.checkNode(x, y, px, py)){
+    if(!this.checkNode(x, y, px, py) || (this.onCheck && !this.onCheck(x, y, px, py))){
+      return false;
+    }
       
-      var name = x+'_'+y;
+    var name = x+'_'+y;
+    
+    this.posX = x;
+    this.posy = y;
+    var cost = this.distance(this.targetX, this.targetY);
+    
+    if(!this.nodes[name] || this.nodes[name].cost > cost){
       
-      if(!this.onCheck || this.onCheck(x, y, px, py)){
-        
-        this.posX = x;
-        this.posy = y;
-        var cost = this.distance(this.targetX, this.targetY);
-        
-        if(!this.nodes[name] || this.nodes[name].cost > cost){
-          
-          var n = this.nodes[name] = {x:x, y:y, cost:cost, px:px, py:py};
-          
-          var placed = false;
-          //enter in better cost nodes
-          for(var i=0, l = this.nodes.length; i<l; i++){
-            if(cost < this.nodes[i].cost){
-              this.nodes.splice(i, 0, n);
-              placed = true;
-              break;
-            }
-          }
-          
-          //just push it
-          if(!placed){
-            this.nodes.push(n);
-          }
-          
-          //hook in methods
-          if(this.onTile) this.onTile(x, y, px, py, cost);
-          this.nodeAdded(x, y, px, py, cost);
-          
+      var n = this.nodes[name] = {x:x, y:y, cost:cost, px:px, py:py};
+      
+      var placed = false;
+      //enter in better cost nodes
+      for(var i=0, l = this.nodes.length; i<l; i++){
+        if(cost < this.nodes[i].cost){
+          this.nodes.splice(i, 0, n);
+          placed = true;
+          break;
         }
-        
       }
       
+      //just push it
+      if(!placed){
+        this.nodes.push(n);
+      }
+      
+      //hook in methods
+      if(this.onTile) this.onTile(x, y, px, py, cost);
+      
+      return true;
     }
+        
   }
   
 });

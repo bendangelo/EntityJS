@@ -92,7 +92,9 @@ re.iso = re.c('iso')
     
     //convert to screen space
     x = (re.is(x)) ? x * re.iso.sizeX : this.posX;
-    y = (re.is(y)) ? y * re.iso.sizeY : this.posY;
+    
+    //posY handles a lot of transformations, its safest to recalculate it
+    y = (re.is(y)) ? y * re.iso.sizeY : this.isoY() * re.iso.sizeY;
     z = (re.is(z)) ? z * re.iso.sizeZ : this.posZ;
     
     //all values should be in screen space from here
@@ -128,6 +130,12 @@ re.iso = re.c('iso')
     }
     
     return this.posZ / re.iso.sizeZ;
+  },
+  
+  //returns true if the current iso tile is valid or if its not aligned
+  onIso:function(){
+    var total = this.isoX() + this.isoY() + this.isoZ();
+    return (total|0) == total;
   }
   
 });
