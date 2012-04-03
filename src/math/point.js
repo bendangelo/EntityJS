@@ -30,7 +30,7 @@ re.c('point')
             y = x.posY || x.y;
             x = x.posX || x.x;
         }
-        return re.math.distance(this.posX, this.posY, x, y);
+        return re.distance(this.posX, this.posY, x, y);
     }
     
 });

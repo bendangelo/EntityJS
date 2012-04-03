@@ -62,7 +62,6 @@ re.pathfind = re.c('pathfind')
     return path;
   }
 })
-.requires('point')
 .defines({
   
   pathfind_max:100,
@@ -124,7 +123,7 @@ re.pathfind = re.c('pathfind')
       
       node = this.nodes[node.px+'_'+node.py];
       
-    }while(node && node.px != -1);
+    } while(node && node.px != -1);
     
     return path;
   },
@@ -137,9 +136,7 @@ re.pathfind = re.c('pathfind')
       
     var name = x+'_'+y;
     
-    this.posX = x;
-    this.posy = y;
-    var cost = this.distance(this.targetX, this.targetY);
+    var cost = re.distance(x, y, this.targetX, this.targetY);
     
     if(!this.nodes[name] || this.nodes[name].cost > cost){
       

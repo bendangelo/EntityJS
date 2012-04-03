@@ -1,15 +1,9 @@
-describe('math', function(){
+describe('random', function(){
 	
-  it('distance', function(){
-    
-    eq(re.math.distance(10, 10, 20, 40) | 0, 31)
-    
-  });
-  
 	it('random 0-1', function(){
 		
     for(var i = 100; i--;){
-      var n = re.math.random();
+      var n = re.random();
       ok(n >= 0)
       ok(n <= 1)
     }
@@ -19,7 +13,7 @@ describe('math', function(){
 	it('random 0-3', function(){
 		
     for(var i = 100; i--;){
-      var n = re.math.random(3);
+      var n = re.random(3);
       ok(n >= 0)
       ok(n <= 3)
     }
@@ -32,7 +26,7 @@ describe('math', function(){
     var second = false;
     
     for(var i = 100; i--;){
-      var n = re.math.random([-10, 10]);
+      var n = re.random([-10, 10]);
       if(n == 10) first = true;
       if(n == -10) second = true;
       ok(n == -10 || n == 10)
@@ -46,7 +40,7 @@ describe('math', function(){
 	it('random -10 to 10', function(){
 		
     for(var i = 100; i--;){
-      var n = re.math.random(-10, 10);
+      var n = re.random(-10, 10);
       ok(n >= -10)
       ok(n <= 10)
     }
