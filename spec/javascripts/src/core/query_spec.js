@@ -1,5 +1,9 @@
 describe('query', function(){
   
+  beforeEach(function(){
+    query = re();
+  })
+  
     it('should query', function(){
         re.e('tesee');
         re.e('tesee bob99');
@@ -87,6 +91,68 @@ describe('query', function(){
       q.e('blah');
       
       ok(q.last().has('blah'))
+      
+    })
+    
+    it('should last', function(){
+      var b = re.e();
+      query.last(b);
+      eq(query.last(), b)
+    })
+    
+    it('should first', function(){
+      var b = re.e();
+      query.first(b);
+      eq(query.first(), b)
+      
+    })
+    
+    it('insertAfter', function(){
+      var b = re.e();
+      
+      query.last(10, 6);
+      
+      query.insertAfter(10, b);
+      
+      eq(query.indexOf(b), 1);
+    })
+    
+    it('insertBefore', function(){
+      
+      var b = re.e();
+      
+      query.last(10, 6);
+      
+      query.insertBefore(6, b);
+      
+      eq(query.indexOf(b), 1);
+    })
+    
+    it('swap', function(){
+      query.last(10, 6);
+      
+      
+      query.swap(10, 6);
+      
+      eq(query[0], 6);
+      eq(query[1], 10);
+    })
+    
+    it('should erase', function(){
+      
+      var q = re();
+      
+      var e = re.e();
+      
+      q.push(e);
+      
+      //add in
+      var n = re.e();
+      
+      q.erase(e, n);
+      
+      not(q.include(e))
+      ok(q.include(n))
       
     })
     

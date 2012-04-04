@@ -411,6 +411,61 @@
       return this.indexOf(ref) != -1;
     }
     
+    //TODO: add these into draw and update comps
+    
+    /*
+    Removes first reference found from array.
+    
+    var blah = re.e();
+    
+    var q = re()
+    q.push(blah);
+    
+    q.erase(blah);
+    
+    q.include(blah) //false
+    
+    Can also add in other in its place.
+    
+    q.erase(blah, re.e());
+    
+    */
+    p.erase = function(ref){
+      var r = [this.indexOf(ref), 1].concat(Array.prototype.slice.call(arguments, 1));
+      this.splice.apply(this, r);
+      return this;
+    }
+    
+    /*
+    Inserts an element after the other.
+    */
+    p.insertAfter = function(target, ref){
+      this.splice(this.indexOf(target)+1, 0, ref);
+      return this;
+    }
+    
+    /*
+    Inserts an element before the other.
+    */
+    p.insertBefore = function(target, ref){
+      this.splice(this.indexOf(target), 0, ref);
+      return this;
+    }
+    
+    /*
+    Swaps the indexes of the given elements.
+    */
+    p.swap = function(ref1, ref2){
+      var ref1i = this.indexOf(ref1);
+      var ref2i = this.indexOf(ref2);
+      
+      var t = this[ref1i];
+      this[ref1i] = ref2;
+      this[ref2i] = t;
+      
+      return this;
+    }
+    
     p.dispose = function(){
         
         return this.each(function(e){
@@ -421,11 +476,24 @@
         
     }
     
-    p.first = function(){
+    /*
+    returns first element or appends it to front
+    
+    re().first(1).first(); //1
+    */
+    p.first = function(r){
+      if(arguments.length){
+        this.unshift.apply(this, arguments);
+        return this;
+      }
       return this[0];
     }
     
-    p.last = function(){
+    p.last = function(ref){
+      if(arguments.length){
+        this.push.apply(this, arguments);
+        return this;
+      }
       return this[this.length-1];
     }
     

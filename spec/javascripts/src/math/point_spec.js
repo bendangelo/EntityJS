@@ -36,7 +36,7 @@ describe('point', function(){
   it('should be correct distance', function(){
     e.posX = 12;
     e.posY = 54;
-    eq(e.distance(23,74),+0.5|0 23)
+    eq(e.distance(23,74)+0.5|0, 23)
   })
   
   it('should be correct distance with from', function(){
