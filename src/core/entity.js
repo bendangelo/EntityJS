@@ -81,37 +81,38 @@
         //handle string or array?
         if(re.is(com,'array')){
             pieces = com;
-            
-            com = com[0];
         } else {
             pieces = com.split(' ');
         }
         
         if(pieces.length > 1){
             
-            for(var k in pieces){
-                this.removeComp(pieces[k]);    
-            }
+          var k;
+          while(k = pieces.shift()){
+            this.removeComp(k);
+          }
             
             return this;
+        } else {
+          com = pieces[0];
         }
         
-        var c = re._c[com];
-        
-        if(!this.has(com)) return this;
-        
-        //remove from array
-        this._re_comps.splice(this._re_comps.indexOf(com), 1);
-        
-        //only remove if it exists
-        if(c){
-            
-            if(c._re_dispose){
-                c._re_dispose.call(this, c);
-            }
-            
-            c.trigger('dispose', this);
-            
+        if(this.has(com)){
+          
+          var c = re._c[com];
+          //only remove if it exists
+          if(c){
+              
+              if(c._re_dispose){
+                  c._re_dispose.call(this, c);
+              }
+              
+              c.trigger('dispose', this);
+              
+          }
+  
+          //remove from array
+          this._re_comps.splice(this._re_comps.indexOf(com), 1);
         }
         return this;
     };
@@ -484,16 +485,17 @@
     
     p.dispose = function(){
       var dis = 'dispose';
-        //delete from statics array
-        re._e.splice(re._e.indexOf(this), 1);
         
         //trigger dispose on all components
-        this.removeComp(this._re_comps);
+        this.removeComp(this.comps());
         
         this.trigger(dis);
         
         //remove all events
         this.off();
+        
+        //delete from statics array
+        re._e.splice(re._e.indexOf(this), 1);
         
         return this;
     }

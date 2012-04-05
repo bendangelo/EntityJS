@@ -152,7 +152,7 @@ describe('entity', function(){
       
       e.comp(c.name)
       
-      e.removeComp(c.name)
+      e.removeComp(['blah', c.name])
       not(e.has(c.name))
       ok(called)
       ok(called2)
@@ -179,6 +179,25 @@ describe('entity', function(){
       eq(e.parent(c.name, 'y', 'bob'), 'bob')
       e.comp(c.name)
       ok(e.parent('','has', c.name))
+  })
+  
+  it('should dispose of all components properly', function(){
+    var called = false, called2 = false;
+    
+    e.comp('image iso');
+    
+    re.draw.on('dispose', function(e){
+      called = true;
+    })
+    
+    re.draw.dispose(function(){
+      called2 = true;
+    })
+    
+    e.dispose();
+    ok(called);
+    ok(called2)
+    
   })
   
   it('should throw error on undefined parent method', function(){

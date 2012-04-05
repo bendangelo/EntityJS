@@ -15,7 +15,10 @@ re.draw = re.c('draw')
     sort:function(){
       
       this.l.sort(function(a, b){
-        return a.depth() - b.depth();
+        if(a.depth && b.depth){
+          return a.depth() - b.depth();
+        }
+        return 0;
       });
       
     }

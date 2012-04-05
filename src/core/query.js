@@ -411,8 +411,6 @@
       return this.indexOf(ref) != -1;
     }
     
-    //TODO: add these into draw and update comps
-    
     /*
     Removes first reference found from array.
     

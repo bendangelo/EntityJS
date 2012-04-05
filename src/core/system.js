@@ -44,6 +44,7 @@ re.c('system')
             (function m(){
               
               that.system_loop();
+              
               if(that.running){
                 that.requestAnimationFrame(m, that.canvas);
               }
@@ -96,6 +97,7 @@ re.c('system')
         if(re._c.touch){
           re._c.touch.i();
         }
+        this.system_loop = this.defaultLoop;
         
         return this;
     },
@@ -103,7 +105,7 @@ re.c('system')
     /*
     Default main loop
     */
-    system_loop:function(){
+    defaultLoop:function(){
         
         this.timestep(Math.min(this.tick() / 1000, this.maxTick), function(){
             //update
@@ -112,7 +114,7 @@ re.c('system')
         
         //clear
         this.clear(this.clearColor);
-        re._c.draw.draw(this.context);
+        re.draw.draw(this.context);
     }
     
     
