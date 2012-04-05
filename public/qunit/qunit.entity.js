@@ -21,10 +21,6 @@ Disable re.ready for testing
 */
 re.ready = function(){};
 
-window.addEventListener('load', function(){
-  re.sys.init(re.canvas).start();
-}, true);
-
 /*
 Expects a trigger call from the given obj.
 
