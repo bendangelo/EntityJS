@@ -12,7 +12,7 @@ re.c('polyfill')
 .run(function(){
 	
 	//setup requestanimationframe on support
-	window.requestAnimFrame = 
+	requestAnimFrame = 
 	window.requestAnimationFrame ||
 	window.webkitRequestAnimationFrame ||
 	window.mozRequestAnimationFrame ||

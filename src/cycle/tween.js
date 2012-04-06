@@ -83,7 +83,7 @@ re.c('tween')
       time /= 1000;
     }
     
-    var maxTime = (time || 1) / (re.sys.stepSize * 60);
+    var maxTime = (time || 1) / re.sys.second;
     this.tween_time = 0;
     //steps are substracted until it reaches zero
     

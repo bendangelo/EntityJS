@@ -135,6 +135,8 @@
                if(select.call(e, i, l)) this.push(e);
             }
             
+        } else if(re.is(select, 'array')){
+          this.push.apply(this, select);
         }
         
         return this;
@@ -381,6 +383,11 @@
       return val;
     }
     
+    //without this filter would return a normal array.
+    p.filter = function(){
+      return re(Array.prototype.filter.apply(this, arguments));
+    }
+    
     /*
     Finds first entity with components
     
@@ -393,6 +400,9 @@
       });
     }
     
+    /*
+    Creates a new entity and pushes it into the array.
+    */
     p.e = function(comps, count){
       var e = re.e(comps, count);
       if(count){

@@ -255,8 +255,9 @@ describe('entity', function(){
           not(e.has('^yep'))
            
           ok(e.has('^ok'))
-              e.off({ok:func})
-              not(e.has('^ok'))
+            e.off({ok:func})
+              
+            not(e.has('^ok'))
               
               //remove all
        e.on('key', function(){});

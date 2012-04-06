@@ -46,6 +46,17 @@ describe('query', function(){
         }).length, 1)
     });
   
+    it('should create query from array', function(){
+      var a = [1,2,3];
+      
+      var q = re(a);
+      
+      eq(q[0], a[0])
+      eq(q[1], a[1])
+      eq(q[2], a[2])
+      
+    })
+    
     it('invoke', function(){
         eq(re.e('ok', 3).invoke('comp', 'b').comps(), ['ok', 'b'])
     });

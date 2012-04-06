@@ -47,7 +47,7 @@ describe('cycle/tween', function(){
     
     tween.tween_update(step)
     
-    eq(tween.x, 23.240000000000002);
+    eq(tween.x, 21.62);
     
     for(var i=60; i--;)
     tween.tween_update(step);

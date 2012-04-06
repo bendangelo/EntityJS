@@ -346,9 +346,7 @@
             }
             if(!re.is(method)) throw 'Method is null'
             //save context
-            //WARNING: this could cause issues if someone uses a for in loop
-            method.c = context || this;
-            this._re_signals[type].push(method);
+            this._re_signals[type].push({c:context || this, f:method});
             
         }
         
@@ -388,7 +386,7 @@
                var i = this._re_signals[type];
                 for(var k in i){
                 
-                    if(i.hasOwnProperty(k) && i[k] == method){
+                    if(i[k].f == method){
                         i.splice(k, 1);
                     }
                     
@@ -412,8 +410,7 @@
     
     -dispatch signals
     this.trigger('click');
-    this.trigger('click draw');
-    this.trigger('click', {data:0});
+    this.trigger('click', 0);
     
     */
     p.trigger = function(type){
@@ -429,7 +426,7 @@
             if(!b[i]) continue;
             
             //return false remove
-            if(b[i].apply(b[i].c, Array.prototype.slice.call(arguments, 1)) === false){
+            if(b[i].f.apply(b[i].c, Array.prototype.slice.call(arguments, 1)) === false){
                 b.splice(i, 1);
             }
             

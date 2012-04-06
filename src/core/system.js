@@ -98,6 +98,7 @@ re.c('system')
           re._c.touch.i();
         }
         this.system_loop = this.defaultLoop;
+        this.second = this.stepSize * 30;
         
         return this;
     },

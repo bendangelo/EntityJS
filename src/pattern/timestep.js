@@ -21,7 +21,7 @@ re.c('timestep')
         
         while(this.stepProgress >= this.stepSize){
             
-            callback.call((context)?context:this);
+            callback.call(context || this);
             
             this.stepProgress -= this.stepSize;
         }

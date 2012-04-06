@@ -11,14 +11,12 @@ re.c('flicker')
 .init(function(){
 	
 	this.flicker_reels = {};
-	this.flicker_old = {};
 	this.flicker_reel = {};
-	
-	this.flicker_flickering = '';
 	
 })
 .defines({
-	
+	flicker_flickering:'',
+  
 	flicker_stop:function(){
 		var o = this.flicker_flickering;
 		this.flicker_flickering = '';
@@ -30,13 +28,12 @@ re.c('flicker')
 		return this.trigger('flicker:finish', o);
 	},
 	
-	flicker_update:function(t){
-		
-		this.timestep(t, function(){
+  flicker_change:function(){
+    
 			var c = this.flicker_reel;
       
 			//check if over
-			if(this.flicker_frame == this.flicker_reel.frames.length){
+			if(this.flicker_frame == c.frames.length){
 				
 				if(c.loops == -1 || --this.flicker_loops >= 1){
 					//loop again
@@ -47,19 +44,25 @@ re.c('flicker')
 					//done flickering
 					
 					this.flicker_stop();
-					
-					return;
+          return;
 				}
 			}
 			
+      this.flicker_call();
+  },
+  
+  flicker_call:function(){
+    
 			//flick
-			if(this.flick(c.frames[this.flicker_frame++], this.flicker_flickering, this.flicker_loops) === false){
+			if(this.flick(this.flicker_reel.frames[this.flicker_frame++], this.flicker_flickering, this.flicker_loops) === false){
         //stop
         this.flicker();
       }
 			
-		});
-		
+  },
+  
+	flicker_update:function(t){
+		this.timestep(t, this.flicker_change);
 	},
 	
 	addFlicker:function(id, loops, duration, frames){
@@ -79,8 +82,6 @@ re.c('flicker')
 			
 			return this;
 		}
-		
-		if(re.is(frames, 'string')) frames = frames.split(' ');
 		
 		//add
 		this.flicker_reels[id] = 
@@ -120,7 +121,7 @@ re.c('flicker')
 	
 	//play animation
 	//can customize the animation for this call.
-	re('#player')[0].flicker('die', 0, 200);
+	re('#player')[0].flicker('die', -1, 200);
 	
 	//stop flickering
 	re('#player')[0].flicker();
@@ -139,18 +140,11 @@ re.c('flicker')
 	*/
 	flicker:function(id, loops, duration, frames){
 		
+    //stop
 		if(!re.is(id) && this.flickering()){
 			//stop flickering
 			return this.flicker_stop();
 		}
-		
-		if(id == this.flicker_flickering) return;
-		
-		if(!this.flicker_reels[id]){
-			return this;	
-		}
-		
-		//defaults
 		
 		//startX = loops, endX = duration in seconds
 		//if startX equals 0, animation loops forever
@@ -158,7 +152,7 @@ re.c('flicker')
 		var r = this.flicker_reels[id];
 		
 		//create new reel based on custom attributes
-		var c = this.flicker_reel;
+		var c = this.flicker_reel = {};
 		//copy from saved animation or newly given
 		c.loops = (isNaN(loops))? r.loops : loops;
 		c.duration = (isNaN(duration))? r.duration : duration;
@@ -168,18 +162,18 @@ re.c('flicker')
       c.duration /= 1000;
     }
     
-		c.frames = (re.is(frames,'array'))? frames : r.frames;
+		c.frames = (re.is(frames))? frames : r.frames;
+		
+    //convert '1 2 3' to [1, 2, 3]
+		if(re.is(c.frames, 'string')) c.frames = c.frames.split(' ');
 		
 		//setup counter for loops
 		this.flicker_loops = c.loops;
 		
 		this.stepProgress = 0;
-		this.stepSize = c.duration / (re.sys.stepSize * 60);
+		this.stepSize = (c.duration / c.frames.length) / re.sys.second;
     
 		this.flicker_frame = 0;
-		
-		//update frame then run
-		//this.flick(c.frames[this.flicker_frame++]);
 		
 		if(!this.flickering()){
 			this.on('update', this.flicker_update);
@@ -187,8 +181,13 @@ re.c('flicker')
 		
     //sets flicker status
 		this.flicker_flickering = id;
+    
+		this.trigger('flicker:start');
+    
+		//update frame then run
+		this.flicker_call();
 		
-		return this.trigger('flicker:start');
+		return this;
 	},
 	
 	/*
