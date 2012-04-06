@@ -53,12 +53,10 @@ re.c('flicker')
 			}
 			
 			//flick
-			if(this.flick(c.frames[this.flicker_frame], this.flicker_flickering, this.flicker_loops) === false){
+			if(this.flick(c.frames[this.flicker_frame++], this.flicker_flickering, this.flicker_loops) === false){
         //stop
         this.flicker();
       }
-			
-			this.flicker_frame++;
 			
 		});
 		
@@ -170,25 +168,24 @@ re.c('flicker')
       c.duration /= 1000;
     }
     
-		c.frames = (re.is(frames,'object'))? frames : r.frames;
+		c.frames = (re.is(frames,'array'))? frames : r.frames;
 		
 		//setup counter for loops
 		this.flicker_loops = c.loops;
 		
 		this.stepProgress = 0;
-		this.stepSize = c.duration / c.frames.length;
+		this.stepSize = c.duration / (re.sys.stepSize * 60);
     
-		//save old frames for upon completion
-		
 		this.flicker_frame = 0;
 		
 		//update frame then run
-		this.flick(c.frames[this.flicker_frame++]);
+		//this.flick(c.frames[this.flicker_frame++]);
 		
 		if(!this.flickering()){
 			this.on('update', this.flicker_update);
 		}
 		
+    //sets flicker status
 		this.flicker_flickering = id;
 		
 		return this.trigger('flicker:start');

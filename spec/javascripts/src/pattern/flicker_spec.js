@@ -35,7 +35,8 @@ describe('flicker', function(){
   
   it('flicker', function(){
     
-    e.addFlicker('heal', 2, 100, [5, 5])
+    //should take one second to finish
+    e.addFlicker('heal', 1, 1, [5, 5])
     
     var called = false;
     var called2 = false;
@@ -57,9 +58,14 @@ describe('flicker', function(){
     ok(called)
     
     //manually call update
-    e.flicker_update(0.9)
+    for(var i=60; i--;){
+      e.flicker_update(re.sys.stepSize);
+      if(i == 30){
+        eq(e.health, 5);
+      }
+    }
     
-    eq(e.health, 20)
+    eq(e.health, 10)
       
     ok(called2)
   })
