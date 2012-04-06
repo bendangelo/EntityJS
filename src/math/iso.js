@@ -84,7 +84,7 @@ re.iso = re.c('iso')
         this.posY = x.posY;
         if(x.posZ){
           //reverse z
-          this.posY += x.posZ;
+          //this.posY += x.posZ;
           this.posZ = x.posZ;
         }
         return this;

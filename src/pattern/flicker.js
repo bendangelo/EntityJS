@@ -118,14 +118,14 @@ re.c('flicker')
 	Time is in milliseconds.
 	
 	//create sequence animation
-	re('#player').flicker('die', 1, 200, [0, 1, 3, 3, 4, 3, 2, 1]);
+	re('#player')[0].flicker('die', 1, 200, [0, 1, 3, 3, 4, 3, 2, 1]);
 	
 	//play animation
 	//can customize the animation for this call.
-	re('#player').flicker('die', 0, 200);
+	re('#player')[0].flicker('die', 0, 200);
 	
 	//stop flickering
-	re('#player').flicker();
+	re('#player')[0].flicker();
 	
 	//add multiple animations
 	flicker({
