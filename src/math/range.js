@@ -6,7 +6,7 @@ re.range(2, 10, 2); //[2, 4, 6, 8]
 
 */
 re.range = function(start, finish, step){
-  var a = re();
+  var a = [];
   for(var i=start||0; i<finish; i+=step||1){
     a.push(i);
   }
