@@ -169,17 +169,36 @@ e.has('coin') //true
 var coin2 = f('coin');
 coin2.value //10
 
+//create coin with custom factory
+//still has other defines properties
+
+var customCoin = f('coin', function(){
+  this.getValue = function(){
+    return this.value;
+  };
+});
+
+customCoin.value //10
+customCoin.getValue(); //10
+
 */
 var _factories = {};
 function factory(comps, func){
-  var e = re.e(comps);
-  
-  //don't enter in arrays, strings only
-  if(func) _factories[comps] = func;
-  
-  if(_factories[comps]) _factories[comps].call(e);
-  
-  return e;
+  //define new factory
+  if(func && !_factories[comps]){
+    _factories[comps] = func;
+    
+  } else {
+    //create
+    var e = re.e(comps);
+    
+    //call defined factory
+    if(_factories[comps]) _factories[comps].call(e);
+    
+    //call custom method
+    if(func) func.call(e);
+    return e;
+  }
 }
 var f = factory;
 

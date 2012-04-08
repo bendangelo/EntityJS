@@ -66,10 +66,10 @@ re.c('flicker')
 				}
 			}
 			
-      this.flicker_call();
+      this.flicker_run();
   },
   
-  call:function(){
+  run:function(){
     
 			//flick
 			if(this.flick(this.flicker_frames[this.flicker_frame++], this.flicker_id, this.flicker_loops) === false){
@@ -131,7 +131,7 @@ re.c('flicker')
 		this.trigger('flicker:start');
     
 		//update frame then run
-		this.flicker_call();
+		this.flicker_run();
 		
 		return this;
 	},
