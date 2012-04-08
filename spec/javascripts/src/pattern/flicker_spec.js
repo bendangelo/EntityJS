@@ -13,31 +13,11 @@ describe('flicker', function(){
     .comp('flicker');
     
 	});
-
-	it('addFlicker', function(){
-		
-    e.addFlicker('heal', 5, 200, [10])
-    
-    is(e.flicker_reels['heal'])
-    
-	});
-  
-  it('removeFlicker', function(){
-    
-    is(e.addFlicker('heal', 5, 200, [10]))
-    
-    is(e.flicker_reels['heal'])
-    
-    is(e.removeFlicker('heal'))
-    
-    eq(e.flicker_reels['heal'], null)
-  })
   
   it('flicker', function(){
     
     //should take 4 seconds to finis
     var time = 4;
-    e.addFlicker('heal', 1, time, [5, 5, 5, 5])
     
     var called = false;
     var called2 = false;
@@ -50,7 +30,7 @@ describe('flicker', function(){
       is(v, 'string')
     })
     
-    e.flicker('heal')
+    e.flicker(time, [5, 5, 5, 5], 1, 'heal')
     
     ok(e.flickering('heal'))
     
@@ -76,7 +56,7 @@ describe('flicker', function(){
   
   it('should flicker correctly', function(){
     
-    e.flicker('heal', 1, 1, [5]);
+    e.flicker(1, [5]);
     
     eq(e.health, 5)
     

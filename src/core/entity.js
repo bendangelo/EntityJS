@@ -137,8 +137,6 @@
         //handle array or string?
         if(re.is(com, 'array')){
             pieces = com;
-            //set in case length is 1
-            com = com[0];
         } else {
             pieces = com.split(' ');
         }
@@ -148,7 +146,11 @@
                 this._re_comp(pieces[i]);
             }
             return this;
+        } else {
+          com = pieces[0];
         }
+        
+        if(!com) return this;
         
         //component reference
         var c;
@@ -164,7 +166,7 @@
         vals[0] = c;
         
         //if already has component
-        if(this.has(com)) return this;
+        if(!this.has(com)){
         
         //add comp first thing, to avoid dupe requirement calls
         //and this lets the init remove the comp too.
@@ -208,7 +210,7 @@
             c.trigger('init', this);
         }
         
-        
+      }
         
     
         return this;

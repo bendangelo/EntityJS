@@ -1,25 +1,45 @@
 /*
-The flicker component calls the implemented method and sends the given information over a period of time.
+The flicker component calls the implemented flick method with the given array data over a period of time.
 
 This is most popular for sprite animation.
 
 It can also be used for graduatly writing text or flashing a drawing object.
+
+re.c('health')
+.requires('flicker')
+.defines({
+  
+  health:100,
+  flick:function(health){
+    this.health += health;
+    if(this.health >= 100){
+      //stops flicker
+      return false;
+    }
+  },
+  
+  regen:function(){
+    //adds health over a duration of 30 seconds
+    this.flicker(30, [5, 5, 5, 5, 5, 5]);
+  }
+
+});
+
+var e = re.e('health').attr('health', 40);
+
+//low on health, regenerate
+e.regen();
+
 */
 re.c('flicker')
 .requires('update timestep')
 .interfaces('flick')
-.init(function(){
-	
-	this.flicker_reels = {};
-	this.flicker_reel = {};
-	
-})
-.defines({
-	flicker_flickering:'',
+.namespaces({
+	flickering:'',
   
-	flicker_stop:function(){
-		var o = this.flicker_flickering;
-		this.flicker_flickering = '';
+	stop:function(){
+		var o = this.flicker_id;
+		this.flicker_id = '';
 			
 		this.stepProgress = 0;
 			
@@ -28,14 +48,12 @@ re.c('flicker')
 		return this.trigger('flicker:finish', o);
 	},
 	
-  flicker_change:function(){
+  change:function(){
     
-			var c = this.flicker_reel;
-      
 			//check if over
-			if(this.flicker_frame == c.frames.length){
+			if(this.flicker_frame == this.flicker_frames.length){
 				
-				if(c.loops == -1 || --this.flicker_loops >= 1){
+				if(this.flicker_loops == -1 || --this.flicker_loops >= 1){
 					//loop again
 					
 					this.flicker_frame = 0;
@@ -51,128 +69,56 @@ re.c('flicker')
       this.flicker_call();
   },
   
-  flicker_call:function(){
+  call:function(){
     
 			//flick
-			if(this.flick(this.flicker_reel.frames[this.flicker_frame++], this.flicker_flickering, this.flicker_loops) === false){
+			if(this.flick(this.flicker_frames[this.flicker_frame++], this.flicker_id, this.flicker_loops) === false){
         //stop
         this.flicker();
       }
 			
   },
   
-	flicker_update:function(t){
+	update:function(t){
 		this.timestep(t, this.flicker_change);
 	},
 	
-	addFlicker:function(id, loops, duration, frames){
-	
-		if(re.is(id, 'object')){
-			
-			for(var i in id){
-					
-					//copy formed array and insert
-					var c = id[i].slice();
-					//add key into array
-					c.unshift(i);
-					
-					this.addFlicker.apply(this, c);
-					
-			}
-			
-			return this;
-		}
-		
-		//add
-		this.flicker_reels[id] = 
-		{
-			frames:frames,
-			duration:duration,
-			loops:loops
-		};
-		
-		return this;
-	},
-	
-	removeFlicker:function(id){
-		
-		if(re.is(id,'object')){
-			
-			for(var i in id){
-				
-				this.removeFlicker.call(this, id[i]);
-			}
-			
-			return this;
-		}
-		
-		//assuming this flicker isn't running
-		delete this.flicker_reels[id];
-		
-		return this;
-	},
-	
+})
+.defines({
+  
 	/*
-	The animate method either creates or plays an animation.
-	Time is in milliseconds.
-	
-	//create sequence animation
-	re('#player')[0].flicker('die', 1, 200, [0, 1, 3, 3, 4, 3, 2, 1]);
-	
-	//play animation
-	//can customize the animation for this call.
-	re('#player')[0].flicker('die', -1, 200);
-	
-	//stop flickering
-	re('#player')[0].flicker();
-	
-	//add multiple animations
-	flicker({
-	idle:[loops, duration, frames],
-	..
-	
-	
-	});
-	
+  
+  loops defaults to 1
+  id default to true
+  
 	FUTURE: 
 	-allow backward animations
 	-allow entry of an array of frames. So each counter will go to the next frame in the array
 	*/
-	flicker:function(id, loops, duration, frames){
+	flicker:function(duration, frames, loops, id){
 		
     //stop
-		if(!re.is(id) && this.flickering()){
+		if(!re.is(loops) && this.flickering()){
 			//stop flickering
 			return this.flicker_stop();
 		}
 		
-		//startX = loops, endX = duration in seconds
-		//if startX equals 0, animation loops forever
-		
-		var r = this.flicker_reels[id];
-		
-		//create new reel based on custom attributes
-		var c = this.flicker_reel = {};
-		//copy from saved animation or newly given
-		c.loops = (isNaN(loops))? r.loops : loops;
-		c.duration = (isNaN(duration))? r.duration : duration;
-    
     //convert to seconds
-    if(c.duration >= 30){
-      c.duration /= 1000;
+    if(duration >= 100){
+      duration /= 1000;
     }
     
-		c.frames = (re.is(frames))? frames : r.frames;
-		
-    //convert '1 2 3' to [1, 2, 3]
-		if(re.is(c.frames, 'string')) c.frames = c.frames.split(' ');
-		
+		this.flicker_duration = duration || 1;
+    
+    frames = (re.is(frames,'array')) ? frames : [frames];
+    
 		//setup counter for loops
-		this.flicker_loops = c.loops;
+		this.flicker_loops = loops || 1;
 		
 		this.stepProgress = 0;
-		this.stepSize = (c.duration / c.frames.length) / re.sys.second;
+		this.stepSize = (duration / frames.length) / re.sys.second;
     
+    this.flicker_frames = frames;
 		this.flicker_frame = 0;
 		
 		if(!this.flickering()){
@@ -180,7 +126,7 @@ re.c('flicker')
 		}
 		
     //sets flicker status
-		this.flicker_flickering = id;
+		this.flicker_id = id || true;
     
 		this.trigger('flicker:start');
     
@@ -198,10 +144,10 @@ re.c('flicker')
 	*/
 	flickering:function(id){
 		if(id){
-			return this.flicker_flickering == id;	
+			return this.flicker_id == id;	
 		}
 		
-		return this.flicker_flickering;
+		return this.flicker_id;
 	}
 	
 });

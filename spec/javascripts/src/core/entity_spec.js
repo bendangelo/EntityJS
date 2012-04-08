@@ -171,6 +171,10 @@ describe('entity', function(){
     eq(e.clone(2).comps(), e.comps())
   })
   
+  it('should clone empty entity', function(){
+    is(re.e().clone())
+  })
+  
   it('parent', function(){
       c.defines('d', function(v){return v; })
       .defaults('y', function(v){return v;})

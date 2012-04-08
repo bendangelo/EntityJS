@@ -47,15 +47,9 @@ re.c('tween')
       
       this.tweening = false;
       
+      this.off('update', this.tween_update);
+      
       this.trigger('tween:finish');
-      
-      //remove from queue
-      var next = this.tween_queue.shift();
-      
-      if(next){
-        this.tween.apply(this, next);
-      }
-      
     }
     
 	}
@@ -73,13 +67,9 @@ re.c('tween')
 .defines({
 	
 	tween:function(time, props){
-    if(this.tweening){
-      this.tween_queue.push(arguments);
-      return;
-    }
     
     //accepts ms or seconds
-    if(time >= 30){
+    if(time >= 100){
       time /= 1000;
     }
     
@@ -104,18 +94,15 @@ re.c('tween')
     //tween maximum time
     this.tween_t = maxTime;
     
+    if(!this.tweening){
+      this.on('update', this.tween_update);
+    }
     
     this.tweening = true;
     
     return this.trigger('tween:start', starts);
 	}
   
-})
-.init(function(){
-	
-  this.on('update', this.tween_update);
-  this.tween_queue = [];
-	
 });
 
 re.tween = function(obj, time, props){
