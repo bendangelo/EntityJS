@@ -160,10 +160,9 @@ describe('query', function(){
       //add in
       var n = re.e();
       
-      q.erase(e, n);
+      q.erase(e);
       
       not(q.include(e))
-      ok(q.include(n))
       
     })
     

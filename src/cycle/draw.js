@@ -7,7 +7,7 @@ re.draw = re.c('draw')
         
         for(var i=0, b; i<lis.length; i++){
           b = lis[i];
-            b.drawable && b.visible() && b.draw_render(c);
+            b.drawable && b.visible() && b.render(c);
         }
         
     },
@@ -146,6 +146,13 @@ re.draw = re.c('draw')
         return this.posY - re.screen.posY;
     },
     
+    render:function(c){
+        
+        this.draw_before(c);
+            this.draw(c);
+        this.draw_after(c);
+    },
+    
     /*
     Returns true or false wether the object is visible on screen.
     */
@@ -157,13 +164,6 @@ re.draw = re.c('draw')
     
 })
 .namespaces({
-    
-    render:function(c){
-        
-        this.draw_before(c);
-            this.draw(c);
-        this.draw_after(c);
-    },
     
     before:function(c){
         

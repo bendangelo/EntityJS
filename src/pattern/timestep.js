@@ -24,6 +24,9 @@ re.c('timestep')
             callback.call(context || this);
             
             this.stepProgress -= this.stepSize;
+            
+            //break if stepSize is zero
+            if(!this.stepSize) break;
         }
         
     }

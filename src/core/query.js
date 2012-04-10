@@ -238,45 +238,29 @@
     }
     
     p.attr = function(obj, value){
-        return this.each(function(e){
-            e.attr(obj,value);
-        });
+      return this.invoke('attr', obj, value);
         
     }
     
     p.def = function(obj, value){
-        return this.each(function(e){
-            e.def(obj, value);
-        });
-        
+      return this.invoke('def', obj, value);
     }
     
     p.comp = function(c){
-        
-        return this.each(function(e){
-            e.comp(c);
-        });
+      return this.invoke('comp', c);
         
     }
     
     p.removeComp = function(c){
-        return this.each(function(e){
-          e.removeComp(c);
-        });
+      return this.invoke('removeComp', c);
     }
     
     p.on = function(type, method){
-        
-        return this.each(function(e){
-            e.on(type,method);
-        });
-        
+        return this.invoke('on', type, method);
     }
     
     p.off = function(type, method){
-        return this.each(function(e){
-            e.off(type, method);
-        });
+      return this.invoke('off', type, method);
     }
     
     p.trigger = function(){
@@ -439,8 +423,9 @@
     
     */
     p.erase = function(ref){
-      var r = [this.indexOf(ref), 1].concat(Array.prototype.slice.call(arguments, 1));
-      this.splice.apply(this, r);
+      for(var i=this.length; i--;){
+        if(this[i] == ref) this.splice(i, 1);
+      }
       return this;
     }
     
