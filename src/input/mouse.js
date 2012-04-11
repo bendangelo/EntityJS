@@ -83,10 +83,15 @@ re.c('mouse')
             x = re.screen.toScreenX(x);
             y = re.screen.toScreenY(y);
           }
-          t.trigger(e.type, x, y, e);
+          
+          //offset mouse coordinates
+          var tx = x + t.offX;
+          var ty = y + t.offY;
+          
+          t.trigger(e.type, tx, ty, e);
           
           if(extra){
-            t.trigger(e.type+':'+extra, x, y, e);
+            t.trigger(e.type+':'+extra, tx, ty, e);
           }
         }
         
@@ -102,6 +107,10 @@ re.c('mouse')
       re.listener('contextmenu', this.event, c);
     }
     
+})
+.defaults({
+  offX:0,
+  offY:0
 })
 .init(function(c){
     //add to listener array

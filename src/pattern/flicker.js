@@ -71,12 +71,22 @@ re.c('flicker')
   
   run:function(){
     
+    var f = this.flicker_frame,
+    fs = this.flicker_frames,
+    l = this.flicker_loops,
+    val = fs[f];
+    
+    var quit = this.flick(val, f, fs, l);
+    
+    this.trigger('flicker:update', val, f, fs, l);
+    
 			//flick
-			if(this.flick(this.flicker_frames[this.flicker_frame++], this.flicker_id, this.flicker_loops) === false){
+			if(quit === false){
         //stop
         this.flicker();
       }
-			
+      
+			this.flicker_frame++;
   },
   
 	update:function(t){

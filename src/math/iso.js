@@ -83,8 +83,6 @@ re.iso = re.c('iso')
         this.posX = x.posX;
         this.posY = x.posY;
         if(x.posZ){
-          //reverse z
-          //this.posY += x.posZ;
           this.posZ = x.posZ;
         }
         return this;
@@ -140,7 +138,7 @@ re.iso = re.c('iso')
     return this.posZ / re.iso.sizeZ;
   },
   
-  //returns true if the current iso tile is valid or if its not aligned
+  //returns true if the current iso position is directly on top of a tile.
   onIso:function(){
     var total = this.isoX() + this.isoY() + this.isoZ();
     return (total|0) == total;

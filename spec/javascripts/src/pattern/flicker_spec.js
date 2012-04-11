@@ -21,6 +21,7 @@ describe('flicker', function(){
     
     var called = false;
     var called2 = false;
+    var called3 = false;
     
     e.on('flicker:start', function(){
       called = true;
@@ -28,6 +29,13 @@ describe('flicker', function(){
     .on('flicker:finish', function(v){
       called2 = true;
       is(v, 'string')
+    })
+    .on('flicker:update', function(f, i, array, loop){
+      is(f)
+      is(i)
+      is(array)
+      is(loop)
+      called3 = true;
     })
     
     e.flicker(time, [5, 5, 5, 5], 1, 'heal')
@@ -52,6 +60,7 @@ describe('flicker', function(){
     eq(e.health, 20)
       
     ok(called2)
+    ok(called3)
   })
   
   it('should flicker correctly', function(){
