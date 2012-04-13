@@ -29,7 +29,7 @@
     //takes values from all objects and returns an array
     .pluck('width height');
     
-    //find all bitmap entities with update bind.
+    //find all bitmap entities with update event.
     re('bitmap ^update');
     
     //add color comp to all text components
@@ -49,8 +49,7 @@
     //calls reset method on all entities
     .method('reset');
     
-    //returns direct reference to first entity with id of player
-    re('#player').health = 100;
+    re('#player')[0].health = 100;
     
     */
     var q = function(selector){

@@ -115,7 +115,12 @@ re.c('system')
         
         //clear
         this.clear(this.clearColor);
-        re.draw.draw(this.context);
+        this.drawlists();
+    },
+    
+    drawlists:function(){
+      //renders default drawlist
+      re.drawlist().drawlist(this.context);
     }
     
     

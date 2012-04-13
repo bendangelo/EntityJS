@@ -190,11 +190,11 @@ describe('entity', function(){
     
     e.comp('image iso');
     
-    re.draw.on('dispose', function(e){
+    re.c('draw').on('dispose', function(e){
       called = true;
     })
     
-    re.draw.dispose(function(){
+    re.c('draw').dispose(function(){
       called2 = true;
     })
     

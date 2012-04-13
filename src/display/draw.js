@@ -1,39 +1,10 @@
-re.draw = re.c('draw')
-.statics({
-    l:[],
-    
-    draw:function(c){
-        var lis = this.l;
-        
-        for(var i=0, b; i<lis.length; i++){
-          b = lis[i];
-            b.drawable && b.visible() && b.render(c);
-        }
-        
-    },
-    
-    sort:function(){
-      
-      this.l.sort(function(a, b){
-        if(a.depth && b.depth){
-          return a.depth() - b.depth();
-        }
-        return 0;
-      });
-      
-    }
-    
-})
+re.c('draw')
 .interfaces('draw')
-.init(function(c){
-    
-    c.l.push(this);
-    
+.init(function(){
+    re.drawlist().add(this);
 })
 .dispose(function(c){
-    
-    c.l.splice(c.l.indexOf(this), 1);
-    
+    this.drawlist.remove(this);
 })
 .defaults({
     screenable:true,
@@ -60,6 +31,7 @@ re.draw = re.c('draw')
     return this.posY;
   },
   
+  /* NOT WORKING
     cache:function(){
         if(!this.image) return this;
         
@@ -80,9 +52,9 @@ re.draw = re.c('draw')
     clearCache:function(){
         this.canvasCache = null;
     },
-    
+    */
     drawFirst:function(){
-        var l = re.c('draw').l;
+      var l = this.drawlist.list;
         
         l.splice(l.indexOf(this), 1);
         
@@ -91,7 +63,7 @@ re.draw = re.c('draw')
     },
     
     drawLast:function(){
-        var l = re.c('draw').l;
+        var l = this.drawlist.list;
         
         l.splice(l.indexOf(this), 1);
         
@@ -100,7 +72,7 @@ re.draw = re.c('draw')
     },
     
     drawAfter:function(en){
-        var l = re.c('draw').l;
+        var l = this.drawlist.list;
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         
@@ -116,7 +88,7 @@ re.draw = re.c('draw')
     
     drawBefore:function(en){
         
-        var l = re.c('draw').l;
+        var l = re.drawlist.list;
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         
@@ -146,6 +118,9 @@ re.draw = re.c('draw')
         return this.posY - re.screen.posY;
     },
     
+    /*
+    Renders the entity to the canvas. Goes through the transformations, scaling, alpha etc...
+    */
     render:function(c){
         
         this.draw_before(c);
@@ -158,7 +133,7 @@ re.draw = re.c('draw')
     */
     visible:function(){
         
-        return re.screen.hit(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY);
+        return this.drawable && re.screen.hit(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY);
         
     }
     

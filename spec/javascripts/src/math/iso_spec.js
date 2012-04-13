@@ -55,6 +55,20 @@ describe('math/iso', function(){
     eq(re.iso.toIsoY(-5, 30), 1);
   })
   
+  it('should add correctly', function(){
+    
+    var oldX = e.isoX();
+    e.isoY(4);
+    
+    for(var i=0; i<8; i++){
+      e.isoY(e.isoY() + 0.25)
+    }
+    
+    eq(e.isoY(), 6);
+    eq(e.isoX(), oldX);
+    
+  });
+  
   it('iso normal args', function(){
     
     eq(e.iso(2, 2, 2), e);
