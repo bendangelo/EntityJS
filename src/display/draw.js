@@ -88,7 +88,7 @@ re.c('draw')
     
     drawBefore:function(en){
         
-        var l = re.drawlist.list;
+        var l = this.drawlist.list;
         var him = l.indexOf(en);
         var me = l.indexOf(this);
         

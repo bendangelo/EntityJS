@@ -110,15 +110,19 @@ re.c('system')
         
         this.timestep(Math.min(this.tick() / 1000, this.maxTick), function(){
             //update
-            re._c.update.update(this.stepSize);
+            this.update();
         });
         
         //clear
         this.clear(this.clearColor);
-        this.drawlists();
+        this.draw();
     },
     
-    drawlists:function(){
+    update:function(){
+      re._c.update.update(this.stepSize);
+    },
+    
+    draw:function(){
       //renders default drawlist
       re.drawlist().drawlist(this.context);
     }

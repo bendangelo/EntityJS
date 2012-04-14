@@ -1,8 +1,10 @@
 describe('draw', function(){
   
-  var d;
+  var d, list;
   
   beforeEach(function(){
+    list = re.drawlist().list;
+    
     re.c('shape')
     .requires('draw')
     .defines('draw', function(){
@@ -19,9 +21,9 @@ describe('draw', function(){
       return -1000;
     };
     
-    re.draw.sort();
+    re.drawlist().sort();
     
-    eq(re.draw.l[0], rect);
+    eq(list[0], rect);
     
   })
   
@@ -48,7 +50,7 @@ describe('draw', function(){
     is(re.e('shape ddd').drawFirst())
     
     var l = 0
-    ok(re._c.draw.l[l].has('ddd'))
+    ok(list[l].has('ddd'))
   })
   
   it('drawLast', function(){
@@ -58,8 +60,8 @@ describe('draw', function(){
     
     is(k.drawLast())
     
-    var l = re._c.draw.l.length-1
-    ok(re._c.draw.l[l].has('db77'))
+    var l = list.length-1
+    ok(list[l].has('db77'))
     
   })
   
@@ -71,8 +73,8 @@ describe('draw', function(){
     is(k.drawBefore(b))
     
     
-    var l = re._c.draw.l.indexOf(b)-1
-    ok(re._c.draw.l[l].has('db777'))
+    var l = list.indexOf(b)-1
+    ok(list[l].has('db777'))
     
   })
   
@@ -82,8 +84,8 @@ describe('draw', function(){
     var b = re.e('shape b')
     
     is(k.drawAfter(b))
-    var l = re._c.draw.l.indexOf(b)+1
-    ok(re._c.draw.l[l].has('db777y'))
+    var l = list.indexOf(b)+1
+    ok(list[l].has('db777y'))
     
   })
   
