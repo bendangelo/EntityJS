@@ -7,8 +7,8 @@ module Entityjs
     
     def self.game?
       
-      #check if config.yml exists
-      if File.file? Config.file_name
+      #check if scripts dir exists
+      if File.directory? Config.scripts_folder
       
         if @game_root.nil?
           @game_root = Dir.pwd

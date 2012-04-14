@@ -54,7 +54,7 @@ module Entityjs
       if @yml.nil?
         return 500
       end
-      @yml['width']
+      @yml['width'] || 500
     end
     
     def canvas_border
@@ -62,14 +62,14 @@ module Entityjs
         return true
       end
       
-      return @yml['canvas-border']
+      return @yml['canvas-border'] || true
     end
     
     def height
       if @yml.nil?
         return 400
       end
-      @yml['height']
+      @yml['height'] || 400
     end
     
     def scripts_ignore
@@ -121,7 +121,7 @@ module Entityjs
         return 'game-canvas'
       end
       
-      @yml['canvas-id']
+      @yml['canvas-id'] || 'game-canvas'
     end
     
     def license
