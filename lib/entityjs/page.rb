@@ -39,7 +39,12 @@ module Entityjs
     protected
     #defines varaibles on the template htmls for view on webpage
     def self.set_vars(path, tests=false)
-      contents = IO.read("#{Entityjs::root}/public/#{path}")
+      #search locally first
+      if File.file? path
+        contents = IO.read(path);
+      else
+        contents = IO.read("#{Entityjs::root}/public/#{path}")
+      end
       
       #reload config for changes
       Config.instance.reload
