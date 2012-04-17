@@ -446,8 +446,9 @@
             }
             
         }else {
+          var k = 'function';
             //defines property
-            if(re.is(this[obj], 'function') && !re.is(value, 'function')){
+            if(re.is(this[obj], k) && !re.is(value, k)){
                 if(re.is(value, 'array')){
                     this[obj].apply(this, value);
                 } else {

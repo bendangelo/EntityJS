@@ -185,6 +185,25 @@ describe('entity', function(){
       ok(e.parent('','has', c.name))
   })
   
+  it('attr overwrite method', function(){
+    
+    var called = false;
+    
+    e.attr({
+      blah:function(){}
+    });
+    
+    e.attr({
+      blah:function(){
+        called = true;
+      }
+    });
+    
+    e.blah();
+    
+    ok(called);
+  });
+  
   it('should dispose of all components properly', function(){
     var called = false, called2 = false;
     
