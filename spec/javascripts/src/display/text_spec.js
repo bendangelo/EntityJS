@@ -23,6 +23,14 @@ describe('text', function(){
     not(f.visible())
   })
   
+  it('should join strings', function(){
+    
+    f.text('blah',10,"nice");
+    
+    eq(f.text(), 'blah 10 nice');
+    
+  });
+  
   it('should draw', function(){
     f.text('m\nlinesdfsdfsdfsdsdfsdfsdfsdfsdfsfsf')
     is(f.draw(re.sys.context))

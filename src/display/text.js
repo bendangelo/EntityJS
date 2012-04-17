@@ -28,7 +28,9 @@ re.c('text')
 	
 	text:function(t){
     if(re.is(t)){
-      t += '';
+      //convert to string
+      t = Array.prototype.join.call(arguments, ' ');
+      
       this.text_lines = t.split('\n');
   		this._text = t;
       //set text width

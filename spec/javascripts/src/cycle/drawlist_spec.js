@@ -9,7 +9,7 @@ describe('cycle/drawlist', function(){
   });
   
   it('add', function(){
-    var blah = re.e();
+    var blah = re.e('circle');
     drawlist.add(blah);
     
     ok(drawlist.list.include(blah))
@@ -17,14 +17,14 @@ describe('cycle/drawlist', function(){
   
   it('remove', function(){
     
-    var blah = re.e();
+    var blah = re.e('circle');
     drawlist.add(blah);
     drawlist.remove(blah);
     not(drawlist.list.include(blah))
   })
   
   it('drawlist', function(){
-    drawlist.drawlist();
+    //drawlist.drawlist();
     //smoke test
   })
   
