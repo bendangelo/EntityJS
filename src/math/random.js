@@ -19,3 +19,7 @@ re.random = function(max, min){
 			return r * (max - min + 1) + min;
   }
 };
+
+re.randomInt = function(){
+  return re.random.apply(re.random, arguments) | 0;
+};

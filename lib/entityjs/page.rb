@@ -40,8 +40,9 @@ module Entityjs
     #defines varaibles on the template htmls for view on webpage
     def self.set_vars(path, tests=false)
       #search locally first
-      if File.file? path
-        contents = IO.read(path);
+      local = Dirc.game_root+'/'+path
+      if File.file? local
+        contents = IO.read(local);
       else
         contents = IO.read("#{Entityjs::root}/public/#{path}")
       end
