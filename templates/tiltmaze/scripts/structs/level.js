@@ -53,10 +53,10 @@ re.level = re.c('level')
     
     var ball = this;
     
-    re('target').each(function(){
+    re('target').each(function(i){
       
-      if(ball.tileX() == this.tileX() && this.tileY() == ball.tileY()){
-        this.dispose();
+      if(ball.tileX() == i.tileX() && i.tileY() == ball.tileY()){
+        i.dispose();
       }
       
     });

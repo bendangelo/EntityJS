@@ -102,22 +102,6 @@ function pixelEqual(x, y, r, g, b, a, message){
 }
 
 /*
-Expects the given entity to have the given flicker present
-
-var e = re.e();
-
-expectFlicker(e, 'run'); //false
-
-e.comps('flicker').addFlicker('run', 123, 21, [2]);
-
-expectFlicker(e, 'run') //true
-
-*/
-function expectFlicker(ent, flick){
-  ok(ent.flicker_reels[flick] != null, "Expected entity to have flicker "+flick);
-}
-
-/*
 Expects an entity or component to have a current event attached.
 
 var e = re.e();

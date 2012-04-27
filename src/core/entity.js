@@ -97,7 +97,7 @@
           com = pieces[0];
         }
         
-        if(this.has(com)){
+        if(com && this.has(com)){
           
           var c = re._c[com];
           //only remove if it exists
