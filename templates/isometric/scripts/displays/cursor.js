@@ -14,7 +14,8 @@ re.c('cursor')
     
     box.place(iso.isoX, iso.isoY);
     
-    re.draw.sort();
+    //get default drawlist
+    re.drawlist().sort();
   },
   
   move:function(x, y){
@@ -22,7 +23,7 @@ re.c('cursor')
     
     this.place(iso.isoX, iso.isoY);
     
-    re.draw.sort();
+    re.drawlist().sort();
   }
   
 })
