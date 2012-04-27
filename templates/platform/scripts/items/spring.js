@@ -1,5 +1,5 @@
 re.c('spring')
-.requires('item flicker')
+.requires('item animate')
 .defines({
   
   touch:function(){
@@ -7,14 +7,16 @@ re.c('spring')
 		
 		if(re.pressed('w')){
 			this.hero.velY = -25;
-			this.flicker('bounce');
+			this.animate('bounce');
 		}
   }
   
 })
 .init(function(){
   //add animation, can also send a string instead of an array
-  this.addFlicker('bounce', 1, 300, '13 12');
+  this.anis = {
+    bounce:[300, [13, 12], 1]
+  };
 	
 	this.frame(12);
   

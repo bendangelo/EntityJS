@@ -1,5 +1,5 @@
 re.c('coin')
-.requires('item flicker')
+.requires('item animate')
 .defines({
   
   touch:function(){
@@ -19,8 +19,11 @@ re.c('coin')
   
   this.sfx = re.e('sound coin.sfx');
   
-	this.addFlicker('glow', -1, 1800, '14 15 15');
-	this.flicker('glow');
+	this.anis = {
+    glow:[1800, [14, 15, 15], -1]
+  };
+  
+	this.animate('glow');
 })
 //accepted tile frames in items.png which will become coins
 .alias('t14')

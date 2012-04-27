@@ -1,5 +1,5 @@
 re.c('hero')
-.requires('hero.png tsprite update force flicker body')
+.requires('hero.png tsprite update force animate body')
 .defines({
   
   speed:40 * re.sys.stepSize,
@@ -28,18 +28,18 @@ re.c('hero')
       this.velX -= this.speed;
       this.scaleX = -1;
       
-      if(!this.jump) this.flicker('run');
+      if(!this.jump) this.animate('run');
     }
     
     if(re.pressed('d')){
       this.velX += this.speed;
       this.scaleX = 1;
       
-      if(!this.jump) this.flicker('run');
+      if(!this.jump) this.animate('run');
     }
     
     //switch back to idle animation if stopped moving
-    if(this.isIdle(0.3)) this.flicker('idle');
+    if(this.isIdle(0.3)) this.animate('idle');
     
   },
   
@@ -47,7 +47,7 @@ re.c('hero')
     this.jump = true;
     this.velY -= this.jumpSpeed;
     
-    this.flicker('jump');
+    this.animate('jump');
   },
   
   jumpReset:function(x, y, tx, ty){
@@ -62,12 +62,12 @@ re.c('hero')
 .init(function(){
   
   //add animations
-  this.addFlicker({
-	  idle:[-1, 600, [0, 1]],
-	  run:[-1, 800, [2, 3]],
-	  jump:[1, 500, [4, 5, 4]],
-	  ladder:[-1, 500, [6, 7]]
-	});
+  this.anis = {
+	  idle:[600, [0, 1], -1],
+	  run:[800, [2, 3], -1],
+	  jump:[500, [4, 5, 4], 1],
+	  ladder:[500, [6, 7], -1]
+	};
   
   this.on({
     update:this.update,

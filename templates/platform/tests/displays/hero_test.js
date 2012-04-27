@@ -1,11 +1,12 @@
 module('hero', lazy('hero'));
 
-test('has flicks', function(){
+test('has animations', function(){
   
-  expectFlicker(hero, 'idle');
-  expectFlicker(hero, 'run');
-  expectFlicker(hero, 'jump');
-  expectFlicker(hero, 'ladder');
+  //these where manually put in
+  is(hero.anis.idle);
+  is(hero.anis.run);
+  is(hero.anis.jump);
+  is(hero.anis.ladder);
   
 });
 
@@ -15,7 +16,7 @@ test('has components', function(){
 
 test('flickers idle when not moving', function(){
   
-  hero.flicker('run');
+  hero.animate('run');
   
   stub(hero, 'isIdle', true);
   

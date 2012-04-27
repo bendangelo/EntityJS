@@ -4,7 +4,7 @@ test('valid', function(){
   
   expectEvent(coin, 'update');
   
-  expectFlicker(coin, 'glow');
+  is(coin.anis.glow);
   
 });
 
