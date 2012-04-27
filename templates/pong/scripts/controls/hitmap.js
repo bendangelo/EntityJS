@@ -28,17 +28,17 @@ re.c('hitmap')
     }
     
     //check hits on paddles
-    re('paddle').each(function(){
+    re('paddle').each(function(i){
       
-      if(this.hit(obj)){
+      if(i.hit(obj)){
         res.hitX = 1;
         
-        var push = obj.hsizeX + this.hsizeX + 1;
+        var push = obj.hsizeX + i.hsizeX + 1;
         
-        if(this.posX > obj.posX){
+        if(i.posX > obj.posX){
           push *= -1;
         }
-        res.posX = this.posX + push;
+        res.posX = i.posX + push;
         
       }
       
