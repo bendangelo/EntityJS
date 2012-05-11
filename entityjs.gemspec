@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
   s.add_development_dependency "jasmine"
   
-  s.add_dependency "sinatra"
+  s.add_dependency "sinatra", ">= 1.3.0"
   s.add_dependency "coffee-script"
   s.add_dependency 'uglifier'
   s.add_dependency 'json'
