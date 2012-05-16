@@ -437,7 +437,9 @@
         return this;
     };
     
-    p.attr = function(obj, value){
+    //setters / getters
+
+    p.attr = p.set = function(obj, value){
         
         if(re.is(obj,  'object')){
             
@@ -461,7 +463,12 @@
         
         return this;
     };
-    
+
+    p.get = function(v){
+        var l = this[v];
+        return (re.is(l,'function'))? l() : l;
+    };
+
     p.def = function(obj, value){
         
         if(re.is(obj , 'object')){

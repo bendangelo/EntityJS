@@ -20,6 +20,16 @@ describe('entity', function(){
     eq(re('dfggggg').length, 1)
   })
   
+  it('should get', function(){
+    e.blah = 10;
+    e.bla = function(){
+      return 10;
+    };
+
+    eq(e.get('blah'), 10);
+    eq(e.get('bla'), 10);
+  });
+
   it('comp', function(){
     e.comp('qwdqwd wer')
     
