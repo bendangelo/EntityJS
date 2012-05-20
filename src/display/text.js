@@ -23,7 +23,7 @@ re.c('text')
 .defines({
 	
 	visible:function(){
-		return this._text && this.parent('draw', 'visible');
+		return this._text && this._super('draw', 'visible');
 	},
 	
 	text:function(t){

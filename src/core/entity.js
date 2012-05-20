@@ -233,10 +233,10 @@
     Use '' to call super of entity
     
     re.e('draw')
-    .parent('draw', 'screenX')()
+    ._super('draw', 'screenX')()
     
     */
-    p.parent = function(comp, method){
+    p._super = function(comp, method){
         
         var a = Array.prototype.slice.call(arguments, 2);
         

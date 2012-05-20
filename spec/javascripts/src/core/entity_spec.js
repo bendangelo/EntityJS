@@ -185,14 +185,14 @@ describe('entity', function(){
     is(re.e().clone())
   })
   
-  it('parent', function(){
+  it('super', function(){
       c.defines('d', function(v){return v; })
       .defaults('y', function(v){return v;})
       
-      eq(e.parent(c.name, 'd', 100), 100)
-      eq(e.parent(c.name, 'y', 'bob'), 'bob')
+      eq(e._super(c.name, 'd', 100), 100)
+      eq(e._super(c.name, 'y', 'bob'), 'bob')
       e.comp(c.name)
-      ok(e.parent('','has', c.name))
+      ok(e._super('','has', c.name))
   })
   
   it('attr overwrite method', function(){
@@ -236,7 +236,7 @@ describe('entity', function(){
   it('should throw error on undefined parent method', function(){
     var called = false;
     try {
-      e.parent('image', 'asdfsdf')
+      e._super('image', 'asdfsdf')
     } catch(e){
       called = true;
     }

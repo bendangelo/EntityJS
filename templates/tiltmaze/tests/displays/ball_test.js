@@ -10,7 +10,7 @@ test('move up correctly', function(){
     start();
   });
   
-  ball.tileY(2);
+  ball.tileY(1);
   
   keypress('w', function(){
     ball.update();

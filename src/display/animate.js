@@ -28,16 +28,17 @@ re.c('animate')
   	
 	animate:function(name){
 		//ignore if calling the same frame
-		if(this.flickering() == name) return;
+		if(this.flickering() != name){
+			
+			var a = this.anis[name] || [];
+			//flicker interface
+			//(duration:int, frames:array, loops:int, id:string)
+			this.flicker(a[0], a[1], a[2], name);
 
-		var a = this.anis[name] || [];
-		//flicker interface
-		//(duration:int, frames:array, loops:int, id:string)
-		this.flicker(a[0], a[1], a[2], name);
-
-		//only run if a is defined
-		if(a.length)
-		this.flicker_run(); //run first frame
+			//only run if a is defined
+			if(a.length)
+			this.flicker_run(); //run first frame
+		}
 		return this;
 	},
 

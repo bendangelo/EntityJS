@@ -35,7 +35,7 @@ re.c('imgtext')
 .defines({
 	
 	visible:function(){
-		return this._text && this._image && this.parent('draw', 'visible');
+		return this._text && this._image && this._super('draw', 'visible');
 	},
 	
 	draw:function(c){

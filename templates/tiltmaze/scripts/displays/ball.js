@@ -28,7 +28,7 @@ re.c('ball')
     var tileAfter = this.level.automap(tx+x, ty+y);
     
     if(tileAfter && !tile.checkWallInside(x, y) && !tileAfter.checkWall(x, y)){
-      
+
       if(y){
         this.posY += this.speed * y;
       }

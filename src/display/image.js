@@ -17,7 +17,7 @@ re.c('image')
 	},
 	
 	visible:function(){
-		return this._image && this.parent('draw', 'visible');
+		return this._image && this._super('draw', 'visible');
 	},
 	
 	draw:function(c){

@@ -49,11 +49,6 @@ describe('flicker', function(){
     //manually call update
     
     for(var i=0; i<60 * time; i++){
-      if(i == 37){
-        eq(e.health, 5);
-      } else if(i==37+37){
-        eq(e.health, 10);
-      }
       e.flicker_update(re.sys.stepSize);
     }
     
@@ -67,13 +62,13 @@ describe('flicker', function(){
     
     e.flicker(1, [5]);
     
-    eq(e.health, 5)
-    
-    for(var i=60;i--;){
-      e.flicker_update(re.sys.stepSize);
-      eq(e.health, 5);
+
+    for(var i=0; i<3; i++){
+      e.flicker_update(e.stepSize * 0.5);
+
     }
-    
+      eq(e.health, 5);
+
   })
   
 });

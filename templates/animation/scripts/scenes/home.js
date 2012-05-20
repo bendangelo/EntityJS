@@ -1,19 +1,20 @@
 re.scene('home')
 .enter(function(){
   
-  re.e('sprite flicker hero.png align keyboard')
+  re.e('sprite animate hero.png align keyboard')
   .attr({
     
     //sets frame size
     sizeX:25,
     sizeY:25,
     
-    animate:function(){
+    //animation object for animate comp
+    anis:{
       //first arg is time in milliseconds, array contains the frame numbers to flick through.
       //time per frame = time / frames.length
-      this.flicker(300, [0, 1, 2, 3, 4, 0]);
+      random:[300, [0,1,2,3,4,0]]
     },
-    
+
     //centers image on screen
     alignHor:0,
     alignVer:0
@@ -21,6 +22,13 @@ re.scene('home')
   })
   //listens for keyup event
   .on('keyup:enter', function(){
+    //play random animation
+    this.animate('random');
+
+    console.log('Currently animating:',this.flickering());
+  })
+  .on('keyup:q', function(){
+    //ends animation
     this.animate();
   });
   
