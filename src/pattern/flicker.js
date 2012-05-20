@@ -50,43 +50,43 @@ re.c('flicker')
 	
   change:function(){
     
-			//check if over
-			if(this.flicker_frame == this.flicker_frames.length){
-				
-				if(this.flicker_loops == -1 || --this.flicker_loops >= 1){
-					//loop again
-					
-					this.flicker_frame = 0;
-					
-				} else {
-					//done flickering
-					
-					this.flicker_stop();
-          return;
-				}
-			}
+	//check if over
+	if(this.flicker_frame == this.flicker_frames.length){
+		
+		if(this.flicker_loops == -1 || --this.flicker_loops >= 1){
+			//loop again
 			
-      this.flicker_run();
+			this.flicker_frame = 0;
+			
+		} else {
+			//done flickering
+			
+			this.flicker_stop();
+  			return;
+		}
+	}
+			
+     this.flicker_run();
   },
   
   run:function(){
     
-    var f = this.flicker_frame,
-    fs = this.flicker_frames,
-    l = this.flicker_loops,
-    val = fs[f];
+    var f = this.flicker_frame, //frame number
+    fs = this.flicker_frames, //array of frames
+    l = this.flicker_loops, //loops left
+    val = fs[f]; //flick value
     
     var quit = this.flick(val, f, fs, l);
     
     this.trigger('flicker:update', val, f, fs, l);
     
-			//flick
-			if(quit === false){
-        //stop
-        this.flicker();
-      }
+	//flick
+	if(quit === false){
+    	//stop
+    	this.flicker();
+     }
       
-			this.flicker_frame++;
+	this.flicker_frame++;
   },
   
 	update:function(t){
@@ -107,20 +107,20 @@ re.c('flicker')
 	*/
 	flicker:function(duration, frames, loops, id){
 		
-    //stop
-		if(!re.is(loops) && this.flickering()){
+	    //stop
+		if(!re.is(duration) && this.flickering()){
 			//stop flickering
 			return this.flicker_stop();
 		}
 		
-    //convert to seconds
-    if(duration >= 100){
-      duration /= 1000;
-    }
-    
+	    //convert to seconds
+	    if(duration >= 100){
+	    	duration /= 1000;
+	    }
+	    
 		this.flicker_duration = duration || 1;
     
-    frames = (re.is(frames,'array')) ? frames : [frames];
+	    frames = (re.is(frames,'array')) ? frames : [frames];
     
 		//setup counter for loops
 		this.flicker_loops = loops || 1;
@@ -128,20 +128,20 @@ re.c('flicker')
 		this.stepProgress = 0;
 		this.stepSize = (duration / frames.length) / re.sys.second;
     
-    this.flicker_frames = frames;
+	    this.flicker_frames = frames;
 		this.flicker_frame = 0;
 		
 		if(!this.flickering()){
 			this.on('update', this.flicker_update);
 		}
 		
-    //sets flicker status
+	    //sets flicker status
 		this.flicker_id = id || true;
     
 		this.trigger('flicker:start');
-    
+    	
 		//update frame then run
-		this.flicker_run();
+		//this.flicker_run();
 		
 		return this;
 	},

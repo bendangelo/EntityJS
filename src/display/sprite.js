@@ -44,11 +44,6 @@ re.c('sprite')
         c.drawImage(this._image, this.frameX * this.sizeX, this.frameY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
         
         return this;
-    },
-    
-    //implement for flicker
-    flick:function(c){
-        this.frame(c);
     }
     
 });

@@ -28,3 +28,8 @@ Create an entity from a factory..
 var hero = f('hero') //new entity
 hero.health = 100;
 */
+
+//re.ready() is DISABLED during testing
+addEventListener('load', function(){
+	re.sys.init(re.canvas).start();
+});

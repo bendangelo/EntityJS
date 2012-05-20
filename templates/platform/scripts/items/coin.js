@@ -17,8 +17,10 @@ re.c('coin')
   //add comp for searchability
   this.comp('coin');
   
+  //create new sound effect
   this.sfx = re.e('sound coin.sfx');
   
+  //setup animations to play
 	this.anis = {
     glow:[1800, [14, 15, 15], -1]
   };
