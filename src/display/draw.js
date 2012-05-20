@@ -144,8 +144,8 @@ re.c('draw')
         
         c.save();
         
-        if(this.alpha != 1)
-            c.staticsAlpha = this.alpha;
+        if(this.alpha-1)
+            c.globalAlpha = this.alpha;
         
       if(this.screenable)
         c.translate(this.screenX(), this.screenY());
