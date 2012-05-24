@@ -1,5 +1,4 @@
-Dir.glob("#{Entityjs::root}/lib/entityjs/*.rb").each {|f| require f }
-Dir.glob("#{Entityjs::root}/lib/entityjs/*/*.rb").each {|f| require f }
+Dir.glob("#{Entityjs::root}/lib/entityjs//**/*.rb").each {|f| require f }
 
 # 0 - ok
 # 1 - command not found

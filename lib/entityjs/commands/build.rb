@@ -50,8 +50,8 @@ module Entityjs
       #append all files into one big file
       puts "Compiling code"
       
-      entity_src = self.compile_entity(Config.instance.entity_ignore)
-      scripts = self.compile_scripts(Config.instance.scripts_ignore, Config.instance.scripts_order)
+      entity_src = self.compile_entity(Config.instance.build_entity_ignore+Config.instance.entity_ignore)
+      scripts = self.compile_scripts(Config.instance.build_scripts_ignore+Config.instance.scripts_ignore, Config.instance.scripts_order)
       
       out = entity_src+scripts
       
@@ -69,8 +69,8 @@ module Entityjs
       #create play.html
       puts "Creating play page"
       
-      File.open(html_name, 'w') do |f|
-        f.write(%Q(<!DOCTYPE html>
+      #create play.html code
+      play_code = %Q(<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -80,7 +80,17 @@ module Entityjs
     <canvas id='#{Config.instance.canvas_id}' width='#{Config.instance.width}' height='#{Config.instance.height}'>Error browser does not support canvas element.</canvas>
   </body>
 </html>
-))
+)
+
+      #check if local play.html exists
+      if Dirc::exists?('play.html')
+        #create js for html
+        js = "<script src='#{final_name}' type='text/javascript'></script>"
+        play_code = Page::render_play(:js=>js)
+      end
+
+      File.open(html_name, 'w') do |f|
+        f.write(play_code)
         f.close
       end
       

@@ -7,12 +7,12 @@ module Entityjs
       return '.js'
     end
     
-    def self.render_play
-      self.set_vars("play.html")
+    def self.render_play(ops={})
+      self.set_vars("play.html", ops)
     end
     
     def self.render_tests
-      self.set_vars('tests.html', true)
+      self.set_vars('tests.html', :tests=>true)
     end
     
     def self.render_entityjs_src(path)
@@ -35,14 +35,13 @@ module Entityjs
     def self.render_eunit(path)
       IO.read(Entityjs::root+"/public/qunit/#{path}")
     end
-    
+
     protected
     #defines varaibles on the template htmls for view on webpage
-    def self.set_vars(path, tests=false)
+    def self.set_vars(path, ops={})
       #search locally first
-      local = Dirc.game_root+'/'+path
-      if File.file? local
-        contents = IO.read(local);
+      if Dirc::exists?(path)
+        contents = IO.read(Dirc.game_root+'/'+path);
       else
         contents = IO.read("#{Entityjs::root}/public/#{path}")
       end
@@ -56,11 +55,19 @@ module Entityjs
       contents = contents.sub("$CANVAS_ID", Config.instance.canvas_id)
       
       #set javascript srcs
-      contents.sub("$JS", self.compile_js_html(tests))
+      if !ops[:js]
+        js = self.compile_js_html(ops[:tests])
+      else
+        js = ops[:js]
+      end
+
+      contents.sub("$JS", js)
     end
     
     #compiles html js tags for render on webpage
     def self.compile_js_html(tests=false)
+      tests ||= false
+
       js = %Q(
       <script type=\"text/javascript\">
       window.addEventListener\(\"load\", function(){

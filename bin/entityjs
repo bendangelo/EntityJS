@@ -19,6 +19,6 @@ case code
     puts "EntityJS game not found"
     puts "Move inside the root directory"
   when 3
-    puts "File/Directory exists"
+    puts "File/Directory already exists"
     
 end

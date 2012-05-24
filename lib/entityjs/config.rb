@@ -51,77 +51,39 @@ module Entityjs
     end
     
     def width
-      if @yml.nil?
-        return 500
-      end
-      @yml['width'] || 500
-    end
-    
-    def canvas_border
-      if @yml.nil?
-        return true
-      end
-      
-      return @yml['canvas-border'] || true
+      get_attr('width', 500)
     end
     
     def height
-      if @yml.nil?
-        return 400
-      end
-      @yml['height'] || 400
+      get_attr('height', 400)
     end
     
     def scripts_ignore
-      if @yml.nil?
-        return []
-      end
-      
-      y = @yml['scripts-ignore']
-      if !y.nil?
-        y.split(" ")
-      end
+      return split_attr('scripts-ignore')
     end
     
+    def build_scripts_ignore
+      return split_attr('build-scripts-ignore')
+    end
+
     def scripts_order
-      if @yml.nil?
-        return []
-      end
-      
-      y = @yml['order']
-      if !y.nil?
-        y.split(" ")
-      end
+      return split_attr('order')
     end
     
     def tests_ignore
-      if @yml.nil?
-        return []
-      end
-      
-      y = @yml['tests-ignore']
-      if !y.nil?
-        y.split(" ")
-      end
+      return split_attr('tests-ignore')
     end
     
     def entity_ignore
-      if @yml.nil?
-        return []
-      end
-      
-      y = @yml['entity-ignore']
-      if !y.nil?
-        y.split(" ")
-      end
+      return split_attr('entity-ignore')
     end
     
+    def build_entity_ignore
+      return split_attr('build-entity-ignore')
+    end
+
     def canvas_id
-      if @yml.nil?
-        return 'game-canvas'
-      end
-      
-      @yml['canvas-id'] || 'game-canvas'
+      get_attr('canvas-id', 'game-canvas')
     end
     
     def license
@@ -132,6 +94,28 @@ module Entityjs
       return contents+"\n"
     end
     
+    protected
+    #returns the wanted attr from yml else returns the default
+    def get_attr(at, default=nil)
+      if @yml.nil?
+        return default
+      end
+      
+      return @yml[at] || default
+    end
+
+    #returns the wanted attr in an array form
+    def split_attr(at)
+      if @yml.nil?
+        return []
+      end
+      
+      y = @yml[at]
+      if !y.nil?
+        return y.split(" ")
+      end
+      return []
+    end
     
   end
   

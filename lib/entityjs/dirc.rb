@@ -19,6 +19,11 @@ module Entityjs
       return false
     end
     
+    #checks if a local file exists
+    def self.exists?(file)
+      return File.file? Dirc.game_root+'/'+file
+    end
+
     def self.to_game_root
       Dir.chdir(@game_root)
     end
