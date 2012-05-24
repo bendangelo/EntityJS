@@ -11,7 +11,7 @@ re = function(selector){
 };
 
 //automatically filled when compiled
-re.version = "$VERSION";
+re.version = "RE_VERSION";
     
 //contains all entities
 re._e = [];

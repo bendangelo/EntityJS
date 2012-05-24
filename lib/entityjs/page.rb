@@ -50,9 +50,9 @@ module Entityjs
       Config.instance.reload
       
       #set width, height and canvas id
-      contents = contents.sub("$WIDTH", Config.instance.width.to_s)
-      contents = contents.sub("$HEIGHT", Config.instance.height.to_s)
-      contents = contents.sub("$CANVAS_ID", Config.instance.canvas_id)
+      contents = contents.sub("RE_WIDTH", Config.instance.width.to_s)
+      contents = contents.sub("RE_HEIGHT", Config.instance.height.to_s)
+      contents = contents.sub("RE_CANVAS_ID", Config.instance.canvas_id)
       
       #set javascript srcs
       if !ops[:js]
@@ -61,7 +61,7 @@ module Entityjs
         js = ops[:js]
       end
 
-      contents.sub("$JS", js)
+      contents.sub("RE_JS", js)
     end
     
     #compiles html js tags for render on webpage

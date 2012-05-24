@@ -42,7 +42,12 @@ module Entityjs
     
     def reload
       if File.exists?(Config.file_name)
-        @yml = YAML::load(File.open(Config.file_name))
+        data = IO.read(Config.file_name)
+
+        #replace tabs with 2 spaces
+        #data = data.gsub("\t", '  ')
+
+        @yml = YAML::load(data)
       end
     end
     
@@ -56,6 +61,10 @@ module Entityjs
     
     def height
       get_attr('height', 400)
+    end
+    
+    def canvas_id
+      get_attr('canvas-id', 'game-canvas')
     end
     
     def scripts_ignore
@@ -82,10 +91,14 @@ module Entityjs
       return split_attr('build-entity-ignore')
     end
 
-    def canvas_id
-      get_attr('canvas-id', 'game-canvas')
+    def build_head
+      return get_attr('build-head', '')
     end
-    
+
+    def build_foot
+      return get_attr('build-foot', '')
+    end
+
     def license
       contents = IO.read(Entityjs::root+'/license.txt')
       

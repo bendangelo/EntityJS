@@ -49,7 +49,7 @@ module Entityjs
       
       #append all files into one big file
       puts "Compiling code"
-      
+
       entity_src = self.compile_entity(Config.instance.build_entity_ignore+Config.instance.entity_ignore)
       scripts = self.compile_scripts(Config.instance.build_scripts_ignore+Config.instance.scripts_ignore, Config.instance.scripts_order)
       
@@ -114,7 +114,7 @@ module Entityjs
       end
       
       #add version
-      out = out.gsub(/\$VERSION/, Entityjs::VERSION)
+      out = out.gsub(/RE_VERSION/, Entityjs::VERSION)
       
       return out
     end
@@ -156,7 +156,13 @@ module Entityjs
     #minifies source and returns it
     def self.minify(code, license=true)
       
-      code = Uglifier.compile(code, :copyright=>false)
+      head = Config.instance.build_head
+      foot = Config.instance.build_foot
+
+      #leaves comments in head if they exist
+      leave_comment = !head.empty?
+
+      code = Uglifier.compile(head+code+foot, :copyright=>leave_comment)
       
       #add entity license statement
       if license.is_a? String
