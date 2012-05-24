@@ -68,6 +68,10 @@ module Entityjs
     end
   end
   
+  def self.public_path
+    return "#{Entityjs::root}/public"
+  end
+
 end
 
 require 'entityjs/command'
