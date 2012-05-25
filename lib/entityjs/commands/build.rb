@@ -175,7 +175,7 @@ module Entityjs
     end
     
     def self.js_config(path = nil, images = nil, sounds = nil, canvas = nil)
-      path ||= 'assets/'
+      path ||= Config.assets_folder+'/'
       images ||= self.images_to_js
       sounds ||= self.sounds_to_js
       canvas ||= Config.instance.canvas_id

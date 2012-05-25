@@ -377,10 +377,10 @@
     re('draw').findWith('circle !red');
     
     */
-    p.findWith = function(comps, c){
+    p.findWith = function(comps){
       return this.find(function(e){
         return e.has(comps);
-      }, c);
+      });
     }
     
     /*
