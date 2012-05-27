@@ -11,6 +11,12 @@ module Entityjs
       self.set_vars("play.html", ops)
     end
     
+    def self.render_favicon
+      path = Entityjs::public_path+'/favicon.ico'
+      
+      return IO.read(path)
+    end
+
     def self.render_tests
       self.set_vars('tests.html', :tests=>true)
     end
@@ -42,7 +48,7 @@ module Entityjs
       if Dirc::exists?(path)
         contents = IO.read(Dirc.game_root+'/'+path);
       else
-        contents = IO.read("#{Entityjs::root}/public/#{path}")
+        contents = IO.read("#{Entityjs::public_path}/#{path}")
       end
 
       contents = Config.preprocess(contents)

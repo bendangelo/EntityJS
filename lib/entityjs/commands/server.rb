@@ -32,6 +32,12 @@ module Entityjs
       
     end
     
+    get '/favicon.ico' do
+      content_type 'image/ico'
+
+      Page.render_favicon
+    end
+
     #entity source code
     get '/entityjs/*' do
       content_type 'text/javascript'
