@@ -37,7 +37,7 @@ describe 'Page' do
   
   it 'should be script' do
     js = 'var test = 10;'
-    IO.stub(:read).and_return(js)
+    Entityjs::Compile.stub(:script_to_js).and_return(js)
     
     script = Entityjs::Page.render_script('blah.js')
     

@@ -22,14 +22,14 @@ module Entityjs
     end
     
     def self.render_test(path)
-      file = path.sub(/#{self.processor_ext}$/i, '');
+      file = path.sub(/#{self.processor_ext}$/i, '')
       
-      return Compile.test_to_js(file)
+      return Config.preprocess(Compile.test_to_js(file))
     end
     
     def self.render_script(path)
-      file = path.sub(/#{self.processor_ext}$/i, '');
-      return Compile.script_to_js(file)
+      file = path.sub(/#{self.processor_ext}$/i, '')
+      return Config.preprocess(Compile.script_to_js(file))
     end
     
     def self.render_eunit(path)
@@ -37,7 +37,6 @@ module Entityjs
     end
 
     protected
-    #defines varaibles on the template htmls for view on webpage
     def self.set_vars(path, ops={})
       #search locally first
       if Dirc::exists?(path)
@@ -45,15 +44,9 @@ module Entityjs
       else
         contents = IO.read("#{Entityjs::root}/public/#{path}")
       end
-      
-      #reload config for changes
-      Config.instance.reload
-      
-      #set width, height and canvas id
-      contents = contents.sub("RE_WIDTH", Config.instance.width.to_s)
-      contents = contents.sub("RE_HEIGHT", Config.instance.height.to_s)
-      contents = contents.sub("RE_CANVAS_ID", Config.instance.canvas_id)
-      
+
+      contents = Config.preprocess(contents)
+
       #set javascript srcs
       if !ops[:js]
         js = self.compile_js_html(ops[:tests])
@@ -63,7 +56,7 @@ module Entityjs
 
       contents.sub("RE_JS", js)
     end
-    
+
     #compiles html js tags for render on webpage
     def self.compile_js_html(tests=false)
       tests ||= false
@@ -76,8 +69,16 @@ module Entityjs
         }\);
       </script>
 )
-      ent = Dirc.find_entity_src_url(Config.instance.entity_ignore)
-      srcs = Dirc.find_scripts_url(Config.instance.scripts_ignore, Config.instance.scripts_order)
+      ent_ignore = Config.instance.entity_ignore
+      srcs_ignore = Config.instance.scripts_ignore
+
+      if tests
+        ent_ignore += Config.instance.tests_entity_ignore
+        srcs_ignore += Config.instance.tests_scripts_ignore
+      end
+
+      ent = Dirc.find_entity_src_url(ent_ignore)
+      srcs = Dirc.find_scripts_url(srcs_ignore, Config.instance.scripts_order)
       
       if tests
         tests_src = Dirc.find_tests_url(Config.instance.tests_ignore)
@@ -93,14 +94,21 @@ module Entityjs
       merg.each do |s|
         
         #output a divider for each js root
-        first_folder = s.split('/').shift
+        folders = s.split('/')
+
+        #remove file at the end
+        folders.pop
+        folders.join('/')
+
+        first_folder = folders
         if last != first_folder
           js += "\n\n\t<!-- #{first_folder} -->\n"
           last = first_folder
         end
         
         #add processor extension to non-js files so the server processes it into js
-        if s.match(/\.js$/).nil?
+        if !s.match(/^scripts\//).nil?
+          #add processor to all files, because preprocessor needs it to activate
           s += self.processor_ext
         end
         

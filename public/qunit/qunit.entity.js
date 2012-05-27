@@ -17,11 +17,6 @@ ETest.prototype.run = function(){
 };
 
 /*
-Disable re.ready for testing
-*/
-re.ready = function(){};
-
-/*
 Expects a trigger call from the given obj.
 
 var e = re.e('flicker');
