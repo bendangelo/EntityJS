@@ -7,3 +7,4 @@ pkg/*
 ._redcar
 mygame
 *.min.js
+.rspec

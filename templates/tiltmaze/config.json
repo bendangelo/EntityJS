@@ -1,0 +1,15 @@
+{
+	//configure game settings
+  "width": 180,
+  "height": 180,
+  "canvas-id": "game-canvas",
+
+  //ignore entity scripts
+  "entity-ignore": "socket wait group",
+  
+  "tests-ignore": null,
+  "scripts-ignore": null,
+
+  //order scripts
+  "order": "/tile.js$"
+}

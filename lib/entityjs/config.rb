@@ -5,7 +5,7 @@ module Entityjs
   class Config
     
     def self.file_name
-      'config.yml'
+      'config.json'
     end
     
     def self.assets_folder
@@ -41,13 +41,14 @@ module Entityjs
     end
     
     def reload
-      if File.exists?(Config.file_name)
+      if File.exists?('config.yml')
+        puts "Warning: config.yml will be deprecated soon. Rename to config.json"
+
+        @data = YAML::load(IO.read('config.yml'))
+
+      elsif File.exists?(Config.file_name)
         data = IO.read(Config.file_name)
-
-        #replace tabs with 2 spaces
-        #data = data.gsub("\t", '  ')
-
-        @yml = YAML::load(data)
+        @data = JSON::parse(data)
       end
     end
     
@@ -108,24 +109,28 @@ module Entityjs
     end
     
     protected
-    #returns the wanted attr from yml else returns the default
+    #returns the wanted attr from data else returns the default
     def get_attr(at, default=nil)
-      if @yml.nil?
+      if @data.nil?
         return default
       end
       
-      return @yml[at] || default
+      return @data[at] || default
     end
 
     #returns the wanted attr in an array form
     def split_attr(at)
-      if @yml.nil?
+      if @data.nil?
         return []
       end
       
-      y = @yml[at]
+      y = @data[at]
       if !y.nil?
-        return y.split(" ")
+        if y.is_a? Array
+          return y
+        else
+          return y.split(" ")
+        end
       end
       return []
     end
