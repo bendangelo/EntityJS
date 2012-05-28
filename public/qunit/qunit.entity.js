@@ -244,10 +244,12 @@ function lazy(comps, obj){
   //afterwards
   //re.scene('home').exit();
 */
-function lazyScene(scene, args){
+function lazyScene(scene){
+  var args = Array.prototype.slice.call(arguments, 1);
   return {
     setup:function(){
       var s = window[scene] = re.scene(scene);
+
       s.enter.apply(s, args);
     },
     teardown:function(){
