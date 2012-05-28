@@ -231,6 +231,19 @@ function lazy(comps, obj){
   }
 }
 
+/*
+  Simple scene testing.
+
+  module('scenes/home', lazyScene('home', 'hello'));
+  
+  //goes into home..
+  //re.scene('home').enter('hello');
+  test('shows title', function(){
+    eq(re('text').first().text(), 'hello');
+  });
+  //afterwards
+  //re.scene('home').exit();
+*/
 function lazyScene(scene, args){
   return {
     setup:function(){
@@ -248,6 +261,15 @@ Some super lazy evaluations
 */
 var eq = equal;
 var not = function(arg, message){ok(!arg, message);}
+
+/*
+Object exists or is of type.
+
+is({}, 'object');
+is(null) //false
+is(1)
+is('sdsf', 'string') //true
+*/
 function is(obj, type){
   if(arguments.length == 1){
     ok(obj != null, "Expected to be present");
@@ -256,6 +278,26 @@ function is(obj, type){
   }
 }
 
+/*
+Between or equal to two numbers
+
+between(10, 30, 90)
+*/
+function between(test, low, high){
+  if(low > high){
+    var t = low;
+    low = high;
+    high = t;
+  }
+
+  ok(test >= low && test <= high, "Expected to be between "+low+"-"+high);
+}
+
+/*
+Matches a regular expression
+
+match('hello', /h/, 'i');
+*/
 function match(test, reg, i){
   if(typeof reg == 'string'){
     reg = new RegExp(reg, i)
