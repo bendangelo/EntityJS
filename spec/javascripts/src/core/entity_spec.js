@@ -23,7 +23,7 @@ describe('entity', function(){
   it('should get', function(){
     e.blah = 10;
     e.bla = function(){
-      return 10;
+      return this.blah;
     };
 
     eq(e.get('blah'), 10);

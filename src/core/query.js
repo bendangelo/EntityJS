@@ -168,7 +168,7 @@
       while(++i < l && (e = this[i]) != null && m.call(context || this, e, i, this) !== false);
         
       return this;
-    }
+    };
     
     /*
     The map method allows multidimensional loops.

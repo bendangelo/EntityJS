@@ -5,7 +5,7 @@ The animate comp defines a simple interface for animating sprites.
 var apple = re.e('apple.png animate sprite');
 
 //setup animations to play
-apple.anis = {
+apple.animates = {
 			//time, frames, loops
 	explode:[1000, [0, 1, 2], 1]
 		  //seconds, frames, loops defaults to once
@@ -25,19 +25,27 @@ apple.flickering(); //this comes from flicker comp
 re.c('animate')
 .requires('flicker')
 .defines({
-  	
-	animate:function(name){
-		//ignore if calling the same frame
+  
+	flicker_stop:function(){
+		this._super('flicker', 'flicker_stop');
+		if(this.animate_finish) this.animate_finish();
+	},
+
+	animate:function(name, onFinish, onUpdate){
+		//ignore if calling the same animation
 		if(this.flickering() != name){
-			
-			var a = this.anis[name] || [];
+
+    	this.animate_finish = onFinish;
+    	this.animate_update = onUpdate;
+    	
+			var a = this.animates[name];
 			//flicker interface
 			//(duration:int, frames:array, loops:int, id:string)
 			this.flicker(a[0], a[1], a[2], name);
 
 			//only run if a is defined
-			if(a.length)
-			this.flicker_run(); //run first frame
+			if(a.push)
+				this.flicker_run(); //run first frame
 		}
 		return this;
 	},
@@ -45,6 +53,7 @@ re.c('animate')
     //implement for flicker
     flick:function(c){
         this.frame(c);
+        if(this.animate_update)  this.animate_update();
     }
   
 });

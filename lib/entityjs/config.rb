@@ -15,6 +15,10 @@ module Entityjs
     def self.assets_folder
       return 'assets'
     end
+
+    def self.styles_folder
+      return 'styles'
+    end
     
     def self.tests_folder
       'tests'
@@ -105,6 +109,10 @@ module Entityjs
       return split_attr('tests-entity-ignore')
     end
 
+    def styles_ignore
+      return split_attr('styles-ignore')
+    end
+
     def build_head
       return get_attr('build-head', '')
     end
@@ -142,8 +150,8 @@ module Entityjs
       @data.each do |k,v|
         val = k.upcase
 
-        if val == 'JS'
-          puts "Warning cannot use JS as config key. Rename it to something else!"
+        if val == 'JS' || val == 'CSS'
+          puts "Warning cannot use JS or CSS as config key. Rename it to something else!"
         end
 
         contents = contents.gsub("RE_#{val}", v.to_s)

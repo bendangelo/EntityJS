@@ -5,13 +5,20 @@ The align component contains helper methods for positioning entities relative to
 
 */
 re.c('align')
-.requires('draw')
+.defaults({
+    regX:0,
+    regY:0,
+    sizeX:1,
+    sizeY:1,
+    posX:0,
+    posY:0
+})
 .defines({
     
-  align:function(x, y){
+    align:function(x, y){
     this.alignHor(x);
     return this.alignVer(y);
-  },
+    },
   
     alignHor:function(o){
         o = o || 0;

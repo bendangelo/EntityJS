@@ -60,7 +60,29 @@ module Entityjs
         js = ops[:js]
       end
 
-      contents.sub("RE_JS", js)
+      contents = contents.sub("RE_JS", js)
+
+      #add css
+      if !ops[:css]
+        css = self.compile_css_html
+      else
+        css = ops[:css]
+      end
+
+      contents = contents.sub("RE_CSS", css)
+    end
+
+    def self.compile_css_html
+      styles_url = Dirc.find_styles_url(Config.instance.styles_ignore)
+
+      css = ''
+
+      styles_url.each do |s|
+
+        css += "\t<link rel=\"stylesheet\" href=\"#{s}\" type=\"text/css\"/>\n"
+      end
+
+      return css
     end
 
     #compiles html js tags for render on webpage

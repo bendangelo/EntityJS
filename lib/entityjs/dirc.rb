@@ -33,6 +33,29 @@ module Entityjs
       @game_root
     end
     
+    def self.find_styles(ignore=nil)
+      ignore ||= []
+
+      styles = Dir["#{Dirc.game_root}/#{Config.styles_folder}/**/*.css"].sort
+
+      if ignore.any?
+        styles.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil?}
+      end
+
+      return styles
+    end
+
+    def self.find_styles_url(ignore=nil)
+      styles = self.find_styles(ignore)
+      
+      #remove extra folders
+      styles = styles.collect do |i|
+        i[i.rindex(Config.styles_folder+'/')..-1]
+      end
+
+      return styles
+    end
+
     def self.find_tests_url(ignore=nil)
       valids = Compile.valid_scripts.join(",")
       ignore ||= []

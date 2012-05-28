@@ -465,8 +465,7 @@
     };
 
     p.get = function(v){
-        var l = this[v];
-        return (re.is(l,'function'))? l() : l;
+        return (re.is(this[v], 'function'))? this[v]() : this[v];
     };
 
     p.def = function(obj, value){
