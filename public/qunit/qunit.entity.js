@@ -160,6 +160,14 @@ var customCoin = f('coin', function(){
 customCoin.value //10
 customCoin.getValue(); //10
 
+//create custom enemy
+
+test('blah', function(){
+  
+  enemy = f('enemy', {health:100, attack:10});
+
+});
+
 */
 var _factories = {};
 function factory(comps, func){
@@ -174,6 +182,9 @@ function factory(comps, func){
     //call defined factory
     if(_factories[comps]) _factories[comps].call(e);
     
+    //add custom attributes
+    if(typeof func == 'object') e.attr(func);
+
     //call custom method
     if(func) func.call(e);
     return e;

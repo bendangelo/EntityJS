@@ -29,6 +29,15 @@ describe('query', function(){
     eq(re(g).length, 1)
   });
   
+  it('should query by value', function(){
+
+    var v = re.e().team = {num:1};
+    //todo in the future?
+    //a bit complicated
+    //eq(re('team.num=1').length, 1)
+
+  });
+
   it('should return empty query', function(){
     eq(re().length, 0);
   })

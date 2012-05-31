@@ -63,6 +63,7 @@
     Sort a query string into objects
     */
     q._toObj = function(query){
+        //check if its caught
         if(q.c[query]){
             return q.c[query];
         }
@@ -99,6 +100,7 @@
             id:id
         };    
         
+        //catch it
         q.c[query] = comp;
         
         return comp;

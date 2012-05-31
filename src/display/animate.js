@@ -26,6 +26,7 @@ re.c('animate')
 .requires('flicker')
 .defines({
   
+  //overload flickers method
 	flicker_stop:function(){
 		this._super('flicker', 'flicker_stop');
 		if(this.animate_finish) this.animate_finish();
@@ -50,10 +51,14 @@ re.c('animate')
 		return this;
 	},
 
-    //implement for flicker
-    flick:function(c){
-        this.frame(c);
-        if(this.animate_update)  this.animate_update();
-    }
+	animating:function(t){
+		return this.flickering(t);
+	},
+
+  //implement for flicker
+  flick:function(c){
+      this.frame(c);
+      if(this.animate_update)  this.animate_update.apply(this, arguments);
+  }
   
 });
