@@ -147,7 +147,7 @@ module Entityjs
         out += "\n"
       end
       
-      out = Config.preprocessor(out)
+      out = Config.preprocess(out)
 
       #add js config
       out += self.js_config
