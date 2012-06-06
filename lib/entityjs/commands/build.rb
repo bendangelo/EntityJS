@@ -14,8 +14,8 @@ module Entityjs
       
       Config.instance.reload
       
-      build_folder = Config.build_folder
-      assets_folder = Config.assets_folder
+      build_folder = Config.instance.build_path
+      assets_folder = Config.instance.build_assets_path
       images_folder = Config.images_folder
       sounds_folder = Config.sounds_folder
       scripts_folder = Config.scripts_folder
@@ -23,17 +23,19 @@ module Entityjs
       final_name = Config.instance.build_name+'.js'
       html_name = 'play.html'
       
+      puts "Building to #{build_folder}"
+
       #build if it doesn't exist
       Dirc.create_dir(build_folder, true)
       
       #clear directory
-      FileUtils.rm_rf("#{build_folder}/.", :secure=> true)
+      #FileUtils.rm_rf("#{build_folder}/.", :secure=> true)
       
-      assets_root = Dirc.game_root+'/'+assets_folder
+      assets_root = Dirc.game_root+'/'+Config.assets_folder
       
       #copy everything inside the assets folder
-      puts "Copying assets folder"
-      FileUtils.cp_r assets_root, assets_folder
+      puts "Copying assets folder to #{assets_folder}"
+      FileUtils.cp_r assets_root+'/.', assets_folder
       
       #append all files into one big file
       puts "Compiling code"
@@ -53,8 +55,10 @@ module Entityjs
         f.write(out)
       end
       
-      #create play.html
-      puts "Creating play page"
+
+      if !Config.instance.build_ignore_play.nil?
+        #create play.html
+        puts "Creating play page"
       
       #create play.html code
       play_code = %Q(<!DOCTYPE html>
@@ -68,21 +72,24 @@ module Entityjs
   </body>
 </html>
 )
+      
+        #check if local play.html exists
+        if Dirc::exists?('play.html')
+          #create js for html
+          js = "<script src='#{final_name}' type='text/javascript'></script>"
+          play_code = Page::render_play(:js=>js)
+        end
 
-      #check if local play.html exists
-      if Dirc::exists?('play.html')
-        #create js for html
-        js = "<script src='#{final_name}' type='text/javascript'></script>"
-        play_code = Page::render_play(:js=>js)
-      end
-
-      File.open(html_name, 'w') do |f|
-        f.write(play_code)
+        File.open(html_name, 'w') do |f|
+          f.write(play_code)
+        end
+      else
+        puts "Ignoring play.html"
       end
       
       puts "Successfully built!"
       puts "Build is at"
-      puts "  #{build_folder}/#{name}"
+      puts "  #{build_folder}"
       
       Dirc.to_game_root
       

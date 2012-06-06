@@ -14,9 +14,9 @@ describe 'min' do
     
     Entityjs::Command.run('min', []).should == 0
     
-    Config.instance.stub(:min_path).and_return('build')
+    Entityjs::Config.instance.stub(:build_path).and_return('build')
 
-    dir = Config.instance.min_path
+    dir = Entityjs::Config.instance.build_path
     
     File.directory?(dir).should == true
     

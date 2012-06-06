@@ -11,7 +11,7 @@ module Entityjs
     	Config.instance.reload
 
       final_name = Config.instance.build_name+'.js'
-      path = Config.instance.min_path
+      path = Config.instance.build_path+'/'+final_name
 
       puts "Compiling code"
 
@@ -29,6 +29,7 @@ module Entityjs
 
       puts "Done"
 
+      return 0
     end
 
   end

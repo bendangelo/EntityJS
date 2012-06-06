@@ -133,8 +133,16 @@ module Entityjs
       return get_attr('build-foot', '')
     end
 
-    def min_path
-      return get_attr('min-path', '')
+    def build_ignore_play
+      return get_attr('build-ignore-play', nil)
+    end
+
+    def build_path
+      return get_attr('build-path', Config.build_folder)
+    end
+
+    def build_assets_path
+      return get_attr('build-assets-path', Config.assets_folder)
     end
 
     def license
