@@ -19,7 +19,7 @@ module Entityjs
       
       license = "/* QUnit V1.5.0pre with EntityJS Entensions | http://docs.jquery.com/QUnit */\n"
       
-      min = Entityjs::Build.minify(min, license)
+      min = Entityjs::Build.minify(min, :license=>license)
       
       File.open(name, 'w') do |f|
         

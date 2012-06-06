@@ -27,6 +27,9 @@ module Entityjs
       puts "Version: #{Entityjs::VERSION}"
       puts "Website: http://entityjs.com"
       puts ""
+      puts "Try it out:"
+      puts "  cd #{name}"
+      puts "  entityjs server"
       
       Dirc.change_dir(name)
       

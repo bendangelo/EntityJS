@@ -6,7 +6,7 @@ module Entityjs
   
   class Build
     
-    def self.generate(name=nil)
+    def self.generate(args=nil)
       
       if !Dirc.game?
         return 2
@@ -14,34 +14,22 @@ module Entityjs
       
       Config.instance.reload
       
-      if name.nil? || name.empty?
-        date = Time.now.strftime('%s')
-        name = "build-#{date}"
-      else
-        name = name.first
-      end
-      
-      builds_folder = Config.builds_folder
+      build_folder = Config.build_folder
       assets_folder = Config.assets_folder
       images_folder = Config.images_folder
       sounds_folder = Config.sounds_folder
       scripts_folder = Config.scripts_folder
       
-      final_name = 'game.min.js'
+      final_name = Config.instance.build_name+'.js'
       html_name = 'play.html'
       
       #build if it doesn't exist
-      Dirc.create_dir('builds', true)
+      Dirc.create_dir(build_folder, true)
       
-      #create new directory
-      if File.directory?(name)
-        return 3
-      end
+      #clear directory
+      FileUtils.rm_rf("#{build_folder}/.", :secure=> true)
       
       assets_root = Dirc.game_root+'/'+assets_folder
-      
-      Dir.mkdir(name)
-      Dir.chdir(name)
       
       #copy everything inside the assets folder
       puts "Copying assets folder"
@@ -50,20 +38,19 @@ module Entityjs
       #append all files into one big file
       puts "Compiling code"
 
-      entity_src = self.compile_entity(Config.instance.build_entity_ignore+Config.instance.entity_ignore)
-      scripts = self.compile_scripts(Config.instance.build_scripts_ignore+Config.instance.scripts_ignore, Config.instance.scripts_order)
+      out = self.compile_game
       
-      out = entity_src+scripts
-      
+      puts "Minifying code"
+
+      out = self.minify(out)
+
       #minify
       puts "Almost done..."
       
       #save
       File.open(final_name, 'w') do |f|
         
-        f.write(self.minify(out))
-        
-        f.close
+        f.write(out)
       end
       
       #create play.html
@@ -91,12 +78,11 @@ module Entityjs
 
       File.open(html_name, 'w') do |f|
         f.write(play_code)
-        f.close
       end
       
       puts "Successfully built!"
       puts "Build is at"
-      puts "  #{builds_folder}/#{name}"
+      puts "  #{build_folder}/#{name}"
       
       Dirc.to_game_root
       
@@ -155,21 +141,33 @@ module Entityjs
       return out
     end
     
-    #minifies source and returns it
-    def self.minify(code, license=true)
+    def self.compile_game
+
+      entity_src = self.compile_entity(Config.instance.build_entity_ignore+Config.instance.entity_ignore)
+      scripts = self.compile_scripts(Config.instance.build_scripts_ignore+Config.instance.scripts_ignore, Config.instance.scripts_order)
       
+      self.build_wrap(entity_src+scripts)
+    end
+
+    def self.build_wrap(code)
+
       head = Config.instance.build_head
       foot = Config.instance.build_foot
 
-      #leaves comments in head if they exist
-      leave_comment = !head.empty?
+      return head+code+foot
+    end
 
-      code = Uglifier.compile(head+code+foot, :copyright=>leave_comment)
+    #minifies source and returns it
+    def self.minify(code, ops={})
+      ops[:copyright] ||= false
+      ops[:license] ||= true
+      
+      code = Uglifier.compile(code, :copyright=>ops[:copyright])
       
       #add entity license statement
-      if license.is_a? String
-        code = license + code
-      elsif license
+      if ops[:license].is_a? String
+        code = ops[:license] + code
+      elsif !ops[:license].nil?
         code = Config.instance.license + code
       end
       

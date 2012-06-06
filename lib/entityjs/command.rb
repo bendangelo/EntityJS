@@ -22,11 +22,15 @@ module Entityjs
         when /^(test|t)$/
           return Entityjs::Test.generate(args)
         
-        when 'release'
+        when '/^(release|r)$/'
           return Entityjs::Release.generate(args)
+
         when 'eunit'
           return Entityjs::Eunit.generate(args)
           
+        when 'min'
+          return Entityjs::Min.generate(args)
+
         when /^(comp|c)$/
           return Entityjs::Comp.generate(args)
           
@@ -36,7 +40,7 @@ module Entityjs
         when /^(font|f)$/
           return Entityjs::Font.generate(args)
           
-        when /^(html|h)$/
+        when /^(html)$/
           return Entityjs::Html.generate(args)
 
         when /^(version|v|-v)$/
@@ -46,20 +50,19 @@ module Entityjs
         when /^(help|h|-h)$/
           puts ""
           puts '---- Commands ----'
-          puts 'entityjs new [name]'
-          puts 'entityjs new [name] [template]'
-          puts 'entityjs templates'
-          puts 'entityjs comp [name]'
-          puts 'entityjs test [name]'
-          puts 'entityjs test [name] [tests]+'
-          puts 'entityjs font [name] (soon...)'
-          puts 'entityjs release'
-          puts 'entityjs html'
-          puts 'entityjs build'
-          puts 'entityjs build [name]'
-          puts 'entityjs server'
-          puts 'entityjs help'
-          puts 'entityjs version'
+          puts 'new [name]'
+          puts 'new [name] [template]'
+          puts 'templates'
+          puts 'comp [name]'
+          puts 'test [name]'
+          puts 'test [name] [tests]+'
+          puts 'font [name] (soon...)'
+          puts 'release'
+          puts 'html'
+          puts 'build'
+          puts 'server'
+          puts 'help'
+          puts 'version'
           return 0
           
       end

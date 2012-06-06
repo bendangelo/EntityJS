@@ -5,7 +5,7 @@ module Entityjs
   class Config
     
     def self.file_name
-      'config.json'
+      'game.json'
     end
     
     def self.preprocess(data, ops={})
@@ -28,8 +28,8 @@ module Entityjs
       return 'scripts'
     end
     
-    def self.builds_folder
-      return 'builds'
+    def self.build_folder
+      return 'build'
     end
     
     def self.sounds_folder
@@ -50,7 +50,7 @@ module Entityjs
     
     def reload
       if File.exists?('config.yml')
-        puts "Warning: config.yml will be deprecated soon. Rename to config.json"
+        puts "Warning: config.yml will be deprecated soon. Rename to #{Config.file_name}"
 
         @data = YAML::load(IO.read('config.yml'))
 
@@ -105,8 +105,20 @@ module Entityjs
       return split_attr('build-entity-ignore')
     end
 
+    def build_name
+      return get_attr('build-name', self.title_slug+'.min')
+    end
+
     def tests_entity_ignore
       return split_attr('tests-entity-ignore')
+    end
+
+    def title
+      return get_attr('title', 'game')
+    end
+
+    def title_slug
+      return title.downcase.gsub(' ', '-')
     end
 
     def styles_ignore
@@ -119,6 +131,10 @@ module Entityjs
 
     def build_foot
       return get_attr('build-foot', '')
+    end
+
+    def min_path
+      return get_attr('min-path', '')
     end
 
     def license

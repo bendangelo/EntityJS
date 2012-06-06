@@ -10,17 +10,12 @@ describe 'build' do
     teardown_mygame
   end
   
-  it 'should run' do
-    #turn this off, too much garbage made
-    #Entityjs::Command.run('build', []).should == 0
-  end
-  
-  it 'should run release1' do
+  it 'should build' do
     
     name = "release#{rand(999)}"
     Entityjs::Command.run('b', [name]).should == 0
     
-    dir = Entityjs::Config.builds_folder+"/"+name
+    dir = Entityjs::Config.build_folder
     
     File.directory?(dir).should == true
     
@@ -44,7 +39,7 @@ describe 'build' do
   end
   
   
-  it 'should build a throwthegame' do
+  it 'should build' do
     #compile given source
     sounds = "[]"
     images = "['blah.png']"
