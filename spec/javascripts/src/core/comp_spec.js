@@ -53,7 +53,7 @@ describe('comp', function(){
     k
     .interfaces('bob');
     
-    contains(k._re_implements, 'bob')
+    contains(k._re_interfaces, 'bob')
   })
   
   it('should alias', function(){
@@ -89,9 +89,9 @@ describe('comp', function(){
     })
     .defaults('ok3', 3);
     
-    ok(k._re_inherits['ok3'] == 3)
-    ok(k._re_inherits['ok2'] == 2)
-    ok(k._re_inherits['ok'] == 1)
+    ok(k._re_defaults['ok3'] == 3)
+    ok(k._re_defaults['ok2'] == 2)
+    ok(k._re_defaults['ok'] == 1)
   })
   
   it('should namespaces', function(){

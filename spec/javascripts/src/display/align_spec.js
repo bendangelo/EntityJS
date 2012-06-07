@@ -8,12 +8,12 @@ describe('align', function(){
     
     it('align hor', function(){
         is(e.alignHor(10));
-        eq(e.posX, re.sys.sizeX * 0.5 - e.sizeX * 0.5 + 10)
+        eq(e.posX, re.sys.sizeX * 0.5 - e.sizeX * 0.5 + 10 |0)
     });
     
     it('align ver', function(){
         is(e.alignVer(1));
-        eq(e.posY, re.sys.sizeY * 0.5 - e.sizeY * 0.5 + 1)
+        eq(e.posY, re.sys.sizeY * 0.5 - e.sizeY * 0.5 + 1 |0)
     
     });
     

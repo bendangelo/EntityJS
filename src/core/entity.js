@@ -32,7 +32,7 @@
     var e = function(c){
         
         this._re_comps = [];
-        this._re_signals = {};
+        this._re_listens = {};
         
         this.id = q.id+'';
         
@@ -52,11 +52,11 @@
         this._re_comp(com);
         
         //check implement
-        if(this._re_implements){
+        if(this._re_interfaces){
             
-            for(var i in this._re_implements){
-                if(!this.hasOwnProperty(this._re_implements[i])){
-                    throw 'Interface: '+this._re_implements[i]+' missing';
+            for(var i in this._re_interfaces){
+                if(!this.hasOwnProperty(this._re_interfaces[i])){
+                    throw 'Interface: '+this._re_interfaces[i]+' missing';
                 }
             }
             
@@ -177,11 +177,11 @@
             this._re_comp(c._re_requires);
             
             //add interface of component
-            if(c._re_implements){
-                if(!this._re_implements){
-                    this._re_implements = [];
+            if(c._re_interfaces){
+                if(!this._re_interfaces){
+                    this._re_interfaces = [];
                 }
-                this._re_implements = this._re_implements.concat(c._re_implements);
+                this._re_interfaces = this._re_interfaces.concat(c._re_interfaces);
             }
             
             if(c._re_asserts){
@@ -191,8 +191,8 @@
                 this._re_asserts = this._re_asserts.concat(c._re_asserts);
             }
             
-            if(c._re_inherits){
-                this.def(c._re_inherits);
+            if(c._re_defaults){
+                this.def(c._re_defaults);
             }
             
             if(c._re_defines){
@@ -251,7 +251,7 @@
             return c._re_defines[method].apply(this, a);
         }
         
-        return c._re_inherits[method].apply(this, a);
+        return c._re_defaults[method].apply(this, a);
     }
     
     /*
@@ -306,7 +306,7 @@
         //check if entity contains signals
         for(p=0; p<comp.on.length; p++){
             s = comp.on[p];
-            if(!this._re_signals[s] || this._re_signals[s].length == 0){
+            if(!this._re_listens[s] || this._re_listens[s].length == 0){
                 return false;
             }
         }
@@ -343,12 +343,12 @@
             
         } else {
             
-            if(!this._re_signals[type]){
-                this._re_signals[type] = [];
+            if(!this._re_listens[type]){
+                this._re_listens[type] = [];
             }
             if(!re.is(method)) throw 'Method is null'
             //save context
-            this._re_signals[type].push({c:context || this, f:method});
+            this._re_listens[type].push({c:context || this, f:method});
             
         }
         
@@ -385,7 +385,7 @@
         } else {
             
             if(method){
-               var i = this._re_signals[type];
+               var i = this._re_listens[type];
                 for(var k in i){
                 
                     if(i[k].f == method){
@@ -396,11 +396,11 @@
             } else if(type){
                 
                 //no method was passed. Remove all signals
-                this._re_signals[type] = [];
+                this._re_listens[type] = [];
                 
             } else {
                 //remove all signals
-                this._re_signals = {};
+                this._re_listens = {};
             }
         }
         
@@ -417,12 +417,12 @@
     */
     p.trigger = function(type){
         
-        if(!this._re_signals[type])    return this;
+        if(!this._re_listens[type])    return this;
         var b;
         
-        for(var i=0, l = this._re_signals[type].length; i<l; i++){
+        for(var i=0, l = this._re_listens[type].length; i<l; i++){
             
-            b = this._re_signals[type];
+            b = this._re_listens[type];
             
             if(!b) break;
             if(!b[i]) continue;

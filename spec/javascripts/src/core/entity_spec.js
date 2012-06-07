@@ -295,7 +295,7 @@ describe('entity', function(){
               //remove all
        e.on('key', function(){});
        is(e.off());
-      eq(e._re_signals, {});
+      eq(e._re_listens, {});
   })
   
   it('should change context of event', function(){

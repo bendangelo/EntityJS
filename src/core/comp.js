@@ -1,23 +1,4 @@
     /*
-    Quick way to convert sentences to arrays.
-    */
-    var __z = function(n, r){
-        this._checkFinal();
-        
-        if(!this[n]){
-            this[n] = [];
-        }
-        
-        if(re.is(r, 'string')){
-            this[n] = this[n].concat(r.split(' '));
-        } else {
-            this[n] = this[n].concat(r);
-        }
-        
-        return this;
-    };
-    
-    /*
     If component exists, the component will NOT be overwritten.
     
     @return component reference
@@ -34,8 +15,8 @@
     re.c.init = function(name){
         
         this.name = name;
-        this._re_signals = {};
-        this._re_inherits = {};
+        this._re_listens = {};
+        this._re_defaults = {};
         this._re_defines = {};
         this._re_events = {};
         this._re_final = false;
@@ -54,7 +35,25 @@
     */
     
 re.c.init.prototype = {
-    
+    /*
+    Quick way to convert sentences to arrays.
+    */
+    z:function(n, r){
+        this._checkFinal();
+        
+        if(!this[n]){
+            this[n] = [];
+        }
+        
+        if(re.is(r, 'string')){
+            this[n] = this[n].concat(r.split(' '));
+        } else {
+            this[n] = this[n].concat(r);
+        }
+        
+        return this;
+    },
+
     _checkFinal:function(){
         
         if(this._re_final){
@@ -95,7 +94,7 @@ re.c.init.prototype = {
     },
     
     requires:function(r){
-        return __z.call(this, '_re_requires', r);
+        return this.z('_re_requires', r);
     },
     
     /*
@@ -105,7 +104,7 @@ re.c.init.prototype = {
     This prevents incompatible components from colliding.
     */
     asserts:function(r){
-        return __z.call(this, '_re_asserts', r);
+        return this.z('_re_asserts', r);
     },
     
     /*
@@ -123,7 +122,7 @@ re.c.init.prototype = {
     
     */
     interfaces:function(r){
-        return __z.call(this, '_re_implements', r);
+        return this.z('_re_interfaces', r);
     },
     
     /*
@@ -202,12 +201,12 @@ re.c.init.prototype = {
         if(arguments.length == 1){
             
             for(var k in d){
-                this._re_inherits[k] = d[k];    
+                this._re_defaults[k] = d[k];    
             }
             
         } else {
             
-            this._re_inherits[d] = value;
+            this._re_defaults[d] = value;
                 
         }
         
