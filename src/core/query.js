@@ -388,8 +388,8 @@
     /*
     Creates a new entity and pushes it into the array.
     */
-    p.e = function(comps, count){
-      var e = re.e(comps, count);
+    p.e = function(comps, count, alone){
+      var e = re.e(comps, count, alone);
       if(count){
         //add all in query
         for(var i in e){

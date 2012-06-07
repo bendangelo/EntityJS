@@ -11,9 +11,13 @@
     });
     
     */
-    var q = function(c, count){
+    var q = function(c, count, alone){
         if(!count){
-          return new re.entity.init(c);
+            var r = new re.entity.init(c);
+            if(!alone){
+                re._e.push(r);
+            }
+          return r;
         }
         
         //optimize for multiple calls
@@ -21,7 +25,7 @@
         
         //create entity by number of count
         for(var i=0; i<count; i++){
-            q.push(re.e(c));
+            q.push(re.e(c, 0, alone));
         }
         
         return q;
@@ -34,11 +38,9 @@
         this._re_comps = [];
         this._re_listens = {};
         
-        this.id = q.id+'';
+        this.id = q.id;
         
         q.id++;
-        
-        re._e.push(this);
         
         this.comp(c);
     };
@@ -223,8 +225,8 @@
         return this._re_comps.slice();
     }
     
-    p.clone = function(count){
-        return re.e(this._re_comps, count);
+    p.clone = function(count, a){
+        return re.e(this._re_comps, count, a);
     }
     
     /*
