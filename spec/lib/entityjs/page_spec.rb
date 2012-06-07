@@ -11,14 +11,14 @@ describe 'Page' do
   end
   
   it 'should render play' do
-    html = Entityjs::Page.render_play
+    html = Entityjs::Page.render_play_page
     
     html.should be_instance_of String
   end
   
   it 'should render test' do
     
-    test = Entityjs::Page.render_test
+    test = Entityjs::Page.render_test_page
     
     test.should be_instance_of String
   end

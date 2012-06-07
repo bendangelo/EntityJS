@@ -7,7 +7,7 @@ module Entityjs
       return '.js'
     end
     
-    def self.render_play(ops={})
+    def self.render_play_page(ops={})
       self.set_vars("play.html", ops)
     end
     
@@ -17,7 +17,7 @@ module Entityjs
       return IO.read(path)
     end
 
-    def self.render_test
+    def self.render_test_page
       self.set_vars('test.html', :tests=>true)
     end
     

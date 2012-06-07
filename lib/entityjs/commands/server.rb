@@ -22,13 +22,13 @@ module Entityjs
     
     get '/' do
       
-      Page.render_play()
+      Page.render_play_page()
       
     end
     
     get '/test' do
       
-      Page.render_test()
+      Page.render_test_page()
       
     end
     
