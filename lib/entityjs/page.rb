@@ -17,8 +17,8 @@ module Entityjs
       return IO.read(path)
     end
 
-    def self.render_tests
-      self.set_vars('tests.html', :tests=>true)
+    def self.render_test
+      self.set_vars('test.html', :tests=>true)
     end
     
     def self.render_entityjs_src(path)

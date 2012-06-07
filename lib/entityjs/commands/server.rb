@@ -26,9 +26,9 @@ module Entityjs
       
     end
     
-    get '/tests' do
+    get '/test' do
       
-      Page.render_tests()
+      Page.render_test()
       
     end
     

@@ -16,9 +16,9 @@ describe 'Page' do
     html.should be_instance_of String
   end
   
-  it 'should render tests' do
+  it 'should render test' do
     
-    test = Entityjs::Page.render_tests
+    test = Entityjs::Page.render_test
     
     test.should be_instance_of String
   end
