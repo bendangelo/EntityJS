@@ -13,30 +13,30 @@ re.c('el')
 
   posX:function(x){
     if(re.is(x)){
-      return this.el.css('left', x);
+      return this.$el.css('left', x);
     }
 
-    return this.el.position().left;
+    return this.$el.position().left;
   },
   
   posY:function(y){
     if(re.is(y)){
-      return this.el.css('top', y);
+      return this.$el.css('top', y);
     }
-    return this.el.position().top;
+    return this.$el.position().top;
   },
   
   sizeX:function(){
-    return this.el.outerWidth();
+    return this.$el.outerWidth();
   },
 
   sizeY:function(){
-    return this.el.outerHeight();
+    return this.$el.outerHeight();
   },
   
   click:function(f){
     var that = this;
-    this.el.click(function(e){
+    this.$el.click(function(e){
       f.call(that,e);
       return false;
     });
@@ -44,7 +44,12 @@ re.c('el')
   },
 
   $:function(a,b){
-    return this.el.find(a,b);
+    return this.$el.find(a,b);
+  },
+
+  text:function(t){
+    this.$el.text(t);
+    return this;
   },
 
   setEl:function(el){
@@ -59,19 +64,21 @@ re.c('el')
   },
 
   remove:function(){
-    if(this.el){
-    	this.el.remove();
+    if(this.$el){
+    	this.$el.remove();
+      this.$el = this.el = null;
     }
     return this;
   },
 
   hide:function(){
-    this.el.hide();
+    this.$el.hide();
     return this;
   },
 
   show:function(){
-    this.el.show();
+    this.$el.show();
+    return this;
   }
   
 })
