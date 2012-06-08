@@ -4,7 +4,7 @@ images, icons etc. on top of the canvas element.
 
 re.e('el:a').el //element refence
 
-Jquery or Zepto must be available in $ to work!
+Jquery or Zepto must be available in re.$ to work!
 
 */
 re.c('el')
@@ -47,10 +47,11 @@ re.c('el')
     return this.el.find(a,b);
   },
 
-  setEl:function(tag){
+  setEl:function(el){
     this.remove();
 
-    this.el = re.$(re.$new(el)).addClass('el');
+    this.el = el;
+    this.$el = $(el).addClass('el');
 
     this.posX(0);
     this.posY(0);
@@ -75,7 +76,7 @@ re.c('el')
   
 })
 .init(function(c, e){
-  if(e) this.setEl(e);
+  if(e) this.setEl(re.$new(e));
 })
 .dispose(function(c){
   this.remove();
