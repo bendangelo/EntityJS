@@ -26,10 +26,10 @@ describe('re', function(){
     teardown_canvas()
   })
   
-  it('should create element', function(){
-    is(re.$new('canvas'))
+  it('should create canvas', function(){
+    is(re.$new('canvas'), 'htmlcanvaselement')
   })
-  
+
   it('should re.is work', function(){
     ok(re.is({}))
     ok(re.is(1))
