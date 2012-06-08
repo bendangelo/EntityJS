@@ -4,9 +4,7 @@ images, icons etc. on top of the canvas element.
 
 re.e('el:a').el //element refence
 
-re.$ must be overwritten by JQuery or Zepto to properly work.
-
-re.$ = $;
+Jquery or Zepto must be available in $ to work!
 
 */
 re.c('el')
