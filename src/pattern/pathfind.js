@@ -53,14 +53,12 @@ while(ints.length){
 }
 
 */
-re.pathfind = re.c('pathfind')
-.statics({
-  search:function(){
+re.c('pathfind')
+.method(function(){
     var p = re.e('pathfind');
     var path = p.pathfind.apply(p, arguments);
     p.dispose();
     return path;
-  }
 })
 .defines({
   
