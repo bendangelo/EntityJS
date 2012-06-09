@@ -47,7 +47,7 @@ re.c('mouse')
             re.pressed.d[c] = (e.type == 'mousedown');
         }
     
-        this.event(e, c);
+        re.mouse.event(e, c);
         
     },
     
