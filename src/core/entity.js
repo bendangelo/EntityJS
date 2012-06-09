@@ -14,6 +14,7 @@
     var q = function(c, count, alone){
         if(!count){
             var r = new re.entity.init(c);
+            
             if(!alone){
                 re._e.push(r);
             }
@@ -38,16 +39,11 @@
         this._re_comps = [];
         this._re_listens = {};
         
-        this.id = q.id;
-        
-        q.id++;
-        
+        this.id = q.id++;
         this.comp(c);
     };
     
     var p = e.prototype;
-    
-    p.id = '';
     
     p.comp = function(com){
         

@@ -19,6 +19,17 @@ describe('comp', function(){
     eq(k.type, 10)
     eq(k.yep, 'yep')
   })
+
+  it('should create a factory', function(){
+    var val = 10;
+
+    k.factory(function(ref){
+      this.ref = ref;
+    });
+
+    eq(re[k.name](val).ref, val);
+
+  });
   
   it('should add events', function(){
     k.events('mouseup', function(){})

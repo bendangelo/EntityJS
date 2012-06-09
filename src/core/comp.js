@@ -19,7 +19,7 @@
         this._re_defaults = {};
         this._re_defines = {};
         this._re_events = {};
-        this._re_final = false;
+        this._re_final = 0;
     };
     
     /*
@@ -93,8 +93,25 @@ re.c.init.prototype = {
       return this;
     },
     
+    /*
+    Defines a more formal constructor for when references are needed.
+
+    re.c('control')
+    .factory(function(ref, val){
+        this.ref = ref;
+        this.val = val;
+    });
+
+    //new control entity
+    re.control(val1, val2);
+    
+    */
     factory:function(f){
-        return this.statics('factory', f);
+        re[this.name] = function(){
+            var e = re.e();
+            f.apply(e, arguments);
+            return e.comp(this.name);
+        };
     },
 
     requires:function(r){
@@ -297,7 +314,7 @@ re.c.init.prototype = {
     lock:function(){
         this._checkFinal();
         
-        this._re_final = true;
+        this._re_final = 1;
         
         return this;
     },
