@@ -42,7 +42,7 @@ re('sound').method('play');
 This will be fixed with the channel component.
 
 */
-re.sound = re.c('sound')
+re.c('sound')
 .statics({
     
     enabled:true

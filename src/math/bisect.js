@@ -15,7 +15,7 @@ Note: width is called the bisect and the bi is the transformed x,y positions.
 
 
 */
-re.bisect = re.c('bisect')
+re.c('bisect')
 .statics({
 	
 	toX:function(bi, width, size){

@@ -47,7 +47,7 @@ re.c('mouse')
             re.pressed.d[c] = (e.type == 'mousedown');
         }
     
-        re.c('mouse').event(e, c);
+        this.event(e, c);
         
     },
     
@@ -68,7 +68,7 @@ re.c('mouse')
         }
         
         
-        var listeners = re.c('mouse').l;
+        var listeners = this.l;
         
         /*
         if(re.preventDefault && re.preventDefault.d[key]){
@@ -112,12 +112,12 @@ re.c('mouse')
   offX:0,
   offY:0
 })
-.init(function(c){
+.init(function(){
     //add to listener array
-    c.l.push(this);
+    re.mouse.l.push(this);
 })
-.dispose(function(c){
+.dispose(function(){
     //remove from listener array
     
-    c.l.splice(c.l.indexOf(this), 1);
+    re.mouse.l.splice(re.mouse.l.indexOf(this), 1);
 });

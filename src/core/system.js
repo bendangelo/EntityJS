@@ -88,14 +88,14 @@ re.c('system')
         this.sizeY = s.sizeY = this.canvas.height;
         
         //init listeners
-        if(re._c.keyboard){
-          re._c.keyboard.i();
+        if(re.keyboard){
+          re.keyboard.i();
         }
-        if(re._c.mouse){
-          re._c.mouse.i();
+        if(re.mouse){
+          re.mouse.i();
         }
-        if(re._c.touch){
-          re._c.touch.i();
+        if(re.touch){
+          re.touch.i();
         }
         this.system_loop = this.defaultLoop;
         this.second = this.stepSize * 30;
@@ -119,7 +119,7 @@ re.c('system')
     },
     
     update:function(){
-      re._c.update.update(this.stepSize);
+      re.update.update(this.stepSize);
     },
     
     draw:function(){
@@ -129,9 +129,6 @@ re.c('system')
     
     
 })
-.run(function(){
     
     //create default system
     re.system = re.sys = re.e('system');
-    
-});

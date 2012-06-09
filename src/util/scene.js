@@ -27,20 +27,6 @@ re.e('scene:game')
 })
 
 */
-re.scene = function(title){
-	var s = re.c('scene');
-	
-  if(!re.is(title)){
-    return s._scenes[re.scene.current];
-  }
-  
-	if(!s._scenes[title]){
-		//add scene
-		re.e('scene:'+title);
-	}
-	
-	return s._scenes[title];
-};
 
 re.c('scene')
 .statics({
@@ -48,15 +34,29 @@ re.c('scene')
 	_scenes:{}
 	
 })
-.init(function(c, title){
+.method(function(title){
+	var d = re.scene;
 	
-	c._scenes[title] = this;
+  if(!re.is(title)){
+    return d._scenes[re.scene.current];
+  }
+  
+	if(!d._scenes[title]){
+		//add scene
+		re.e('scene:'+title);
+	}
+	
+	return d._scenes[title];
+})
+.init(function(title){
+	
+	re.scene._scenes[title] = this;
 	this.sceneName = title;
 	
 })
-.dispose(function(c){
+.dispose(function(){
 	
-	delete c._scenes[this.sceneName];
+	delete re.scene._scenes[this.sceneName];
 	
 })
 .defines({

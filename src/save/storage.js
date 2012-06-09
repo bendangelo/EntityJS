@@ -10,7 +10,7 @@ re.e('storage:session');
 
 */
 re.c('storage')
-.init(function(c, type){
+.init(function(type){
 	this.storage = window[type+'Storage'];
 })
 .defines({

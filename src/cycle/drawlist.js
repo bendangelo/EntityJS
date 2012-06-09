@@ -11,16 +11,16 @@ In a case of an isometric game, certain tiles should appear behind or in
 
 */
 re.drawlist = function(name){
-  var d = re.c('drawlist'), name = name || '';
+  var name = name || '';
   
   //name default to '' and returns default drawlist
   
-  if(!d._lists[name]){
+  if(!re.drawlist._lists[name]){
     //add new list
     re.e('drawlist:'+name);
   }
   
-  return d._lists[name];
+  return re.drawlist._lists[name];
 };
 
 re.c('drawlist')
@@ -69,11 +69,11 @@ re.c('drawlist')
   }
   
 })
-.init(function(c, name){
-  c._lists[name] = this;
+.init(function(name){
+  re.drawlist._lists[name] = this;
   this.listName = name;
   this.list = re();
 })
-.dispose(function(c){
-  delete c._lists[this.listName];
+.dispose(function(){
+  delete re.drawlist._lists[this.listName];
 });

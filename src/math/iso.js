@@ -1,4 +1,4 @@
-re.iso = re.c('iso')
+re.c('iso')
 .statics({
   sizeX:30,
   sizeY:30,

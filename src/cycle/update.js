@@ -23,7 +23,7 @@ re.c('update')
 })
 .defines(function(){
 	
-	var l = re.c('update').l;
+	var l = re.update.l;
 	
 	return {
   
@@ -78,10 +78,10 @@ re.c('update')
 	};
 	
 }())
-.init(function(c){
-	c.l.push(this);
+.init(function(){
+	re.update.l.push(this);
 })
-.dispose(function(c){
+.dispose(function(){
 	
-	c.l.splice(c.l.indexOf(this), 1);
+	re.update.l.splice(re.update.l.indexOf(this), 1);
 });

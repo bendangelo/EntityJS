@@ -131,13 +131,10 @@
         //create new image component
         re.c(a)
         .alias(n+re.load.imageExt)
-        .statics({
-            image:img
-        })
         .defines({
             //save image for other components to copy or use
             _image:img
-        });
+        }).image = img;
         
         img.onload = function(){
           re.c(a).defines({
@@ -236,12 +233,9 @@
       re.c(a)
       //create statics codec for easy use
       .alias(n+re.load.soundExt)
-      .statics({
-          sound:s
-      })
       .defines({
           _sound:s
-      });
+      }).sound = s;
     }
     
     p.progress = function(m){

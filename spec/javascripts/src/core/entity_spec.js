@@ -73,15 +73,14 @@ describe('entity', function(){
   it('should call init', function(){
       var called = false
       var v1, v2;
-          c.init(function(comp, val1, val2){
+          c.init(function(val1, val2){
               called = true
               v1 = val1
               v2 = val2
           })
           var called2 = false
-              c.on('init', function(y){
+              c.on('init', function(){
               called2 = true
-              ok(y == e)
               })
               e.comp(c.name+':10:99')
           

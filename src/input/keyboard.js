@@ -111,7 +111,7 @@ re.c('keyboard')
 	.trigger('ctrl+k')
 	*/
 	event: function(e){
-		var that = re._c.keyboard;
+		var that = re.keyboard;
 		
     var tagName = (e.target || e.srcElement || {}).tagName;
     
@@ -151,11 +151,11 @@ re.c('keyboard')
 	}
 
 })
-.init(function(c){
+.init(function(){
 	//add to statics key array
-	c.l.push(this);
+	re.keyboard.l.push(this);
 })
-.dispose(function(c){
+.dispose(function(){
 	//remove from statics key array
-	c.l.splice(c.l.indexOf(this), 1);
+	re.keyboard.l.splice(re.keyboard.l.indexOf(this), 1);
 });

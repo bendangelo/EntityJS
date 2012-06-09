@@ -22,7 +22,7 @@ describe('mouse', function(){
         is(m)
       })
       
-      re.c('mouse').event({type:type, offsetX:0, offsetY:0}, 'middle')
+      re.mouse.event({type:type, offsetX:0, offsetY:0}, 'middle')
       
       ok(called2)
       ok(called)
@@ -44,7 +44,7 @@ describe('mouse', function(){
         is(m)
       })
       
-      re.c('mouse').event({type:type, offsetX:0, offsetY:0}, 'middle')
+      re.mouse.event({type:type, offsetX:0, offsetY:0}, 'middle')
       
       ok(called2)
       ok(called)
@@ -63,7 +63,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
+      re.mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   });
@@ -80,7 +80,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
+      re.mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })
@@ -97,7 +97,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
+      re.mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })
@@ -114,7 +114,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.c('mouse').event({type:type, offsetX:0, offsetY:0})
+      re.mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })

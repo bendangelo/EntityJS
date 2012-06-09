@@ -153,16 +153,17 @@
         //component reference
         var c;
         
+        //will be sent to init function
         var vals = com.split(':');
         
         com = vals[0];
         
+        //remove comp string
+        vals.shift();
+
         //add component
         c = re._c[com];
-        
-        //swap values
-        vals[0] = c;
-        
+
         //if already has component
         if(!this.has(com)){
         

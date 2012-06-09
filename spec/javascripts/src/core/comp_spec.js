@@ -16,8 +16,8 @@ describe('comp', function(){
     })
     .statics('yep', 'yep');
     
-    eq(k.type, 10)
-    eq(k.yep, 'yep')
+    eq(re[k.name].type, 10)
+    eq(re[k.name].yep, 'yep')
   })
 
   it('should create a factory', function(){

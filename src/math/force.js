@@ -20,7 +20,7 @@ e.hitmap == re.hitmap //true
 
 Warning - this component is not delta time safe. It assumes a fixed timestep.
 */
-re.force = re.c('force')
+re.c('force')
 .requires('update')
 .statics({
     graX:0,
@@ -125,13 +125,13 @@ re.force = re.c('force')
     }
     
 })
-.init(function(c){
+.init(function(){
     
     //setup defaults
     this.def({
       hitmap:re.hitmap,
-      graX:c.graX,
-      graY:c.graY
+      graX:re.force.graX,
+      graY:re.force.graY
     });
     
     this.on('update', this.force_update);

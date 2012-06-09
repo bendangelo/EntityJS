@@ -17,27 +17,27 @@ describe('update', function(){
     
     is(k.updateFirst())
     var l = 0;
-    eq(re._c.update.l[l], k)
+    eq(re.update.l[l], k)
   })
   
   it('update last', function(){
     is(k.updateLast())
-    var l = re._c.update.l.length-1;
-    eq(re._c.update.l[l], k)
+    var l = re.update.l.length-1;
+    eq(re.update.l[l], k)
   })
   
   it('update after', function(){
     is(k.updateAfter(last))
     
-    var him = re._c.update.l.indexOf(last)
-    eq(re._c.update.l[him+1], k)
+    var him = re.update.l.indexOf(last)
+    eq(re.update.l[him+1], k)
   })
   
   it('update before', function(){
     is(k.updateBefore(last))
     
-    var him = re._c.update.l.indexOf(last)
-    eq(re._c.update.l[him-1], k)
+    var him = re.update.l.indexOf(last)
+    eq(re.update.l[him-1], k)
     
   })
   
@@ -56,7 +56,7 @@ describe('update', function(){
       called2 = true
     })
     
-    re.c('update').update(10)
+    re.update.update(10)
     
     ok(called2)
     ok(called)

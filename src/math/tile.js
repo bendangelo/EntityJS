@@ -41,7 +41,7 @@ Its recommended you avoid negative tile values
 
 TODO: remove size vars from entity. Use global size instead
 */
-re.tile = re.c('tile')
+re.c('tile')
 .statics({
     sizeX:40,
     sizeY:40,

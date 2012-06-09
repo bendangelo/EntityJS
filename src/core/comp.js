@@ -20,6 +20,16 @@
         this._re_defines = {};
         this._re_events = {};
         this._re_final = 0;
+
+        //defines the special re.[comp]()
+        if(!re[this.name]){
+            var that = this;
+
+            re[this.name] = function(){
+                return that._re_method.apply(that, arguments);
+            };
+
+        }
     };
     
     /*
@@ -67,11 +77,11 @@ re.c.init.prototype = {
         if(!re.is(value)){
             
             for(var type in obj){
-                this[type] = obj[type];    
+                re[this.name][type] = obj[type];    
             }
             
         } else {
-            this[obj] = value;    
+            re[this.name][obj] = value;    
         }
         
         return this;
@@ -104,14 +114,39 @@ re.c.init.prototype = {
 
     //new control entity
     re.control(val1, val2);
-    
+    re.c('control').factory
+
     */
     factory:function(f){
-        re[this.name] = function(){
-            var e = re.e();
-            f.apply(e, arguments);
-            return e.comp(this.name);
-        };
+        this._checkFinal();
+
+        this._re_factory = f;
+
+        return this;
+    },
+
+    _re_method:function(){
+        var e = re.e();
+        if(this._re_factory)
+        this._re_factory.apply(e, arguments);
+
+        return e.comp(this.name);
+    },
+
+    /*
+    Overwrites the factory method for a custom use.
+
+    re.c('monster')
+    .method(function(){
+        return re('monster');
+    });
+
+    re.monster(); //calls method
+    
+    */
+    method:function(f){
+        this._re_method = f;
+        return this;
     },
 
     requires:function(r){

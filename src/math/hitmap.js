@@ -165,3 +165,4 @@ re.c('hitmap')
     }
     
 });
+re.hitmap = null; //remove default hitmap so force defaults to none
