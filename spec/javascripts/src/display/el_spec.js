@@ -7,8 +7,11 @@ describe('displays/el', function(){
   })
   
   it('should define valid dom', function(){
-    debugger
-    is(e.el, 'htmldivelement')
+    is(e.el, 'htmldivelement');
+    eq(e.posX(), 0)
+    eq(e.posY(), 0)
+    eq(e.sizeX(), 0)
+    eq(e.sizeY(), 0)
   })
   
 });

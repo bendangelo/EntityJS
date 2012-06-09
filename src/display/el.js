@@ -82,9 +82,9 @@ re.c('el')
   }
   
 })
-.init(function(c, e){
+.init(function(e){
   if(e) this.setEl(re.$new(e));
 })
-.dispose(function(c){
+.dispose(function(){
   this.remove();
 });
