@@ -93,6 +93,10 @@ re.c.init.prototype = {
       return this;
     },
     
+    factory:function(f){
+        return this.statics('factory', f);
+    },
+
     requires:function(r){
         return this.z('_re_requires', r);
     },
