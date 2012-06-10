@@ -10,7 +10,7 @@ module Entityjs
       puts "Creating HTML files"
 
       play = 'play.html'
-      test = 'tests.html'
+      test = 'test.html'
 
       if File.exists?(play) || File.exists?(test)
         return 3

@@ -77,7 +77,7 @@ module Entityjs
         if Dirc::exists?('play.html')
           #create js for html
           js = "<script src='#{final_name}' type='text/javascript'></script>"
-          play_code = Page::render_play(:js=>js)
+          play_code = Page::render_play_page(:js=>js)
         end
 
         File.open(html_name, 'w') do |f|

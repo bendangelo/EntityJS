@@ -16,12 +16,12 @@ describe 'Html' do
 			FileUtils.rm("play.html")
 		end
 
-		if File.exists?("tests.html")
-			FileUtils.rm("tests.html")
+		if File.exists?("test.html")
+			FileUtils.rm("test.html")
 		end
 		Entityjs::Html.generate().should == 0
 		File.exists?("play.html").should == true
-		File.exists?("tests.html").should == true
+		File.exists?("test.html").should == true
 	end
 
 end
