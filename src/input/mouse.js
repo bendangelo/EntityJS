@@ -76,17 +76,20 @@ re.c('mouse')
         }
         */
         
-        var c, t, obj;
+        var c, t, obj, tx, ty;
         for(var i=0; i<listeners.length; i++){
           t = listeners[i];
           if(t.screenable){
-            x = re.screen.toScreenX(x);
-            y = re.screen.toScreenY(y);
+            tx = re.screen.toScreenX(x);
+            ty = re.screen.toScreenY(y);
+          } else {
+            tx = x;
+            ty = y;
           }
           
           //offset mouse coordinates
-          var tx = x + t.offX;
-          var ty = y + t.offY;
+          tx += t.offX;
+          ty += t.offY;
           
           t.trigger(e.type, tx, ty, e);
           

@@ -75,12 +75,12 @@ describe('mouse', function(){
       
       e.on(type, function(x,y, e){
         called = true
+        is(e)
         is(x)
         is(y)
-        is(e)
       });
       
-      re.mouse.event({type:type, offsetX:0, offsetY:0})
+      re.mouse.event({type:type, offsetX:50, offsetY:100})
       
       ok(called)
   })
@@ -118,4 +118,5 @@ describe('mouse', function(){
       
       ok(called)
   })
+
 });

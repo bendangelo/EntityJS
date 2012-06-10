@@ -56,7 +56,7 @@ module Entityjs
       end
       
 
-      if !Config.instance.build_ignore_play.nil?
+      if Config.instance.build_ignore_play.nil?
         #create play.html
         puts "Creating play page"
       
