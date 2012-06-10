@@ -10,7 +10,9 @@ For example:
 In a case of an isometric game, certain tiles should appear behind or in
 
 */
-re.drawlist = function(name){
+
+re.c('drawlist')
+.method(function(name){
   var name = name || '';
   
   //name default to '' and returns default drawlist
@@ -21,9 +23,7 @@ re.drawlist = function(name){
   }
   
   return re.drawlist._lists[name];
-};
-
-re.c('drawlist')
+})
 .statics({
   _lists:{}
 })
