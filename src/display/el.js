@@ -47,11 +47,6 @@ re.c('el')
     return this.$el.find(a,b);
   },
 
-  text:function(t){
-    this.$el.text(t);
-    return this;
-  },
-
   setEl:function(el){
     this.remove();
 

@@ -126,11 +126,12 @@ re.c.init.prototype = {
     },
 
     _re_method:function(){
-        var e = re.e();
-        if(this._re_factory)
-        this._re_factory.apply(e, arguments);
+        var e = re.e(this.name);
 
-        return e.comp(this.name);
+        if(this._re_factory)
+            this._re_factory.apply(e, arguments);
+
+        return e;
     },
 
     /*

@@ -61,6 +61,11 @@ re.c('scene')
 })
 .defines({
 	
+	clear:function(){
+		re('el').query('draw').dispose();
+		return this;
+	},
+
 	enter:function(title){
     if(!re.is(title, 'function')){
       
