@@ -38,6 +38,22 @@ describe('query', function(){
 
   });
 
+  it('should reject elements', function(){
+    var k = re([1, 2, 3]);
+
+    var that = this;
+
+    is(k.reject(function(e, i, l){
+      is(i)
+      is(l)
+      eq(that, this)
+      return e == 1 || e == 3;
+    }, this));
+
+    eq(k[0], 2);
+
+  });
+
   it('should return empty query', function(){
     eq(re().length, 0);
   })

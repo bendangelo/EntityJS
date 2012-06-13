@@ -373,6 +373,16 @@
       return re(Array.prototype.filter.apply(this, arguments));
     }
     
+    //Removes all elements in the array that pass the truth test
+    p.reject = function(it, c){
+        for(var i=0; i<this.length; i++){
+            if(it.call(c || this, this[i], i, this)){
+                this.splice(i, 1);
+            }
+        }
+        return this;
+    };
+
     /*
     Finds first entity with components
     
