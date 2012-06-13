@@ -32,14 +32,11 @@
         return q;
     };
     
-    q.id = 0;
-    
     var e = function(c){
         
         this._re_comps = [];
         this._re_listens = {};
         
-        this.id = q.id++;
         this.comp(c);
     };
     
