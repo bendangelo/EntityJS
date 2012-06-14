@@ -15,7 +15,7 @@
         /*
         Styling for play.html
         */
-        .canvas-container {
+        .RE_CANVAS-CONTAINER {
           margin-left: auto;
           margin-right: auto;
           width: RE_WIDTHpx;
@@ -44,28 +44,20 @@
         	background-color:#ffffff;
         
         }
-        h1, h2, h3 {
-        	font-weight:700;
-        }
-        
-        h1 {
-        	font-size:30px;
-        	margin:10px 0 20px 5px;
-        	color:#D94E4E;
-        }
-        a, a:visited {
+
+        .links a, .links a:visited {
         	color:#5b9463;
         }
         
-        a:hover {
+        .links a:hover {
         	color:#77b981;
         }
         
-        a.highlight, a.highlight:visited {
+        .links a.highlight, .links a.highlight:visited {
         	color:#D94E4E;
         }
         
-        a.highlight:hover {
+        .links a.highlight:hover {
         	color:#ec7979;
         }
         
@@ -73,16 +65,19 @@
         	margin-top:25px;
         }
         
-        ul li{
+        ul.links li{
         	margin:5px;
         	display:inline-block;
         }
-        .links {
+
+        .float-right {
           float:right;
         }
-        .game-links {
+
+        .float-left {
           float:left;
         }
+
         .clear {
          
           clear: both;
@@ -99,9 +94,8 @@
     
   
       <div id="content">
-        <h1>Play</h1>
       
-        <div class="canvas-container">
+        <div class="RE_CANVAS-CONTAINER">
           <canvas id="RE_CANVAS-ID" width="RE_WIDTH" height="RE_HEIGHT">
 		  <p>
 		  Requires a modern browser to play. Try downloading <a href="http://google.com/chrome">Chrome</a>.
@@ -110,11 +104,11 @@
         </div>
       
 		<div class="block">
-      <ul class="game-links">
+      <ul class="links float-left">
         <li><a href="/test">Test Suite</a></li>
       </ul>
       
-			<ul class="links">
+			<ul class="links float-right">
 			  <li><a href="http://entityjs.com" class="highlight" target="_blank">EntityJS</a></li>
 			  <li><a href="http://entityjs.com/tutorials" target="_blank">Tutorials</a></li>
 			  <li><a href="http://entityjs.com/api" target="_blank">API</a></li>

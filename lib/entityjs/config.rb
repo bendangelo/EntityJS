@@ -77,6 +77,10 @@ module Entityjs
       get_attr('canvas-id', 'game-canvas')
     end
     
+    def canvas_container
+      get_attr('canvas-container', 'canvas-container')
+    end
+
     def scripts_ignore
       return split_attr('scripts-ignore')
     end
@@ -179,11 +183,15 @@ module Entityjs
       #reload config for changes
       self.reload
       
-      if @data.nil?
-        return contents
-      end
+      attrs = @data || {}
 
-      @data.each do |k,v|
+      #setup default attrs
+      attrs['canvas-id'] = self.canvas_id
+      attrs['width'] = self.width
+      attrs['height'] = self.height
+      attrs['title'] = self.title
+
+      attrs.each do |k,v|
         val = k.upcase
 
         if val == 'JS' || val == 'CSS'

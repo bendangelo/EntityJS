@@ -1,7 +1,7 @@
 <!DOCTYPE html>  
 <html>  
 <head>  
-    <title>EntityJS Test Suite</title>  
+    <title>Test RE_TITLE</title>  
     
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <link rel="stylesheet" href="qunit/qunit.css" type="text/css" media="screen">  
@@ -11,12 +11,23 @@
     RE_CSS
     
     <style type="text/css">
-    canvas {
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
-      border:1px #333 solid;
-    }
+        /*
+        Styling for play.html
+        */
+        .RE_CANVAS-CONTAINER {
+          margin-left: auto;
+          margin-right: auto;
+          width: RE_WIDTHpx;
+          position:relative;
+        }
+
+        /*
+          For el comp
+        */
+        .el {
+          z-index:100;
+          position:absolute;
+        }
     </style>
     
 </head>  
@@ -27,8 +38,12 @@
     <h2 id="qunit-userAgent"></h2>  
     <ol id="qunit-tests"></ol>  
     
-    <canvas width="RE_WIDTH" height="RE_HEIGHT" id="RE_CANVAS_ID">Browser does not support canvas element</canvas>
+    <div class="RE_CANVAS-CONTAINER">
+        <canvas width="RE_WIDTH" height="RE_HEIGHT" id="RE_CANVAS_ID">Browser does not support canvas element</canvas>
+    </div>
     
-    <a href="/">Play Game</a>
+    <div class="links">
+        <a href="/">Play Game</a>
+    </div>
 </body>  
 </html>  
