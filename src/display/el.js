@@ -58,6 +58,20 @@ re.c('el')
     return this;
   },
 
+  text:function(t){
+    if(re.is(t)){
+      this.$el.text(t);
+      return this;
+    }
+    return this.$el.text();
+  },
+
+  //places element to parent of canvas
+  place:function(){
+    $(re.sys.canvas).parent().append(this.el);
+    return this;
+  },
+
   remove:function(){
     if(this.$el){
     	this.$el.remove();
