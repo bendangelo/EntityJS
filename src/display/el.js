@@ -2,9 +2,9 @@
 The element comp creates and displays DOM elements. This can be used to display buttons, 
 images, icons etc. on top of the canvas element.
 
-re.e('el:a').el //element refence
+re.e('el:a').$el //jquery element refence
 
-Jquery or Zepto must be available in re.$ to work!
+Jquery must be available to work!
 
 */
 re.c('el')

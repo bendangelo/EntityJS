@@ -190,6 +190,7 @@ module Entityjs
       attrs['width'] = self.width
       attrs['height'] = self.height
       attrs['title'] = self.title
+      attrs['canvas-container'] = self.canvas_container
 
       attrs.each do |k,v|
         val = k.upcase
