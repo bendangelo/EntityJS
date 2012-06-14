@@ -38,21 +38,30 @@ module Entityjs
       FileUtils.cp_r assets_root+'/.', assets_folder
       
       #append all files into one big file
-      puts "Compiling code"
+      puts "Compiling scripts"
 
       out = self.compile_game
       
-      puts "Minifying code"
+      puts "Minifying scripts"
 
       out = self.minify(out)
 
+      puts "Minifying styles"
+
+      css = self.minify_styles(self.compile_styles(Config.instance.build_styles_ignore))
+
       #minify
       puts "Almost done..."
-      
+
       #save
       File.open(final_name, 'w') do |f|
         
         f.write(out)
+      end
+      
+      #save css
+      File.open(Config.instance.build_styles_path+"/"+Config.instance.build_styles_name, 'w') do |f|
+        f.write(css)
       end
       
 
@@ -87,9 +96,9 @@ module Entityjs
         puts "Ignoring play.html"
       end
       
-      puts "Successfully built!"
+      puts "Build Complete!"
       puts "Build is at"
-      puts "  #{build_folder}"
+      puts "  #{File.expand_path(build_folder)}"
       
       Dirc.to_game_root
       
@@ -126,7 +135,23 @@ module Entityjs
       
       return out
     end
-    
+
+    def self.compile_styles(ignore = nil)
+      styles = Dirc.find_styles(ignore)
+
+      out = ''
+
+      styles.each do |i|
+        out += IO.read(i)
+      end
+
+      return Config.preprocess(out)
+    end
+
+    def self.minify_styles(styles)
+      return CSSMin.minify(styles)
+    end
+
     #compiles all game source and returns it
     def self.compile_scripts(ignore = nil, order=nil)
       #find with short urls for proper data processing

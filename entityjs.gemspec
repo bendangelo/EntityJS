@@ -28,4 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'uglifier'
   s.add_dependency 'json'
   s.add_dependency 'cobravsmongoose'
+  s.add_dependency 'cssmin'
+  
 end

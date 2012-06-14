@@ -109,6 +109,14 @@ module Entityjs
       return get_attr('build-name', self.title_slug+'.min')
     end
 
+    def build_styles_name
+      return get_attr('build_styles_name', self.build_name)
+    end
+
+    def build_styles_ignore
+      return split_attr('build-styles-ignore')
+    end
+
     def tests_entity_ignore
       return split_attr('tests-entity-ignore')
     end
@@ -143,6 +151,10 @@ module Entityjs
 
     def build_assets_path
       return get_attr('build-assets-path', Config.assets_folder)
+    end
+
+    def build_styles_path
+      return get_attr('build-styles-path', Config.styles_folder)
     end
 
     def license

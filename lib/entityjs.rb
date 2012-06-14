@@ -38,6 +38,14 @@ rescue LoadError
   exit
 end
 
+begin
+  require "cssmin" 
+rescue LoadError
+  puts "Could not load 'cssmin'"
+  puts "run 'gem install cssmin'"
+  exit
+end
+
 module Entityjs
   
   def self.root
@@ -67,7 +75,7 @@ module Entityjs
         return nil
     end
   end
-  
+
   def self.public_path
     return "#{Entityjs::root}/public"
   end
