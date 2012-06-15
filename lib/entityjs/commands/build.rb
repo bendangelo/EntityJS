@@ -60,7 +60,7 @@ module Entityjs
       end
       
       #save css
-      File.open(Config.instance.build_styles_path+"/"+Config.instance.build_styles_name, 'w') do |f|
+      File.open(Config.instance.build_styles_path+"/"+Config.instance.build_styles_name+'.css', 'w') do |f|
         f.write(css)
       end
       
