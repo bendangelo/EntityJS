@@ -4,26 +4,17 @@ re.scene('home')
   //stop the browser from moving around
   re.preventDefault('left right up down');
   
+  var radius = 10;
+  var color = '#FF0000';
+
   //create new circle on canvas
-  re.e('circle align update')
-  .attr({
-    radius:10,
-    speed:15,
-    color:'#ff0000'
-  })
+  re.circle(radius, color)
   //from align component
   .alignHor()
-  .alignVer()
-  .on('update', function(){
-    
-    //move on keypressed
-    if(re.pressed('a', 'left')) this.posX -= this.speed;
-    if(re.pressed('d', 'right')) this.posX += this.speed;
-    
-    if(re.pressed('w', 'up')) this.posY -= this.speed;
-    if(re.pressed('s', 'down')) this.posY += this.speed;
-    
-  });
+  .alignVer();
+
+  //find circle and change speed
+  re('circle').first().attr('speed', 15);
   
   //add help text
   re.e('text align')

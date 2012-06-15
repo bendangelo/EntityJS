@@ -3,7 +3,7 @@ EntityJS methods to simulate user inputs.
 */
 
 function _findKeyCode(code){
-  var codes = re.c('keyboard').keyCodes;
+  var codes = re.keyboard.keyCodes;
   
   for(var i in codes){
     if(codes[i] == code){
@@ -25,7 +25,7 @@ function keydown(key, e){
   e.type = 'keydown';
   e.keyCode = _findKeyCode(key);
   
-  re.c('keyboard').event(e);
+  re.keyboard.event(e);
 };
 
 /*
@@ -38,7 +38,7 @@ function keyup(key, e){
   e.type = 'keyup';
   e.keyCode = _findKeyCode(key);
   
-  re.c('keyboard').event(e);
+  re.keyboard.event(e);
 };
 
 /*
@@ -88,9 +88,9 @@ function _mouseEvent(e, type, x, y, key){
   e.clientX = y + document.body.scrollTop + document.documentElement.scrollTop;
   
   if(key){
-    re.c('mouse').press(e);
+    re.mouse.press(e);
   } else {
-    re.c('mouse').event(e);
+    re.mouse.event(e);
   }
 }
 
