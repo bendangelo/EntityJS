@@ -46,5 +46,13 @@ describe('random', function(){
     }
     
 	});
+
+  it('random prop from object', function(){
+    var obj = {ok:10, blah:2, t:3};
+
+    var prop = re.random(obj);
+
+    ok(prop == 'ok' || prop == 'blah' || prop == 't')
+  })
   
 });
