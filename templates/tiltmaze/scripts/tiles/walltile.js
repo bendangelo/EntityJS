@@ -1,4 +1,4 @@
-re.walltile = re.c('walltile')
+re.c('walltile')
 .statics({
   factory:function(num){
     var e = re.e('walltile');

@@ -1,4 +1,4 @@
-re.level = re.c('level')
+re.c('level')
 .requires('automap')
 .statics({
   get:function(num){
