@@ -9,6 +9,7 @@
   
   "tests-ignore": null,
   "scripts-ignore": null,
+  "tests-scripts-ignore":"init.js",
 
   //order scripts
   "order": null
