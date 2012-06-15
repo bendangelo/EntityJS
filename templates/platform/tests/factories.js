@@ -30,6 +30,6 @@ hero.health = 100;
 */
 
 //re.ready() is DISABLED during testing
-addEventListener('load', function(){
+re.listener('load', function(){
 	re.sys.init(re.canvas).start();
 });

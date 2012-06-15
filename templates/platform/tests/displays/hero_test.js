@@ -3,10 +3,10 @@ module('hero', lazy('hero'));
 test('has animations', function(){
   
   //these where manually put in
-  is(hero.anis.idle);
-  is(hero.anis.run);
-  is(hero.anis.jump);
-  is(hero.anis.ladder);
+  is(hero.animates.idle);
+  is(hero.animates.run);
+  is(hero.animates.jump);
+  is(hero.animates.ladder);
   
 });
 

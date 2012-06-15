@@ -14,7 +14,7 @@ re.c('spring')
 })
 .init(function(){
   //add animation, can also send a string instead of an array
-  this.anis = {
+  this.animates = {
     bounce:[300, [13, 12], 1]
   };
 	

@@ -21,7 +21,7 @@ re.c('coin')
   this.sfx = re.e('sound coin.sfx');
   
   //setup animations to play
-	this.anis = {
+	this.animates = {
     glow:[1800, [14, 15, 15], -1]
   };
   

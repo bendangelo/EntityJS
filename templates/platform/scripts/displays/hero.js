@@ -62,7 +62,7 @@ re.c('hero')
 .init(function(){
   
   //add animations
-  this.anis = {
+  this.animates = {
 	  idle:[800, [0, 1], -1],
 	  run:[800, [2, 3], 1],
 	  jump:[500, [4, 5, 4], 1],
