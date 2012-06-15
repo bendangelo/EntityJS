@@ -105,6 +105,8 @@ re.c('mouse')
       re.listener('mousedown', this.press, c);
       re.listener('mouseup', this.press, c);
       re.listener('mousemove', this.event, c);
+      re.listener('mouseover', this.event, c);
+      re.listener('mouseout', this.event, c);
       re.listener('click', this.event, c);
       re.listener('dblclick', this.event, c);
       re.listener('contextmenu', this.event, c);
