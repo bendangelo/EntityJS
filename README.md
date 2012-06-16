@@ -6,12 +6,12 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 ## Version 0.4.2
 
 * Stylesheets are now automatically included. Place css in the styles folder.
-* Factory method added to comp
-* El comp can place elements on top of canvas
-* config.yml converted to game.json
-* Attributes inside game.json are available in js
-* Use `entityjs html` make changes to the html
-* Builds folder removed and replaced with a single build
+* Factory method added to comp.
+* El comp can place elements on top of canvas.
+* Converted config.yml to game.json.
+* Attributes inside game.json are available in js.
+* Use `entityjs html` make changes to the html.
+* Builds folder removed and replaced with a single build.
 
 ## API
 Currently the [API](http://entityjs.com/api) is out of date. It will slowly be updated everyday.
@@ -87,7 +87,7 @@ To play visit:
 `localhost:2345`
 
 To run tests visit:
-`localhost:2345/tests`
+`localhost:2345/test`
 
 Assets are located here:
 `localhost:2345/assets/*name`
@@ -106,6 +106,8 @@ View [all commands](/bendangelo/EntityJS/wiki/commands)
   * Plugins - Contains minified scripts for plugin play.
 
 * Tests - Contains test files to run in [QUnit](http://docs.jquery.com/QUnit)
+
+* Styles - Contains all css to be included. Will support sass and others later on.
 
 * game.json - Optional, configurate scripts order, ignore certain files, etc
 
@@ -142,7 +144,8 @@ All components now have a factory method which can be used to create complex ent
       alert(this.label+" clicked!");
     });
 
-    //For full control the `method` function can be used.
+    //Can be overwritten using the `method` function. A singleton is created below.
+    
     re.c("player")
     .method(function(){
       if(!this.instance){
