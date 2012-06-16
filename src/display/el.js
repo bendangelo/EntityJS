@@ -13,7 +13,8 @@ re.c('el')
 
   posX:function(x){
     if(re.is(x)){
-      return this.$el.css('left', x);
+      this.$el.css('left', x);
+      return this;
     }
 
     return this.$el.position().left;
@@ -21,7 +22,8 @@ re.c('el')
   
   posY:function(y){
     if(re.is(y)){
-      return this.$el.css('top', y);
+      this.$el.css('top', y);
+      return this;
     }
     return this.$el.position().top;
   },
