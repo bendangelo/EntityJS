@@ -3,11 +3,15 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 
 [EntityJS Website](http://entityjs.com) | [Demos](http://entityjs.com/demos) | [Tutorials](http://entityjs.com/tutorials) | [API](http://entityjs.com/api)
 
-## Version 0.3.2
+## Version 0.4.2
 
-* Coffeescript is now supported.
-* Assets directory is now used for external loading only.
-* Scripts directory now accepts, tmx, xml, json and coffee files.
+* Stylesheets are now automatically included. Place css in the styles folder.
+* Factory method added to comp
+* El comp can place elements on top of canvas
+* config.yml converted to game.json
+* Attributes inside game.json are available in js
+* Use `entityjs html` make changes to the html
+* Builds folder removed and replaced with a single build
 
 ## API
 Currently the [API](http://entityjs.com/api) is out of date. It will slowly be updated everyday.
@@ -96,24 +100,14 @@ View [all commands](/bendangelo/EntityJS/wiki/commands)
   * Images - Add any images here and retrieve them with `re.assets.images`
   * Sounds - Add any sounds and retrieve them with `re.assets.sounds`
 
-* Builds - Contains all finished builds
+* Build - Contains built game
 
 * Scripts - Contains all js, coffee sources. Xml, tmx and json files will be converted into js.
   * Plugins - Contains minified scripts for plugin play.
 
 * Tests - Contains test files to run in [QUnit](http://docs.jquery.com/QUnit)
 
-* config.yml - Optional, simple configuration.
-* readme.txt - Optional, simple description of the game.
-  
-## Changes In V0.3
-
-* `Inherit()` is now `defaults()`
-* `Extend()` is now `defines()`
-* `Inherit()` on entities is now `def()`
-* `Extend()` on entities is now `attr()`
-
-There are many more name changes, make sure to read the component source code for help. Most components have a usage example to help you along while the API / tutorials get up to date.
+* game.json - Optional, configurate scripts order, ignore certain files, etc
 
 ### Short getters and setters
 
@@ -131,11 +125,34 @@ There are many more name changes, make sure to read the component source code fo
     //or
     tile.attr('tile', [1,2]); //samething
   
-### Signals Changed to on/off
+### Factories in 0.4.2
 
-* `addSignal()` is now `on()`
-* `removeSignal()` is now `off()`
-* `signal()` is now `trigger()`
+All components now have a factory method which can be used to create complex entities.
+
+    re.c("button")
+    .factory(function(label, click){
+      this.label = label;
+
+      if(click){
+        this.on('click', click);
+      }
+    });
+
+    re.button("Hello", function(){
+      alert(this.label+" clicked!");
+    });
+
+    //For full control the `method` function can be used.
+    re.c("player")
+    .method(function(){
+      if(!this.instance){
+        this.instance = re.e('player');
+      }
+      return this.instance;
+    });
+
+    //get player
+    re.player();
 
 ## QUnit Testing
 
