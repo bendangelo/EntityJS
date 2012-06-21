@@ -49,7 +49,7 @@ re.c('el')
   },
 
   setEl:function(el){
-    this.remove();
+    this.removeEl();
 
     this.el = el;
     this.$el = $(el).addClass('el');
@@ -68,15 +68,16 @@ re.c('el')
   },
 
   //places element to parent of canvas
-  place:function(){
-    $(re.sys.canvas).parent().append(this.el);
+  addEl:function(targ){
+    targ = targ || $(re.sys.canvas).parent();
+
+    targ.append(this.el);
     return this;
   },
 
-  remove:function(){
+  removeEl:function(){
     if(this.$el){
     	this.$el.remove();
-      this.$el = this.el = null;
     }
     return this;
   },
@@ -96,5 +97,5 @@ re.c('el')
   if(e) this.setEl(re.$new(e));
 })
 .dispose(function(){
-  this.remove();
+  this.removeEl();
 });
