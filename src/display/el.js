@@ -40,7 +40,6 @@ re.c('el')
     var that = this;
     this.$el.click(function(e){
       f.call(that,e);
-      return false;
     });
     return this;
   },
