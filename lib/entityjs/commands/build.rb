@@ -98,7 +98,7 @@ module Entityjs
       
       puts "Build Complete!"
       puts "Build is at"
-      puts "  #{File.expand_path(build_folder)}"
+      puts "  #{build_folder}"
       
       Dirc.to_game_root
       
