@@ -62,7 +62,7 @@ re.c('pathfind')
 })
 .defines({
   
-  pathfind_max:100,
+  pathfind_max:50,
   
   pathfind:function(x, y, targetX, targetY, onCheck, onTile){
     this.targetX = targetX;
