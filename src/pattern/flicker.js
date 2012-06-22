@@ -50,21 +50,21 @@ re.c('flicker')
 	
   change:function(){
     
-	//check if over
-	if(this.flicker_frame == this.flicker_frames.length){
-		
-		if(this.flicker_loops == -1 || --this.flicker_loops >= 1){
-			//loop again
+		//check if over
+		if(this.flicker_frame == this.flicker_frames.length){
 			
-			this.flicker_frame = 0;
-			
-		} else {
-			//done flickering
-			
-			this.flicker_stop();
-  			return;
+			if(this.flicker_loops == -1 || --this.flicker_loops >= 1){
+				//loop again
+				
+				this.flicker_frame = 0;
+				
+			} else {
+				//done flickering
+				
+				this.flicker_stop();
+	  			return;
+			}
 		}
-	}
 			
      this.flicker_run();
   },
