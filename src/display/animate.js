@@ -46,7 +46,7 @@ re.c('animate')
 
 			//only run if a is defined
 			if(a.push)
-				this.flicker_run(); //run first frame
+				this.flicker_change(); //run first frame
 		}
 		return this;
 	},
