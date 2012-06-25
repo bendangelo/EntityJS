@@ -14,7 +14,7 @@ module Entityjs
       puts "  http://localhost:2345/"
       puts ""
       puts "Your tests are here:"
-      puts "  http://localhost:2345/tests"
+      puts "  http://localhost:2345/test"
       puts ""
       
       Entityjs::Server.run! :port=>2345
