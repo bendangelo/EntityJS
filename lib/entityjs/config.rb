@@ -94,7 +94,7 @@ module Entityjs
     end
 
     def scripts_order
-      return split_attr('order')
+      return split_attr('scripts-order')
     end
     
     def tests_ignore

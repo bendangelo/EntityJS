@@ -14,5 +14,5 @@
   "tests-scripts-ignore":"init.js",
 
   //this makes all .tmx files last
-  "order":".*/.js"
+  "scripts-order":".*/.js"
 }

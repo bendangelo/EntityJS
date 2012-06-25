@@ -12,5 +12,5 @@
   "tests-scripts-ignore":"init.js",
 
   //order scripts
-  "order": "/tile.js$"
+  "scripts-order": "/tile.js$"
 }

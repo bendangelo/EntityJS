@@ -2,5 +2,5 @@
 	"build-scripts-ignore":"plugins/*",
 	"title":"DOM Elements",
 	"ver":"1.0",
-	"order":"plugins/*"
+	"scripts-order":"plugins/*"
 }
