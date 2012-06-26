@@ -2,7 +2,7 @@
 The element comp creates and displays DOM elements. This can be used to display buttons, 
 images, icons etc. on top of the canvas element.
 
-re.e('el:a').$el //jquery element refence
+re.e('el:a').$el //jquery element reference
 
 Jquery must be available to work!
 
