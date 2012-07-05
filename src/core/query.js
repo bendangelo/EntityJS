@@ -367,6 +367,15 @@
       
       return val;
     }
+
+    p.sum = function(method, context){
+        var val = 0;
+
+        this.each(function(e, i, l){
+            val += method.call(context || this, e, i, l);
+        });
+        return val;
+    }
     
     //without this filter would return a normal array.
     p.filter = function(){
