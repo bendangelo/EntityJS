@@ -71,6 +71,14 @@ re.c.init.prototype = {
         }
     },
     
+    //turns global method into a singleton
+    singleton:function(){
+        this._re_method = function(){
+            return this._ || (this._ = re.e(this.name));
+        }
+        return this;
+    },
+
     statics:function(obj, value){
         this._checkFinal();
         
@@ -126,10 +134,10 @@ re.c.init.prototype = {
     },
 
     _re_method:function(){
-        var e = re.e(this.name);
+        var e = re.e(this.name), f = this._re_factory;
 
-        if(this._re_factory)
-            this._re_factory.apply(e, arguments);
+        if(f)
+            f.apply(e, arguments);
 
         return e;
     },
@@ -146,7 +154,7 @@ re.c.init.prototype = {
     
     */
     method:function(f){
-        this._re_method = f;
+        this._re_method = f.bind(re[this.name]);
         return this;
     },
 

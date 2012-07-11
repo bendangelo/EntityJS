@@ -30,6 +30,16 @@ describe('comp', function(){
     eq(re[k.name](val).ref, val);
 
   });
+
+  it('should overwrite method', function(){
+
+
+    k.method(function(){
+      eq(this, re[k.name]);
+    });
+
+    re[k.name]();
+  });
   
   it('should add events', function(){
     k.events('mouseup', function(){})
