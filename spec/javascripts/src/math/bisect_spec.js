@@ -14,7 +14,7 @@ describe('bisect', function(){
 	});
   
   it('static biToY', function(){
-		eq(re.bisect.toY(1, 160, 60), 0)
+		eq(re.bisect.toY(1, 160, 60, 60), 0)
 		
 	});
   

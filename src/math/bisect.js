@@ -23,9 +23,9 @@ re.c('bisect')
 		return this.toTileX(bi, width, size) * size;
 	},
 	
-	toY:function(bi, width, size){
+	toY:function(bi, width, sizeX, sizeY){
 		
-		return this.toTileY(bi, width, size) * size;
+		return this.toTileY(bi, width, sizeX) * sizeY;
 	},
 	
 	toTileX:function(bi, width, size){
@@ -56,7 +56,7 @@ re.c('bisect')
 	
 	biToY:function(bi){
 		
-		return re.bisect.toY(bi, this.bisect, this.sizeX);
+		return re.bisect.toY(bi, this.bisect, this.sizeX, this.sizeY);
 	},
 	
 	biToTileX:function(bi){
