@@ -325,6 +325,7 @@ describe('query', function(){
         eq(e, this)
         return t == 10;
         }), 10);
+      
     })
     
     it('isEmpty', function(){

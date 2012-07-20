@@ -74,8 +74,8 @@
             a = this.assets[i];
             
             //copy full source path
-            var s = a;
-            
+            var s = (a.charAt(0)=='/')?a:re.load.path+a;
+
             //remove directories
             var d = a.lastIndexOf('/');
             if(d != -1){
@@ -154,7 +154,7 @@
             
         };
         
-        img.src = re.load.path+src;
+        img.src = src;
         
         return this;
     };
@@ -189,7 +189,7 @@
           
             s = soundManager.createSound({
               id:a,
-              url:re.load.path+src,
+              url:src,
               autoLoad:true,
               onload:function(){
                 that._loaded();
@@ -201,8 +201,8 @@
           });
         
         } else {
-          s = new Audio(re.load.path+src);
-          s.src = re.load.path+src;
+          s = new Audio(src);
+          s.src = src;
           s.preload = "auto";
           s.load();
           

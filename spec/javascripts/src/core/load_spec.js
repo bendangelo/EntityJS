@@ -3,7 +3,7 @@ describe('load', function(){
     it('load', function(){
         //add images
         re.load.path = '__spec__/'
-        var img = 'helpers/accept.png'
+        var img = '/__spec__/helpers/accept.png'
         var sfx = 'helpers/alligator.mp3'
         var sfx2 = 'helpers/alligator.ogg'
         
