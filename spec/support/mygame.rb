@@ -12,5 +12,5 @@ def setup_mygame
 end
 
 def teardown_mygame
-  Dir.chdir('..')
+  Dir.chdir('..') if Entityjs::Dirc.game?
 end
