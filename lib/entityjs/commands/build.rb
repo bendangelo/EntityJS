@@ -19,6 +19,7 @@ module Entityjs
       images_folder = Config.images_folder
       sounds_folder = Config.sounds_folder
       scripts_folder = Config.scripts_folder
+      styles_folder = Config.instance.build_styles_path
       
       final_name = Config.instance.build_name+'.js'
       html_name = 'play.html'
@@ -60,7 +61,9 @@ module Entityjs
       end
       
       #save css
-      File.open(Config.instance.build_styles_path+"/"+Config.instance.build_styles_name+'.css', 'w') do |f|
+      Dirc.create_dir(styles_folder)
+
+      File.open(styles_folder+"/"+Config.instance.build_styles_name+'.css', 'w') do |f|
         f.write(css)
       end
       
