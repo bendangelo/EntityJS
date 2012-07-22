@@ -5,6 +5,10 @@
     }
     
     b.path = "";
+    //returns file name of path
+    b.file = function(name){
+      return name.split('/').pop().split('?').shift();
+    };
     
     b.imageExt = 'img';
     b.soundExt = 'sfx';
@@ -77,10 +81,7 @@
             var s = (a.charAt(0)=='/')?a:re.load.path+a;
 
             //remove directories
-            var d = a.lastIndexOf('/');
-            if(d != -1){
-                a = a.substr(d+1, a.length);
-            }
+            a = re.load.file(a);
             
             //find file extension
             var j = a.lastIndexOf('.')+1;
