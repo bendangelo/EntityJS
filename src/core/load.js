@@ -78,7 +78,7 @@
             a = this.assets[i];
             
             //copy full source path
-            var s = (a.charAt(0)=='/')?a:re.load.path+a;
+            var s = (a.match(/^\/|http:/))?a:re.load.path+a;
 
             //remove directories
             a = re.load.file(a);
