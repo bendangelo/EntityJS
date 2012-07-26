@@ -21,7 +21,7 @@ module Entityjs
       scripts_folder = Config.scripts_folder
       styles_folder = Config.instance.build_styles_path
       
-      final_name = Config.instance.build_name+'.js'
+      final_name = Config.instance.build_name
       html_name = 'play.html'
       
       puts "Building to #{build_folder}"

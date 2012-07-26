@@ -78,7 +78,7 @@
             a = this.assets[i];
             
             //copy full source path
-            var s = (a.match(/^\/|http:/))?a:re.load.path+a;
+            var s = (a.match(/^(\/|http:)/))?a:re.load.path+a;
 
             //remove directories
             a = re.load.file(a);
@@ -125,6 +125,9 @@
     p.current = 0;
     p.total = 0;
     
+    //src - full path to image
+    //a - image name
+    //n - image name without ext
     p._loadImg = function(src, a, n){
         var that = this;
         var img = new Image();
@@ -146,6 +149,7 @@
           
           that._loaded();
         };
+        // img.crossOrigin = '';
         
         img.onerror = function(){
             
