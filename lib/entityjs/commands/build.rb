@@ -21,7 +21,7 @@ module Entityjs
       scripts_folder = Config.scripts_folder
       styles_folder = Config.instance.build_styles_path
       
-      final_name = Config.instance.build_name
+      final_name = Config.instance.build_scripts_name
       html_name = 'play.html'
       
       puts "Building to #{build_folder}"
@@ -63,7 +63,7 @@ module Entityjs
       #save css
       Dirc.create_dir(styles_folder)
 
-      File.open(styles_folder+"/"+Config.instance.build_styles_name+'.css', 'w') do |f|
+      File.open(styles_folder+"/"+Config.instance.build_styles_name, 'w') do |f|
         f.write(css)
       end
       

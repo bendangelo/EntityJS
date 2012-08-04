@@ -20,6 +20,31 @@ describe('comp', function(){
     eq(re[k.name].yep, 'yep')
   })
 
+  it('should create comp in new style', function(){
+    //TODO
+    /*re.c('jump12', {
+      requires:"sdf",
+
+      init:function(){
+
+      },
+
+      defines:{
+
+      },
+
+      defaults:{
+
+      },
+
+      factory:function(){
+
+      }
+
+    });*/
+
+  });
+
   it('should create a factory', function(){
     var val = 10;
 

@@ -113,8 +113,12 @@ module Entityjs
       return get_attr('build-name', self.title_slug+'.min')
     end
 
+    def build_scripts_name
+      return get_attr('build-scripts-name', self.build_name+'.js')
+    end
+
     def build_styles_name
-      return get_attr('build_styles_name', self.build_name)
+      return get_attr('build-styles-name', self.build_name+'.css')
     end
 
     def build_styles_ignore

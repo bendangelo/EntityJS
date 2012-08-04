@@ -149,7 +149,7 @@
           
           that._loaded();
         };
-        // img.crossOrigin = '';
+        img.crossOrigin = '';
         
         img.onerror = function(){
             
