@@ -130,7 +130,13 @@ module Entityjs
 
         first_folder = folders
         if last != first_folder
-          js += "\n\n\t<!-- #{first_folder} -->\n"
+          if first_folder.is_a? Array
+            line = first_folder.join('/')
+          else
+            line = first_folder
+          end
+          
+          js += "\n\n\t<!-- #{line} -->\n"
           last = first_folder
         end
         
