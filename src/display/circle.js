@@ -13,7 +13,7 @@ re.c('circle')
         c.fillStyle = this.color;
         
         c.beginPath();
-            var r = this.radius;
+            var r = this.get('radius');
             
             c.arc(-this.regX + r , -this.regY + r , r, 0, Math.PI*2, true);
         
