@@ -30,6 +30,9 @@ re.c('iso')
     return {posX:this.toPosX(x, y), posY:this.toPosY(x, y)};
   },
   
+  /*
+  Converts a position into the closest iso tile
+  */
   toIsoX:function(x, y){
     var ym = (2*y - x) * 0.5;
     var xm = x + ym;

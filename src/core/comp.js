@@ -122,7 +122,6 @@ re.c.init.prototype = {
 
     //new control entity
     re.control(val1, val2);
-    re.c('control').factory
 
     */
     factory:function(f){
@@ -133,11 +132,23 @@ re.c.init.prototype = {
         return this;
     },
 
+    /*
+    Controls the factory method flow.
+
+    Will create a new entity and try to use the defined factory or else
+    uses the default:
+    
+    //default factory
+    re.circle({radius:10, color:"#ff0000"});
+
+    */ 
     _re_method:function(){
         var e = re.e(this.name), f = this._re_factory;
 
         if(f)
             f.apply(e, arguments);
+        else
+            e.attr.apply(e,arguments); //this is the default factory method
 
         return e;
     },

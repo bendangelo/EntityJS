@@ -45,6 +45,13 @@ describe('comp', function(){
 
   });
 
+  it('should use default factory', function(){
+    var a = 10;
+
+    eq(re[k.name]("blah", a).blah, a);
+
+  });
+
   it('should create a factory', function(){
     var val = 10;
 
