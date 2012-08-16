@@ -46,12 +46,18 @@ describe 'build' do
     canvas = 'game-canvas'
     scripts = "re.ready(function(){});"
     
-    scripts += Entityjs::Build.js_config('', images, sounds, canvas)
+    scripts += Entityjs::Build.js_config('', {:images=>images, :sounds=>sounds}, canvas)
     
     #min
     min = Entityjs::Build.minify(scripts)
     
     min.should match /Entityjs/i
+  end
+
+  it 'should build assets to js' do
+    data = ["images/blah.png", "models/tree.xml"]
+
+    Entityjs::Build.assets_to_js(data).should include("blah.png")
   end
   
 end

@@ -209,18 +209,21 @@ module Entityjs
       return code
     end
     
-    def self.js_config(path = nil, images = nil, sounds = nil, canvas = nil)
+    def self.js_config(path = nil, assets = nil, canvas = nil)
       path ||= Config.assets_folder+'/'
-      images ||= self.images_to_js
-      sounds ||= self.sounds_to_js
+
+      if assets.nil?
+        assets = self.assets_to_js
+      end
+      if assets.is_a? Hash
+        assets = assets.to_json
+      end
+
       canvas ||= Config.instance.canvas_id
       
       return %Q(
       re.load.path = \"#{path}\";
-      re.assets = {
-        images:#{images},
-        sounds:#{sounds}
-        };
+      re.assets = #{assets};
       re.canvas = \"##{canvas}\";
       )
     end
@@ -241,6 +244,36 @@ module Entityjs
       s = sounds.collect{|i| "'#{i}'"}.join(', ')
       
       "[#{s}]"
+    end
+
+    #returns all folders from assets array in a js object
+    #
+    #Input like this: 
+    # ["images/blah.png", "images/tree.png", "models/tree.xml"]
+    #
+    # Is returned like this:
+    # {
+    #  images:["blah.png", "tree.png"],
+    #  model:["tree.xml"]
+    # }
+    #
+    def self.assets_to_js(assets = nil)
+      assets ||= Assets.search()
+
+      tree = {}
+
+      assets.each do |i|
+        #folder
+        folder = i.split('/').first
+
+        if tree[folder].nil?
+          tree[folder] = []
+        end
+
+        tree[folder].push(i)
+      end
+
+      return tree.to_json
     end
     
   end

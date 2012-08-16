@@ -10,6 +10,11 @@ module Entityjs
 
     	Config.instance.reload
 
+      #make build dir if not found
+      if !File.directory?(Config.instance.build_path)
+        Dir.mkdir(Config.instance.build_path)
+      end
+
       final_name = Config.instance.build_name+'.js'
       path = Config.instance.build_path+'/'+final_name
 

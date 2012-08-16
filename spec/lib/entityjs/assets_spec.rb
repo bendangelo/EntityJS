@@ -10,7 +10,7 @@ describe 'Assets' do
     @sounds_file = Entityjs::Config.sounds_folder+'/fold/secret1.mp3'
     files.push @sounds_file
     
-    Dir.stub(:'[]').and_return(files)
+    Dir.stub(:glob).and_return(files)
     IO.stub(:read).and_return('{"test":0, "array":[1,2,3]}')
   end
   
@@ -32,6 +32,10 @@ describe 'Assets' do
     
   end
   
-  it 'should return all datas'
+  it 'should return all assets' do
+    r = Entityjs::Assets.search()
+
+    r.should include(@sounds_file.gsub('assets/',''))
+  end
   
 end

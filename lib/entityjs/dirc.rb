@@ -5,6 +5,7 @@ module Entityjs
   
   class Dirc
     
+    #is the current directory an EntityJS game?
     def self.game?
       
       #check if scripts dir exists
@@ -19,17 +20,17 @@ module Entityjs
       return false
     end
     
-    #checks if a local file exists
+    #checks if file exists in the EntityJS game
     def self.exists?(file)
       return File.file? Dirc.game_root+'/'+file
     end
 
+    #path to EntityJS game
     def self.to_game_root
       Dir.chdir(@game_root)
     end
     
     def self.game_root
-      
       @game_root
     end
     

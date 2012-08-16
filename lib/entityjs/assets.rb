@@ -11,7 +11,7 @@ module Entityjs
       ['mp3', 'ogg', 'aac', 'wav']
     end
     
-    def self.search(type='*')
+    def self.search(type=nil)
       
       case type
         when 'images'
@@ -25,8 +25,7 @@ module Entityjs
           return self.find_files(sounds_folder+"/**/*.{#{valid_sounds}}")
           
         else
-          #TODO: fix up
-          return self.search_datas
+          return self.find_files(Config.assets_folder+'/**/*')
           
       end
       
@@ -34,14 +33,18 @@ module Entityjs
     
     def self.search_datas
       #TODO: find all other folders and generate a key in re.assets
+      #DEPRECATED
       return self.find_files("#{Config.assets_folder}/*/*").select{|i| i.match(/(images|sounds)\//i) == nil }
     end
     
     def self.find_files(search)
-      Dir[Dirc.game_root+'/'+search].collect do |i|
-        #remove long string
-        i = i.split("assets/").pop
-      end
+      Dir.glob(Dirc.game_root+'/'+search).collect do |i|
+        if File.file?(i)
+          #remove long string
+          i = i.split(Config.assets_folder+"/").pop
+        end
+      end.compact
+      #remove nils from array too
     end
     
   end
