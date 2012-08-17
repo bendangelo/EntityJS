@@ -218,6 +218,8 @@ module Entityjs
         contents = contents.gsub("RE_#{val}", v.to_s)
       end
 
+      #build erase
+
       #set width, height and canvas id
       #contents = contents.sub("RE_WIDTH", Config.instance.width.to_s)
       #contents = contents.sub("RE_HEIGHT", Config.instance.height.to_s)

@@ -77,9 +77,10 @@ re.support = function(s){
 		if(c.audio = !!ele.canPlayType){
 			
 			c.ogg  = ele.canPlayType('audio/ogg; codecs="vorbis"');
-			c.mp3  = ele.canPlayType('audio/mpeg;');
 			c.wav  = ele.canPlayType('audio/wav; codecs="1"');
-			c.aac = ele.canPlayType('audio/x-m4a;') || ele.canPlayType('audio/aac;');
+			c.webma = ele.canPlayType('audio/webm; codecs="vorbis"');
+			c.mp3  = ele.canPlayType('audio/mpeg; codecs="mp3"');
+			c.m4a = ele.canPlayType('audio/mp4; codecs=mp4a.40.2');
 			
 			//switch unsupported codecs to false
 			for(var i in c){

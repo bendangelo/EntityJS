@@ -181,7 +181,15 @@ module Entityjs
       entity_src = self.compile_entity(Config.instance.build_entity_ignore+Config.instance.entity_ignore)
       scripts = self.compile_scripts(Config.instance.build_scripts_ignore+Config.instance.scripts_ignore, Config.instance.scripts_order)
       
-      self.build_wrap(entity_src+scripts)
+      code = self.build_wrap(entity_src+scripts)
+
+      #build erase
+      Config.instance.build_erase.each do |i|
+        #replace all finds with comments in front
+        code = code.gsub(i, "//#{i}")
+      end
+      
+      return code
     end
 
     def self.build_wrap(code)

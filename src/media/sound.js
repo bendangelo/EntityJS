@@ -45,7 +45,8 @@ This will be fixed with the channel component.
 re.c('sound')
 .statics({
     
-    enabled:true
+    enabled:true,
+    volume:1
     
 })
 .defaults({
@@ -55,7 +56,7 @@ re.c('sound')
   e:0,
   
   ended:function(){
-    
+    this.playing = 0;
     this.trigger('sound:finish');
     
   }
@@ -63,50 +64,60 @@ re.c('sound')
 })
 .defines({
 
-    play:function(){
+    /*
+    Plays the sound from the beginning.
+
+    onFinish is called when the sound has finished playing through all loops.
+    */
+    play:function(loops, volume, onFinish){
         if(!this._sound || !re.sound.enabled) return this;
         if(this.playing) this.stop();
         
         var c = this._sound;
         var that = this;
+        volume = volume || re.sound.volume;
         
-        if(window['soundManager']){
+        if(window.soundManager){
           //play sound with soundManager
-          c.play({onfinish:function(){
-            that.sound_ended();
-            }
+          c.play({
+            onfinish:function(){
+              that.sound_ended();
+              if(onFinish) onFinish(that);
+            },
+            position:0,
+            volume:volume,
+            loops:loops||1
           });
           
         } else {
+          //play with browser
           c.currentTime = 0;
+          c.volume = volume;
+          loops = loops||1;
           
-          if(!this.sound_e){ //doesn't have listener
-            this.sound_e = 1;
-            var f = function(){
-              that.sound_ended();
+          var f = function(){
+            if(--loops>0){
+              c.play();
+            } else {
               c.removeEventListener('ended', f);
-              that.sound_e = 0;
-            };
-            
-            c.addEventListener('ended', f, false);
-            
-          }
+              that.sound_ended();
+              if(onFinish) onFinish(that);
+            }
+          };
+
+          c.addEventListener('ended', f);
+
           c.play();
         }
+        this.playing = 1;
       
         return this;
     },
     
-    resume:function(){
-        this._sound.play();
-        this.playing = true;
-        
-        return this;
-    },
-    
-    pause:function(){
+    //stops playing the sound
+    stop:function(){
         this._sound.pause();
-        this.playing = false;
+        this.playing = 0;
         
         return this;
     }
