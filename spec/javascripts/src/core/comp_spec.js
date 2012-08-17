@@ -21,8 +21,8 @@ describe('comp', function(){
   })
 
   it('should create comp in new style', function(){
-    //TODO
-    /*re.c('jump12', {
+    
+    re.c('jump12', {
       requires:"sdf",
 
       init:function(){
@@ -30,18 +30,22 @@ describe('comp', function(){
       },
 
       defines:{
-
+        ok:10
       },
 
       defaults:{
-
+        k:10
       },
 
       factory:function(){
 
       }
 
-    });*/
+    });
+
+    eq(re.c('jump12')._re_requires, ['sdf']);
+    eq(re.c('jump12')._re_defines, {ok:10});
+    eq(re.c('jump12')._re_defaults, {k:10});
 
   });
 

@@ -71,7 +71,7 @@ re.c('sound')
         var that = this;
         
         if(window['soundManager']){
-          
+          //play sound with soundManager
           c.play({onfinish:function(){
             that.sound_ended();
             }
@@ -80,12 +80,12 @@ re.c('sound')
         } else {
           c.currentTime = 0;
           
-          if(!this.sound_e){
-            this.sound_e = true;
+          if(!this.sound_e){ //not playing
+            this.sound_e = 1;
             var f = function(){
               that.sound_ended();
               c.removeEventListener('ended', f);
-              that.sound_e = false;
+              that.sound_e = 0;
             };
             
             c.addEventListener('ended', f, false);

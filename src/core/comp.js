@@ -3,10 +3,17 @@
     
     @return component reference
     */
-    re.comp = re.c = function(title){
+    re.comp = re.c = function(title, data){
         
         if(!re._c[title]){
             re._c[title] = new re.c.init(title);
+        }
+
+        //set data
+        if(data){
+            for(var i in data){
+                re._c[title][i](data[i]);
+            }
         }
         
         return re._c[title];

@@ -236,7 +236,7 @@
     p._def_sfx = function(s, a, n){
       
       re.c(a)
-      //create statics codec for easy use
+      //create static codec for easy use
       .alias(n+re.load.soundExt)
       .defines({
           _sound:s
