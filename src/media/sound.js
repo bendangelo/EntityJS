@@ -52,7 +52,7 @@ re.c('sound')
   playing:false
 })
 .namespaces({
-  e:false,
+  e:0,
   
   ended:function(){
     
@@ -80,7 +80,7 @@ re.c('sound')
         } else {
           c.currentTime = 0;
           
-          if(!this.sound_e){ //not playing
+          if(!this.sound_e){ //doesn't have listener
             this.sound_e = 1;
             var f = function(){
               that.sound_ended();

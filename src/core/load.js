@@ -206,8 +206,7 @@
           });
         
         } else {
-          s = new Audio(src);
-          s.src = src;
+          s = new Audio();
           s.preload = "auto";
           s.load();
           
@@ -226,6 +225,8 @@
                   that._e.call(that, a);
               }
           },false);
+          
+          s.src = src;
           
           this._def_sfx(s, a, n);
         

@@ -104,6 +104,18 @@ module Entityjs
     def entity_ignore
       return split_attr('entity-ignore')
     end
+
+    #erases found lines on compiling
+    #NOT implemented
+    def build_erase
+      return get_attr('build-erase', [])
+    end
+
+    #overwrites config vars during compiling
+    #NOT implemented
+    def build_vars
+
+    end
     
     def build_entity_ignore
       return split_attr('build-entity-ignore')
