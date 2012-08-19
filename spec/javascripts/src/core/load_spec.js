@@ -4,7 +4,7 @@ describe('load', function(){
         //add images
         re.load.path = '__spec__/'
         var img = '/__spec__/helpers/accept.png'
-        var sfx = 'http://localhost:2999/__spec__/helpers/alligator.mp3'
+        var sfx = 'http://localhost:8888/__spec__/helpers/alligator.mp3'
         var sfx2 = 'helpers/alligator.ogg'
         
         var called = false

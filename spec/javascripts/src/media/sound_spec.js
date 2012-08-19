@@ -21,14 +21,6 @@ describe('sound', function(){
     })
 	});
   
-  it('resume', function(){
-    is(e.resume())
-  })
-  
-  it('pause', function(){
-    is(e.pause())
-  })
-  
   it('currenttime', function(){
     //is(e.currentTime())
   })
