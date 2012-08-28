@@ -96,6 +96,10 @@ module Entityjs
     def scripts_order
       return split_attr('scripts-order')
     end
+
+    def assets_ignore
+      return split_attr('assets-ignore')
+    end
     
     def tests_ignore
       return split_attr('tests-ignore')
@@ -108,7 +112,7 @@ module Entityjs
     #erases found lines on compiling
     #NOT implemented
     def build_erase
-      return get_attr('build-erase', [])
+      return split_attr('build-erase')
     end
 
     #overwrites config vars during compiling

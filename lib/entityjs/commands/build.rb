@@ -265,12 +265,19 @@ module Entityjs
     #  model:["tree.xml"]
     # }
     #
-    def self.assets_to_js(assets = nil)
+    def self.assets_to_js(assets = nil, ignore=nil)
       assets ||= Assets.search()
+      ignore ||= Config.instance.assets_ignore
 
       tree = {}
 
       assets.each do |i|
+
+        if !i.match(/#{ignore.join('|')}/).nil?
+          #ignore assets
+          next
+        end
+
         #folder
         folder = i.split('/').first
 
