@@ -57,7 +57,7 @@ module Entityjs
         f.close
       end
       
-      puts "Created test: tests/#{filename}"
+      puts "Created test: #{filename}"
       
       Dir.chdir(Dirc.game_root)
       

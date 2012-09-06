@@ -60,7 +60,7 @@ module Entityjs
         f.close
       end
       
-      puts "Created comp: #{dir}/#{filename}"
+      puts "Created comp: #{filename}"
       
       Dir.chdir(Dirc.game_root)
       
