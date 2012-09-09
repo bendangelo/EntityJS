@@ -64,7 +64,7 @@ re.c('text')
 		
 		c.font = this.font;
 		c.fillStyle = this.textColor;
-    c.textAlign = this.textAlgin;
+    c.textAlign = this.textAlign;
     c.textBaseline = this.textBaseline;
     
     //multi-line
