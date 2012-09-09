@@ -6,8 +6,12 @@ module Entityjs
       if !Dirc.game?
         return 2
       end
+
+      if name.nil?
+        return 4
+      end
       
-      if name.class == Array
+      if name.is_a? Array
         name = name.first
       end
       

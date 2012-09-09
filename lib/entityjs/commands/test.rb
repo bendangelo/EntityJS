@@ -8,8 +8,12 @@ module Entityjs
       end
       
       tests = []
+
+      if name.nil?
+        return 4
+      end
       
-      if name.class == Array
+      if name.is_a? Array
         tests = name[1..-1]
         
         name = name.first

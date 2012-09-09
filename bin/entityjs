@@ -20,5 +20,7 @@ case code
     puts "Move inside the root directory"
   when 3
     puts "File/Directory already exists"
+  when 4
+  	puts "Argument error"
     
 end
