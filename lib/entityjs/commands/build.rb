@@ -273,7 +273,7 @@ module Entityjs
 
       assets.each do |i|
 
-        if !i.match(/#{ignore.join('|')}/).nil?
+        if ignore.any? && !i.match(/#{ignore.join('|')}/).nil?
           #ignore assets
           next
         end

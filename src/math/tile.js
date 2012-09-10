@@ -125,5 +125,4 @@ re.c('tile')
 .init(function(){
   this.sizeX = re.tile.sizeX;
   this.sizeY = re.tile.sizeY;
-  
-})
+});
