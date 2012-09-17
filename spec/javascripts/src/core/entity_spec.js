@@ -30,6 +30,19 @@ describe('entity', function(){
     eq(e.get('bla'), 10);
   });
 
+  it('should trigger once', function(){
+    var count = 0;
+    e.once('blah', function(){
+      count++;
+    });
+
+    e.trigger('blah');
+    e.trigger('blah');
+    e.trigger('blah');
+
+    eq(count, 1);
+  });
+
   it('comp', function(){
     e.comp('qwdqwd wer')
     
