@@ -21,6 +21,7 @@ module Entityjs
       end
       
       filename = name
+      
       if name.index('.').nil?
         filename += '.js'
       end

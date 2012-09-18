@@ -48,7 +48,7 @@ module Entityjs
         return 3
       end
       
-      test_name = filename.split('_test.').shift
+      test_name = filename.split('_test.').first
       
       File.open(filename, 'w') do |f|
         

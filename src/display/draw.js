@@ -133,7 +133,7 @@ re.c('draw')
     */
     visible:function(){
         
-        return this.drawable && re.screen.hit(this.posX - this.regX, this.posY - this.regY, this.sizeX, this.sizeY);
+        return this.drawable && re.screen.hit(this.posX, this.posY, this.sizeX, this.sizeY, this.regX, this.regY);
         
     }
     

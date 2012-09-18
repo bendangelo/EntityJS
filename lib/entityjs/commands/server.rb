@@ -31,6 +31,10 @@ module Entityjs
       Page.render_test_page()
       
     end
+
+    get '/tests' do
+      Page.render_test_page()
+    end
     
     get '/favicon.ico' do
       content_type 'image/ico'
