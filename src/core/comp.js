@@ -81,7 +81,7 @@ re.c.init.prototype = {
     //turns global method into a singleton
     singleton:function(){
         this._re_method = function(){
-            return this._ || (this._ = re.e(this.name));
+            return this._singleton || (this._singleton = re.e(this.name));
         }
         return this;
     },

@@ -50,7 +50,9 @@ stub(re, 'pressed', 10);
       
       return expectation.callCount += 1;
     };
-    return mocking.expectations.push(expectation);
+    mocking.expectations.push(expectation);
+
+    return object[method];
   };
   stub = function(object, method, fn) {
     var stb;
@@ -70,6 +72,11 @@ stub(re, 'pressed', 10);
       original: object[method]
     };
     object[method] = fn;
+
+    if(!mocking || !mocking.stubs){
+      throw "Can only stub inside tests!";
+    }
+
     return mocking.stubs.push(stb);
   };
   mock = function(test) {

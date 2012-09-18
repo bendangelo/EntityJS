@@ -238,6 +238,7 @@ function lazy(comps, obj){
     teardown:function(){
       if(obj && obj.teardown) obj.teardown(e);
       e.dispose();
+      delete window[name];
     }
   }
 }
