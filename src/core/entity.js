@@ -428,7 +428,7 @@
             if(!b[i]) continue;
             
             //return false remove or if is once listen
-            if(b[i].f.apply(b[i].c, Array.prototype.slice.call(arguments, 1)) === false || b[i].o){
+            if(b[i].f.apply(b[i].c, Array.prototype.slice.call(arguments, 1)) === false || (b[i] && b[i].o)){
                 b.splice(i, 1);
             }
             
