@@ -443,7 +443,7 @@
     
     */
     p.erase = function(ref){
-      for(var i=this.length; i--;){
+      for(var i=0; i<this.length; i++){
         if(this[i] == ref) this.splice(i, 1);
       }
       return this;
