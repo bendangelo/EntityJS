@@ -28,13 +28,13 @@ re.c('bisect')
 		return this.toTileY(bi, width, sizeX) * sizeY;
 	},
 	
-	toTileX:function(bi, width, size){
+	toTileX:function(bi, width, sizeX){
 		
-		return bi % (width / size) | 0;
+		return bi % (width / sizeX) | 0;
 	},
 	
-	toTileY:function(bi, width, size){
-		return (bi * size) / (width - 0.1) | 0;
+	toTileY:function(bi, width, sizeX){
+		return (bi * sizeX) / (width - 0.1) | 0;
 	},
 	
   /*
