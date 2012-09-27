@@ -109,8 +109,9 @@ module Entityjs
       srcs = Dirc.find_scripts_url(srcs_ignore, Config.instance.scripts_order)
       
       if tests
-        tests_src = Dirc.find_tests_url(Config.instance.tests_ignore)
-        ent += Dirc.find_eunit_src_url
+        tests_src = Dirc.find_eunit_src_url
+
+        tests_src += Dirc.find_tests_url(Config.instance.tests_ignore)
       else
         tests_src = []
       end

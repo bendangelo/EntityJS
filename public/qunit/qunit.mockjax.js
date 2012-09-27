@@ -11,6 +11,7 @@
  * Dual licensed under the MIT or GPL licenses.
  * http://appendto.com/open-source-licenses
  */
+ if(window.jQuery){
 (function($) {
 	var _ajax = $.ajax,
 		mockHandlers = [],
@@ -519,6 +520,7 @@
 		}
 	};
 })(jQuery);
+}
 
 /*
 mockAjax({
