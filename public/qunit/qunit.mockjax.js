@@ -1,3 +1,31 @@
+
+/*
+mockAjax({
+  url: '/restful/fortune',
+  responseTime: 750,
+  responseText: {
+    status: 'success',
+    fortune: 'Are you a turtle?'
+  }
+});
+*/
+function mockAjax(data){
+
+	var mockId = $.mockjax(data),
+	run = function(){
+		$.mockjaxClear(mockId);
+	};
+	
+  if(QUnit.config.blocking){
+    run();
+  } else {
+    QUnit.config.queue.unshift(function(){
+      run();
+    });
+  }
+
+};
+
 /*!
  * MockJax - jQuery Plugin to Mock Ajax requests
  *
@@ -521,30 +549,3 @@
 	};
 })(jQuery);
 }
-
-/*
-mockAjax({
-  url: '/restful/fortune',
-  responseTime: 750,
-  responseText: {
-    status: 'success',
-    fortune: 'Are you a turtle?'
-  }
-});
-*/
-function mockAjax(data){
-
-	var mockId = $.mockjax(data),
-	run = function(){
-		$.mockjaxClear(mockId);
-	};
-	
-  if(QUnit.config.blocking){
-    run();
-  } else {
-    QUnit.config.queue.unshift(function(){
-      run();
-    });
-  }
-
-};
