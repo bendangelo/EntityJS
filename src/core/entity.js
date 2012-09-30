@@ -501,7 +501,9 @@
         this.off();
         
         //delete from statics array
-        re._e.splice(re._e.indexOf(this), 1);
+        var index = re._e.indexOf(this);
+        if(index != -1)
+        re._e.splice(, 1);
         
         return this;
     }
