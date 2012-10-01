@@ -503,7 +503,7 @@
         //delete from statics array
         var index = re._e.indexOf(this);
         if(index != -1)
-        re._e.splice(, 1);
+            re._e.splice(index, 1);
         
         return this;
     }
