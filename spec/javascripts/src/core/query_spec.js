@@ -180,6 +180,7 @@ describe('query', function(){
       
       var e = re.e();
       
+      q.push(10);
       q.push(e);
       
       //add in
