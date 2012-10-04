@@ -17,18 +17,18 @@ re.c('screen')
         x = x.posX;
       }
       
-      this.posX = x - this.regX;
-      this.posY = y - this.regY;
+      this.posX = x - this.regX - this.offX;
+      this.posY = y - this.regY - this.offY;
       
       return this;
     },
     
     toScreenX:function(x){
-        return x + this.posX + this.offX;
+        return x + this.posX + this.offX + this.regX;
     },
     
     toScreenY:function(y){
-        return y + this.posY + this.offY;
+        return y + this.posY + this.offY + this.regY;
     }
     
 })

@@ -35,6 +35,19 @@ describe('hit', function(){
     not(e.hit({x:-3.1, y:-3.1, w:6, h:6, regX:6, regY:6}));
     
   });
+
+  it('should hit object with large reg', function(){
+
+    //screen
+    e.posY = 130;
+    e.sizeX = 950;
+    e.sizeY = 470;
+    e.regX = e.sizeX * .5;
+    e.regY = e.sizeY * .5;
+
+    not(e.hit({x:200, y:400, w:40, h:40, regX:0, regY:10}));
+
+  });
   
   it('should hit object with op reg', function(){
     
