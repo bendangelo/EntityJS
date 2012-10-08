@@ -230,7 +230,7 @@ function lazy(comps, obj){
   return {
     setup:function(){
       
-      window[name] = e = f(comps.join(' '));
+      this[name] = window[name] = e = f(comps.join(' '));
       
       if(typeof obj == 'function') obj(e);
       if(obj && obj.setup) obj.setup(e);
