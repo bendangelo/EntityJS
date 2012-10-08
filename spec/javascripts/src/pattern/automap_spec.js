@@ -27,6 +27,7 @@ describe('automap', function(){
     
     ok(e.within(10, 2))
     
+    not(e.within(10/0, 10/0));
   })
   
   it('should copy map by value', function(){

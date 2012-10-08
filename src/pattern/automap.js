@@ -110,11 +110,7 @@ re.c('automap')
 	},
 	
 	within:function(x, y){
-		
-		if(y < 0 || y >= this.lenY || x < 0 || x >= this.lenX){
-			return false;
-		}
-		return true;
+		return y >= 0 && y < this.lenY && x >= 0 && x < this.lenX;
 	}
 	
 })
