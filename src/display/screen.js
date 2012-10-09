@@ -24,11 +24,11 @@ re.c('screen')
     },
     
     toScreenX:function(x){
-        return x + this.posX + this.offX + this.regX;
+        return x + this.posX - this.offX - this.regX;
     },
     
     toScreenY:function(y){
-        return y + this.posY + this.offY + this.regY;
+        return y + this.posY - this.offY - this.regY;
     }
     
 })
