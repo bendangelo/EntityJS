@@ -5,7 +5,7 @@ module Entityjs
   class Config
     
     def self.file_name
-      'game.json'
+      'entity.json'
     end
     
     def self.preprocess(data, ops={})
@@ -53,7 +53,9 @@ module Entityjs
         puts "Warning: config.yml will be deprecated soon. Rename to #{Config.file_name}"
 
         @data = YAML::load(IO.read('config.yml'))
-
+      elsif File.exists?("game.json")
+        data = IO.read(Config.file_name)
+        @data = JSON::parse(data)
       elsif File.exists?(Config.file_name)
         data = IO.read(Config.file_name)
         @data = JSON::parse(data)
