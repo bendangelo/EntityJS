@@ -8,7 +8,7 @@ boundaries.
 @usage
 
 re.e('body player.png')
-.attr({
+.set({
 bodyX:40,
 bodyY:40,
 padX:2 //pushes the body in 2 pixels on both right and left

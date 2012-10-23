@@ -25,7 +25,7 @@ For example, if I have a directory like /scripts/animations/monster.json.
 The file will be turned into this:
 
 re.e('monster.json animation')
-.attr(**Animation JSON here**);
+.set(**Animation JSON here**);
 
 Which means you can edit files in different programs and not worry about copying and pasting
 the contents.

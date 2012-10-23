@@ -19,7 +19,7 @@ re.scene('game')
   });
   
 })
-.attr({
+.set({
   
   setLevel:function(num){
     

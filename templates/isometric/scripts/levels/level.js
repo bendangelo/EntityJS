@@ -34,10 +34,10 @@ re.c('level')
     }
     
     this.cursor = re.e('cursor')
-    .attr('layer', re.layer.cursor);
+    .set('layer', re.layer.cursor);
     
     this.box = re.e('isoimage')
-    .attr({
+    .set({
       id:'box',
       frameX:3,
       layer:re.layer.box,

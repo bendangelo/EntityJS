@@ -17,7 +17,7 @@ For example, if I have a directory like /assets/animations/monster.json.
 The file will automatically be read upon calling 'entityjs refresh' and will be turned into this:
 
 re.e('monster.json animation')
-.attr(**Animation JSON here**);
+.set(**Animation JSON here**);
 
 Which means you can edit files in different programs and not worry about copying and pasting
 the contents. Just run entityjs refresh.

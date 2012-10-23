@@ -6,7 +6,7 @@ test('exit cleanly', function(){
   
   //game finished
   re('counter')[0]
-  .attr({
+  .set({
     maxCount:1
   })
   .up();

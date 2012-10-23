@@ -4,72 +4,72 @@ re.c('walltile')
     var e = re.e('walltile');
     switch(num){
       case 1:
-      return e.attr({
+      return e.set({
         topWall:true
       });
       
       case 2:
-      return e.attr({
+      return e.set({
         rightWall:true
       });
       
       case 3:
-      return e.attr({
+      return e.set({
         bottomWall:true
       });
       
       case 4:
-      return e.attr({
+      return e.set({
         leftWall:true
       });
       
       case 5:
-      return e.attr({
+      return e.set({
         topWall:true,
         rightWall:true
       });
       
       case 6:
-      return e.attr({
+      return e.set({
         bottomWall:true,
         rightWall:true
       });
       
       case 7:
-      return e.attr({
+      return e.set({
         leftWall:true,
         bottomWall:true
       });
       
       case 8:
-      return e.attr({
+      return e.set({
         topWall:true,
         leftWall:true
       });
       
       case 10:
-      return e.attr({
+      return e.set({
         leftWall:true,
         bottomWall:true,
         rightWall:true
       });
       
       case 11:
-      return e.attr({
+      return e.set({
         rightWall:true,
         topWall:true,
         bottomWall:true
       });
       
       case 12:
-      return e.attr({
+      return e.set({
         topWall:true,
         rightWall:true,
         leftWall:true
       })
       
       case 13:
-      return e.attr({
+      return e.set({
         topWall:true,
         leftWall:true,
         bottomWall:true

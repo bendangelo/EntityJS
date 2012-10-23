@@ -11,7 +11,7 @@ sprite.frame(3)
 sprite.frame()
 
 //manually move to frame
-sprite.attr({frameX:0, frameY:1});
+sprite.set({frameX:0, frameY:1});
 
 //add animation
 sprite.comp('flicker')

@@ -25,7 +25,7 @@ re.c('health')
 
 });
 
-var e = re.e('health').attr('health', 40);
+var e = re.e('health').set('health', 40);
 
 //low on health, regenerate
 e.regen();

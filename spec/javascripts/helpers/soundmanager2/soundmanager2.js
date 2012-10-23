@@ -2590,7 +2590,7 @@ function SoundManager(smURL, smID) {
 
       }
 
-      // boolean instead of "loop", for webkit? - spec says string. http://www.w3.org/TR/html-markup/audio.html#audio.attrs.loop
+      // boolean instead of "loop", for webkit? - spec says string. http://www.w3.org/TR/html-markup/audio.html#audio.sets.loop
       _a.loop = (_iO.loops > 1 ? 'loop' : '');
 
       return _a;

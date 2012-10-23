@@ -19,7 +19,7 @@ describe('circle', function(){
     eq(e.radius(), 10)
     
     //chain call
-    is(e.attr('radius', 14))
+    is(e.set('radius', 14))
     eq(e.radius(), 14)
   })
   

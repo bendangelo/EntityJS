@@ -18,7 +18,7 @@ describe('query', function(){
         re.e('tesee').on('sig', function(){});
         eq(re('tesee ^sig').length, 1);
         
-        re.e('tesee').attr('id', 'id');
+        re.e('tesee').set('id', 'id');
         ok(re('tesee').length != 0);
         eq(re('#id').length, 1);
     });
@@ -64,7 +64,7 @@ describe('query', function(){
   });
   
     it('should filter', function(){
-        re.e().attr({k:99});
+        re.e().set({k:99});
         
         eq(re(function(){
             return this.k == 99
@@ -113,7 +113,7 @@ describe('query', function(){
     });
     
     it('pluck', function(){
-      re('tile').attr({f:10, y:'d'});
+      re('tile').set({f:10, y:'d'});
       var k = re('tile').pluck('f y');
       eq(k.length, re('tile').length);
       eq(k[0].f, re('tile')[0].f);
@@ -193,12 +193,12 @@ describe('query', function(){
     })
     
     it('attr', function(){
-        re('tile').attr('first', 'asdf');
+        re('tile').set('first', 'asdf');
         re('tile').each(function(e){
           eq(e.first, 'asdf')
         })
         
-        re('tile').attr({yap:'1232'});
+        re('tile').set({yap:'1232'});
         re('tile').each(function(e){
           eq(e.yap, '1232')
         })
@@ -338,13 +338,13 @@ describe('query', function(){
       //check if all entities in query have value blah
       var e = re();
       e.push(re.e());
-      e.push(re.e().attr('blah', true));
+      e.push(re.e().set('blah', true));
       
       not(e.every(function(e){
         return e.blah;
         }));
       
-      e.attr('blah', true)
+      e.set('blah', true)
         
       //should now all have blah
       ok(e.every(function(e){

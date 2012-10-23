@@ -4,7 +4,7 @@ describe('flicker', function(){
 
 	beforeEach(function(){
     
-		e = re.e().attr({
+		e = re.e().set({
       health:0,
       flick:function(v){
         this.health += v; 

@@ -155,7 +155,7 @@ re.c.init.prototype = {
         if(f)
             f.apply(e, arguments);
         else
-            e.attr.apply(e,arguments); //this is the default factory method
+            e.set.apply(e,arguments); //this is the default factory method
 
         return e;
     },

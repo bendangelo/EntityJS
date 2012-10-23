@@ -2,7 +2,7 @@ re.scene('over')
 .enter(function(message){
   
   re.e('text')
-  .attr({
+  .set({
     font:'30px sans-serif',
     text:message,
     alignVer:-60,
@@ -10,7 +10,7 @@ re.scene('over')
   })
   
   re.e('text keyboard')
-  .attr({
+  .set({
     text:'Press Z to continue',
     alignVer:-20,
     alignHor:0

@@ -9,7 +9,7 @@ You can add hit collision check by defining a hitmap. Like so:
 var mountainHits = re.e('hitmap');
 
 re.e('force')
-.attr(hitmap:mountainHits);
+.set(hitmap:mountainHits);
 
 //or define a hitmap for all physics objects
 re.hitmap = re.e('hitmap');

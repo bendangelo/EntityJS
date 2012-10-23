@@ -105,7 +105,7 @@ module Entityjs
       comps = comps.join(' ')
       
       #output entity
-      return "re.e('#{comps}')\n.attr(#{json})"
+      return "re.e('#{comps}')\n.set(#{json})"
     end
     
     #converts the given data to json

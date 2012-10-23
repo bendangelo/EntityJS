@@ -119,13 +119,13 @@ View [all commands](/bendangelo/EntityJS/wiki/commands)
 
 #### Setters can even be used in `attr()`
 
-    tile.attr('tileX', 2); //sets
+    tile.set('tileX', 2); //sets
   
 #### Setter with multiple parameters
 
     tile.tile(1, 2); //sets tilex and tiley
     //or
-    tile.attr('tile', [1,2]); //samething
+    tile.set('tile', [1,2]); //samething
   
 ### Factories in 0.4.2
 

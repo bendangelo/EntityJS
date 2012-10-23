@@ -33,7 +33,7 @@ re.c('level')
         if(v){
           v--;
           
-         re.e('tile').attr({
+         re.e('tile').set({
           tileX:x,
           tileY:y,
           frame:v
@@ -60,7 +60,7 @@ re.c('level')
       
       var frame = items[i].gid - gid;
       
-      re.e('t'+frame).attr({
+      re.e('t'+frame).set({
         posX:it.x,
         posY:it.y - re.tile.sizeY,
         frame:frame
@@ -74,7 +74,7 @@ re.c('level')
     var pos = this.objectgroup[0].object;
     
     re.e('hero')
-    .attr({
+    .set({
       posX:pos.x,
       posY:pos.y - re.tile.sizeY //tiled editor adds an extra tile to y
     });

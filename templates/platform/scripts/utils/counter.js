@@ -22,7 +22,7 @@ re.c('counter')
   .alignLeft(5)
   .alignTop(5)
   //ignore screen coordinates
-  .attr('screenable', false);
+  .set('screenable', false);
   
   //set default text
   this.add(0);

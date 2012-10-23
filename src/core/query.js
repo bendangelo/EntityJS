@@ -238,7 +238,7 @@
         return this[(Math.random()*this.length)|0];
     }
     
-    p.attr = function(obj, value){
+    p.set = function(obj, value){
       return this.invoke('attr', obj, value);
         
     }

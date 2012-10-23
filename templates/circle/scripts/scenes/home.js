@@ -14,7 +14,7 @@ re.scene('home')
   .alignVer();
 
   //find circle and change speed
-  re('circle').first().attr('speed', 15);
+  re('circle').first().set('speed', 15);
   
   //add help text
   re.e('text align')

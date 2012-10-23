@@ -6,7 +6,7 @@ re.c('twoarena')
   this.paddle2
   .removeComp('ai')
   .comp('player')
-  .attr({
+  .set({
     upKey:'up',
     downKey:'down'
   });

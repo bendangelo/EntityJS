@@ -192,10 +192,10 @@
             }
             
             if(c._re_defines){
-                this.attr(c._re_defines);
+                this.set(c._re_defines);
             }
             if(c._re_events){
-              this.attr(c._re_events)
+              this.set(c._re_events)
               .on(c._re_events);
             }
             
@@ -438,26 +438,26 @@
     };
     
     //setters / getters
-    p.set = function(obj, value){
+    p.attr = function(obj, value){
+        
         if(re.is(obj,  'object')){
             
           for(var key in obj){
                 this.set(key, obj[key]);
             }
             
-        }else {
+        } else {
             this[obj] = value;
         }
         
         return this;
     };
 
-    p.attr = function(obj, value){
-        
+    p.set = function(obj, value){
         if(re.is(obj,  'object')){
             
           for(var key in obj){
-                this.attr(key, obj[key]);
+                this.set(key, obj[key]);
             }
             
         }else {

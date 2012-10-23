@@ -3,7 +3,7 @@ re.scene('home')
   
   //add help text
   re.e('text align')
-  .attr({
+  .set({
     font:'bold 30px Verdina',
     text:'Tiltmaze'
   })

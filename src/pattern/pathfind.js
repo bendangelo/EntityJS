@@ -17,7 +17,7 @@ var map =
 var level = re.e('automap').automap(map);
 
 var path = re.e('pathfind')
-.attr({
+.set({
   //this is checked for every tile. Returning false will skip it, making the tile unwalkable.
   checkNode:function(x, y, parentX, parentY){
     return level.within(x, y) && level.automap(x, y) == 0;

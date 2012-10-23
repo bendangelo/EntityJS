@@ -86,7 +86,7 @@ function expectValueDown(obj, prop){
 /*
 
 re.e('circle')
-.attr('color', '#ff0000');
+.set('color', '#ff0000');
 
 pixelEqual(10, 10, 255, 0, 0, 0);
 
@@ -183,7 +183,7 @@ function factory(comps, func){
     if(_factories[comps]) _factories[comps].call(e);
     
     //add custom attributes
-    if(typeof func == 'object') e.attr(func);
+    if(typeof func == 'object') e.set(func);
 
     //call custom method
     if(func) func.call(e);

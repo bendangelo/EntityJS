@@ -8,7 +8,7 @@ describe('imgtext', function(){
     .defines('imgtext', [1,2,3,4,3,4,5,6,7,8,9,4,5,3,4,5,6,7,2,3,4,5])
     
     e = re.e('serif')
-    .attr('text', 'blah')
+    .set('text', 'blah')
   })
   
   it('visible', function(){

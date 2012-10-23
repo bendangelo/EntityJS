@@ -211,11 +211,11 @@ describe('entity', function(){
     
     var called = false;
     
-    e.attr({
+    e.set({
       blah:function(){}
     });
     
-    e.attr({
+    e.set({
       blah:function(){
         called = true;
       }
@@ -348,13 +348,13 @@ describe('entity', function(){
   
   it('attr', function(){
     //add attributes
-      e.attr({x:10, y:'sdd', func:function(){}})
+      e.set({x:10, y:'sdd', func:function(){}})
       
       eq(e.x, 10)
       eq(e.y, 'sdd')
       is(e.func, 'function')
       
-      e.attr('ok', 87)
+      e.set('ok', 87)
       eq(e.ok, 87)
       
      //run setter methods
@@ -362,7 +362,7 @@ describe('entity', function(){
        this.val = value1;   
      };
      
-      e.attr('posX', 154)
+      e.set('posX', 154)
       eq(e.val, 154)
       
       //multiple
@@ -370,7 +370,7 @@ describe('entity', function(){
               this.width = width
               this.height = height
           };
-      e.attr({
+      e.set({
           size:[45, 40]
       });
       

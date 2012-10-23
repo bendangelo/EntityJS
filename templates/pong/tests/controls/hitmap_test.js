@@ -57,7 +57,7 @@ test('ball should hit bottom', function(){
 test('ball should hit right of paddle', function(){
   
   var paddle = re.e('paddle')
-  .attr({
+  .set({
     posX:100,
     posY:100
   });
@@ -74,7 +74,7 @@ test('ball should hit right of paddle', function(){
 test('ball should hit left of paddle', function(){
   
   var paddle = re.e('paddle')
-  .attr({
+  .set({
     posX:100,
     posY:100
   });

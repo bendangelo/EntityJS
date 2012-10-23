@@ -10,7 +10,7 @@ re.scene('home')
   re.preventDefault('left right up down');
   
   re.e('text')
-  .attr({
+  .set({
     font:'30px sans-serif',
     text:'Pong',
     alignHor:0,
@@ -18,7 +18,7 @@ re.scene('home')
   });
   
   re.e('text keyboard')
-  .attr({
+  .set({
     text:'Press z to start!',
     alignHor:0,
     alignVer:0
@@ -32,7 +32,7 @@ re.scene('home')
   });
   
   re.e('text')
-  .attr({
+  .set({
     text:'Press x for two player',
     alignHor:0,
     alignVer:25
@@ -40,7 +40,7 @@ re.scene('home')
   
   //credits
   re.e('text')
-  .attr({
+  .set({
     text:'http://www.entityjs.com',
     alignBottom:-5,
     alignLeft:5
