@@ -438,8 +438,21 @@
     };
     
     //setters / getters
+    p.set = function(obj, value){
+        if(re.is(obj,  'object')){
+            
+          for(var key in obj){
+                this.set(key, obj[key]);
+            }
+            
+        }else {
+            this[obj] = value;
+        }
+        
+        return this;
+    };
 
-    p.attr = p.set = function(obj, value){
+    p.attr = function(obj, value){
         
         if(re.is(obj,  'object')){
             
