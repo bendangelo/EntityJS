@@ -38,7 +38,7 @@ stylesheets:
 #   - helpers/**/*.js
 #
 helpers:
-  - helpers/jquery-*.min.js
+  - helpers/jquery-*.js
   - helpers/**/*.js
 
 # spec_files
