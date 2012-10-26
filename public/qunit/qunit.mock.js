@@ -16,6 +16,9 @@ var callback = expectCall();
 
 loader.load(callback); //should be called before end
 
+//expect two calls
+var callback = expectCall(2);
+
 //stubs a method with a custom method
 stub(re, 'pressed', function(value){
   return false;
@@ -127,7 +130,7 @@ stub(re, 'pressed', 10);
     };
     mocking = mk;
     stack.push(mk);
-    test.call(QUnit.current_testEnvironment);
+    test.call(this);
     if (!QUnit.config.blocking) {
       return finishMock();
     } else {
@@ -137,7 +140,7 @@ stub(re, 'pressed', 10);
 
   mocked = function(fn) {
     return function() {
-      return mock(fn);
+      return mock.call(this, fn);
     };
   };
 

@@ -446,7 +446,7 @@
                 this.set(key, obj[key]);
             }
             
-        } else {
+        } else {q
             this[obj] = value;
         }
         
