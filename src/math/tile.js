@@ -103,6 +103,10 @@ re.c('tile')
       return this;
     },
     
+    atTile:function(x, y){
+      return this.tileX() == x && this.tileY() == y;
+    },
+
     tileX:function(v){
       if(re.is(v)){
         this.posX = v * this.sizeX + 0.5 | 0;
