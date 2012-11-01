@@ -239,9 +239,13 @@
     }
     
     p.set = function(obj, value){
-      return this.invoke('attr', obj, value);
+      return this.invoke('set', obj, value);
         
-    }
+    };
+
+    p.attr = function(obj, value){
+        return this.invoke('attr', obj, value);
+    }; 
     
     p.def = function(obj, value){
       return this.invoke('def', obj, value);
