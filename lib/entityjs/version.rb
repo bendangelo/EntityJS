@@ -1,3 +1,3 @@
 module Entityjs
-  VERSION = "0.4.5" unless const_defined? :VERSION
+  VERSION = "0.5.0" unless const_defined? :VERSION
 end

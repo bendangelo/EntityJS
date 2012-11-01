@@ -7,7 +7,7 @@ Usage:
 
 	re.e('monsters'); //joined group
 
-	re.monsters().first(); // [Object object]
+	re.monsters.first(); // [Object object]
 
 */
 re.group = re.g = function(title, data){

@@ -307,7 +307,7 @@
             }
         }
         
-        if(comp.id != '' && this.id != comp.id){
+        if(comp.id && this.id != comp.id){
             return false;
         }
         

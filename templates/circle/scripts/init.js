@@ -1,6 +1,6 @@
 re.ready(function(){
   
-  re.sys.init(re.canvas).start();
+  re.main.init(re.canvas).start();
   
   re.scene('load').enter();
   
