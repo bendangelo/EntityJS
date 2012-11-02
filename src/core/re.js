@@ -17,6 +17,9 @@ re.version = "RE_VERSION";
 re._e = [];
 //contains all components
 re._c = {};
+//contains all systems
+re._s = {};
+//contains all groups
 
 re.ready = function(r){
   re.listener('load', r);

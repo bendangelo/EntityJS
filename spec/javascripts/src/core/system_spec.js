@@ -1,41 +1,24 @@
 describe('system', function(){
     
     var s;
-    
-    it('init', function(){
-      
-        is(re.sys.context);
+
+    re.s("render")
+    .defines({
+
+        process:function(e){
+            e = 99;
+        }
+
     });
-    
-    it('clear', function(){
-      var s = re.sys;
-        is(re.sys.start());
-        
-        spyOn(s.context, 'fillRect');
-        
-        is(s.clear('#FF0000'));
-        called(s.context.fillRect);
-        
-        is(s.clear('rgb(200, 0, 0)'));
-        called(s.context.fillRect);
-        
-        is(s.clear());
-        
-        is(s.stop());
-    });
-    
-    it('loop', function(){
-        var called = false;
-        var old = re.sys.system_loop;
-        //setup custom loop
-        re.sys
-        .loop(function(){
-            called = true;
-        }).start().stop();
-        
-        re.sys.loop(old)
-        
-        ok(called);
+
+    it('should process all entities', function(){
+
+        s = re.s("render").create([10, 2]);
+
+        s.processEntites();
+
+        expect(s.entities[0]).toEqual(99);
+        expect(s.entities[1]).toEqual(99);
     });
     
 });

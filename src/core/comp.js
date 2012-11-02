@@ -26,7 +26,6 @@
         this._re_defaults = {};
         this._re_defines = {};
         this._re_events = {};
-        this._re_final = 0;
 
         //defines the special re.[comp]()
         if(!re[this.name]){
@@ -56,7 +55,6 @@ re.c.init.prototype = {
     Quick way to convert sentences to arrays.
     */
     z:function(n, r){
-        this._checkFinal();
         
         if(!this[n]){
             this[n] = [];
@@ -70,13 +68,6 @@ re.c.init.prototype = {
         
         return this;
     },
-
-    _checkFinal:function(){
-        
-        if(this._re_final){
-            throw this.name+' is final.';
-        }
-    },
     
     //turns global method into a singleton
     singleton:function(name){
@@ -87,7 +78,6 @@ re.c.init.prototype = {
     },
 
     statics:function(obj, value){
-        this._checkFinal();
         
         if(!re.is(value)){
             
@@ -103,7 +93,6 @@ re.c.init.prototype = {
     },
     
     events:function(obj, value){
-      this._checkFinal();
       
       if(!re.is(value)){
           
@@ -132,7 +121,6 @@ re.c.init.prototype = {
 
     */
     factory:function(f){
-        this._checkFinal();
 
         this._re_factory = f;
 
@@ -227,7 +215,6 @@ re.c.init.prototype = {
     
     */
     alias:function(s){
-        this._checkFinal();
         
         var p = s.split(' ');
         
@@ -279,7 +266,6 @@ re.c.init.prototype = {
     Default adds onto but doesn't overwrite values.
     */
     defaults:function(d, value){
-        this._checkFinal();
         
         if(arguments.length == 1){
             
@@ -317,7 +303,6 @@ re.c.init.prototype = {
     
     */
     namespaces:function(obj, value){
-        this._checkFinal();
         var name = this.name+'_';
         
         if(arguments.length == 1){
@@ -337,7 +322,6 @@ re.c.init.prototype = {
     defines overrides everything.
     */
     defines:function(d, value){
-        this._checkFinal();
         
         if(arguments.length == 1){
             
@@ -353,7 +337,6 @@ re.c.init.prototype = {
     },
     
     init:function(method){
-        this._checkFinal();
         
         this._re_init = method;
         
@@ -361,24 +344,10 @@ re.c.init.prototype = {
     },
     
     dispose:function(method){
-        this._checkFinal();
         
         this._re_dispose = method;
         
         return this;    
-    },
-    
-    /*
-    The lock method prevents modification to the component.
-    
-    This is handy to stop unexpected changes to a component.
-    */
-    lock:function(){
-        this._checkFinal();
-        
-        this._re_final = 1;
-        
-        return this;
     },
     
     /*
@@ -388,7 +357,6 @@ re.c.init.prototype = {
     Useful to keep everything in one big component.
     */
     run:function(method){
-        this._checkFinal();
         
         //re.ready(function(){
             method.call(this);

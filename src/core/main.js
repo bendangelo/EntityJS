@@ -4,9 +4,6 @@ Such as the canvas context, fps, start, stop, canvas.
 
 You can add the component to entities for quick reference to variables.
 
-FUTURE
--add entity definess to allow local usage.
--perhaps allow users to override the main class for their own custom usage. (new arrays of entities and components)
 */
 re.c('main')
 .defaults({

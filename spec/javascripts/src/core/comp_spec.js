@@ -197,12 +197,6 @@ describe('comp', function(){
     
   })
   
-  it('should lock', function(){
-    k.lock()
-    
-    ok(k._re_final)
-  })
-  
   it('should run', function(){
     k.run(function(){
       ok(this == k)
