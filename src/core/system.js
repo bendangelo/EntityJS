@@ -44,11 +44,13 @@ re.s.init = function(name){
 	this._system.prototype = {
 
 		processAll:function(){
-			this.begin();
-			for(var i=0; i<this.entities.length; i++){
-				this.process(this.entities[i]);
+			if(this.canProcess()){
+				this.begin();
+				for(var i=0; i<this.entities.length; i++){
+					this.process(this.entities[i]);
+				}
+				this.end();
 			}
-			this.end();
 			return this;
 		},
 
@@ -58,6 +60,11 @@ re.s.init = function(name){
 
 		end:function(){
 
+		},
+
+		//process as long as entities is not empty
+		canProcess:function(){
+			return !this.entities.length;
 		}
 
 	};
@@ -67,6 +74,8 @@ re.s.init.prototype = {
 
 	requires:function(args){
 		if(re.is(args,'string')) args = args.split(" ");
+
+		this._requires = 
 	},
 
 	defines:function(obj){
