@@ -3,7 +3,8 @@ The system class defines a special component which can control all entities. It 
 
 Usage:
 	
-	re.s('render')
+	re.s("monster_render")
+	.requires("render")
 	.defines({
 		
 		process:function(entity){
@@ -17,8 +18,11 @@ Usage:
 
 	re.s('render').create();
 
+	//system doesn't need a dispose method
+	//simply remove all references
+
 */
-re.maintem = re.s = function(title){
+re.system = re.s = function(title){
 	//create if doesn't exist
 	if(!re._s[title]){
 		re._s[title] = new re.s.init(title);
@@ -38,16 +42,32 @@ re.s.init = function(name){
 	};
 
 	this._system.prototype = {
+
 		processAll:function(){
+			this.begin();
 			for(var i=0; i<this.entities.length; i++){
 				this.process(this.entities[i]);
 			}
+			this.end();
 			return this;
+		},
+
+		begin:function(){
+
+		},
+
+		end:function(){
+
 		}
+
 	};
 };
 
 re.s.init.prototype = {
+
+	requires:function(args){
+		if(re.is(args,'string')) args = args.split(" ");
+	},
 
 	defines:function(obj){
 		for(var i in obj){

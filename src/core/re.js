@@ -14,12 +14,17 @@ re = function(selector){
 re.version = "RE_VERSION";
     
 //contains all entities
+//TODO: remove, all entities will be kept in groups
 re._e = [];
 //contains all components
 re._c = {};
 //contains all systems
 re._s = {};
 //contains all groups
+re._g = {};
+//contains all tags
+//tags are used to reference entities
+re._t = {};
 
 re.ready = function(r){
   re.listener('load', r);
