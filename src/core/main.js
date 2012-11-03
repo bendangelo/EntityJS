@@ -6,6 +6,7 @@ You can add the component to entities for quick reference to variables.
 
 */
 re.c('main')
+.singleton()
 .defaults({
     
     clearColor:'#f9f9f9',
@@ -79,7 +80,7 @@ re.c('main')
         
         this.context = this.canvas.getContext(contextType || '2d');
         
-        var s = re.screen = re.e('screen');
+        var s = re.screen();
         
         this.sizeX = s.sizeX = this.canvas.width;
         this.sizeY = s.sizeY = this.canvas.height;
@@ -126,6 +127,3 @@ re.c('main')
     
     
 });
-    
-//create default main
-re.main = re.e('main');

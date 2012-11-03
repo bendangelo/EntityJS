@@ -34,8 +34,8 @@ re.c('text')
       this.text_lines = t.split('\n');
   		this._text = t;
       //set text width
-      if(re.sys.context){
-        var c = re.sys.context;
+      if(re.main().context){
+        var c = re.main().context;
         c.save();
         c.font = this.font;
         

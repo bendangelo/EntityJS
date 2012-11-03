@@ -42,7 +42,7 @@ re.c('draw')
         c.width = s;
         c.height = s;
         
-        this.draw_render(c.getContext(re.sys.contextType));
+        this.draw_render(c.getContext(re.main().contextType));
         
         this.canvasCache = c;
         
@@ -104,18 +104,18 @@ re.c('draw')
     
     screenX:function(x){
         if(x){
-            this.posX = x + re.screen.posX;
+            this.posX = x + re.screen().posX;
             return this;
         }
-        return this.posX - re.screen.posX;
+        return this.posX - re.screen().posX;
     },
     
     screenY:function(y){
         if(y){
-            this.posY = y + re.screen.posY;
+            this.posY = y + re.screen().posY;
             return this;
         }
-        return this.posY - re.screen.posY;
+        return this.posY - re.screen().posY;
     },
     
     /*
@@ -133,7 +133,7 @@ re.c('draw')
     */
     visible:function(){
         
-        return this.drawable && re.screen.hit(this.posX, this.posY, this.sizeX, this.sizeY, this.regX, this.regY);
+        return this.drawable && re.screen().hit(this.posX, this.posY, this.sizeX, this.sizeY, this.regX, this.regY);
         
     }
     

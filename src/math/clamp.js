@@ -14,21 +14,22 @@ re.e('clamp bitmap char.png')
 */
 
 re.c('clamp')
-.method(function(value){
-    var c = arguments;
-
-    if(value < c[1]){
-        return c[1];
-    } else if(c[2] !== undefined && value > c[2]){
-        return c[2];
+.method(function(value, h, l){
+    
+    if(value < h){
+        return h;
+    } else if(l != null && value > l){
+        return l;
     }
 
     return value;
 })
 .defines('clamp',
 function(value){
-    arguments[0] = this[value];
-    this[value] = re.clamp.apply(re, arguments);
-
+    //replae with real value
+    var arg = Array.prototype.slice.apply(arguments);
+    arg[0] = this.get(value);
+    this.set(value, re.clamp.apply(re, arg));
+    
     return this;
 });

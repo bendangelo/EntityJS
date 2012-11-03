@@ -29,7 +29,7 @@ describe('draw', function(){
   
   it('create', function(){
     var called = false
-    re.sys.start();
+    re.main().start();
     
     re.c('shape').defines('draw', function(){
       called = true
@@ -41,7 +41,7 @@ describe('draw', function(){
     waits(300)
     runs(function(){
       ok(called)
-      re.sys.stop();
+      re.main().stop();
     })
   })
   
@@ -92,22 +92,22 @@ describe('draw', function(){
   it('screenx', function(){
     //set
     
-    re.screen.posX =  Math.random()*999;
+    re.screen().posX =  Math.random()*999;
     d.posX = 0;
     is(d.screenX( Math.random()*999))
-    eq(d.screenX(), d.posX - re.screen.posX)
+    eq(d.screenX(), d.posX - re.screen().posX)
     
-    re.screen.posX = 0;
+    re.screen().posX = 0;
   })
   
   it('screeny', function(){
     
-    re.screen.posY = Math.random()*999;
+    re.screen().posY = Math.random()*999;
     d.posY = 0;
     is(d.screenY(Math.random()*999))
-    eq(d.screenY(), d.posY - re.screen.posY)
+    eq(d.screenY(), d.posY - re.screen().posY)
     
-    re.screen.posY = 0;
+    re.screen().posY = 0;
   })
   
   it('visible', function(){

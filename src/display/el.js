@@ -69,7 +69,7 @@ re.c('el')
 
   //places element to parent of canvas
   addEl:function(targ){
-    targ = targ || $(re.sys.canvas).parent();
+    targ = targ || $(re.main().canvas).parent();
 
     targ.append(this.el);
     return this;

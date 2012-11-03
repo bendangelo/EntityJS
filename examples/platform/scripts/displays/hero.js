@@ -2,7 +2,7 @@ re.c('hero')
 .requires('hero.png tsprite update force animate body')
 .defines({
   
-  speed:40 * re.sys.stepSize,
+  speed:40 * re.main().stepSize,
   
   friX:0.75,
   friY:0.95,
@@ -12,7 +12,7 @@ re.c('hero')
   bodyX:24,
   bodyY:24,
   
-  jumpSpeed:480 * re.sys.stepSize,
+  jumpSpeed:480 * re.main().stepSize,
   jump:false,
   ground:true,
   

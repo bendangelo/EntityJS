@@ -3,10 +3,10 @@ re.scene('load')
   
   re.tile.sizeX = re.tile.sizeY = 25;
   
-  re.sys.clearColor = '#D6F8FA';
+  re.main().clearColor = '#D6F8FA';
   
   //setup gravity
-  re.force.graY = 30 * re.sys.stepSize;
+  re.force.graY = 30 * re.main().stepSize;
   
   re.load(re.assets)
   .complete(function(){

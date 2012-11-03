@@ -26,7 +26,7 @@ describe('cycle/tween', function(){
     tween.tween(0, {x:100});
     
     for(var i=60; i--;)
-    tween.tween_update(re.sys.stepSize)
+    tween.tween_update(re.main().stepSize)
     
     eq(tween.x, 100);
     ok(called)
@@ -41,7 +41,7 @@ describe('cycle/tween', function(){
     tween.x = -10;
     tween.tween(1, {x:50, tileY:10});
     
-    var step = re.sys.stepSize;
+    var step = re.main().stepSize;
     
     tween.tween_time = tween.tween_t * 0.5;
     

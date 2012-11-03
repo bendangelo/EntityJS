@@ -2,14 +2,17 @@ describe('main', function(){
     
     var s;
     
+    beforeEach(function(){
+        s = re.main();
+    });
+
     it('init', function(){
-      
-        is(re.main.context);
+        is(s.context);
     });
     
     it('clear', function(){
-      var s = re.main;
-        is(re.main.start());
+
+        is(s.start());
         
         spyOn(s.context, 'fillRect');
         
@@ -26,14 +29,14 @@ describe('main', function(){
     
     it('loop', function(){
         var called = false;
-        var old = re.main.main_loop;
+        var old = s.main_loop;
         //setup custom loop
-        re.main
+        s
         .loop(function(){
             called = true;
         }).start().stop();
         
-        re.main.loop(old)
+        s.loop(old)
         
         ok(called);
     });

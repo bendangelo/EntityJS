@@ -8,18 +8,18 @@ describe('align', function(){
     
     it('align hor', function(){
         is(e.alignHor(10));
-        eq(e.posX, re.sys.sizeX * 0.5 - e.sizeX * 0.5 + 10 |0)
+        eq(e.posX, re.main().sizeX * 0.5 - e.sizeX * 0.5 + 10 |0)
     });
     
     it('align ver', function(){
         is(e.alignVer(1));
-        eq(e.posY, re.sys.sizeY * 0.5 - e.sizeY * 0.5 + 1 |0)
+        eq(e.posY, re.main().sizeY * 0.5 - e.sizeY * 0.5 + 1 |0)
     
     });
     
     it('align right', function(){
         is(e.alignRight(5));
-        eq(e.posX, re.sys.sizeX - e.sizeX + 5)
+        eq(e.posX, re.main().sizeX - e.sizeX + 5)
     
     });
     
@@ -37,7 +37,7 @@ describe('align', function(){
     
     it('align bottom', function(){
         is(e.alignBottom(5));
-        eq(e.posY, re.sys.sizeY - e.sizeY  + 5)
+        eq(e.posY, re.main().sizeY - e.sizeY  + 5)
     
     });
 });

@@ -3,11 +3,11 @@ The system class defines a special component which can control all entities. It 
 
 Usage:
 	
-	re.s('draw')
+	re.s('render')
 	.defines({
 		
 		process:function(entity){
-			if(entity.draw) entity.draw();
+			if(entity.render && entity.visible()) entity.render();
 		}
 
 	})
@@ -15,10 +15,10 @@ Usage:
 		this.drawables = drawables;
 	});
 
-	re.s('draw').create();
+	re.s('render').create();
 
 */
-re.system = re.s = function(title){
+re.maintem = re.s = function(title){
 	//create if doesn't exist
 	if(!re._s[title]){
 		re._s[title] = new re.s.init(title);
@@ -38,7 +38,7 @@ re.s.init = function(name){
 	};
 
 	this._system.prototype = {
-		processEntities:function(){
+		processAll:function(){
 			for(var i=0; i<this.entities.length; i++){
 				this.process(this.entities[i]);
 			}

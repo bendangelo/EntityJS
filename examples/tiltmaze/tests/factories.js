@@ -40,5 +40,5 @@ factory('ball', function(){
 //starts system from running
 //re.ready is disabled in testing
 addEventListener('load', function(){
-  re.sys.init(re.canvas).start();
+  re.main().init(re.canvas).start();
 });

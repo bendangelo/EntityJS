@@ -13,16 +13,16 @@ re.c('hitmap')
     if(obj.posY - obj.hsizeY < 0){
       res.hitY = 1;
       res.posY = obj.hsizeY;
-    } else if(obj.posY + obj.hsizeY > re.sys.sizeY){
+    } else if(obj.posY + obj.hsizeY > re.main().sizeY){
       res.hitY = 1;
-      res.posY = re.sys.sizeY - obj.hsizeY;
+      res.posY = re.main().sizeY - obj.hsizeY;
     }
     
     //check hits against right and left
     if(obj.posX - obj.hsizeX < 0){
       res.hitX = 1;
       this.trigger('score:left');
-    } else if(obj.posX + obj.hsizeX > re.sys.sizeX){
+    } else if(obj.posX + obj.hsizeX > re.main().sizeX){
       res.hitX = 1;
       this.trigger('score:right');
     }

@@ -8,11 +8,11 @@ describe('clamp', function(){
 
 	it('should clamp by range', function(){
 		
-    e.posX = 999;
-    
-    is(e.clamp('posX', 0, 100))
-    
-    eq(e.posX, 100)
+	    e.posX = 999;
+	    
+	    is(e.clamp('posX', 0, 100))
+	    
+	    eq(e.posX, 100)
     
 	});
 

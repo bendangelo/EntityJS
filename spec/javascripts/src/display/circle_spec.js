@@ -11,7 +11,7 @@ describe('circle', function(){
   })
   
   it('should draw', function(){
-    is(e.draw(re.sys.context));
+    is(e.draw(re.main().context));
   })
   
   it('should radius', function(){

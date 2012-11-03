@@ -5,6 +5,7 @@ It simply offsets pos values upon rendering.
 This is useful for setting up a tile-based game.
 */
 re.c('screen')
+.singleton()
 .requires('hit')
 .defines({
     

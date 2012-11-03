@@ -6,19 +6,19 @@ describe('system', function(){
     .defines({
 
         process:function(e){
-            e = 99;
+            e.ok = 10;
         }
 
     });
 
     it('should process all entities', function(){
 
-        s = re.s("render").create([10, 2]);
+        s = re.s("render").create([{}, {}]);
 
-        s.processEntites();
+        s.processAll();
 
-        expect(s.entities[0]).toEqual(99);
-        expect(s.entities[1]).toEqual(99);
+        expect(s.entities[0].ok).toEqual(10);
+        expect(s.entities[1].ok).toEqual(10);
     });
     
 });

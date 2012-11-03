@@ -34,11 +34,8 @@ re.c('tween')
       
       //set deltas
       var ease = this.tween_s[i] + this.tween_d[i] * value;
-      if(re.is(this[i], 'function')){
-        this[i](ease);
-      } else {
-        this[i] = ease;
-      }
+
+      this.set(i, ease);
     }
     
     this.trigger('tween:update', value);
@@ -73,15 +70,14 @@ re.c('tween')
       time /= 1000;
     }
     
-    var maxTime = (time || 1) / re.sys.second;
+    var maxTime = (time || 1) / re.main().second;
     this.tween_time = 0;
     //steps are substracted until it reaches zero
     
     var deltas = {};
     var starts = {};
     for(var i in props){
-      var value = this[i];
-      if(re.is(value, 'function')) value = value();
+      var value = this.get(i);
       
       deltas[i] = props[i] - value;
       starts[i] = value;

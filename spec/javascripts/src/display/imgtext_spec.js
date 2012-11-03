@@ -20,7 +20,7 @@ describe('imgtext', function(){
   })
   
   it('draw', function(){
-    is(e.draw(re.sys.context))
+    is(e.draw(re.main().context))
   })
   
   it('text', function(){

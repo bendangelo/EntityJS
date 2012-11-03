@@ -26,7 +26,7 @@ describe('image', function(){
   })
   
   it('draw', function(){
-    is(i.draw(re.sys.context))
+    is(i.draw(re.main().context))
   })
   
 });

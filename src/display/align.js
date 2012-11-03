@@ -22,20 +22,20 @@ re.c('align')
   
     alignHor:function(o){
         o = o || 0;
-        this.set('posX', re.sys.sizeX * 0.5 - (this.get('sizeX') - this.get('regX'))*0.5 + o | 0);
+        this.set('posX', re.main().sizeX * 0.5 - (this.get('sizeX') - this.get('regX'))*0.5 + o | 0);
         
         return this;
     },
     
     alignVer:function(o){
         o = o || 0;
-        this.set('posY', re.sys.sizeY * 0.5 - (this.get('sizeY') - this.get('regY'))*0.5 + o | 0);
+        this.set('posY', re.main().sizeY * 0.5 - (this.get('sizeY') - this.get('regY'))*0.5 + o | 0);
         return this;
     },
     
     alignRight:function(x){
         x = x || 0;
-        this.set('posX', re.sys.sizeX - (this.get('sizeX') - this.get('regX')) + x | 0);
+        this.set('posX', re.main().sizeX - (this.get('sizeX') - this.get('regX')) + x | 0);
         return this;
     },
     
@@ -55,7 +55,7 @@ re.c('align')
     
     alignBottom:function(y){
         y = y || 0;
-        this.set('posY', re.sys.sizeY - (this.get('sizeY') - this.get('regY')) + y | 0);
+        this.set('posY', re.main().sizeY - (this.get('sizeY') - this.get('regY')) + y | 0);
         return this;
     }
     

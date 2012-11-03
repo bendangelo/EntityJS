@@ -16,7 +16,7 @@ re.c('paddle')
   speed:10,
   
   checkBounds:function(){
-    this.limit('posY', this.hsizeY, re.sys.sizeY - this.hsizeY);
+    this.limit('posY', this.hsizeY, re.main().sizeY - this.hsizeY);
   }
   
 });

@@ -8,10 +8,10 @@ test('stay within bounds', function(){
   
   ok(paddle.posY >= 0);
   
-  paddle.posY = re.sys.sizeY + 10;
+  paddle.posY = re.main().sizeY + 10;
   
   paddle.checkBounds();
   
-  ok(paddle.posY <= re.sys.sizeY)
+  ok(paddle.posY <= re.main().sizeY)
   
 });

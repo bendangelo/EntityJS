@@ -92,7 +92,7 @@ pixelEqual(10, 10, 255, 0, 0, 0);
 
 */
 function pixelEqual(x, y, r, g, b, a, message){
-  var actual = Array.prototype.slice.apply(re.sys.context.getImageData(x, y, 1, 1).data), expected = [r, g, b, a];
+  var actual = Array.prototype.slice.apply(re.main().context.getImageData(x, y, 1, 1).data), expected = [r, g, b, a];
 	QUnit.push(QUnit.equiv(actual, expected), actual, expected, message);
 }
 

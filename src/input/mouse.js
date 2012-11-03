@@ -53,7 +53,7 @@ re.c('mouse')
     
     event:function(e, extra){
         
-        var canvas = re.sys.canvas;
+        var canvas = re.mouse.c;
         //calculate mouse coordinate
         var x = canvas.width / canvas.offsetWidth;
         var y = canvas.height / canvas.offsetHeight;
@@ -80,8 +80,8 @@ re.c('mouse')
         for(var i=0; i<listeners.length; i++){
           t = listeners[i];
           if(t.screenable){
-            tx = re.screen.toScreenX(x);
-            ty = re.screen.toScreenY(y);
+            tx = re.screen().toScreenX(x);
+            ty = re.screen().toScreenY(y);
           } else {
             tx = x;
             ty = y;
@@ -101,7 +101,7 @@ re.c('mouse')
     },
     
     i:function(){
-      var c = re.sys.canvas;
+      var c = this.c = re.main().canvas;
       re.listener('mousedown', this.press, c);
       re.listener('mouseup', this.press, c);
       re.listener('mousemove', this.event, c);
