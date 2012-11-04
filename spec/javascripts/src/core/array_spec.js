@@ -1,32 +1,23 @@
-describe('query', function(){
-  
+describe('core/array', function(){
+  var query;
+
   beforeEach(function(){
     query = re();
   })
   
-    it('should query', function(){
-        re.e('tesee');
-        re.e('tesee bob99');
-        
-        eq(re('bob99 tesee').length, 1);
-        eq(re('tesee').length, 2);
-        
-        re.e('tesee ttt')
-        eq(re('tesee').length, 3);
-        eq(re('tesee !ttt').length, 2);
-        
-        re.e('tesee').on('sig', function(){});
-        eq(re('tesee ^sig').length, 1);
-        
-        re.e('tesee').set('id', 'id');
-        ok(re('tesee').length != 0);
-        eq(re('#id').length, 1);
+    it('should find by tag', function(){
+      re._t['id'] = 10;
+
+        eq(re('#id'), 10);
+    });
+
+    it('should find by group', function(){
+      re._g['group']
     });
   
   it('should be right length', function(){
-    var g = f('name')
-    re.e(g)
-    eq(re(g).length, 1)
+
+    eq(re([2]).length, 1)
   });
   
   it('should query by value', function(){
@@ -42,7 +33,7 @@ describe('query', function(){
     var k = re([1, 2, 3]);
 
     var that = this;
-
+    
     is(k.reject(function(e, i, l){
       is(i)
       is(l)
@@ -282,7 +273,7 @@ describe('query', function(){
     it('min', function(){
       var query = re();
       
-      query.push(0)
+      array.push(0)
       query.push(10)
       query.push(2)
       query.push(5)

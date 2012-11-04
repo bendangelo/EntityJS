@@ -12,6 +12,8 @@
 #
 src_files:
     - src/core/re.js
+    - src/util/extend.js
+    - src/core/class.js
     - src/**/*.js
 
 # stylesheets

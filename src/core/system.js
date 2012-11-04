@@ -22,6 +22,7 @@ Usage:
 	//simply remove all references
 
 */
+
 re.system = re.s = function(title){
 	//create if doesn't exist
 	if(!re._s[title]){
@@ -33,15 +34,25 @@ re.system = re.s = function(title){
 
 re.s.init = function(name){
 	this.name = name;
+	this._requires = [];
 	var that = this;
 	this._init = function(c){
 		this.entities = c;
 	};
 	this._system = function(){
+		re.class.call(this);
+
+		//add all requires
+		for(var i in that._requires){
+			var s = re.s(that._requires[i]);
+			s._init.apply(this, arguments);
+			this.attr(s._system.prototype);
+		}
+
 		that._init.apply(this, arguments);
 	};
 
-	this._system.prototype = {
+	this._system.prototype = re.class.extend({
 
 		processAll:function(){
 			if(this.canProcess()){
@@ -64,10 +75,14 @@ re.s.init = function(name){
 
 		//process as long as entities is not empty
 		canProcess:function(){
-			return !this.entities.length;
+			return this.entities.length;
+		},
+
+		dispose:function(){
+			this.entities = null;
 		}
 
-	};
+	});
 };
 
 re.s.init.prototype = {
@@ -75,7 +90,8 @@ re.s.init.prototype = {
 	requires:function(args){
 		if(re.is(args,'string')) args = args.split(" ");
 
-		this._requires = 
+		this._requires = this._requires.concat(args);
+		return this;
 	},
 
 	defines:function(obj){

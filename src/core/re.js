@@ -7,7 +7,18 @@ Licensed under MIT http://entityjs.com/license
 
 */
 re = function(selector){
-  return new re.query(selector);
+	if(typeof selector == 'string'){
+    if(selector[0] == '#'){
+      //return tagged item
+  	  return re._t[selector.slice(1)];
+    } else {
+      //return group
+      return re._g[selector];
+    }
+	}
+
+  //return array
+  return new re.array(selector);
 };
 
 //automatically filled when compiled

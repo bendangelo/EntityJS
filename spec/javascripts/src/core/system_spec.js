@@ -2,7 +2,13 @@ describe('system', function(){
     
     var s;
 
+    re.s("base")
+    .defines({
+        blah:99
+    });
+
     re.s("render")
+    .requires('base')
     .defines({
 
         process:function(e){
@@ -19,6 +25,9 @@ describe('system', function(){
 
         expect(s.entities[0].ok).toEqual(10);
         expect(s.entities[1].ok).toEqual(10);
+
+        //has class methods
+        expect(s.get("blah")).toEqual(99);
     });
     
 });

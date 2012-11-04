@@ -179,6 +179,13 @@ module Entityjs
       #sort by name
       ents.sort!
       
+      #push extend.js to top first
+      i = ents.index{|i| i.match(/extend\.js$/)}
+
+      k.ents.delete_at(i)
+
+      ents.unshift(k)
+
       #push re.js to the top
       
       i = ents.index{|i| i.match(/re\.js$/) }
