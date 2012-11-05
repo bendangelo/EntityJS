@@ -2,8 +2,8 @@ describe('re', function(){
   
   re.e('queryre')
   
-  it('should query', function(){
-    eq(re('queryre').length, 1)
+  it('should create array', function(){
+    eq(re([1]).length, 1)
   })
   
   it('should get element by id', function(){
@@ -14,6 +14,11 @@ describe('re', function(){
     is(re.$('#game-canvas'))
     
     teardown_canvas()
+  })
+
+  it('should find array by tag', function(){
+    var array = re().tag('10');
+    eq(array.tag(), re('#10').tag());
   })
   
   it('should get element by tag', function(){

@@ -2,6 +2,8 @@ describe('entity', function(){
   
   var e;
   var c;
+
+  re.g('blah').create();
   
   beforeEach(function(){
     e = re.e()
@@ -10,15 +12,26 @@ describe('entity', function(){
   
   it('multiple', function(){
       eq(re.e('bob', 10).length, 10);
-      eq(re.e('ki', 2).comps(), ['ki']);
+
+      eq(re.e('ki', 2).first().comps(), ['ki']);
       
   });
   
   it('should create 1 in query', function(){
     eq(re.e('dfggggg', 1).length, 1)
-    
-    eq(re('dfggggg').length, 1)
   })
+
+  it('should add / remove from group', function(){
+    
+    var e = re.e('blah');
+
+    ok(re._g['blah'].contains(e));
+
+    e.dispose();
+
+    ok(!re._g['blah'].contains(e));
+
+  });
   
   it('should get', function(){
     e.blah = 10;
@@ -59,8 +72,7 @@ describe('entity', function(){
     c.events('mousedown', func);
     
     e.comp(c.name);
-    
-    ok(e.has('^mousedown'));
+
     is(e.mousedown);
   })
   
@@ -92,9 +104,7 @@ describe('entity', function(){
               v2 = val2
           })
           var called2 = false
-              c.on('init', function(){
-              called2 = true
-              })
+             
               e.comp(c.name+':10:99')
           
           //future?
@@ -103,7 +113,6 @@ describe('entity', function(){
           ok(called)
           eq(v1, '10')
           eq(v2, '99')
-          ok(called2)
    })
   
   it('requires', function(){
@@ -138,28 +147,6 @@ describe('entity', function(){
       eq(e.yep, 'y')
   })
   
-  it('comp interface', function(){
-    re.c('temp')
-    .interfaces('yep');
-    
-      try {
-    re.e('temp');
-      }catch(e){
-      eq(e, 'Interface: yep missing')
-      }
-  })
-  
-  it('comp asserts', function(){
-     c
-    .asserts('yep');
-    
-      try {
-    re.e(c.name+' yep');
-      }catch(e){
-      eq(e, 'Assert: yep is not allowed')
-      }
-  })
-  
   it('removeComp', function(){
   var called = false
       c.dispose(function(){
@@ -167,18 +154,12 @@ describe('entity', function(){
       })
       var called2 = false
       var en = null
-          c.on('dispose', function(y){
-              called2 = true
-              en = y
-          })
       
       e.comp(c.name)
       
       e.removeComp(['blah', c.name])
       not(e.has(c.name))
       ok(called)
-      ok(called2)
-      ok(en == e)
   })
   
   it('comps', function(){
@@ -190,7 +171,6 @@ describe('entity', function(){
   it('clone', function(){
     e.comp('yep bob')
     eq(e.clone().comps(), e.comps())
-    eq(e.clone(2).comps(), e.comps())
   })
   
   it('should clone empty entity', function(){
@@ -231,16 +211,11 @@ describe('entity', function(){
     
     e.comp('image iso');
     
-    re.c('draw').on('dispose', function(e){
-      called = true;
-    })
-    
     re.c('draw').dispose(function(){
       called2 = true;
     })
     
     e.dispose();
-    ok(called);
     ok(called2)
     
   })
@@ -256,22 +231,8 @@ describe('entity', function(){
   })
   
   it('has', function(){
-    ok(e.has('!bob'))
-    ok(!e.has('^sig'))
-    not(e.has('#asdsd'))
-    not(e.has('sdcsdc'))
-    
-        e.on('values', function(){})
-        ok(e.has('^values'))
-        
         e.comp('tst')
         ok(e.has('tst'))
-        ok(e.has('tst ^values'))
-        e.id = 'we'
-        ok(e.has('#we'))
-        not(e.has('!tst'))
-        
-        ok(e.has('^values tst #we'))
   })
   
   it('bindings', function(){
@@ -283,26 +244,20 @@ describe('entity', function(){
           return false
       });
       
-      ok(e.has('^values'))
       eq(e.trigger('values', 10, 55),e)
       ok(called)
       eq(va, 10)
       eq(va2, 55)
-      not(e.has('^values'))
       
           var func = function(){};
           e.on({
           yep:function(){},
               ok:func
           })
-          ok(e.has('^yep'))
           e.off('yep')
-          not(e.has('^yep'))
            
-          ok(e.has('^ok'))
             e.off({ok:func})
               
-            not(e.has('^ok'))
               
               //remove all
        e.on('key', function(){});
@@ -391,20 +346,12 @@ describe('entity', function(){
   it('dispose', function(){
   var called = false
   var co;
-  var en;
-  var called2 = false;
   
   //listen for dispose call on component
       c.dispose(function(comp){
           called = true
           co = comp
       })
-      
-      //component dispose trigger
-          c.on('dispose', function(e){
-          called2 = true
-          en = e
-          })
       
           //add comp to testing entity
       e.comp(c.name)
@@ -421,8 +368,6 @@ describe('entity', function(){
       //asserts
       ok(called)
       eq(co, c)
-      ok(called2)
-      eq(en, e)
       ok(called3)
   })
   

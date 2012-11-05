@@ -1,4 +1,4 @@
-describe('draw', function(){
+/*describe('draw', function(){
   
   var d, list;
   
@@ -119,4 +119,4 @@ describe('draw', function(){
     not(k.visible())
   })
   
-})
+})*/

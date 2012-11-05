@@ -27,7 +27,7 @@ describe('group', function(){
 
         expect(re('monsters').findAt(10, 3).x).toEqual(mon.x);
 
-        //has class methods
+        //has props
         expect(re('monsters').get("blah")).toEqual(99);
     });
     

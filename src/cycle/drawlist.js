@@ -41,7 +41,7 @@ re.c('drawlist')
   
   remove:function(e){
     if(e.drawlist){
-      this.list.erase(e);
+      this.list.remove(e);
       e.drawlist = null;
     }
     return this;

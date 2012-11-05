@@ -92,6 +92,8 @@ Test.prototype = {
 			teardown: function() {}
 		}, this.moduleTestEnvironment );
 
+		this.testEnvironment = extend(this.testEnvironment, config.environment);
+
 		runLoggingCallbacks( "testStart", QUnit, {
 			name: this.testName,
 			module: this.module
@@ -111,7 +113,7 @@ Test.prototype = {
 		try {
 			this.testEnvironment.setup.call( this.testEnvironment );
 		} catch( e ) {
-			QUnit.pushFailure( "Setup failed on " + this.testName + ": " + ( e.message || e), extractStacktrace( e, 1 ) );
+			QUnit.pushFailure( "Setup failed on " + this.testName + ": " + ( e.message || e ), extractStacktrace( e, 1 ) );
 		}
 	},
 	run: function() {
@@ -135,7 +137,7 @@ Test.prototype = {
 		try {
 			this.callback.call( this.testEnvironment, QUnit.assert );
 		} catch( e ) {
-			QUnit.pushFailure( "Died on test #" + (this.assertions.length + 1) + " " + this.stack + ": " + e.message, extractStacktrace( e, 0 ) );
+			QUnit.pushFailure( "Died on test #" + (this.assertions.length + 1) + " " + this.stack + ": " + ( e.message || e ), extractStacktrace( e, 0 ) );
 			// else next test will carry the responsibility
 			saveGlobal();
 
@@ -154,7 +156,7 @@ Test.prototype = {
 			try {
 				this.testEnvironment.teardown.call( this.testEnvironment );
 			} catch( e ) {
-				QUnit.pushFailure( "Teardown failed on " + this.testName + ": " + e.message, extractStacktrace( e, 1 ) );
+				QUnit.pushFailure( "Teardown failed on " + this.testName + ": " + ( e.message || e ), extractStacktrace( e, 1 ) );
 			}
 		}
 		checkPollution();
@@ -180,6 +182,7 @@ Test.prototype = {
 
 		if ( tests ) {
 			ol = document.createElement( "ol" );
+			ol.className = "qunit-assert-list";
 
 			for ( i = 0; i < this.assertions.length; i++ ) {
 				assertion = this.assertions[i];
@@ -208,7 +211,7 @@ Test.prototype = {
 			}
 
 			if ( bad === 0 ) {
-				ol.style.display = "none";
+				addClass( ol, "qunit-collapsed" );
 			}
 
 			// `b` initialized at top of scope
@@ -217,8 +220,8 @@ Test.prototype = {
 
 			addEvent(b, "click", function() {
 				var next = b.nextSibling.nextSibling,
-					display = next.style.display;
-				next.style.display = display === "none" ? "block" : "none";
+					collapsed = hasClass( next, "qunit-collapsed" );
+				( collapsed ? removeClass : addClass )( next, "qunit-collapsed" );
 			});
 
 			addEvent(b, "dblclick", function( e ) {
@@ -368,6 +371,8 @@ QUnit = {
 		// ignore if start is called more often then stop
 		if ( config.semaphore < 0 ) {
 			config.semaphore = 0;
+			QUnit.pushFailure( "Called start() while already started (QUnit.config.semaphore was 0 already)", null, sourceFromStacktrace(2) );
+			return;
 		}
 		// A slight delay, to avoid any current callbacks
 		if ( defined.setTimeout ) {
@@ -496,8 +501,9 @@ QUnit.assert = {
 		QUnit.push( expected !== actual, actual, expected, message );
 	},
 
-	throws: function( block, expected, message ) {
+	"throws": function( block, expected, message ) {
 		var actual,
+			expectedOutput = expected,
 			ok = false;
 
 		// 'expected' is optional
@@ -518,6 +524,7 @@ QUnit.assert = {
 			// we don't want to validate thrown error
 			if ( !expected ) {
 				ok = true;
+				expectedOutput = null;
 			// expected is a regexp
 			} else if ( QUnit.objectType( expected ) === "regexp" ) {
 				ok = expected.test( actual );
@@ -526,10 +533,11 @@ QUnit.assert = {
 				ok = true;
 			// expected is a validation function which returns true is validation passed
 			} else if ( expected.call( {}, actual ) === true ) {
+				expectedOutput = null;
 				ok = true;
 			}
 
-			QUnit.push( ok, actual, null, message );
+			QUnit.push( ok, actual, expectedOutput, message );
 		} else {
 			QUnit.pushFailure( message, null, 'No exception was thrown.' );
 		}
@@ -546,7 +554,7 @@ extend( QUnit, QUnit.assert );
  * @deprecated since 1.9.0
  * Kept global "raises()" for backwards compatibility
  */
-QUnit.raises = QUnit.assert.throws;
+QUnit.raises = QUnit.assert[ "throws" ];
 
 /**
  * @deprecated since 1.0.0, replaced with error pushes since 1.3.0
@@ -681,7 +689,7 @@ extend( QUnit, {
 			autorun: false,
 			filter: "",
 			queue: [],
-			semaphore: 0
+			semaphore: 1
 		});
 
 		var tests, banner, result,
@@ -757,7 +765,8 @@ extend( QUnit, {
 				return "null";
 		}
 
-		var type = toString.call( obj ).match(/^\[object\s(.*)\]$/)[1] || "";
+		var match = toString.call( obj ).match(/^\[object\s(.*)\]$/),
+			type = match && match[1] || "";
 
 		switch ( type ) {
 			case "Number":
@@ -1359,6 +1368,26 @@ function addEvent( elem, type, fn ) {
 	}
 }
 
+function hasClass( elem, name ) {
+	return (" " + elem.className + " ").indexOf(" " + name + " ") > -1;
+}
+
+function addClass( elem, name ) {
+	if ( !hasClass( elem, name ) ) {
+		elem.className += (elem.className ? " " : "") + name;
+	}
+}
+
+function removeClass( elem, name ) {
+	var set = " " + elem.className + " ";
+	// Class name may appear multiple times
+	while ( set.indexOf(" " + name + " ") > -1 ) {
+		set = set.replace(" " + name + " " , " ");
+	}
+	// If possible, trim it for prettiness, but not neccecarily
+	elem.className = window.jQuery ? jQuery.trim( set ) : ( set.trim ? set.trim() : set );
+}
+
 function id( name ) {
 	return !!( typeof document !== "undefined" && document && document.getElementById ) &&
 		document.getElementById( name );
@@ -1610,7 +1639,8 @@ QUnit.jsDump = (function() {
 
 	var reName = /^function (\w+)/,
 		jsDump = {
-			parse: function( obj, type, stack ) { //type is used mostly internally, you can fix a (custom)type in advance
+			// type is used mostly internally, you can fix a (custom)type in advance
+			parse: function( obj, type, stack ) {
 				stack = stack || [ ];
 				var inStack, res,
 					parser = this.parsers[ type || this.typeOf(obj) ];
@@ -1621,14 +1651,12 @@ QUnit.jsDump = (function() {
 				if ( inStack != -1 ) {
 					return "recursion(" + (inStack - stack.length) + ")";
 				}
-				//else
 				if ( type == "function" )  {
 					stack.push( obj );
 					res = parser.call( this, obj, stack );
 					stack.pop();
 					return res;
 				}
-				// else
 				return ( type == "string" ) ? parser : this.parsers.error;
 			},
 			typeOf: function( obj ) {
@@ -1656,6 +1684,8 @@ QUnit.jsDump = (function() {
 					( typeof obj.length === "number" && typeof obj.item !== "undefined" && ( obj.length ? obj.item(0) === obj[0] : ( obj.item( 0 ) === null && typeof obj[0] === "undefined" ) ) )
 				) {
 					type = "array";
+				} else if ( obj.constructor === Error.prototype.constructor ) {
+					type = "error";
 				} else {
 					type = typeof obj;
 				}
@@ -1664,7 +1694,8 @@ QUnit.jsDump = (function() {
 			separator: function() {
 				return this.multiline ?	this.HTML ? "<br />" : "\n" : this.HTML ? "&nbsp;" : " ";
 			},
-			indent: function( extra ) {// extra can be a number, shortcut for increasing-calling-decreasing
+			// extra can be a number, shortcut for increasing-calling-decreasing
+			indent: function( extra ) {
 				if ( !this.multiline ) {
 					return "";
 				}
@@ -1693,13 +1724,16 @@ QUnit.jsDump = (function() {
 			parsers: {
 				window: "[Window]",
 				document: "[Document]",
-				error: "[ERROR]", //when no parser is found, shouldn"t happen
+				error: function(error) {
+					return "Error(\"" + error.message + "\")";
+				},
 				unknown: "[Unknown]",
 				"null": "null",
 				"undefined": "undefined",
 				"function": function( fn ) {
 					var ret = "function",
-						name = "name" in fn ? fn.name : (reName.exec(fn) || [])[1];//functions never have name in IE
+						// functions never have name in IE
+						name = "name" in fn ? fn.name : (reName.exec(fn) || [])[1];
 
 					if ( name ) {
 						ret += " " + name;
@@ -1715,13 +1749,9 @@ QUnit.jsDump = (function() {
 				object: function( map, stack ) {
 					var ret = [ ], keys, key, val, i;
 					QUnit.jsDump.up();
-					if ( Object.keys ) {
-						keys = Object.keys( map );
-					} else {
-						keys = [];
-						for ( key in map ) {
-							keys.push( key );
-						}
+					keys = [];
+					for ( key in map ) {
+						keys.push( key );
 					}
 					keys.sort();
 					for ( i = 0; i < keys.length; i++ ) {
@@ -1747,7 +1777,8 @@ QUnit.jsDump = (function() {
 					}
 					return ret + close + open + "/" + tag + close;
 				},
-				functionArgs: function( fn ) {//function calls it internally, it's the arguments part of the function
+				// function calls it internally, it's the arguments part of the function
+				functionArgs: function( fn ) {
 					var args,
 						l = fn.length;
 
@@ -1757,16 +1788,20 @@ QUnit.jsDump = (function() {
 
 					args = new Array(l);
 					while ( l-- ) {
-						args[l] = String.fromCharCode(97+l);//97 is 'a'
+						// 97 is 'a'
+						args[l] = String.fromCharCode(97+l);
 					}
 					return " " + args.join( ", " ) + " ";
 				},
-				key: quote, //object calls it internally, the key part of an item in a map
-				functionCode: "[code]", //function calls it internally, it's the content of the function
-				attribute: quote, //node calls it internally, it's an html attribute value
+				// object calls it internally, the key part of an item in a map
+				key: quote,
+				// function calls it internally, it's the content of the function
+				functionCode: "[code]",
+				// node calls it internally, it's an html attribute value
+				attribute: quote,
 				string: quote,
 				date: quote,
-				regexp: literal, //regex
+				regexp: literal,
 				number: literal,
 				"boolean": literal
 			},
@@ -1776,9 +1811,12 @@ QUnit.jsDump = (function() {
 				name: "name",
 				"class": "className"
 			},
-			HTML: false,//if true, entities are escaped ( <, >, \t, space and \n )
-			indentChar: "  ",//indentation unit
-			multiline: true //if true, items in a collection, are separated by a \n, else just a space.
+			// if true, entities are escaped ( <, >, \t, space and \n )
+			HTML: false,
+			// indentation unit
+			indentChar: "  ",
+			// if true, items in a collection, are separated by a \n, else just a space.
+			multiline: true
 		};
 
 	return jsDump;

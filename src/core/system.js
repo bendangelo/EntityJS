@@ -35,6 +35,8 @@ re.system = re.s = function(title){
 re.s.init = function(name){
 	this.name = name;
 	this._requires = [];
+	this._defines = {};
+
 	var that = this;
 	this._init = function(c){
 		this.entities = c;
@@ -46,7 +48,7 @@ re.s.init = function(name){
 		for(var i in that._requires){
 			var s = re.s(that._requires[i]);
 			s._init.apply(this, arguments);
-			this.attr(s._system.prototype);
+			this.attr(s._defines);
 		}
 
 		that._init.apply(this, arguments);
@@ -97,6 +99,7 @@ re.s.init.prototype = {
 	defines:function(obj){
 		for(var i in obj){
 			this._system.prototype[i] = obj[i];
+			this._defines[i] = obj[i];
 		}
 		return this;
 	},

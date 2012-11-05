@@ -38,29 +38,41 @@ re.g.init = function(name){
 	this.name = name;
 
 	this._requires = [];
+	this._defines = {};
 	var that = this;
 
 	this._init = function(c){
 
 	};
 
-	this._group = function(){
+	this._group = function(name){
+		this.name = name;
 		re.class.call(this);
 
 		//add all requires
 		for(var i in that._requires){
 			var s = re.g(that._requires[i]);
 			s._init.apply(this, arguments);
-			this.attr(s._group.prototype);
+			this.attr(s._defines);
 		}
 
 		that._init.apply(this, arguments);
 	};
 
-	this._group.prototype = re.extend(re.array.prototype, {
+	this._group.prototype = re.class.extendArray(re.array.prototype, {
 
 		dispose:function(){
 
+		},
+
+		add:function(e){
+			this.push(e);
+			return this.trigger("add", e);
+		},
+
+		remove:function(e){
+			re.array.prototype.remove.call(this, e);
+			return this.trigger("remove", e);
 		}
 
 	});
@@ -78,6 +90,7 @@ re.g.init.prototype = {
 	defines:function(obj){
 		for(var i in obj){
 			this._group.prototype[i] = obj[i];
+			this._defines[i] = obj[i];
 		}
 		return this;
 	},
@@ -88,7 +101,7 @@ re.g.init.prototype = {
 	},
 
 	create:function(){
-		var g = new this._group();
+		var g = new this._group(this.name);
 		re._g[g.name] = g;
 
 		return g;

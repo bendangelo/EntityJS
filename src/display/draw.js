@@ -1,5 +1,4 @@
 re.c('draw')
-.interfaces('draw')
 .init(function(){
     re.drawlist().add(this);
 })

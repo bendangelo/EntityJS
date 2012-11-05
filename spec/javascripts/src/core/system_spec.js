@@ -7,7 +7,7 @@ describe('system', function(){
         blah:99
     });
 
-    re.s("render")
+    re.s("render2")
     .requires('base')
     .defines({
 
@@ -19,7 +19,7 @@ describe('system', function(){
 
     it('should process all entities', function(){
 
-        s = re.s("render").create([{}, {}]);
+        s = re.s("render2").create([{}, {}]);
 
         s.processAll();
 

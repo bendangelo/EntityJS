@@ -26,7 +26,6 @@ be very useful.
 
 re.c('imgtext')
 .requires('draw')
-.interfaces('imgtext')
 .defaults({
   //remove empty characters in ascii
 	charOffset:32,

@@ -1,4 +1,4 @@
-describe('update', function(){
+/*describe('update', function(){
   
   var k;
   var first;
@@ -83,4 +83,4 @@ describe('update', function(){
     
     eq(n, 0)
   })
-})
+})*/

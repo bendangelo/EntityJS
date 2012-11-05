@@ -23,10 +23,7 @@ re = function(selector){
 
 //automatically filled when compiled
 re.version = "RE_VERSION";
-    
-//contains all entities
-//TODO: remove, all entities will be kept in groups
-re._e = [];
+
 //contains all components
 re._c = {};
 //contains all systems

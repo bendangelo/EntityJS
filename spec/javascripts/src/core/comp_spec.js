@@ -99,20 +99,6 @@ describe('comp', function(){
     contains(k._re_requires, 'test3')
   })
   
-  it('should asserts', function(){
-    k
-    .asserts('bob');
-    
-    contains(k._re_asserts, 'bob')
-  })
-  
-  it('should interfaces', function(){
-    k
-    .interfaces('bob');
-    
-    contains(k._re_interfaces, 'bob')
-  })
-  
   it('should alias', function(){
     
     k
@@ -120,22 +106,6 @@ describe('comp', function(){
     .alias('bob');
     
     ok(re.c('bob') == k)
-  })
-  
-  it('should on', function(){
-    k
-    .off('test')
-  })
-  
-  it('should trigger', function(){
-    k
-    .trigger('test')
-  })
-  
-  it('should bind', function(){
-    
-    k
-    .on('init', function(){})
   })
 
   it('should defaults', function(){

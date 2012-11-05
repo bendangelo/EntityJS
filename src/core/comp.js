@@ -22,7 +22,6 @@
     re.c.init = function(name){
         
         this.name = name;
-        this._re_listens = {};
         this._re_defaults = {};
         this._re_defines = {};
         this._re_events = {};
@@ -169,34 +168,6 @@ re.c.init.prototype = {
     },
     
     /*
-    Upon component init it will throw an error 
-    if one of the listed components exist.
-    
-    This prevents incompatible components from colliding.
-    */
-    asserts:function(r){
-        return this.z('_re_asserts', r);
-    },
-    
-    /*
-    The implement method checks and enforces implmentation
-    of the given keys. This can create interface components
-    for organization and query searches.
-    
-    Forcing an interface on components will allow instant
-    runtime errors and save time.
-    
-    //reccommended to put an i infront to represent an interface
-    re.c('ienemy')
-    //create an enemy interface
-    .interface('moveTo spawn attack runAway');
-    
-    */
-    interfaces:function(r){
-        return this.z('_re_interfaces', r);
-    },
-    
-    /*
     Creates new names for a component.
     
     //create a new alias of draw
@@ -238,28 +209,6 @@ re.c.init.prototype = {
         }
         
         return this;
-    },
-    
-    /*
-    Adds bind functionality to components.
-    All components will automatically call two signals, init and dispose.
-    
-    Init on entity creation and dispose on entitiy disposition.
-    
-    This is useful for 'watch tower' components that keep a list of
-    all entities that have its component. Check the cycle directory.
-    
-    */
-    on:function(){
-        return re.e.init.prototype.on.apply(this, arguments);
-    },
-    
-    off:function(){
-        return re.e.init.prototype.off.apply(this, arguments);
-    },
-    
-    trigger:function(){
-      return re.e.init.prototype.trigger.apply(this, arguments);
     },
     
     /*

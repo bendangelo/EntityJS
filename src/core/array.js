@@ -164,7 +164,7 @@ re.array.prototype = re.class.extendArray({
 			return this.slice();
 		},
 
-		none:function(){
+		contains:function(ref){
 	      return ~this.indexOf(ref);
 		},
 
@@ -213,7 +213,7 @@ re.array.prototype = re.class.extendArray({
 	    },
 
 		first:function(index){
-			if(!index) this[0];
+			if(!index) return this[0];
 			return this.slice(0, index);
 		},
 

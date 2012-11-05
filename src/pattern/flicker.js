@@ -33,7 +33,6 @@ e.regen();
 */
 re.c('flicker')
 .requires('update timestep')
-.interfaces('flick')
 .namespaces({
 	flickering:'',
   
