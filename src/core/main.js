@@ -41,7 +41,7 @@ re.c('main')
             var that = this;
             (function m(){
               
-              that.main_loop();
+              that.loop();
               
               if(that.running){
                 that.requestAnimationFrame(m, that.canvas);
@@ -51,13 +51,6 @@ re.c('main')
         }
         
         return  this;
-    },
-    
-    loop:function(m){
-        
-        this.main_loop = m;
-    
-        return this;
     },
     
     stop:function(){
@@ -85,17 +78,14 @@ re.c('main')
         this.sizeX = s.sizeX = this.canvas.width;
         this.sizeY = s.sizeY = this.canvas.height;
         
-        //init listeners
-        if(re.keyboard){
-          re.keyboard.i();
-        }
-        if(re.mouse){
-          re.mouse.i();
-        }
-        if(re.touch){
-          re.touch.i();
-        }
-        this.main_loop = this.defaultLoop;
+        //init systems
+        this.keyboardSys = re.s('keyboard').create();
+        this.mouseSys = re.s('mouse').create(this.canvas);
+        // this.touchSys = re.s('touch').create();
+
+        this.renderSys = re.s('render').create(this.context);
+        this.updateSys = re.s('update').create();
+        
         this.second = this.stepSize * 30;
         
         return this;
@@ -104,25 +94,24 @@ re.c('main')
     /*
     Default main loop
     */
-    defaultLoop:function(){
+    loop:function(){
         
         this.timestep(Math.min(this.tick() / 1000, this.maxTick), function(){
             //update
             this.update();
         });
         
-        //clear
-        this.clear(this.clearColor);
         this.draw();
     },
     
     update:function(){
-      re.update.update(this.stepSize);
+        this.updateSys.processAll();
     },
     
     draw:function(){
-      //renders default drawlist
-      re.drawlist().drawlist(this.context);
+        //clear
+        this.clear(this.clearColor);
+        this.renderSys.processAll();
     }
     
     

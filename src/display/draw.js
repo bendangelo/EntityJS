@@ -1,10 +1,4 @@
 re.c('draw')
-.init(function(){
-    re.drawlist().add(this);
-})
-.dispose(function(c){
-    this.drawlist.remove(this);
-})
 .defaults({
     screenable:true,
     drawable:true,
@@ -25,82 +19,7 @@ re.c('draw')
     
 })
 .defines({
-    
-  depth:function(){
-    return this.posY;
-  },
-  
-  /* NOT WORKING
-    cache:function(){
-        if(!this.image) return this;
-        
-        this.clearCache();
-        
-        var c = re.$new('canvas');
-        var s = Math.max(this.image.width, this.image.height);
-        c.width = s;
-        c.height = s;
-        
-        this.draw_render(c.getContext(re.main().contextType));
-        
-        this.canvasCache = c;
-        
-        return this;
-    },
-    
-    clearCache:function(){
-        this.canvasCache = null;
-    },
-    */
-    drawFirst:function(){
-      var l = this.drawlist.list;
-        
-        l.splice(l.indexOf(this), 1);
-        
-        l.unshift(this);
-        return this;
-    },
-    
-    drawLast:function(){
-        var l = this.drawlist.list;
-        
-        l.splice(l.indexOf(this), 1);
-        
-        l.push(this);
-        return this;
-    },
-    
-    drawAfter:function(en){
-        var l = this.drawlist.list;
-        var him = l.indexOf(en);
-        var me = l.indexOf(this);
-        
-        if(him > me){
-            //swap
-            var t = l[him];
-            l[him] = l[me];
-            l[me] = t;
-        }
-        
-        return this;
-    },
-    
-    drawBefore:function(en){
-        
-        var l = this.drawlist.list;
-        var him = l.indexOf(en);
-        var me = l.indexOf(this);
-        
-        if(him < me){
-            //swap    
-            var t = l[him];
-            l[him] = l[me];
-            l[me] = t;
-        }
-        
-        return this;
-    },
-    
+      
     screenX:function(x){
         if(x){
             this.posX = x + re.screen().posX;

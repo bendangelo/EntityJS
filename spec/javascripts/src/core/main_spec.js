@@ -29,14 +29,16 @@ describe('main', function(){
     
     it('loop', function(){
         var called = false;
-        var old = s.main_loop;
         //setup custom loop
         s
-        .loop(function(){
-            called = true;
-        }).start().stop();
+        .attr({
+            loop:function(){
+                called = true;
+            }
+        })
+        .start().stop();
         
-        s.loop(old)
+        s.loop()
         
         ok(called);
     });

@@ -3,19 +3,19 @@ The mouse component allows an entity to listen to mouse triggers.
 
 @usage
 re.e('mouse')
-.on('mousedown:middle', function(m){
-    //m.x - x position
-    //m.y - y position
-    //m.screenX - screen x position
-    //m.screenY - screen y position
+.on('mousedown:middle', function(x, y){
+    //x - x position
+    //y - y position
+  
+    //convert to screen position
+    re.screen.toScreenX(x);
 })
 
 FUTURE: rename triggers to the standard format
 mousemove -> mouse:move
 */
-re.c('mouse')
-.statics({
-    l:[],
+re.s('mouse')
+.defines({
     
     press:function(e){
         var b, c;
@@ -47,13 +47,13 @@ re.c('mouse')
             re.pressed.d[c] = (e.type == 'mousedown');
         }
     
-        re.mouse.event(e, c);
+        this.event(e, c);
         
     },
     
     event:function(e, extra){
         
-        var canvas = re.mouse.c;
+        var canvas = this.canvas;
         //calculate mouse coordinate
         var x = canvas.width / canvas.offsetWidth;
         var y = canvas.height / canvas.offsetHeight;
@@ -68,7 +68,7 @@ re.c('mouse')
         }
         
         
-        var listeners = re.mouse.l;
+        var listeners = this.entities;
         
         /*
         if(re.preventDefault && re.preventDefault.d[key]){
@@ -98,18 +98,6 @@ re.c('mouse')
           }
         }
         
-    },
-    
-    i:function(){
-      var c = this.c = re.main().canvas;
-      re.listener('mousedown', this.press, c);
-      re.listener('mouseup', this.press, c);
-      re.listener('mousemove', this.event, c);
-      re.listener('mouseover', this.event, c);
-      re.listener('mouseout', this.event, c);
-      re.listener('click', this.event, c);
-      re.listener('dblclick', this.event, c);
-      re.listener('contextmenu', this.event, c);
     }
     
 })
@@ -117,12 +105,19 @@ re.c('mouse')
   offX:0,
   offY:0
 })
-.init(function(){
-    //add to listener array
-    re.mouse.l.push(this);
-})
-.dispose(function(){
-    //remove from listener array
-    
-    re.mouse.l.splice(re.mouse.l.indexOf(this), 1);
+.init(function(canvas){
+  this.entities = re.g('mouse').create();
+  this.canvas = canvas;
+
+  var e = this.event.bind(this),
+  p = this.press.bind(this);
+
+    re.listener('mousedown', p, canvas);
+    re.listener('mouseup', p, canvas);
+    re.listener('mousemove', e, canvas);
+    re.listener('mouseover', e, canvas);
+    re.listener('mouseout', e, canvas);
+    re.listener('click', e, canvas);
+    re.listener('dblclick', e, canvas);
+    re.listener('contextmenu', e, canvas);
 });

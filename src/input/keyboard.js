@@ -3,18 +3,16 @@ The keyboard component allows an entity to listen for keyboard events.
 
 @usage
 re.e('keyboard')
-.keydown(function(key, event){
+.on('keydown', function(key, event){
   re.log('keydown', key, event);
 })
-.keyup(function(key, event){
+.on('keyup', function(key, event){
   re.log('keyup', key, event);
 });
 
 */
-re.c('keyboard')
-.statics({
-  //list of listing entities
-	l:[],
+re.s('keyboard')
+.defines({
     focusStop:true,
 	
 	keyCodes: { 
@@ -107,56 +105,45 @@ re.c('keyboard')
     191:'/'
 	},
 	
-	/*
-	Add modifiers, shift, alt, ctrl.
-	.trigger('ctrl+k')
-	*/
 	event: function(e){
-		var that = re.keyboard;
 		
-    var tagName = (e.target || e.srcElement || {}).tagName;
+        var tagName = (e.target || e.srcElement || {}).tagName;
     
-    //disable keyboard keys if focus lost
-		if(that.focusStop && tagName && tagName.match(/INPUT|SELECT|TEXTAREA/)){
+        //disable keyboard keys if focus lost
+		if(this.focusStop && tagName && tagName.match(/INPUT|SELECT|TEXTAREA/)){
 			return;
 		}
 		
 		var c = e.keyCode || e.which;
     
-		var key = that.keyCodes[c];
+		var key = this.keyCodes[c];
 		
 		if(re.pressed && re.pressed.d){
 			re.pressed.d[key] = (e.type == 'keydown');
 		}
     
-    if(re.preventDefault && re.preventDefault.d[key]){
-      e.preventDefault();
-    }
+        if(re.preventDefault && re.preventDefault.d[key]){
+          e.preventDefault();
+        }
     
-		for(var k=0; k<that.l.length; k++){
-			that.l[k]
+		for(var k=0; k<this.entities.length; k++){
+			this.entities[k]
 			.trigger(e.type, key, e)
 			.trigger(e.type+':'+key, key, e);
 		}
 		
-	},
-	
-  //initialize function
-	i:function(){
-		re.listener('keydown', this.event);
-		re.listener('keyup', this.event);
-    //reset all keys
-    re.listener('focus', function(){
-      re.pressed.d = {};
-    });
 	}
 
 })
 .init(function(){
-	//add to statics key array
-	re.keyboard.l.push(this);
-})
-.dispose(function(){
-	//remove from statics key array
-	re.keyboard.l.splice(re.keyboard.l.indexOf(this), 1);
+    debugger
+    this.entities = re.g('keyboard').create();
+
+    re.listener('keydown', this.event.bind(this));
+    re.listener('keyup', this.event.bind(this));
+
+    //reset all keys
+    re.listener('focus', function(){
+      re.pressed.d = {};
+    });
 });

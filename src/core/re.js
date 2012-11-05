@@ -54,8 +54,8 @@ re.$new = function(n){
 /*
 Special polyfills and object additions
 */
-re.listener = function(t, c, context){
-  (context || window).addEventListener(t, c, true);
+re.listener = function(t, c, target){
+  (target || window).addEventListener(t, c, true);
 };
 
 /*
