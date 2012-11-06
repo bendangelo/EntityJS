@@ -182,7 +182,7 @@ module Entityjs
       #push extend.js to top first
       i = ents.index{|i| i.match(/extend\.js$/)}
 
-      k.ents.delete_at(i)
+      k = ents.delete_at(i)
 
       ents.unshift(k)
 

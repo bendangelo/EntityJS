@@ -68,7 +68,7 @@ module Entityjs
     if name.nil? || name.empty?
       name = self.default_template
     end
-    path = "#{Entityjs::root}/templates/#{name}"
+    path = "#{Entityjs::root}/examples/#{name}"
     if File.directory? path
         return Dir.glob(path+'/*')
     else

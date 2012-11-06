@@ -98,12 +98,11 @@ re.s('mouse')
           }
         }
         
-    }
-    
-})
-.defaults({
+    },
+
   offX:0,
   offY:0
+    
 })
 .init(function(canvas){
   this.entities = re.g('mouse').create();

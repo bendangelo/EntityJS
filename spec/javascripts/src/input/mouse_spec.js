@@ -1,8 +1,10 @@
 describe('mouse', function(){
     
-    var e;
+    var e,
+    mouse;
 
     beforeEach(function(){
+      mouse = re.s('mouse').create($("canvas")[0]),
         e = re.e('mouse');
     });
 
@@ -22,7 +24,7 @@ describe('mouse', function(){
         is(m)
       })
       
-      re.mouse.event({type:type, offsetX:0, offsetY:0}, 'middle')
+      mouse.event({type:type, offsetX:0, offsetY:0}, 'middle')
       
       ok(called2)
       ok(called)
@@ -44,8 +46,8 @@ describe('mouse', function(){
         is(m)
       })
       
-      re.mouse.event({type:type, offsetX:0, offsetY:0}, 'middle')
-      
+      mouse.event({type:type, offsetX:0, offsetY:0}, 'middle')
+    
       ok(called2)
       ok(called)
     
@@ -63,7 +65,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.mouse.event({type:type, offsetX:0, offsetY:0})
+      mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   });
@@ -80,7 +82,7 @@ describe('mouse', function(){
         is(y)
       });
       
-      re.mouse.event({type:type, offsetX:50, offsetY:100})
+      mouse.event({type:type, offsetX:50, offsetY:100})
       
       ok(called)
   })
@@ -97,7 +99,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.mouse.event({type:type, offsetX:0, offsetY:0})
+      mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })
@@ -114,7 +116,7 @@ describe('mouse', function(){
         is(e)
       });
       
-      re.mouse.event({type:type, offsetX:0, offsetY:0})
+      mouse.event({type:type, offsetX:0, offsetY:0})
       
       ok(called)
   })

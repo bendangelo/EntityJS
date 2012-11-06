@@ -27,13 +27,13 @@ Usage:
 
 */
 re.group = re.g = function(title){
-	if(!re._g[title]){
-		re._g[title] = new re.g.init(title);
+	if(!re.g._g[title]){
+		re.g._g[title] = new re.g.init(title);
 	}
 
-	return re._g[title];
+	return re.g._g[title];
 };
-
+re.g._g = {};
 re.g.init = function(name){
 	this.name = name;
 

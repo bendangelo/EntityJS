@@ -136,7 +136,6 @@ re.s('keyboard')
 
 })
 .init(function(){
-    debugger
     this.entities = re.g('keyboard').create();
 
     re.listener('keydown', this.event.bind(this));
