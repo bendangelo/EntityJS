@@ -28,7 +28,7 @@ re.class.prototype = {
 	tag:function(name){
 		if(name!=null){
 			//remove old
-			delete re._t[this._tag];
+			re._t[this._tag] = null;
 			
 			return re._t[this._tag = name] = this;
 		}

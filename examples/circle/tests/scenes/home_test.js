@@ -8,15 +8,15 @@ test('entities should exist', function(){
   
   is(circle);
   
-  //has update listener
-  expectEvent(circle, 'update');
   expectValueDown(circle, 'posX');
 
-  //moves upon keypress
-  keypress('a', function(){
-    //key is currently down, so call update method
-    circle.trigger('update');
+  //replace old method for this one test
+  stub(re, 'press', function(v){
+    return v == 'a';
   });
+
+  //cal update method
+  circle.trigger('update');
   
   //text exists
   is(text);

@@ -28,12 +28,12 @@ re.c('circle')
 	//adds a listener for updates
 	update:function(){
 
-    //move on keypressed
-    if(re.pressed('a', 'left')) this.posX -= this.speed;
-    if(re.pressed('d', 'right')) this.posX += this.speed;
-    
-    if(re.pressed('w', 'up')) this.posY -= this.speed;
-    if(re.pressed('s', 'down')) this.posY += this.speed;
+	    //move on keypressed
+	    if(re.pressed('a', 'left')) this.posX -= this.speed;
+	    if(re.pressed('d', 'right')) this.posX += this.speed;
+	    
+	    if(re.pressed('w', 'up')) this.posY -= this.speed;
+	    if(re.pressed('s', 'down')) this.posY += this.speed;
     
 	}
 

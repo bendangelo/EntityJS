@@ -62,7 +62,9 @@ re.g.init = function(name){
 	this._group.prototype = re.class.extendArray(re.array.prototype, {
 
 		dispose:function(){
-
+			return this.each(function(e){
+				if(e.dispose) e.dispose();
+			});
 		},
 
 		add:function(e){

@@ -67,42 +67,34 @@ re.s('mouse')
           y *= e.layerY - canvas.offsetTop;
         }
         
-        
-        var listeners = this.entities;
-        
-        /*
-        if(re.preventDefault && re.preventDefault.d[key]){
-          e.preventDefault();
-        }
-        */
-        
-        var c, t, obj, tx, ty;
-        for(var i=0; i<listeners.length; i++){
-          t = listeners[i];
-          if(t.screenable){
-            tx = re.screen().toScreenX(x);
-            ty = re.screen().toScreenY(y);
-          } else {
-            tx = x;
-            ty = y;
-          }
-          
-          //offset mouse coordinates
-          tx += t.offX;
-          ty += t.offY;
-          
-          t.trigger(e.type, tx, ty, e);
-          
-          if(extra){
-            t.trigger(e.type+':'+extra, tx, ty, e);
-          }
-        }
-        
+        return this.mouse(x, y, e.type, extra, e);
     },
 
-    mouse:function(x, y, event, key){
-
+    mouse:function(x, y, type, button, event){
+        return this.processAll(x, y, type, button, event);
     },
+
+    process:function(e, x, y, type, button, event){
+      var tx, ty;
+
+      if(e.screenable){
+        tx = re.screen().toScreenX(x);
+        ty = re.screen().toScreenY(y);
+      } else {
+        tx = x;
+        ty = y;
+      }
+      
+      //offset mouse coordinates
+      tx += e.offX;
+      ty += e.offY;
+      
+      e.trigger(type, tx, ty, e);
+      
+      if(button){
+        e.trigger(type+':'+button, tx, ty, event);
+      }
+    }
 
   offX:0,
   offY:0

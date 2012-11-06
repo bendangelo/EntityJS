@@ -118,24 +118,26 @@ re.s('keyboard')
     
 		var key = this.keyCodes[c];
 		
-		if(re.pressed && re.pressed.d){
-			re.pressed.d[key] = (e.type == 'keydown');
-		}
-    
-        if(re.preventDefault && re.preventDefault.d[key]){
-          e.preventDefault();
-        }
-    
-		for(var k=0; k<this.entities.length; k++){
-			this.entities[k]
-			.trigger(e.type, key, e)
-			.trigger(e.type+':'+key, key, e);
-		}
-		
+        return this.key(key, e.type, e);
 	},
 
-    key:function(key, down, event){
+    key:function(key, keytype, event){
 
+        if(re.pressed && re.pressed.d){
+            re.pressed.d[key] = keytype == 'keydown';
+        }
+    
+        if(re.preventDefault && re.preventDefault.d[key]){
+            event.preventDefault();
+        }
+    
+        for(var k=0; k<this.entities.length; k++){
+            this.entities[k]
+            .trigger(keytype, key, event)
+            .trigger(keytype+':'+key, key, event);
+        }
+        
+        return this;
     }
 
 })
