@@ -132,7 +132,11 @@ re.s('keyboard')
 			.trigger(e.type+':'+key, key, e);
 		}
 		
-	}
+	},
+
+    key:function(key, down, event){
+
+    }
 
 })
 .init(function(){

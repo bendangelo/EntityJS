@@ -8,16 +8,14 @@ re.scene('home')
   var color = '#FF0000';
 
   //create new circle on canvas
-  re.circle(radius, color)
+  this.circle = re.circle(radius, color)
   //from align component
   .alignHor()
-  .alignVer();
-
-  //find circle and change speed
-  re('circle').first().set('speed', 15);
+  .alignVer()
+  .set('speed', 15);
   
   //add help text
-  re.e('text align')
+  this.text = re.e('text align')
   .text('Use WASD or arrow keys to move the circle')
   .alignTop(5)
   .alignLeft(5);

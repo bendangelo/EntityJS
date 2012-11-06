@@ -178,27 +178,19 @@ module Entityjs
       
       #sort by name
       ents.sort!
-      
-      #push extend.js to top first
-      i = ents.index{|i| i.match(/extend\.js$/)}
 
-      k = ents.delete_at(i)
-
-      ents.unshift(k)
-
-      #push re.js to the top
+      #order
+      order = ['re', 'extend', 'class'].reverse;
       
-      i = ents.index{|i| i.match(/re\.js$/) }
-      
-      if i.nil?
-        puts 'Error cannot find re.js!'
-        return ents
+      #order stuff first
+      order.each do |i|
+        index = ents.index{|k| k.match(/#{i}\.js$/) }
+
+        if !index.nil?
+          ents.unshift ents.delete_at(index)
+        end
       end
-      
-      k = ents.delete_at(i)
-      
-      ents.unshift(k)
-      
+
       if ignore.any?
         ents.delete_if {|i| !i.match(/#{ignore.join('|')}/).nil? }
       end

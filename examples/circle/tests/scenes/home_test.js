@@ -2,7 +2,9 @@ module('scenes/home', lazyScene('home'));
 
 test('entities should exist', function(){
   
-  var circle = re('circle')[0];
+  var home = re.scene('home'),
+  circle = home.circle,
+  text = home.text;
   
   is(circle);
   
@@ -17,5 +19,5 @@ test('entities should exist', function(){
   });
   
   //text exists
-  is(re('text')[0]);
+  is(text);
 });

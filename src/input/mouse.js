@@ -100,6 +100,10 @@ re.s('mouse')
         
     },
 
+    mouse:function(x, y, event, key){
+
+    },
+
   offX:0,
   offY:0
     
