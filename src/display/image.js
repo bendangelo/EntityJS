@@ -9,11 +9,11 @@ re.c('image')
 .defines({
 	
 	image:function(b){
-    if(re.is(b)){
-      this.set({_image:b, sizeX:b.width, sizeY:b.height, bisect:b.width});
-  		return this;
-    }
-    return this._image;
+        if(re.is(b)){
+            this.set({_image:b, sizeX:b.width, sizeY:b.height, bisect:b.width});
+        	return this;
+        }
+        return this._image;
 	},
 	
 	visible:function(){

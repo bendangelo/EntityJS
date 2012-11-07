@@ -1,4 +1,8 @@
+/*
+The draw component defines draw properties on an entity.
+*/
 re.c('draw')
+.requires('render')
 .defaults({
     
     screenable:true,

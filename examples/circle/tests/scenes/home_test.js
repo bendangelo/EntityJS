@@ -3,7 +3,7 @@ module('scenes/home', lazyScene('home'));
 test('entities should exist', function(){
   
   var home = re.scene('home'),
-  circle = home.circle,
+  circle = re('#circle'),
   text = home.text;
   
   is(circle);
@@ -11,10 +11,10 @@ test('entities should exist', function(){
   expectValueDown(circle, 'posX');
 
   //replace old method for this one test
-  stub(re, 'press', function(v){
+  stub(re, 'pressed', function(v){
     return v == 'a';
   });
-
+  
   //cal update method
   circle.trigger('update');
   

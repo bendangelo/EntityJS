@@ -20,6 +20,7 @@ re.c('circle')
         c.closePath();
         
         c.fill();
+        
         return this;
     },
     

@@ -78,6 +78,14 @@ re.c('main')
         this.sizeX = s.sizeX = this.canvas.width;
         this.sizeY = s.sizeY = this.canvas.height;
         
+        this.second = this.stepSize * 30;
+        
+        this.initSystems();
+
+        return this;
+    },
+    
+    initSystems:function(){
         //init systems
         this.keyboardSys = re.s('keyboard').create();
         this.mouseSys = re.s('mouse').create(this.canvas);
@@ -85,12 +93,8 @@ re.c('main')
 
         this.renderSys = re.s('render').create(this.context);
         this.updateSys = re.s('update').create();
-        
-        this.second = this.stepSize * 30;
-        
-        return this;
     },
-    
+
     /*
     Default main loop
     */
@@ -113,6 +117,5 @@ re.c('main')
         this.clear(this.clearColor);
         this.renderSys.processAll();
     }
-    
     
 });

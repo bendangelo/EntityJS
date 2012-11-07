@@ -6,14 +6,14 @@ re.class = function(){
 };
 
 re.class.extend = function(){
-    var args = Array.prototype.slice.call(arguments);
+    var args = [].slice.call(arguments);
     args.unshift(re.class.prototype);
 	return re.extend.apply(re, args);
 };
 
 re.class.extendArray = function(){
     var a = new Array;
-    var args = Array.prototype.slice.call(arguments);
+    var args = [].slice.call(arguments);
     args.unshift(re.class.prototype);
     for(var i in args){
         for(var b in args[i]){

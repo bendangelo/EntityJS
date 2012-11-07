@@ -59,7 +59,7 @@ re.s.init = function(name){
 		processAll:function(){
 			if(this.canProcess.apply(this, arguments)){
 
-				var args = Array.prototype.slice.call(arguments);
+				var args = [].slice.call(arguments);
 				args.unshift(0);
 
 				for(var i=0; i<this.entities.length; i++){

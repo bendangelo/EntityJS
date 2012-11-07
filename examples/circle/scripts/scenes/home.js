@@ -12,7 +12,8 @@ re.scene('home')
   //from align component
   .alignHor()
   .alignVer()
-  .set('speed', 15);
+  .set('speed', 15)
+  .tag('circle');
   
   //add help text
   this.text = re.e('text align')
