@@ -1,6 +1,8 @@
 re.scene('home')
 .enter(function(){
   
+  this.els = re.g('el').create();
+
   re.header(1, "Some Header")
   .alignLeft(10).alignTop(10);
   
@@ -18,7 +20,6 @@ re.scene('home')
 
 })
 .exit(function(){
-
-  //built in to remove everything
-  this.clear();
+  //remove all els and els group
+  this.els.dispose();
 });

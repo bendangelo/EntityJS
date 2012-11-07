@@ -60,17 +60,14 @@ re.c('scene')
 	
 })
 .defines({
-	
-	clear:function(){
-		re('el').query('draw').dispose();
-		return this;
-	},
 
 	enter:function(title){
     if(!re.is(title, 'function')){
       
+      //enter scene
+
       if(re.scene.current)
-      re.scene().exit();
+          re.scene().exit();
       
       //set current scene
   		re.scene.current = this.sceneName
@@ -87,15 +84,16 @@ re.c('scene')
 	},
 	
 	exit:function(m){
-    if(!re.is(m, 'function')){
-      
-      re.scene.current = '';
-      
-      if(this.scene_exit)
-      this.scene_exit.apply(this, arguments);
-    } else {
-  		this.scene_exit = m;
-    }
+        if(!re.is(m, 'function')){
+          //exit scene
+          re.scene.current = '';
+          
+          if(this.scene_exit)
+              this.scene_exit.apply(this, arguments);
+        } else {
+            //set new exit method
+      		this.scene_exit = m;
+        }
 		
 		return this;
 	}

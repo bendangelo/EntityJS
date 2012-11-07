@@ -1,5 +1,5 @@
 /*
-The mouse component allows an entity to listen to mouse triggers.
+The mouse system listens for mouse events and triggers events on all mouse entities. This should be overwritten for more advanced functionality.
 
 @usage
 re.e('mouse')
@@ -9,10 +9,8 @@ re.e('mouse')
   
     //convert to screen position
     re.screen.toScreenX(x);
-})
+});
 
-FUTURE: rename triggers to the standard format
-mousemove -> mouse:move
 */
 re.s('mouse')
 .defines({
@@ -94,7 +92,7 @@ re.s('mouse')
       if(button){
         e.trigger(type+':'+button, tx, ty, event);
       }
-    }
+    },
 
   offX:0,
   offY:0
