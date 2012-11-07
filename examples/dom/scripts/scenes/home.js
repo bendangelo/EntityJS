@@ -12,7 +12,9 @@ re.scene('home')
 
   re.btn('Click Me', function(){
     alert('Clicked!');
-  }).align(0,0);
+  })
+  .align(0,0)
+  .tag('btn');
 
 })
 .exit(function(){
