@@ -47,8 +47,7 @@ re.s.init = function(name){
 		//add all requires
 		for(var i in that._requires){
 			var s = re.s(that._requires[i]);
-			s._init.apply(this, arguments);
-			this.attr(s._defines);
+			this.def(s._defines);
 		}
 
 		that._init.apply(this, arguments);
@@ -109,6 +108,10 @@ re.s.init.prototype = {
 
 	create:function(a, b, c){
 		return new this._system(a, b, c);
+	},
+
+	_super:function(){
+		return this._system.prototype;
 	}
 
 };

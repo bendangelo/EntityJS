@@ -1,5 +1,5 @@
-re.c('level')
-.requires('automap')
+re.c("level")
+.requires("automap")
 .defines({
   
   setup:function(){
@@ -17,7 +17,7 @@ re.c('level')
     for(var y=0; y<this.map.length; y++){
       for(var x=0; x<this.map[0].length; x++){
         
-        var e = re.e('isoimage');
+        var e = re.e("isoimage");
         
         var tile = this.map[y][x];
         
@@ -33,21 +33,22 @@ re.c('level')
       }
     }
     
-    this.cursor = re.e('cursor')
+    this.cursor = re.e("cursor")
     .set('layer', re.layer.cursor);
     
-    this.box = re.e('isoimage')
+    this.box = re.e("isoimage")
     .set({
-      id:'box',
+      tag:"box",
       frameX:3,
       layer:re.layer.box,
       place:[0,0]
     });
     
+    return this;
   },
   
   tileHeight:function(x, y){
-    var tile =  this.automap(x, y);
+    var tile = this.automap(x, y);
     if(!tile){
       return 0;
     }

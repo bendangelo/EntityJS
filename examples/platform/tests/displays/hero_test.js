@@ -30,20 +30,12 @@ test('moves right', function(){
   
   expectCall(hero, 'flicker');
   
-  keypress('d', function(){
-    hero.update();
+  stub(re, 'pressed', function(e){
+    return e == 'd';
   });
-  
-  
-});
 
-test('moves left', function(){
+  hero.update();
   
-  expectCall(hero, 'flicker');
-  
-  keypress('a', function(){
-    hero.update();
-  });
   
 });
 
@@ -55,9 +47,9 @@ test('jumps when w pressed', function(){
   
   expectCall(hero, 'forceJump');
   
-  keypress('w', function(){
-    hero.update();
-  });
+  stub(re, 'pressed', function(c){ return c == 'w'});
+
+  hero.update();
   
 });
 

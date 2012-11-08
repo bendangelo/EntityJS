@@ -33,7 +33,7 @@ re.c('item')
   }
 })
 .init(function(){
-  this.hero = re('hero')[0];
+  this.hero = re('#hero');
   
   this.on('update', this.item_update);
   

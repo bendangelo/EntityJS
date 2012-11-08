@@ -33,7 +33,10 @@ re.group = re.g = function(title){
 
 	return re.g._g[title];
 };
+
+//contain all group classes
 re.g._g = {};
+
 re.g.init = function(name){
 	this.name = name;
 
@@ -52,8 +55,7 @@ re.g.init = function(name){
 		//add all requires
 		for(var i in that._requires){
 			var s = re.g(that._requires[i]);
-			s._init.apply(this, arguments);
-			this.attr(s._defines);
+			this.def(s._defines);
 		}
 
 		that._init.apply(this, arguments);
@@ -108,6 +110,10 @@ re.g.init.prototype = {
 		re._g[g.name] = g;
 
 		return g;
+	},
+
+	_super:function(){
+		return this._group.prototype;
 	}
 
 };

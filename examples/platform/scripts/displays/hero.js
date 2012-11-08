@@ -15,6 +15,7 @@ re.c('hero')
   jumpSpeed:480 * re.main().stepSize,
   jump:false,
   ground:true,
+  tag:"hero",
   
   update:function(){
     

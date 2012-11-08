@@ -1,35 +1,23 @@
 re.c('cursor')
-.requires('isoimage mouse')
+.requires('isoimage isomouse')
 .defines({
   
   screenable:true,
   frameX:2,
   
   click:function(x, y){
-    var iso = re.iso.toIso(x, y);
     
-    console.log(iso.isoX, iso.isoY);
+    console.log(x, y);
     
-    var box = re('#box')[0];
+    var box = re('#box');
     
-    box.place(iso.isoX, iso.isoY);
-    
-    //get default drawlist
-    re.drawlist().sort();
+    box.place(x, y);
   },
   
-  move:function(x, y){
-    var iso = re.iso.toIso(x, y);
+  mousemove:function(x, y){
     
-    this.place(iso.isoX, iso.isoY);
+    this.place(x, y);
     
-    re.drawlist().sort();
   }
   
-})
-.init(function(){
-  this.on({
-    'click':this.click,
-    'mousemove':this.move
-  });
 });

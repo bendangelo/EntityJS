@@ -72,45 +72,59 @@ re.s('mouse')
         return this.processAll(x, y, type, button, event);
     },
 
-    process:function(e, x, y, type, button, event){
-      var tx, ty;
+    processX:function(e, x){
 
       if(e.screenable){
-        tx = re.screen().toScreenX(x);
-        ty = re.screen().toScreenY(y);
-      } else {
-        tx = x;
-        ty = y;
+        x = re.screen().toScreenX(x);
       }
       
       //offset mouse coordinates
-      tx += e.offX;
-      ty += e.offY;
+      return x + this.offX;
+    },
+
+    processY:function(e, y){
+      if(e.screenable){
+        y = re.screen().toScreenY(y);
+      }
       
-      e.trigger(type, tx, ty, e);
+      //offset mouse coordinates
+      return y + this.offY;
+    },
+
+    process:function(e, x, y, type, button, event){
+      
+      x = this.processX(e, x);
+      y = this.processY(e, y);
+
+      e.trigger(type, x, y, e);
       
       if(button){
-        e.trigger(type+':'+button, tx, ty, event);
+        e.trigger(type+':'+button, x, y, event);
       }
     },
 
-  offX:0,
-  offY:0
+    bindEvents:function(canvas){
+
+      this.canvas = canvas;
+
+      var e = this.event.bind(this),
+      p = this.press.bind(this);
+
+      re.listener('mousedown', p, canvas);
+      re.listener('mouseup', p, canvas);
+      re.listener('mousemove', e, canvas);
+      re.listener('mouseover', e, canvas);
+      re.listener('mouseout', e, canvas);
+      re.listener('click', e, canvas);
+      re.listener('dblclick', e, canvas);
+      re.listener('contextmenu', e, canvas);
+    },
+
+    offX:0,
+    offY:0
     
 })
 .init(function(canvas){
   this.entities = re.g('mouse').create();
-  this.canvas = canvas;
-
-  var e = this.event.bind(this),
-  p = this.press.bind(this);
-
-    re.listener('mousedown', p, canvas);
-    re.listener('mouseup', p, canvas);
-    re.listener('mousemove', e, canvas);
-    re.listener('mouseover', e, canvas);
-    re.listener('mouseout', e, canvas);
-    re.listener('click', e, canvas);
-    re.listener('dblclick', e, canvas);
-    re.listener('contextmenu', e, canvas);
+  this.bindEvents(canvas);
 });

@@ -3,15 +3,11 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 
 [EntityJS Website](http://entityjs.com) | [Demos](http://entityjs.com/demos) | [Tutorials](http://entityjs.com/tutorials) | [API](http://entityjs.com/api)
 
-## Version 0.4.2
+## Version 0.5.0
 
-* Stylesheets are now automatically included. Place css in the styles folder.
-* Factory method added to comp.
-* El comp can place elements on top of canvas.
-* Converted config.yml to game.json.
-* Attributes inside game.json are available in js.
-* Use `entityjs html` make changes to the html.
-* Builds folder removed and replaced with a single build.
+Systems and groups have been added. Groups are used to contain similar entities and can be used for searches or in systems. Systems should contain all the logic of a game, like updates, drawing and input. Components should only add attributes to an entity while systems will run everything together using groups.
+
+See the examples folder for help.
 
 ## API
 Currently the [API](http://entityjs.com/api) is out of date. It will slowly be updated everyday.
@@ -117,7 +113,7 @@ View [all commands](/bendangelo/EntityJS/wiki/commands)
     tile.tileX(1); //sets
     tile.tileX(); //gets
 
-#### Setters can even be used in `attr()`
+#### Setters can even be used in `set()`
 
     tile.set('tileX', 2); //sets
   
@@ -229,3 +225,15 @@ Open your browser and navigate to `localhost:2345`
 Before sending a pull request it would be a good idea to run `rspec` and `rake jasmine` to make sure all tests pass in both ruby and javascript.
 
 Running rspec will generate a /mygame/ folder with test files. It will be ignored by git so don't worry about it.
+
+## Change Log
+
+### 0.6.0 - Upcoming
+* Move to a Nodejs package
+* Setup Dox to auto-generate documentation
+* Setup grunt to deal with tasks
+
+### 0.5.0
+* Added new group class
+* Added new system class
+* Removed global entity searching (use groups)

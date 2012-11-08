@@ -1,13 +1,5 @@
 module('coin', lazy('coin'));
 
-test('valid', function(){
-  
-  expectEvent(coin, 'update');
-  
-  is(coin.animates.glow);
-  
-});
-
 test('touch should collect', function(){
   
   expectCall(coin, 'collect');
