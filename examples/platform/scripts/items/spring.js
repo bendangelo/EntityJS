@@ -5,7 +5,7 @@ re.c('spring')
   touch:function(){
     this.hero.velY = -5;
 		
-		if(re.pressed('w')){
+		if(re.pressed('w', 'up')){
 			this.hero.velY = -25;
 			this.animate('bounce');
 		}

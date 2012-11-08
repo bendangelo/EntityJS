@@ -40,11 +40,6 @@ re.s('mouse')
         
         c = 'mouse:'+b;
         
-        //register mouse action
-        if(re.pressed.d){
-            re.pressed.d[c] = (e.type == 'mousedown');
-        }
-    
         this.event(e, c);
         
     },
@@ -69,6 +64,12 @@ re.s('mouse')
     },
 
     mouse:function(x, y, type, button, event){
+
+        //register mouse action
+        if(re.pressed && re.pressed.d){
+            re.pressed.d[c] = type == 'mousedown';
+        }
+
         return this.processAll(x, y, type, button, event);
     },
 

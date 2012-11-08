@@ -6,15 +6,6 @@ test('has components', function(){
   
 });
 
-test('update method', function(){
-  
-  //touching default to false
-  ok(!item.touching)
-  
-  expectEvent(item, 'update');
-  
-});
-
 test('hitting hero should call touch', function(){
   
   expectCall(item, 'touch');

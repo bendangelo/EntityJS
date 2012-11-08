@@ -20,19 +20,19 @@ re.c('hero')
   update:function(){
     
     //jump
-    if(this.ground && !this.jump && re.pressed('w')){
+    if(this.ground && !this.jump && re.pressed('w', 'up')){
       this.forceJump();
     }
     
     //walk back and fourth
-    if(re.pressed('a')){
+    if(re.pressed('a', 'left')){
       this.velX -= this.speed;
       this.scaleX = -1;
       
       if(!this.jump) this.animate('run');
     }
     
-    if(re.pressed('d')){
+    if(re.pressed('d', 'right')){
       this.velX += this.speed;
       this.scaleX = 1;
       

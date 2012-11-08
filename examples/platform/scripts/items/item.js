@@ -37,7 +37,7 @@ re.c('item')
   
   this.on('update', this.item_update);
   
-  this.updateBefore(this.hero);
+  // this.updateBefore(this.hero);
 })
 .dispose(function(){
   this.off();
