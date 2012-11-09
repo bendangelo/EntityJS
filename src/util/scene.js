@@ -43,21 +43,11 @@ re.c('scene')
   
 	if(!d._scenes[title]){
 		//add scene
-		re.e('scene:'+title);
+		d._scenes[title] = re.e('scene')
+        .attr('sceneName', title);
 	}
 	
 	return d._scenes[title];
-})
-.init(function(title){
-	
-	re.scene._scenes[title] = this;
-	this.sceneName = title;
-	
-})
-.dispose(function(){
-	
-	delete re.scene._scenes[this.sceneName];
-	
 })
 .defines({
 

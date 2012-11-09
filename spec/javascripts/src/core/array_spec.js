@@ -76,7 +76,7 @@ describe('core/array', function(){
     })
     
     it('invoke', function(){
-      query = re.e('ok', 3);
+      query = re([re.e('ok')]);
 
         eq(query.invoke('comp', 'b').first().comps(), ['ok', 'b'])
     });

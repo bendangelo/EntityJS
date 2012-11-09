@@ -48,6 +48,7 @@ re.$ = function(s){
 re.$._ = {};
 
 re.$new = function(n){
+  if(n)
     return document.createElement(n);
 };
 

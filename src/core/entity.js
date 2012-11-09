@@ -3,28 +3,12 @@
     /*
     Main function for re.e
     
-    //create multiple entities
-    re.e('spider', 10)
-    //returns a query with all entities
-    .each(function(index){
-        this.posX = index * 10;
-    });
+    //create entity
+    re.e('spider');
     
     */
-    var q = function(c, count){
-        if(!count){
-            return new re.entity.init(c);
-        }
-        
-        //optimize for multiple calls
-        var q = re();
-        
-        //create entity by number of count
-        for(var i=0; i<count; i++){
-            q.push(re.e(c));
-        }
-        
-        return q;
+    var q = function(c){
+        return new re.entity.init(c);
     };
     
     var e = function(c){
@@ -60,63 +44,47 @@
             pieces = com.split(' ');
         }
         
-        if(pieces.length > 1){
-          for(var i =0;i<pieces.length; i++){
-                this.comp(pieces[i]);
+        for(var i =0;i<pieces.length; i++){
+            com = pieces[i];
+        
+            if(!com) return this;
+            
+            //if already has component
+            if(!this.has(com)){
+            
+            //component reference
+            var c = re._c[com];
+
+            //add comp first thing, to avoid dupe requirement calls
+            //and this lets the init remove the comp too.
+            this._re_comps.push(com);
+            
+            //init component only if it exists
+            if(c){
+                this.comp(c._re_requires);
+                
+                if(c._re_defaults){
+                    this.def(c._re_defaults);
+                }
+                
+                if(c._re_defines){
+                    this.set(c._re_defines);
+                }
+
+                if(c._re_events){
+                  this.set(c._re_events)
+                  .on(c._re_events);
+                }
+                
+                if(c._re_init){
+                    c._re_init.call(this);
+                }
             }
-            return this;
-        } else {
-          com = pieces[0];
+
+            //add to group
+            if(re._g[com]) re._g[com].add(this);
+        
         }
-        
-        if(!com) return this;
-        
-        //component reference
-        var c;
-        
-        //will be sent to init function
-        var vals = com.split(':');
-        
-        com = vals[0];
-        
-        //remove comp string
-        vals.shift();
-
-        //get component ref
-        c = re._c[com];
-
-        //if already has component
-        if(!this.has(com)){
-        
-        //add comp first thing, to avoid dupe requirement calls
-        //and this lets the init remove the comp too.
-        this._re_comps.push(com);
-        
-        //init component only if it exists
-        if(c){
-            this.comp(c._re_requires);
-            
-            if(c._re_defaults){
-                this.def(c._re_defaults);
-            }
-            
-            if(c._re_defines){
-                this.set(c._re_defines);
-            }
-
-            if(c._re_events){
-              this.set(c._re_events)
-              .on(c._re_events);
-            }
-            
-            if(c._re_init){
-                c._re_init.apply(this, vals);
-            }
-        }
-
-        //add to group
-        if(re._g[com]) re._g[com].add(this);
-        
       }
         
     

@@ -3,7 +3,7 @@ describe('displays/el', function(){
   var e;
   
   beforeEach(function(){
-    e = re.e('el:div');
+    e = re.e('el');
   })
   
   it('should define valid dom', function(){

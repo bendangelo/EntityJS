@@ -97,22 +97,14 @@ describe('entity', function(){
   
   it('should call init', function(){
       var called = false
-      var v1, v2;
-          c.init(function(val1, val2){
+
+          c.init(function(){
               called = true
-              v1 = val1
-              v2 = val2
           })
-          var called2 = false
              
-              e.comp(c.name+':10:99')
-          
-          //future?
-          //e.comp(c.name, 10, 99)
+              e.comp(c.name)
           
           ok(called)
-          eq(v1, '10')
-          eq(v2, '99')
    })
   
   it('requires', function(){
