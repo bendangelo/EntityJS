@@ -67,13 +67,16 @@ re.c('level')
       });
       
     }
+
+    //update hero last
+    re('update').remove(this.hero).add(this.hero);
   },
   
   placeHero:function(){
     
     var pos = this.objectgroup[0].object;
     
-    re.e('hero')
+    this.hero = re.e('hero')
     .set({
       posX:pos.x,
       posY:pos.y - re.tile.sizeY //tiled editor adds an extra tile to y

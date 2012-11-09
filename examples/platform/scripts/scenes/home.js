@@ -1,7 +1,9 @@
 re.scene('home')
 .enter(function(){
-  
-  re.scene('play').enter('level1');
+
+    var levelNum = 0;
+
+  re.scene('play').enter(levelNum);
   
 })
 .exit(function(){
