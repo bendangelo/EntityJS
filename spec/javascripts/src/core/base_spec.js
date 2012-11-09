@@ -1,8 +1,8 @@
-describe('core/class', function(){
+describe('core/base', function(){
     var c;
 
     beforeEach(function(){
-        c = new re.class();
+        c = new re.base();
     });
 
     it('should tag class', function(){

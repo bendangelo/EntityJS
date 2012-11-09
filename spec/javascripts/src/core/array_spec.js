@@ -83,7 +83,7 @@ describe('core/array', function(){
   
     it('each', function(){
       var i = 0;
-      is(re.e('dd', 3).each(function(e, c, l){
+      is(re([re.e('dd')]).each(function(e, c, l){
         eq(i++, c);
         is(l)
       }));

@@ -13,7 +13,7 @@
 src_files:
     - src/core/re.js
     - src/util/extend.js
-    - src/core/class.js
+    - src/core/base.js
     - src/**/*.js
 
 # stylesheets

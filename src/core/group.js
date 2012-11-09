@@ -50,7 +50,7 @@ re.g.init = function(name){
 
 	this._group = function(name){
 		this.name = name;
-		re.class.call(this);
+		re.base.call(this);
 
 		//add all requires
 		for(var i in that._requires){
@@ -61,7 +61,7 @@ re.g.init = function(name){
 		that._init.apply(this, arguments);
 	};
 
-	this._group.prototype = re.class.extendArray(re.array.prototype, {
+	this._group.prototype = re.base.extendArray(re.array.prototype, {
 
 		dispose:function(){
 			re._g[this.name] = null;

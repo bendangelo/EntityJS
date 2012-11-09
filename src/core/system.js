@@ -42,7 +42,7 @@ re.s.init = function(name){
 		this.entities = c;
 	};
 	this._system = function(){
-		re.class.call(this);
+		re.base.call(this);
 
 		//add all requires
 		for(var i in that._requires){
@@ -53,7 +53,7 @@ re.s.init = function(name){
 		that._init.apply(this, arguments);
 	};
 
-	this._system.prototype = re.class.extend({
+	this._system.prototype = re.base.extend({
 
 		processAll:function(){
 			if(this.canProcess.apply(this, arguments)){

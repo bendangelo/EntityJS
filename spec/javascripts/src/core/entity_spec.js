@@ -10,17 +10,6 @@ describe('entity', function(){
     c = re.c(f('name'))
   });
   
-  it('multiple', function(){
-      eq(re.e('bob', 10).length, 10);
-
-      eq(re.e('ki', 2).first().comps(), ['ki']);
-      
-  });
-  
-  it('should create 1 in query', function(){
-    eq(re.e('dfggggg', 1).length, 1)
-  })
-
   it('should add / remove from group', function(){
     
     var e = re.e('blah');

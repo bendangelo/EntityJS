@@ -255,9 +255,10 @@
         
         this._s = m;
         
-    if(this.assets.length == 0){
-      m([]);
-    }
+        //call complete if empty
+      if(!this.assets.length){
+        m([]);
+      }
     
         return this;
     }

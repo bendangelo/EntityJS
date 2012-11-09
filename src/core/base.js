@@ -1,20 +1,21 @@
 /*
-The class is the base class for system and group. Eventually will be the base for component too.
+The base is the base class for system and group. Eventually will be the base for component too.
 */
-re.class = function(){
+re.base = function(){
+    // base class
 	this._re_listens = {};
 };
 
-re.class.extend = function(){
+re.base.extend = function(){
     var args = [].slice.call(arguments);
-    args.unshift(re.class.prototype);
+    args.unshift(re.base.prototype);
 	return re.extend.apply(re, args);
 };
 
-re.class.extendArray = function(){
+re.base.extendArray = function(){
     var a = new Array;
     var args = [].slice.call(arguments);
-    args.unshift(re.class.prototype);
+    args.unshift(re.base.prototype);
     for(var i in args){
         for(var b in args[i]){
             a[b] = args[i][b];
@@ -23,7 +24,7 @@ re.class.extendArray = function(){
     return a;
 };
 
-re.class.prototype = {
+re.base.prototype = {
 
 	tag:function(name){
 		if(name!=null){

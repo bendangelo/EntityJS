@@ -19,7 +19,7 @@
         this.comp(c);
     };
     
-    var p = e.prototype = re.class.extend({});
+    var p = e.prototype = re.base.extend({});
     
     /*
     //add components
@@ -204,7 +204,7 @@
     p.dispose = function(){
         
         //trigger dispose on all components
-        //remove from group too
+        //remove from groups too
         this.removeComp(this.comps());
         
         this.trigger('dispose');

@@ -180,7 +180,7 @@ module Entityjs
       ents.sort!
 
       #order
-      order = ['re', 'extend', 'class'].reverse;
+      order = ['re', 'extend', 'base'].reverse;
       
       #order stuff first
       order.each do |i|

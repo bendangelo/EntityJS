@@ -6,7 +6,7 @@ re.array = function(array){
 	if(array) this.push.apply(this, array);
 };
 
-re.array.prototype = re.class.extendArray({
+re.array.prototype = re.base.extendArray({
 
 		invoke:function(m){
 	        var b = Array.prototype.slice.call(arguments, 1);
@@ -151,7 +151,14 @@ re.array.prototype = re.class.extendArray({
 		/*
 			Removes everything in group.
 		*/
+		empty:function(){
+			this.length = 0;
+			return this;
+		},
+
+		//disposes off all entities
 		clear:function(){
+			this.invoke("dispose");
 			this.length = 0;
 			return this;
 		},
