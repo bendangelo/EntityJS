@@ -99,7 +99,7 @@ re.c('el')
   
 })
 .init(function(){
-  this.setEl(re.$new('div'));
+  this.setEl('div');
 })
 .dispose(function(){
   this.removeEl();
