@@ -5,7 +5,7 @@ Such as the canvas context, fps, start, stop, canvas.
 You can add the component to entities for quick reference to variables.
 
 */
-re.c('main')
+re.c('loop')
 .singleton()
 .defaults({
     
@@ -38,8 +38,9 @@ re.c('main')
         if(!this.running){
             this.running = true;
             
-            var that = this;
-            (function m(){
+            var that = this,
+            m;
+            (m = function(){
               
               that.loop();
               

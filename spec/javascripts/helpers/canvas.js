@@ -13,6 +13,6 @@ $(function(){
   
         setup_canvas();
         
-    re.main().init('#game-canvas');
+    re.loop().init('#game-canvas');
     
 });

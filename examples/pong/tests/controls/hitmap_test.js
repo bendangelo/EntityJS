@@ -24,7 +24,7 @@ test('ball hitting the left side should trigger event', function(){
 
 test('ball hitting the right side should trigger event', function(){
   
-  ball.posX = re.main().sizeX - ball.hsizeX + 1;
+  ball.posX = re.loop().sizeX - ball.hsizeX + 1;
   
   expectTrigger(hitmap, 'score:right');
   
@@ -45,12 +45,12 @@ test('ball should hit top', function(){
 
 test('ball should hit bottom', function(){
   
-  ball.posY = re.main().sizeY - ball.hsizeY + 1;
+  ball.posY = re.loop().sizeY - ball.hsizeY + 1;
   
   var res = hitmap.checkHit(ball);
   
   eq(res.hitY, 1);
-  eq(res.posY, re.main().sizeY - ball.hsizeY);
+  eq(res.posY, re.loop().sizeY - ball.hsizeY);
   
 });
 

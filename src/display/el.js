@@ -51,6 +51,11 @@ re.c('el')
   setEl:function(el){
     this.removeEl();
 
+    //create element if string
+    if(re.is(el, 'string')){
+      el = re.$new(el);
+    }
+
     this.el = el;
     this.$el = $(el).addClass('el');
 
@@ -69,7 +74,7 @@ re.c('el')
 
   //places element to parent of canvas
   addEl:function(targ){
-    targ = targ || $(re.main().canvas).parent();
+    targ = targ || $(re.loop().canvas).parent();
 
     targ.append(this.el);
     return this;

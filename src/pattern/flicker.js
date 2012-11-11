@@ -125,7 +125,7 @@ re.c('flicker')
 		this.flicker_loops = loops || 1;
 		
 		this.stepProgress = 0;
-		this.stepSize = (duration / frames.length) / re.main().second;
+		this.stepSize = (duration / frames.length) / re.loop().second;
     
 	    this.flicker_frames = frames;
 		this.flicker_frame = 0;

@@ -44,8 +44,9 @@ re.g.init = function(name){
 	this._defines = {};
 	var that = this;
 
-	this._init = function(c){
-
+	this._init = function(entities){
+		if(entities)
+			this.push.apply(this, entities);
 	};
 
 	this._group = function(name){
@@ -57,8 +58,6 @@ re.g.init = function(name){
 			var s = re.g(that._requires[i]);
 			this.def(s._defines);
 		}
-
-		that._init.apply(this, arguments);
 	};
 
 	this._group.prototype = re.base.extendArray(re.array.prototype, {
@@ -108,6 +107,8 @@ re.g.init.prototype = {
 	create:function(){
 		var g = new this._group(this.name);
 		re._g[g.name] = g;
+
+		this._init.apply(g, arguments);
 
 		return g;
 	},

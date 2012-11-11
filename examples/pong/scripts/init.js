@@ -1,6 +1,6 @@
 re.ready(function(){
   
-  re.main().init(re.canvas)
+  re.loop().init(re.canvas)
   .set('clearColor', '#000')
   .start();
   

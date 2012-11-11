@@ -29,7 +29,7 @@
   
   it('create', function(){
     var called = false
-    re.main().start();
+    re.loop().start();
     
     re.c('shape').defines('draw', function(){
       called = true
@@ -41,7 +41,7 @@
     waits(300)
     runs(function(){
       ok(called)
-      re.main().stop();
+      re.loop().stop();
     })
   })
   

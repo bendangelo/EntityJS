@@ -3,7 +3,7 @@ describe('main', function(){
     var s;
     
     beforeEach(function(){
-        s = re.main();
+        s = re.loop();
     });
 
     it('init', function(){

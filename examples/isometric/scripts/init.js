@@ -1,8 +1,8 @@
 re.ready(function(){
   
-  re.main().init(re.canvas).start();
+  re.loop().init(re.canvas).start();
 
-  re.s('isomouse').create(re.main().canvas);
+  re.s('isomouse').create(re.loop().canvas);
   
   re.scene('load').enter();
   

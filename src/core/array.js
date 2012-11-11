@@ -151,16 +151,15 @@ re.array.prototype = re.base.extendArray({
 		/*
 			Removes everything in group.
 		*/
-		empty:function(){
+		clear:function(){
 			this.length = 0;
 			return this;
 		},
 
 		//disposes off all entities
-		clear:function(){
+		disposeAll:function(){
 			this.invoke("dispose");
-			this.length = 0;
-			return this;
+			return this.clear();
 		},
 
 		count:function(method, c){
@@ -172,7 +171,7 @@ re.array.prototype = re.base.extendArray({
 		},
 
 		contains:function(ref){
-	      return ~this.indexOf(ref);
+	      return !!~this.indexOf(ref);
 		},
 
 		/*

@@ -49,7 +49,7 @@ describe('flicker', function(){
     //manually call update
     
     for(var i=0; i<60 * time; i++){
-      e.flicker_update(re.main().stepSize);
+      e.flicker_update(re.loop().stepSize);
     }
     
     eq(e.health, 20)
