@@ -230,7 +230,7 @@ function lazy(comps, obj){
   return {
     setup:function(){
       
-      this[name] = window[name] = e = f(comps.join(' '));
+      this[name] = e = f(comps.join(' '));
       
       if(typeof obj == 'function') obj(e);
       if(obj && obj.setup) obj.setup(e);
@@ -238,7 +238,6 @@ function lazy(comps, obj){
     teardown:function(){
       if(obj && obj.teardown) obj.teardown(e);
       e.dispose();
-      delete window[name];
     }
   }
 }
@@ -260,12 +259,12 @@ function lazyScene(scene){
   var args = Array.prototype.slice.call(arguments, 1);
   return {
     setup:function(){
-      var s = window[scene] = re.scene(scene);
+      var s = this.scene = re.scene(scene);
 
       s.enter.apply(s, args);
     },
     teardown:function(){
-      re.scene().exit();
+      this.scene.exit();
     }
   };
 };

@@ -20,8 +20,11 @@ describe('group', function(){
     });
 
     it('should create new group', function(){
+        var val = 10;
 
-        re.g("monsters").create();
+        re.g("monsters").create([val]);
+
+        ok(re('monsters').first(), val);
 
         var mon = re.e('monsters').attr({x:10, y:3});
 
