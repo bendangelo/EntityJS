@@ -3,7 +3,7 @@ re.s('render')
 
 	process:function(e){
 		if(e.visible && !e.visible()) return;
-		
+
 		if(e.draw){
             this.begin(e, this.context);
     			e.draw(this.context);
@@ -14,22 +14,22 @@ re.s('render')
 	begin:function(e, c){
 
         c.save();
-        
+
         if(e.alpha-1)
             c.globalAlpha = e.alpha;
-        
+
         if(e.screenable)
             c.translate(e.screenX(), e.screenY());
         else
             c.translate(e.posX, e.posY);
-        
+
         if(e.rotation)
             c.rotate(e.rotation * Math.PI / 180);
-        
-        
+
+
         if(e.scaleX != 1 || e.scaleY != 1)
             c.scale(e.scaleX, e.scaleY);
-        
+
 	},
 
 	end:function(e, c){
@@ -37,7 +37,7 @@ re.s('render')
 	}
 
 })
-.init(function(context){
+.init(function(context, entities){
 	this.context = context;
-	this.entities = re.g('render').create();
+	this.entities = entities || re.g('render').create();
 });
