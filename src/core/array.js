@@ -9,7 +9,7 @@ re.array = function(array){
 re.array.prototype = re.base.extendArray({
 
 		invoke:function(m){
-	        var b = Array.prototype.slice.call(arguments, 1);
+	        var b = [].slice.call(arguments, 1);
 	        return this.each(function(e){
 	            e[m].apply(e, b);
 	        });
@@ -17,9 +17,9 @@ re.array.prototype = re.base.extendArray({
 
 		each:function(m, context){
 	      var l = this.length, i = -1, e;
-	      
+
 	      while(++i < l && (e = this[i]) != null && m.call(context || this, e, i, this) !== false);
-	        
+
 	      return this;
 		},
 
@@ -29,35 +29,35 @@ re.array.prototype = re.base.extendArray({
 
 		/*
 	    The pluck method returns all values from all entities in an array.
-	    
+
 	    //will return all pos objs from all entities.
 	    re('point').pluck('pos visible');
-	    
+
 	    //if we print...
-	    
+
 	    [
 	    {pos:0, visible:0}
 	    ...
 	    ]
-	    
+
 	    */
 		pluck:function(value){
 	        var t = [];
-	        
+
 	        var k = value.split(' ');
-	        
+
 	        this.each(function(e){
 	            var o = {};
-	            
+
 	            for(var p in k){
 	              var name = k[p];
 	              o[name] = e[name];
 	            }
-	            
+
 	            t.push(o);
-	            
+
 	        });
-	        
+
 	        return t;
 		},
 
@@ -67,17 +67,17 @@ re.array.prototype = re.base.extendArray({
 
 	    /*
 	    Returns the first entity that passes the truth iterator method.
-	    
+
 	    re('tile').find(function(e){
 	      return e.tileX() == 0 && e.tileY() == 1;
 	    });
-	    
+
 	    */
 		find:function(method, context){
 			for(var i=0, l=this.length; i<l; i++){
 	    	    if(method.call(context || this, this[i], i, this)) return this[i];
 	      	}
-	      
+
 	      	return null;
 		},
 
@@ -92,11 +92,11 @@ re.array.prototype = re.base.extendArray({
 
 	    /*
 	    Returns the lowest entity from the given iterator.
-	    
+
 	    var weakestRat = re('rat').min(function(e){
 	      return e.health;
 	    });
-	    
+
 	    */
 		min:function(method, context){
 			var lowest = Infinity, val;
@@ -106,9 +106,9 @@ re.array.prototype = re.base.extendArray({
           lowest = next;
           val = e;
         }
-        
+
       });
-      
+
       return val;
 		},
 
@@ -121,7 +121,7 @@ re.array.prototype = re.base.extendArray({
           val = e;
         }
       });
-      
+
       return val;
 		},
 
@@ -158,8 +158,11 @@ re.array.prototype = re.base.extendArray({
 
 		//disposes off all entities
 		disposeAll:function(){
-			this.invoke("dispose");
-			return this.clear();
+			var ents = this.slice();
+			for(var i in ents){
+				ents[i].dispose();
+			}
+			return this;
 		},
 
 		count:function(method, c){
@@ -210,11 +213,11 @@ re.array.prototype = re.base.extendArray({
 	    swap: function(ref1, ref2){
 	      var ref1i = this.indexOf(ref1);
 	      var ref2i = this.indexOf(ref2);
-	      
+
 	      var t = this[ref1i];
 	      this[ref1i] = ref2;
 	      this[ref2i] = t;
-	      
+
 	      return this;
 	    },
 
