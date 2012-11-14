@@ -2,7 +2,7 @@ re.s('update')
 .defines({
 
 	process:function(e){
-		if(e.updatable) e.trigger('update');
+		if(e.updatable) e.trigger('update', re.loop().stepSize);
 	}
 
 })
