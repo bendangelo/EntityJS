@@ -9,7 +9,7 @@ apple.animates = {
 			//time, frames, loops
 	explode:[1000, [0, 1, 2], 1]
 		  //seconds, frames, loops defaults to once
-	trans:[0.5, [3, 4, 5]]	
+	trans:[0.5, [3, 4, 5]]
 };
 
 //play animation
@@ -25,7 +25,7 @@ apple.flickering(); //this comes from flicker comp
 re.c('animate')
 .requires('flicker')
 .defines({
-  
+
   //overload flickers method
 	flicker_stop:function(){
 		this._super('flicker', 'flicker_stop');
@@ -36,9 +36,9 @@ re.c('animate')
 		//ignore if calling the same animation
 		if(this.flickering() != name){
 
-    	this.animate_finish = onFinish;
-    	this.animate_update = onUpdate;
-    	
+        	this.animate_finish = onFinish;
+        	this.animate_update = onUpdate;
+
 			var a = this.animates[name];
 			//flicker interface
 			//(duration:int, frames:array, loops:int, id:string)
@@ -60,5 +60,5 @@ re.c('animate')
       this.frame(c);
       if(this.animate_update)  this.animate_update.apply(this, arguments);
   }
-  
+
 });
