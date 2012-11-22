@@ -16,7 +16,7 @@ re.scene('home')
   .tag('circle');
   
   //add help text
-  this.text = re.e('text align')
+  this.text = re.e('text align render')
   .text('Use WASD or arrow keys to move the circle')
   .alignTop(5)
   .alignLeft(5);

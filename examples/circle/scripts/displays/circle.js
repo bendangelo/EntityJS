@@ -17,7 +17,7 @@ re.c('circle')
 	this.radius = radius;
 	this.color = color;
 })
-.requires('align update')
+.requires('align render update')
 .defines({
 	//define properties
   speed:15,
