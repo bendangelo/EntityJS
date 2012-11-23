@@ -44,7 +44,7 @@
             pieces = com.split(' ');
         }
 
-        for(var i =0;i<pieces.length; i++){
+        for(var i =0; i<pieces.length; i++){
             com = pieces[i];
 
             if(!com) return this;
@@ -53,7 +53,7 @@
             if(!this.has(com)){
 
             //component reference
-            var c = re._c[com];
+            var c = re._c[com], k;
 
             //add comp first thing, to avoid dupe requirement calls
             //and this lets the init remove the comp too.
@@ -64,11 +64,11 @@
                 this.comp(c._re_requires);
 
                 //add getters / setters
-                for(var i in c._re_setters){
-                    this.__defineSetter__(i, c._re_setters[i]);
+                for(k in c._re_setters){
+                    this.__defineSetter__(k, c._re_setters[k]);
                 }
-                for(var i in c._re_getters){
-                    this.__defineGetter__(i, c._re_getters[i]);
+                for(k in c._re_getters){
+                    this.__defineGetter__(k, c._re_getters[k]);
                 }
 
                 if(c._re_defaults){
