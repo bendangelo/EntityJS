@@ -57,9 +57,12 @@ describe('entity', function(){
     e.posX = val;
 
     eq(e.posX, val);
+
     eq(e._posX, val);
 
-    eq(e._posY, val);
+    e.posY = val;
+
+    eq(e.posY, val);
     eq(e._posY, val);
 
   });

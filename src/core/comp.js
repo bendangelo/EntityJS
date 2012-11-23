@@ -88,12 +88,9 @@ re.c.init.prototype = {
         for(var i in attrs){
             pri = "_"+attrs[i];
 
-            this.getters(attrs[i], function(){
-                return this[pri];
-            });
-            this.setters(attrs[i], function(value){
-                this[pri] = value;
-            });
+            this.getters(attrs[i], new Function("return this."+pri+";"));
+
+            this.setters(attrs[i], new Function("v", "this."+pri+" = v;"));
         }
     },
 

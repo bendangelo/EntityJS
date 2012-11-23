@@ -78,7 +78,10 @@
 
                 //add getters / setters
                 for(var i in c._re_setters){
-                    this.__defineSetter_
+                    this.__defineSetter__(i, c._re_setters[i]);
+                }
+                for(var i in c._re_getters){
+                    this.__defineGetter__(i, c._re_getters[i]);
                 }
 
                 if(c._re_init){
