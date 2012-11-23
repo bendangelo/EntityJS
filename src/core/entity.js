@@ -63,6 +63,14 @@
             if(c){
                 this.comp(c._re_requires);
 
+                //add getters / setters
+                for(var i in c._re_setters){
+                    this.__defineSetter__(i, c._re_setters[i]);
+                }
+                for(var i in c._re_getters){
+                    this.__defineGetter__(i, c._re_getters[i]);
+                }
+
                 if(c._re_defaults){
                     this.def(c._re_defaults);
                 }
@@ -74,14 +82,6 @@
                 if(c._re_events){
                   this.set(c._re_events)
                   .on(c._re_events);
-                }
-
-                //add getters / setters
-                for(var i in c._re_setters){
-                    this.__defineSetter__(i, c._re_setters[i]);
-                }
-                for(var i in c._re_getters){
-                    this.__defineGetter__(i, c._re_getters[i]);
                 }
 
                 if(c._re_init){
