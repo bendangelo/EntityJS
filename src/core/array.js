@@ -173,7 +173,7 @@ re.array.prototype = re.base.extendArray({
 			return this.slice();
 		},
 
-		contains:function(ref){
+		has:function(ref){
 	      return !!~this.indexOf(ref);
 		},
 
