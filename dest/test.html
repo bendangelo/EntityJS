@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+        <title>Test Entity</title>
+        <link rel="Shortcut Icon" href="/favicon.ico">
+
+        <link href='example/test/css/mocha.css' rel='stylesheet' type='text/css'></link>
+
+        <script src='example/test/js/chai.js'></script>
+<script src='example/test/js/js-factories.js'></script>
+<script src='example/test/js/mocha.js'></script>
+<script src='example/test/js/sinon-chai.js'></script>
+<script src='example/test/js/sinon.js'></script>
+
+        
+
+<script src='lib/core/entity.js'></script>
+
+
+<script src='lib/core/array.js'></script>
+<script src='lib/core/base.js'></script>
+<script src='lib/core/comp.js'></script>
+<script src='lib/core/entity.js'></script>
+<script src='lib/core/group.js'></script>
+<script src='lib/core/load.js'></script>
+<script src='lib/core/loop.js'></script>
+<script src='lib/core/re.js'></script>
+<script src='lib/core/system.js'></script>
+
+
+        <style type="text/css">
+        /*
+        Styling for play.html
+        */
+        .game-container {
+          margin-left: auto;
+          margin-right: auto;
+          width: 500px;
+          position:relative;
+        }
+
+        /*
+          For el comp
+        */
+        .el {
+          z-index:100;
+          position:absolute;
+        }
+
+        body {
+          background-color:#F2F2F2;
+          font-family: sans-serif;
+        }
+
+        #content {
+          margin:15px 0 15px 0;
+          padding:20px 10px 30px 10px;
+          min-height:350px;
+          border-radius:2px;
+          color:#333333;
+          background-color:#ffffff;
+
+        }
+
+        .links a, .links a:visited {
+          color:#5b9463;
+        }
+
+        .links a:hover {
+          color:#77b981;
+        }
+
+        .links a.highlight, .links a.highlight:visited {
+          color:#D94E4E;
+        }
+
+        .links a.highlight:hover {
+          color:#ec7979;
+        }
+
+        .block {
+          margin-top:25px;
+        }
+
+        ul.links li{
+          margin:5px;
+          display:inline-block;
+        }
+
+        .float-right {
+          float:right;
+        }
+
+        .float-left {
+          float:left;
+        }
+
+        .clear {
+
+          clear: both;
+          display: block;
+          overflow: hidden;
+          visibility: hidden;
+          width: 0;
+          height: 0;
+        }
+        </style>
+    </head>
+
+    <body>
+
+
+      <div id="content">
+
+        <div class="game-container">
+          <canvas id="game-canvas" width="500" height="400">
+      <p>
+      Requires a modern browser to play. Try downloading <a href="http://google.com/chrome">Chrome</a>.
+      </p>
+      </canvas>
+        </div>
+
+    <div class="block">
+      <ul class="links float-left">
+        <li><a href="/test">Test Suite</a></li>
+      </ul>
+
+      <ul class="links float-right">
+        <li><a href="http://entityjs.com" class="highlight" target="_blank">EntityJS</a></li>
+        <li><a href="http://entityjs.com/tutorials" target="_blank">Tutorials</a></li>
+        <li><a href="http://entityjs.com/api" target="_blank">API</a></li>
+        <li><a href="https://github.com/bendangelo/entityjs" target="_blank">Git Repo</a></li>
+        <li><a href="http://entityjs.com/license" target="_blank">License</a></li>
+      </ul>
+      <div class="clear"></div>
+    </div>
+
+    </div>
+
+
+    </body>
+
+
+</html>

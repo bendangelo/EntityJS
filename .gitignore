@@ -1,10 +1,2 @@
 Thumbs.db
-*.gem
-.bundle
-Gemfile.lock
-pkg/*
-.redcar
-._redcar
-mygame
-*.min.js
-.rspec
+node_modules
