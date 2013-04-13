@@ -7,6 +7,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         replace: {
+
             test: {
                 options: {
 
@@ -51,22 +52,14 @@ module.exports = function(grunt) {
                 },
 
                 src: [
-                    'lib/core/header.js',
-                    'lib/core/utils/*.js',
-                    'lib/core/entity.js',
-                    'lib/core/managers/manager.js',
-                    'lib/core/systems/system.js',
-                    'lib/core/**/*.js'
+                    'lib/core/re.js',
+                    'lib/util/extend.js',
+                    'lib/core/base.js',
+                    'lib/core/array.js',
+                    'lib/core/*.js',
+                    'lib/**/*.js'
                     ],
                 dest: 'example/assets/vendor/<%= pkg.name %>.js'
-            },
-
-            test: {
-                src: [
-                    "test/test_helper.js",
-                    'test/**/*_test.js'
-                    ],
-                dest: 'dest/tests.js'
             }
 
         },
@@ -84,16 +77,6 @@ module.exports = function(grunt) {
             test: {
                 files: ["lib/**/*.js", "test/**/*_test.js"],
                 tasks: ["test"]
-            },
-
-            all: {
-                files: ["lib/**/*.js", "test/**/*_test.js"],
-                tasks: ["concat"]
-            },
-
-            lib: {
-                files: ["lib/**/*.js"],
-                tasks: ["concat:lib"]
             }
         },
 
@@ -148,20 +131,17 @@ module.exports = function(grunt) {
     });
 
     grunt.jsTag = function(array){
-        return array.map(function(i){
-            var expanded = grunt.file.expand(i);
-            return expanded.map(function(r){
-                return "<script src='"+r+"'></script>";
-            }).join("\n");
+        var files = grunt.file.expand(array);
+
+        return files.map(function(i){
+            return "<script src='/"+i+"'></script>";
         }).join("\n");
     };
 
     grunt.cssTag = function(array){
-        return array.map(function(i){
-            var expanded = grunt.file.expand(i);
-            return expanded.map(function(r){
-                return "<link href='"+r+"' rel='stylesheet' type='text/css'></link>";
-            }).join("\n");
+        var files = grunt.file.expand(array);
+        return files.map(function(i){
+            return "<link href='/"+i+"' rel='stylesheet' type='text/css'></link>";
         }).join("\n");
     };
 
@@ -173,11 +153,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-dox');
     grunt.loadNpmTasks('grunt-replace');
 
-    grunt.registerTask('test', ['concat', 'connect:test', 'mocha:test']);
-    grunt.registerTask('autotest', ["watch:test"]);
-    grunt.registerTask("server", ["connect:server"]);
+    grunt.registerTask('test', ['build:dev', 'connect:test', 'mocha:test']);
+    grunt.registerTask("server", ["replace", "connect:server"]);
 
-    grunt.registerTask('build', ['concat:lib', 'uglify', 'dox']);
+    grunt.registerTask('build:dev', ['replace', 'uglify', 'dox']);
+    grunt.registerTask('build:release', ['build:dev', 'uglify', 'dox']);
 
     grunt.registerTask('default', ['build', 'test']);
 
