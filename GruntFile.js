@@ -6,6 +6,8 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+        banner: "/* Entity Game Engine | MIT License */",
+
         replace: {
 
             test: {
@@ -47,9 +49,7 @@ module.exports = function(grunt) {
             lib: {
 
                 options: {
-                    banner: '/* <%= pkg.name %> V<%= pkg.version %> */\n',
-                    linefeed: ";",
-                    process: "true"
+                    banner: "<%= banner %>"
                 },
 
                 src: [
@@ -66,7 +66,12 @@ module.exports = function(grunt) {
 
         uglify: {
 
-            build: {
+            lib: {
+
+                options: {
+                    banner: "<%= banner %>"
+                },
+
                 src: 'example/assets/vendor/<%= pkg.name %>.js',
                 dest: '<%= pkg.name %>.min.js'
             }
@@ -172,8 +177,8 @@ module.exports = function(grunt) {
     grunt.registerTask("server", ["build:test", "connect:server"]);
 
     grunt.registerTask('build:test', ['coffee:test', 'replace']);
-    grunt.registerTask('build:dev', ['uglify', 'dox']);
-    grunt.registerTask('build:release', ['build:dev', 'uglify', 'dox']);
+    grunt.registerTask('build:dev', ['concat:lib']);
+    grunt.registerTask('build:release', ['build:dev', 'uglify:lib', 'dox']);
 
     grunt.registerTask('default', ['build', 'test']);
 
