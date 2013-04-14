@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+        <title>
+            Test Entity
+        </title>
+        <link rel="Shortcut Icon" href="/favicon.ico">
+        @@css
+
+        @@vendorjs
+
+        <script type="text/javascript" charset="utf-8">
+            mocha.setup('bdd');
+            expect = chai.expect;
+        </script>
+
+        @@js
+
+        @@testjs
+    </head>
+
+    <body>
+      <div id="mocha"></div>
+        <div id="content">
+            <div class="game-container">
+                <canvas id="game-canvas" width="500" height="400">
+                    <p>
+                        Requires a modern browser to play. Try downloading
+                        <a href="http://google.com/chrome">Chrome</a>
+                        .
+                    </p>
+                </canvas>
+            </div>
+        </div>
+
+        <script type="text/javascript" charset="utf-8">
+          if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+            mocha.run();
+          }
+        </script>
+    </body>
+
+</html>

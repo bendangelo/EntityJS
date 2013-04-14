@@ -21,7 +21,8 @@ module.exports = function(grunt) {
 
                     variables: {
                         css: "<%= grunt.cssTag(replace.test.options.css) %>",
-                        testjs: "<%= grunt.jsTag(replace.test.options.js) %>",
+                        vendorjs: "<%= grunt.jsTag(replace.test.options.js) %>",
+                        testjs: "<%= grunt.jsTag('dest/tests/**/*_test.js') %>",
                         js: "<%= grunt.jsTag(concat.lib.src) %>"
                     },
 
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ["test/test.html"],
+                        src: ["test/index.html"],
                         dest: "dest/"
                     }
                 ]
@@ -47,7 +48,6 @@ module.exports = function(grunt) {
                 options: {
                     banner: '/* <%= pkg.name %> V<%= pkg.version %> */\n',
                     linefeed: ";",
-                    // footer: "}(this));",
                     process: "true"
                 },
 
@@ -55,7 +55,6 @@ module.exports = function(grunt) {
                     'lib/core/re.js',
                     'lib/util/extend.js',
                     'lib/core/base.js',
-                    'lib/core/array.js',
                     'lib/core/*.js',
                     'lib/**/*.js'
                     ],
@@ -74,9 +73,9 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            test: {
-                files: ["lib/**/*.js", "test/**/*_test.js"],
-                tasks: ["test"]
+            coffee: {
+                files: ["test/tests/**/*.coffee"],
+                tasks: ["coffee:test"]
             }
         },
 
@@ -118,6 +117,20 @@ module.exports = function(grunt) {
             }
         },
 
+        coffee: {
+
+            test: {
+                expand: true,
+                cwd: "test/tests",
+                src: [
+                    "**/*.coffee"
+                ],
+                dest: "dest/tests",
+                ext: ".js"
+            }
+
+        },
+
         dox: {
             options: {
                 title: "Entity Documentation"
@@ -146,6 +159,7 @@ module.exports = function(grunt) {
     };
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-mocha');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -153,10 +167,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-dox');
     grunt.loadNpmTasks('grunt-replace');
 
-    grunt.registerTask('test', ['build:dev', 'connect:test', 'mocha:test']);
-    grunt.registerTask("server", ["replace", "connect:server"]);
+    grunt.registerTask('test', ['build:test', 'connect:test', 'mocha:test']);
+    grunt.registerTask("server", ["build:test", "connect:server"]);
 
-    grunt.registerTask('build:dev', ['replace', 'uglify', 'dox']);
+    grunt.registerTask('build:test', ['coffee:test', 'replace']);
+    grunt.registerTask('build:dev', ['uglify', 'dox']);
     grunt.registerTask('build:release', ['build:dev', 'uglify', 'dox']);
 
     grunt.registerTask('default', ['build', 'test']);
