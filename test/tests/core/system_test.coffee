@@ -7,10 +7,10 @@ describe "system", ->
   it "should process all entities", ->
     s = re.s("render2").create([{}, {}])
     s.processAll()
-    expect(s.entities[0].ok).toEqual 10
-    expect(s.entities[1].ok).toEqual 10
-    
+    expect(s.entities[0].ok).to.eql 10
+    expect(s.entities[1].ok).to.eql 10
+
     #has class methods
-    expect(s.get("blah")).toEqual 99
+    expect(s.get("blah")).to.eql 99
 
 

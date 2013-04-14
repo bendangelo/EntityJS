@@ -2,7 +2,7 @@ describe "image", ->
   i = undefined
   image_comp = undefined
   beforeEach ->
-    image_comp = f("image")
+    image_comp = re.c 'accept.png'
     i = re.e(["image", image_comp.name])
 
   it "image", ->

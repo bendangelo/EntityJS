@@ -1,7 +1,7 @@
 describe "imgtext", ->
   e = undefined
   beforeEach ->
-    re.c("serif").requires(["imgtext", f("image").name]).defines "imgtext", [1, 2, 3, 4, 3, 4, 5, 6, 7, 8, 9, 4, 5, 3, 4, 5, 6, 7, 2, 3, 4, 5]
+    re.c("serif").requires(["imgtext", 'accept.png']).defines "imgtext", [1, 2, 3, 4, 3, 4, 5, 6, 7, 8, 9, 4, 5, 3, 4, 5, 6, 7, 2, 3, 4, 5]
     e = re.e("serif").set("text", "blah")
 
   it "visible", ->

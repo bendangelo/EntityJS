@@ -1,7 +1,7 @@
 describe "sprite", ->
   e = undefined
   beforeEach ->
-    e = re.e("sprite " + f("image").name)
+    e = re.e('sprite accept.png')
     e.bisect = 16
     e.sizeX = 2
     e.sizeY = 2
@@ -20,7 +20,7 @@ describe "sprite", ->
     e.frame 22
     expect(e.frameX).to.eql 22
     expect(e.frameY).to.eql 0
-    
+
     #tricky part
     e.frame 23
     expect(e.frameX).to.eql 0

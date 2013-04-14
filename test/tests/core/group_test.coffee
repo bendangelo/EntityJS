@@ -14,9 +14,9 @@ describe "group", ->
       x: 10
       y: 3
     )
-    expect(re("monsters").findAt(10, 3).x).toEqual mon.x
+    expect(re("monsters").findAt(10, 3).x).to.eql mon.x
 
     #has props
-    expect(re("monsters").get("blah")).toEqual 99
+    expect(re("monsters").get("blah")).to.eql 99
 
 

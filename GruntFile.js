@@ -16,7 +16,8 @@ module.exports = function(grunt) {
                     ],
 
                     js: [
-                        "example/test/js/**/*.js"
+                        "example/test/js/**/*.js",
+                        "test/js/**/*.js"
                     ],
 
                     variables: {

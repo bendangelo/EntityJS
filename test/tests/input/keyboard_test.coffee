@@ -2,7 +2,7 @@ describe "keyboard", ->
   e = undefined
   keyboard = undefined
   beforeEach ->
-    
+
     #create system
     keyboard = re.s("keyboard").create()
     e = re.e("keyboard")
@@ -19,14 +19,15 @@ describe "keyboard", ->
       expect(e).to.exist
       called2 = key
 
-    
+
     #manually call
     keyboard.event #d
       type: type
       keyCode: 68
 
     expect(called).to.eql "d"
-    expect(called2).to.eql null
+    expect(called2).to.eql undefined
+
     keyboard.event #r
       type: type
       keyCode: 82
@@ -46,14 +47,14 @@ describe "keyboard", ->
       expect(e).to.exist
       called2 = key
 
-    
+
     #manually call
     keyboard.event #d
       type: type
       keyCode: 68
 
     expect(called).to.eql "d"
-    expect(called2).to.eql null
+    expect(called2).to.eql undefined
     keyboard.event #r
       type: type
       keyCode: 82

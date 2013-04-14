@@ -1,4 +1,4 @@
-describe "test", ->
+describe "scene", ->
   it "create new game scene", ->
     called = false
     val1 = undefined
@@ -32,7 +32,7 @@ describe "test", ->
     expect(val2).to.eql "s"
 
     #current scene
-    expect(re.scene()).to.eql null
+    expect(re.scene()).to.eql undefined
 
   it "should exit once", ->
     called = 0

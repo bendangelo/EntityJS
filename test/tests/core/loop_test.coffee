@@ -4,15 +4,18 @@ describe "main", ->
     s = re.loop()
 
   it "init", ->
+    s.init document.createElement("canvas")
     expect(s.context).to.exist
 
   it "clear", ->
     expect(s.start()).to.exist
-    spyOn s.context, "fillRect"
+    sinon.spy s.context, "fillRect"
     expect(s.clear("#FF0000")).to.exist
-    called s.context.fillRect
+
+    expect(s.context.fillRect).to.be.calledOnce
     expect(s.clear("rgb(200, 0, 0)")).to.exist
-    called s.context.fillRect
+
+    expect(s.context.fillRect).to.be.calledTwice
     expect(s.clear()).to.exist
     expect(s.stop()).to.exist
 
