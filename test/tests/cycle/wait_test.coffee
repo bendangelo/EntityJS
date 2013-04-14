@@ -12,7 +12,7 @@ describe "cycle/wait", ->
 
     waits 101
     runs ->
-      expect(called).to.be.ok()
+      expect(called).to.be.ok
 
 
 

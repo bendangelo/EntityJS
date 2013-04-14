@@ -4,13 +4,13 @@ describe "entity", ->
   re.g("blah").create()
   beforeEach ->
     e = re.e()
-    c = re.c(f("name"))
+    c = re.c "r"+Math.random()
 
   it "should add / remove from group", ->
     e = re.e("blah")
-    expect(re._g["blah"].contains(e)).to.be.ok()
+    expect(re._g["blah"].contains(e)).to.be.ok
     e.dispose()
-    expect(not re._g["blah"].contains(e)).to.be.ok()
+    expect(not re._g["blah"].contains(e)).to.be.ok
 
   it "should get", ->
     e.blah = 10
@@ -43,9 +43,9 @@ describe "entity", ->
 
   it "comp", ->
     e.comp "qwdqwd wer"
-    expect(e.has("qwdqwd wer")).to.be.ok()
+    expect(e.has("qwdqwd wer")).to.be.ok
     e.comp ["yep45", "ok12"]
-    expect(e.has("yep45 ok12")).to.be.ok()
+    expect(e.has("yep45 ok12")).to.be.ok
 
   it "should add events from comp", ->
     func = ->
@@ -61,7 +61,7 @@ describe "entity", ->
     re.c("sdfdff").requires("blah1").defines f: ->
       true
 
-    expect(re.e("sdfdff").f()).to.be.ok()
+    expect(re.e("sdfdff").f()).to.be.ok
 
   it "should call init", ->
     called = false
@@ -69,13 +69,13 @@ describe "entity", ->
       called = true
 
     e.comp c.name
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "requires", ->
     c.requires "bob"
     c.requires ["bob2"]
     e.comp c.name
-    expect(e.has("bob bob2")).to.be.ok()
+    expect(e.has("bob bob2")).to.be.ok
 
   it "comp defaults", ->
     c.defaults
@@ -109,8 +109,8 @@ describe "entity", ->
     en = null
     e.comp c.name
     e.removeComp ["blah", c.name]
-    expect(e.has(c.name)).to.not.be.ok()
-    expect(called).to.be.ok()
+    expect(e.has(c.name)).to.not.be.ok
+    expect(called).to.be.ok
 
   it "comps", ->
     e.comp "ok bob"
@@ -132,7 +132,7 @@ describe "entity", ->
     expect(e._super(c.name, "d", 100)).to.eql 100
     expect(e._super(c.name, "y", "bob")).to.eql "bob"
     e.comp c.name
-    expect(e._super("", "has", c.name)).to.be.ok()
+    expect(e._super("", "has", c.name)).to.be.ok
 
   it "attr overwrite method", ->
     called = false
@@ -142,7 +142,7 @@ describe "entity", ->
       called = true
 
     e.blah()
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "should dispose of all components properly", ->
     called = false
@@ -152,7 +152,7 @@ describe "entity", ->
       called2 = true
 
     e.dispose()
-    expect(called2).to.be.ok()
+    expect(called2).to.be.ok
 
   it "should throw error on undefined parent method", ->
     called = false
@@ -160,11 +160,11 @@ describe "entity", ->
       e._super "image", "asdfsdf"
     catch e
       called = true
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "has", ->
     e.comp "tst"
-    expect(e.has("tst")).to.be.ok()
+    expect(e.has("tst")).to.be.ok
 
   it "bindings", ->
     called = false
@@ -177,7 +177,7 @@ describe "entity", ->
       false
 
     expect(e.trigger("values", 10, 55)).to.eql e
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
     expect(va).to.eql 10
     expect(va2).to.eql 55
     func = ->
@@ -189,7 +189,7 @@ describe "entity", ->
 
     e.off "yep"
     e.off ok: func
-    
+
     #remove all
     e.on "key", ->
 
@@ -219,11 +219,11 @@ describe "entity", ->
 
     e.trigger "call"
     e.trigger "call2"
-    expect(called).to.be.ok()
-    expect(called2).to.be.ok()
+    expect(called).to.be.ok
+    expect(called2).to.be.ok
 
   it "attr", ->
-    
+
     #add attributes
     e.set
       x: 10
@@ -235,14 +235,14 @@ describe "entity", ->
     expect(e.func, "function").to.exist
     e.set "ok", 87
     expect(e.ok).to.eql 87
-    
+
     #run setter methods
     e.posX = (value1) ->
       @val = value1
 
     e.set "posX", 154
     expect(e.val).to.eql 154
-    
+
     #multiple
     e.size = (width, height) ->
       @width = width
@@ -266,28 +266,28 @@ describe "entity", ->
   it "dispose", ->
     called = false
     co = undefined
-    
+
     #listen for dispose call on component
     c.dispose (comp) ->
       called = true
       co = comp
 
-    
+
     #add comp to testing entity
     e.comp c.name
     called3 = false
-    
+
     #listen for dispose trigger on entity
     e.on "dispose", ->
       called3 = true
 
-    
+
     #call it
     e.dispose()
-    
+
     #asserts
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
     expect(co).to.eql c
-    expect(called3).to.be.ok()
+    expect(called3).to.be.ok
 
 

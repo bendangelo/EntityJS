@@ -24,8 +24,8 @@ describe "mouse", ->
       offsetX: 0
       offsetY: 0
     , "middle"
-    expect(called2).to.be.ok()
-    expect(called).to.be.ok()
+    expect(called2).to.be.ok
+    expect(called).to.be.ok
 
   it "mouseup", ->
     type = "mouseup"
@@ -46,8 +46,8 @@ describe "mouse", ->
       offsetX: 0
       offsetY: 0
     , "middle"
-    expect(called2).to.be.ok()
-    expect(called).to.be.ok()
+    expect(called2).to.be.ok
+    expect(called).to.be.ok
 
   it "mousemove", ->
     type = "mousemove"
@@ -63,7 +63,7 @@ describe "mouse", ->
       offsetX: 0
       offsetY: 0
 
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "click", ->
     type = "click"
@@ -79,7 +79,7 @@ describe "mouse", ->
       offsetX: 50
       offsetY: 100
 
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "dblclick", ->
     type = "dblclick"
@@ -95,7 +95,7 @@ describe "mouse", ->
       offsetX: 0
       offsetY: 0
 
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "contextmenu", ->
     type = "contextmenu"
@@ -111,6 +111,6 @@ describe "mouse", ->
       offsetX: 0
       offsetY: 0
 
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
 

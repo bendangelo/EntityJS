@@ -26,9 +26,9 @@ describe "cycle/tween", ->
     while i--
       tween.tween_update re.loop().stepSize
     expect(tween.x).to.eql 100
-    expect(called).to.be.ok()
-    expect(calledUpdate).to.be.ok()
-    expect(calledFinish).to.be.ok()
+    expect(called).to.be.ok
+    expect(calledUpdate).to.be.ok
+    expect(calledFinish).to.be.ok
 
   it "should move object in 60ms", ->
     tween.comp "tile"

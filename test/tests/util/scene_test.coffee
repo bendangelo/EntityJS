@@ -8,10 +8,10 @@ describe "test", ->
       val1 = t
       val2 = c
 
-    expect(not re.scene.current?).to.be.ok()
+    expect(not re.scene.current?).to.be.ok
     re.scene("game").enter 10, "sd"
     expect(re.scene.current).to.eql "game"
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
     expect(val1).to.eql 10
     expect(val2).to.eql "sd"
 
@@ -24,13 +24,13 @@ describe "test", ->
       val1 = cal
       val2 = s
 
-    
+
     #exit current scene
     re.scene("bob").exit 10, "s"
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
     expect(val1).to.eql 10
     expect(val2).to.eql "s"
-    
+
     #current scene
     expect(re.scene()).to.eql null
 

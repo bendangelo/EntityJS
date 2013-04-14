@@ -41,7 +41,7 @@
 #    called = true
 #    waits(300)
 #    runs(function(){
-#      expect(called).to.be.ok()
+#      expect(called).to.be.ok
 #      re.loop().stop();
 #    })
 #  })
@@ -51,7 +51,7 @@
 #    expect(re.e('shape ddd').drawFirst()).to.exist
 #
 #    var l = 0
-#    expect(list[l].has('ddd')).to.be.ok()
+#    expect(list[l].has('ddd')).to.be.ok
 #  })
 #
 #  it('drawLast', function(){
@@ -62,7 +62,7 @@
 #    expect(k.drawLast()).to.exist
 #
 #    var l = list.length-1
-#    expect(list[l].has('db77')).to.be.ok()
+#    expect(list[l].has('db77')).to.be.ok
 #
 #  })
 #
@@ -75,7 +75,7 @@
 #
 #
 #    var l = list.indexOf(b)-1
-#    expect(list[l].has('db777')).to.be.ok()
+#    expect(list[l].has('db777')).to.be.ok
 #
 #  })
 #
@@ -86,7 +86,7 @@
 #
 #    expect(k.drawAfter(b)).to.exist
 #    var l = list.indexOf(b)+1
-#    expect(list[l].has('db777y')).to.be.ok()
+#    expect(list[l].has('db777y')).to.be.ok
 #
 #  })
 #
@@ -113,11 +113,11 @@
 #
 #  it('visible', function(){
 #    var k = re.e('shape');
-#    expect(k.visible()).to.be.ok()
+#    expect(k.visible()).to.be.ok
 #
 #    //move off screen
 #    k.posX += 999999999;
-#    expect(k.visible()).to.not.be.ok()
+#    expect(k.visible()).to.not.be.ok
 #  })
 #
 #})

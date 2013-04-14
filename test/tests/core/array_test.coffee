@@ -38,7 +38,7 @@ describe "core/array", ->
   #
   #  it('should select *', function(){
   #
-  #      expect(re('*')).to.be.ok();
+  #      expect(re('*')).to.be.ok;
   #  });
   #
   it "should filter", ->
@@ -89,10 +89,12 @@ describe "core/array", ->
   it "should findall", ->
     query = re([1, 5, 4, 5])
     that = this
-    eq query.findAll((v) ->
+    total = query.findAll((v) ->
       expect(that).to.eql this
       v is 5
-    , that).length, 2
+    , that).length
+
+    expect(total).to.eql 2
 
   it "addAfter", ->
     b = re.e()
@@ -121,11 +123,12 @@ describe "core/array", ->
     #add in
     n = re.e()
     q.remove e
-    expect(q.has(e)).to.not.be.ok()
+    expect(q.contains(e)).to.not.be.ok
 
   it "should removeAt", ->
     query = re([1, 2, 3, 4])
-    expect(query.removeAt(0, 2)).to.be.ok()
+
+    expect(query.removeAt(0, 2)).to.be.ok
     expect(query.length).to.eql 1
 
   it "should clear", ->
@@ -136,17 +139,19 @@ describe "core/array", ->
   it "should count", ->
     query = re([1, 1, 1, 3, 4])
     that = this
-    eq query.count((v) ->
+    total = query.count((v) ->
       expect(that).to.eql this
       v is 1
-    , that), 3
+    , that)
+
+    expect(total).to.eql 3
 
   it "contains", ->
     en = re.e()
     query = re()
-    expect(query.contains(en)).to.not.be.ok()
+    expect(query.contains(en)).to.not.be.ok
     query.push en
-    expect(query.contains(en)).to.be.ok()
+    expect(query.contains(en)).to.be.ok
 
   it "min", ->
     query = re()
@@ -189,7 +194,7 @@ describe "core/array", ->
     expect(result).to.eql 10
 
   it "isEmpty", ->
-    expect(re().isEmpty()).to.be.ok()
+    expect(re().isEmpty()).to.be.ok
 
   it "every", ->
 
@@ -200,19 +205,19 @@ describe "core/array", ->
     every = e.every((e) ->
       e.blah
     )
-    expect(every).to.not.be.ok()
+    expect(every).to.not.be.ok
     e.invoke "set", "blah", true
 
     #should now all have blah
     every = e.every((e) ->
       e.blah
     )
-    expect(every).to.be.ok()
+    expect(every).to.be.ok
 
     #length zero..
     every = re().every(->
       false
     )
-    expect(every).to.be.ok()
+    expect(every).to.be.ok
 
 

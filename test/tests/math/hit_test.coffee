@@ -6,10 +6,10 @@ describe "hit", ->
   it "should hit", ->
     e.sizeX = 40
     e.sizeY = 40
-    expect(e.hit(20, 3, 40, 40)).to.be.ok()
+    expect(e.hit(20, 3, 40, 40)).to.be.ok
 
   it "should not hit", ->
-    expect(e.hit(41, 0, 40, 40)).to.not.be.ok()
+    expect(e.hit(41, 0, 40, 40)).to.not.be.ok
 
   it "should hit object", ->
     expect(e.hit(
@@ -17,13 +17,13 @@ describe "hit", ->
       posY: 0
       sizeX: 30
       sizeY: 30
-    )).to.not.be.ok()
+    )).to.not.be.ok
     expect(e.hit(
       x: 100
       y: 0
       w: 30
       h: 30
-    )).to.not.be.ok()
+    )).to.not.be.ok
 
   it "should hit object with reg", ->
     e.sizeX = 6
@@ -37,10 +37,10 @@ describe "hit", ->
       h: 6
       regX: 6
       regY: 6
-    )).to.not.be.ok()
+    )).to.not.be.ok
 
   it "should hit object with large reg", ->
-    
+
     #screen
     e.posY = 130
     e.sizeX = 950
@@ -54,7 +54,7 @@ describe "hit", ->
       h: 40
       regX: 0
       regY: 10
-    )).to.not.be.ok()
+    )).to.not.be.ok
 
   it "should hit object with op reg", ->
     e.sizeX = 6
@@ -70,6 +70,6 @@ describe "hit", ->
       h: 6
       regX: 3
       regY: 3
-    )).to.not.be.ok()
+    )).to.not.be.ok
 
 

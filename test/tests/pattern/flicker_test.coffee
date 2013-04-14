@@ -8,7 +8,7 @@ describe "flicker", ->
     ).comp("flicker")
 
   it "flicker", ->
-    
+
     #should take 4 seconds to finis
     time = 4
     called = false
@@ -27,10 +27,10 @@ describe "flicker", ->
       called3 = true
 
     e.flicker time, [5, 5, 5, 5], 1, "heal"
-    expect(e.flickering("heal")).to.be.ok()
-    expect(e.flickering()).to.be.ok()
-    expect(called).to.be.ok()
-    
+    expect(e.flickering("heal")).to.be.ok
+    expect(e.flickering()).to.be.ok
+    expect(called).to.be.ok
+
     #manually call update
     i = 0
 
@@ -38,8 +38,8 @@ describe "flicker", ->
       e.flicker_update re.loop().stepSize
       i++
     expect(e.health).to.eql 20
-    expect(called2).to.be.ok()
-    expect(called3).to.be.ok()
+    expect(called2).to.be.ok
+    expect(called3).to.be.ok
 
   it "should flicker correctly", ->
     e.flicker 1, [5]

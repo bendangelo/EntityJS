@@ -5,9 +5,9 @@ describe "imgtext", ->
     e = re.e("serif").set("text", "blah")
 
   it "visible", ->
-    expect(e.visible()).to.be.ok()
+    expect(e.visible()).to.be.ok
     e._text = null
-    expect(e.visible()).to.not.be.ok()
+    expect(e.visible()).to.not.be.ok
 
   it "draw", ->
     expect(e.draw(re.loop().context)).to.exist

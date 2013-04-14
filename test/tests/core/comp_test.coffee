@@ -12,10 +12,10 @@ describe "comp", ->
 
   it "should add accessor", ->
     k.accessors "a b"
-    expect(k._re_getters.a).to.be.ok()
-    expect(k._re_getters.b).to.be.ok()
-    expect(k._re_setters.a).to.be.ok()
-    expect(k._re_setters.b).to.be.ok()
+    expect(k._re_getters.a).to.be.ok
+    expect(k._re_getters.b).to.be.ok
+    expect(k._re_setters.a).to.be.ok
+    expect(k._re_setters.b).to.be.ok
 
   it "should create comp in new style", ->
     re.c "jump12",
@@ -61,57 +61,58 @@ describe "comp", ->
 
   it "should requires", ->
     k.requires "test test2"
-    contains k._re_requires, "test"
-    contains k._re_requires, "test2"
+    expect(k._re_requires).to.include 'test'
+
+    expect(k._re_requires).to.include "test2"
     k.requires ["test3"]
-    contains k._re_requires, "test3"
+    expect(k._re_requires).to.include "test3"
 
   it "should alias", ->
     k.statics("bob", "bob").alias "bob"
-    expect(re.c("bob") is k).to.be.ok()
+    expect(re.c("bob") is k).to.be.ok
 
   it "should defaults", ->
     k.defaults(
       ok: 1
       ok2: 2
     ).defaults "ok3", 3
-    expect(k._re_defaults["ok3"] is 3).to.be.ok()
-    expect(k._re_defaults["ok2"] is 2).to.be.ok()
-    expect(k._re_defaults["ok"] is 1).to.be.ok()
+    expect(k._re_defaults["ok3"] is 3).to.be.ok
+    expect(k._re_defaults["ok2"] is 2).to.be.ok
+    expect(k._re_defaults["ok"] is 1).to.be.ok
 
   it "should namespaces", ->
     k = re.c("stat").namespaces(
       ok: 1
       ok2: 2
     ).namespaces("ok3", 3)
-    expect(k._re_defines["stat_ok3"] is 3).to.be.ok()
-    expect(k._re_defines["stat_ok2"] is 2).to.be.ok()
-    expect(k._re_defines["stat_ok"] is 1).to.be.ok()
+    expect(k._re_defines["stat_ok3"] is 3).to.be.ok
+    expect(k._re_defines["stat_ok2"] is 2).to.be.ok
+    expect(k._re_defines["stat_ok"] is 1).to.be.ok
 
   it "should defines", ->
     k.defines(
       b: 1
       b2: 2
     ).defines "b3", 3
-    expect(k._re_defines["b3"] is 3).to.be.ok()
-    expect(k._re_defines["b2"] is 2).to.be.ok()
-    expect(k._re_defines["b"] is 1).to.be.ok()
+    expect(k._re_defines["b3"] is 3).to.be.ok
+    expect(k._re_defines["b2"] is 2).to.be.ok
+    expect(k._re_defines["b"] is 1).to.be.ok
 
   it "should init", ->
     fun = ->
 
     k.init fun
-    expect(k._re_init is fun).to.be.ok()
+    expect(k._re_init is fun).to.be.ok
 
   it "should dispose", ->
     fun = ->
 
     k.dispose fun
-    expect(k._re_dispose is fun).to.be.ok()
+    expect(k._re_dispose is fun).to.be.ok
 
   it "should run", ->
     k.run ->
-      expect(this is k).to.be.ok()
+      expect(this is k).to.be.ok
 
 
 

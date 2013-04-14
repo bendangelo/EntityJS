@@ -5,6 +5,6 @@ describe "core/base", ->
 
   it "should tag class", ->
     c.tag "bob"
-    expect(re("#bob").tag()).toEqual c.tag()
+    expect(re("#bob").tag()).to.eql c.tag()
 
 

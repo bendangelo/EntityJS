@@ -15,11 +15,11 @@ describe "drag", ->
       called3 = true
 
     expect(e.dragStart(0, 0)).to.exist
-    expect(e.dragging).to.be.ok()
-    expect(called).to.be.ok()
+    expect(e.dragging).to.be.ok
+    expect(called).to.be.ok
     expect(e.dragUpdate(10, 0)).to.exist
-    expect(called2).to.be.ok()
+    expect(called2).to.be.ok
     expect(e.dragFinish()).to.exist
-    expect(called3).to.be.ok()
+    expect(called3).to.be.ok
 
 

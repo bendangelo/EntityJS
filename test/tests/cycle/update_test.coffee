@@ -59,8 +59,8 @@
 #
 #    re.update.update(10)
 #
-#    expect(called2).to.be.ok()
-#    expect(called).to.be.ok()
+#    expect(called2).to.be.ok
+#    expect(called).to.be.ok
 #    expect(val).to.eql( 10)
 #
 #    k.dispose();

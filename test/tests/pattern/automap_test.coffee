@@ -10,11 +10,11 @@ describe "automap", ->
     expect(e.lenY).to.eql 1
 
   it "within", ->
-    expect(e.within(-1, 0)).to.not.be.ok()
-    expect(e.within(10, 2)).to.not.be.ok()
+    expect(e.within(-1, 0)).to.not.be.ok
+    expect(e.within(10, 2)).to.not.be.ok
     e.automap 10, 2, 0
-    expect(e.within(10, 2)).to.be.ok()
-    expect(e.within(10 / 0, 10 / 0)).to.not.be.ok()
+    expect(e.within(10, 2)).to.be.ok
+    expect(e.within(10 / 0, 10 / 0)).to.not.be.ok
 
   it "should copy map by value", ->
     level = [[1, 2, 3, 4, 5, 6], [6, 5, 4, 3, 2, 1]]

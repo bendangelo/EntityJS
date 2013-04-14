@@ -18,12 +18,12 @@ describe "main", ->
 
   it "loop", ->
     called = false
-    
+
     #setup custom loop
     s.attr(loop: ->
       called = true
     ).start().stop()
     s.loop()
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
 

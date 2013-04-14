@@ -4,36 +4,36 @@ describe "force", ->
     e = re.e("force")
 
   it "isIdle", ->
-    expect(e.isIdle()).to.be.ok()
+    expect(e.isIdle()).to.be.ok
     e.velY = 0
     e.accX = 0
     e.accY = 0
     e.velX = 1
-    expect(e.isIdle()).to.not.be.ok()
+    expect(e.isIdle()).to.not.be.ok
     e.velY = 0
     e.accX = 0
     e.accY = 1
     e.velX = 0
-    expect(e.isIdle()).to.not.be.ok()
+    expect(e.isIdle()).to.not.be.ok
     e.velY = 0
     e.accX = 1
     e.accY = 0
     e.velX = 0
-    expect(e.isIdle()).to.not.be.ok()
+    expect(e.isIdle()).to.not.be.ok
     e.velY = 1
     e.accX = 0
     e.accY = 0
     e.velX = 0
-    expect(e.isIdle()).to.not.be.ok()
+    expect(e.isIdle()).to.not.be.ok
     e.velY = 0
     e.accX = 0
     e.accY = 0
     e.velX = 0
-    expect(e.isIdle()).to.be.ok()
-    
+    expect(e.isIdle()).to.be.ok
+
     #offset
     e.velY = 2
-    expect(e.isIdle(2)).to.be.ok()
+    expect(e.isIdle(2)).to.be.ok
 
   it "force", ->
     i = 10
@@ -65,7 +65,7 @@ describe "force", ->
       called = true
 
     e.trigger "update"
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
 
   it "aftermath", ->
     called = false
@@ -75,10 +75,10 @@ describe "force", ->
     expect(e.aftermath(10, 10, false, false)).to.exist
     expect(e.posX).to.eql 10
     expect(e.posY).to.eql 10
-    expect(called).to.be.ok()
+    expect(called).to.be.ok
     e.aftermath 15, 15, true, true
-    expect(e.velX is 15).to.not.be.ok()
-    expect(e.velY is 15).to.not.be.ok()
+    expect(e.velX is 15).to.not.be.ok
+    expect(e.velY is 15).to.not.be.ok
 
   it "should update with hitmap", ->
     called = false
@@ -90,9 +90,9 @@ describe "force", ->
     e.velX = 1
     e.velY = 1
     e.force_update()
-    expect(e.posX is 0).to.not.be.ok()
-    expect(e.posY is 0).to.not.be.ok()
-    expect(called).to.be.ok()
+    expect(e.posX is 0).to.not.be.ok
+    expect(e.posY is 0).to.not.be.ok
+    expect(called).to.be.ok
 
   it "should update with no hitmap", ->
     e.hitmap = null
