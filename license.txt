@@ -1,1 +1,0 @@
-/* EntityJS v$VERSION entityjs.com | License entityjs.com/license */
