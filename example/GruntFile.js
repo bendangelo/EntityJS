@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
-        banner: "/* Entity Game Engine | MIT License */",
+        banner: "/* Example Game | MIT License */",
 
         concat: {
 
@@ -17,13 +17,9 @@ module.exports = function(grunt) {
                 },
 
                 src: [
-                    'lib/core/re.js',
-                    'lib/util/extend.js',
-                    'lib/core/base.js',
-                    'lib/core/*.js',
                     'lib/**/*.js'
                     ],
-                dest: 'example/assets/vendor/<%= pkg.name %>.js'
+                dest: '<%= pkg.name %>.js'
             }
 
         },
@@ -40,17 +36,6 @@ module.exports = function(grunt) {
                 dest: '<%= pkg.name %>.min.js'
             }
 
-        },
-
-        watch: {
-            coffee: {
-                files: ["test/tests/**/*.coffee"],
-                tasks: ["coffee:test"]
-            },
-            jade: {
-                files: ["test/index.jade"],
-                tasks: ["jade:test"]
-            }
         },
 
         mocha: {
@@ -91,21 +76,27 @@ module.exports = function(grunt) {
             }
         },
 
+        watch: {
+            jade: {
+                files: ["test/**/*.jade", "play.jade"],
+                tasks: ["jade"]
+            }
+        },
+
         jade: {
 
             test: {
 
                 css: [
-                    "example/test/css/**/*.css"
+                    "test/css/**/*.css"
                 ],
 
                 vendorjs: [
-                    "example/test/js/**/*.js",
                     "test/js/**/*.js"
                 ],
 
                 testjs: [
-                    'dest/test/tests/**/*_test.js'
+                    "test/tests/**/*_test.js"
                 ],
 
                 options: {
@@ -122,51 +113,49 @@ module.exports = function(grunt) {
                 files: {
                     "dest/test/index.html": ["test/index.jade"]
                 }
-            }
-        },
-
-        coffee: {
-
-            test: {
-                expand: true,
-                cwd: "test/tests",
-                src: [
-                    "**/*.coffee"
-                ],
-                dest: "dest/test/tests",
-                ext: ".js"
-            }
-
-        },
-
-        dox: {
-            options: {
-                title: "Entity Documentation"
             },
-            files: {
-                src: ['lib/**/*.js'],
-                dest: 'docs'
+
+            play: {
+
+                css: [
+                    "assets/stylesheets/**/*.css"
+                ],
+
+                vendorjs: [
+                    "assets/vendor/**/*.js"
+                ],
+
+                options: {
+                    data: {
+                        css: "<%= grunt.file.expand(jade.play.css) %>",
+                        vendorjs: "<%= grunt.file.expand(jade.play.vendorjs) %>",
+                        lib: "<%= grunt.file.expand(concat.lib.src) %>"
+                    }
+                },
+
+                files: {
+                    "dest/play.html": ["play.jade"]
+                }
+
             }
         }
 
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-mocha');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-dox');
     grunt.loadNpmTasks('grunt-contrib-jade');
 
     grunt.registerTask('test', ['build:test', 'connect:test', 'mocha:test']);
     grunt.registerTask("server", ["build:test", "connect:server"]);
 
-    grunt.registerTask('build:test', ['coffee:test', 'jade:test']);
+    grunt.registerTask('build:test', ['jade']);
     grunt.registerTask('build:dev', ['concat:lib']);
-    grunt.registerTask('build:release', ['build:dev', 'uglify:lib', 'dox']);
+    grunt.registerTask('build:release', ['build:dev', 'uglify:lib']);
 
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['test']);
 
 };

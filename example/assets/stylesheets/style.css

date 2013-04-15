@@ -1,0 +1,76 @@
+
+/*
+Styling for play.html
+*/
+.canvas {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  position:relative;
+}
+
+/*
+  For el comp
+*/
+.el {
+  z-index:100;
+  position:absolute;
+}
+
+body {
+    background-color:#F2F2F2;
+    font-family: sans-serif;
+}
+
+#content {
+    margin:15px 0 15px 0;
+    padding:20px 10px 30px 10px;
+    min-height:350px;
+    border-radius:2px;
+    color:#333333;
+    background-color:#ffffff;
+
+}
+
+.links a, .links a:visited {
+    color:#5b9463;
+}
+
+.links a:hover {
+    color:#77b981;
+}
+
+.links a.highlight, .links a.highlight:visited {
+    color:#D94E4E;
+}
+
+.links a.highlight:hover {
+    color:#ec7979;
+}
+
+.block {
+    margin-top:25px;
+}
+
+ul.links li{
+    margin:5px;
+    display:inline-block;
+}
+
+.float-right {
+  float:right;
+}
+
+.float-left {
+  float:left;
+}
+
+.clear {
+
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}

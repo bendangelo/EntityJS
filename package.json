@@ -32,8 +32,8 @@
     "grunt-contrib-connect": "~0.2.0",
     "growl": "~1.7.0",
     "grunt-mocha": "~0.3.1",
-    "grunt-replace": "~0.4.2",
-    "grunt-contrib-coffee": "~0.6.6"
+    "grunt-contrib-coffee": "~0.6.6",
+    "grunt-contrib-jade": "~0.5.0"
   },
   "dependencies": {}
 }
