@@ -1,7 +1,16 @@
-re.ready(function(){
-  
-  re.loop().init(re.canvas).start();
-  
-  re.scene('load').enter();
-  
+re.ready(function() {
+
+    re.load.path = "/assets/";
+
+    re.assets = [
+        "images/bit.png",
+        "images/hero.png",
+        "images/items.png",
+        "images/tiles.png",
+    ];
+
+    re.loop().init(re.$("#game-canvas")).start();
+
+    re.scene('load').enter();
+
 });
