@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var ncp = require("ncp");
+var pkg = require("../package.json");
+var fs = require("fs");
+var path = require('path');
+
+var rootPath = path.resolve(__dirname + "/..");
+
+program
+    .version(pkg.version)
+    .usage("[command] [options]");
+
+program
+    .command("new")
+    .description("create a new entity game")
+    .action(function(args){
+       ncp.clobber = false;
+
+       var name = "entity";
+
+       if(typeof args == "string"){
+            name = args;
+       }
+
+       var gamePath = path.resolve(rootPath, "example");
+       var copyPath = path.resolve(process.cwd(), name);
+
+       fs.mkdirSync(name);
+
+       // return;
+       ncp(gamePath, copyPath, function(err){
+            if(err){
+                throw err;
+            }
+
+            console.log("Finished!");
+            console.log("");
+            console.log("cd", copyPath);
+            console.log("npm install");
+            console.log("sudo npm install grunt -g");
+            console.log("grunt server");
+            console.log("");
+            console.log("Checkout http://www.entityjs.com for help");
+       });
+
+    });
+
+program.parse(process.argv);
+
