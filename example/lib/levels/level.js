@@ -5,6 +5,7 @@ re.c('level')
     if(re.hitmap){
       re.hitmap.dispose();
     }
+
     re.hitmap = re.e('hitmap');
 
     this.placeTiles();

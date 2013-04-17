@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                     run: true,
 
                     urls: [
-                        "http://localhost:" + port+1 + "/test/index.html"
+                        "http://localhost:" + port+1 + "/dest/test/index.html"
                     ]
 
                 }

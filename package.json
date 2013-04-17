@@ -8,7 +8,7 @@
     "email": "ben.dangelo2@gmail.com",
     "url": "http://bendangelo.me"
   },
-  "main": "entity.js",
+  "main": "example/assets/vendor/entity.js",
   "scripts": {
     "test": "grunt test"
   },

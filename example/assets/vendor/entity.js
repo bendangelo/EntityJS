@@ -1601,7 +1601,6 @@ re.c('loop')
         //init systems
         this.keyboardSys = re.s('keyboard').create();
         this.mouseSys = re.s('mouse').create(this.canvas);
-        // this.touchSys = re.s('touch').create();
 
         this.renderSys = re.s('render').create(this.context);
         this.updateSys = re.s('update').create();
@@ -1631,6 +1630,7 @@ re.c('loop')
     }
 
 });
+
 /*
 The system class defines a special component which can control all entities. It can be called every frame in the main loop or whenever.
 

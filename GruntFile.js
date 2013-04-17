@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
-        banner: "/* Entity Game Engine | MIT License */",
+        banner: "/* Entity Game Engine | MIT License */\n",
 
         concat: {
 
@@ -167,6 +167,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build:dev', ['concat:lib']);
     grunt.registerTask('build:release', ['build:dev', 'uglify:lib', 'dox']);
 
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['build:test', 'build:release']);
 
 };
