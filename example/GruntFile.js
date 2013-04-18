@@ -87,11 +87,15 @@ module.exports = function(grunt) {
 
             test: {
 
-                css: [
+                testcss: [
                     "test/css/**/*.css"
                 ],
 
-                vendorjs: [
+                css: [
+                    "assets/stylesheets/**/*.css"
+                ],
+
+                testvendorjs: [
                     "test/js/**/*.js"
                 ],
 
@@ -99,10 +103,16 @@ module.exports = function(grunt) {
                     "test/tests/**/*_test.js"
                 ],
 
-                options: {
+                vendorjs: [
+                    "assets/vendor/**/*.js"
+                ],
 
+                options: {
+                    pretty: true,
                     data: {
+                        testcss: "<%= grunt.file.expand(jade.test.testcss) %>",
                         css: "<%= grunt.file.expand(jade.test.css) %>",
+                        testvendorjs: "<%= grunt.file.expand(jade.test.testvendorjs) %>",
                         vendorjs: "<%= grunt.file.expand(jade.test.vendorjs) %>",
                         testjs: "<%= grunt.file.expand(jade.test.testjs) %>",
                         lib: "<%= grunt.file.expand(concat.lib.src) %>"
@@ -126,6 +136,7 @@ module.exports = function(grunt) {
                 ],
 
                 options: {
+                    pretty: true,
                     data: {
                         css: "<%= grunt.file.expand(jade.play.css) %>",
                         vendorjs: "<%= grunt.file.expand(jade.play.vendorjs) %>",
@@ -134,7 +145,7 @@ module.exports = function(grunt) {
                 },
 
                 files: {
-                    "dest/play.html": ["play.jade"]
+                    "dest/test/play.html": ["test/play.jade"]
                 }
 
             }

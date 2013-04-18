@@ -3,7 +3,7 @@ html
   head
     meta(http-equiv='X-UA-Compatible', content='IE=Edge,chrome=1')
     title Play Test
-    link(rel='Shortcut Icon', href='/favicon.ico')
+    link(rel='Shortcut Icon', href='/test/favicon.ico')
 
     for c in css.split(',')
       link(href="/#{c}", type="text/css", rel="stylesheet")
@@ -16,6 +16,8 @@ html
 
   body
     #content
+      h1 Play
+
       .canvas
         canvas#game-canvas(width='500', height='400')
           p

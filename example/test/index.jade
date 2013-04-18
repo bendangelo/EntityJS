@@ -4,33 +4,45 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=Edge,chrome=1')
     title Test Entity
 
-    link(rel='Shortcut Icon', href='/favicon.ico')
+    link(rel='Shortcut Icon', href='/test/favicon.ico')
 
-    for c in css.split(',')
+    // Test CSS
+    for c in testcss.split(',')
       link(href="/#{c}", type="text/css", rel="stylesheet")
 
-    for j in vendorjs.split(',')
+    // Test Vendor
+    for j in testvendorjs.split(',')
       script(src="/#{j}")
 
     script(type='text/javascript', charset='utf-8')
       mocha.setup('bdd');
       expect = chai.expect;
 
+    // CSS
+    for c in css.split(',')
+      link(href="/#{c}", type="text/css", rel="stylesheet")
+
+    // Vendor
+    for j in vendorjs.split(',')
+      script(src="/#{j}")
+
+    // Lib
     for j in lib.split(',')
       script(src="/#{j}")
 
+    // Tests
     for j in testjs.split(',')
       script(src="/#{j}")
 
   body
     #mocha
-    #content
-      .game-container
-        canvas#game-canvas(width='500', height='400')
-          p
-            | Requires a modern browser to play. Try downloading
-            a(href='http://google.com/chrome') Chrome
-            | .
+
+    .game-container
+      canvas#game-canvas(width='500', height='400')
+        p
+          | Requires a modern browser to play. Try downloading
+          a(href='http://google.com/chrome') Chrome
+          | .
     script(type='text/javascript', charset='utf-8')
       if (navigator.userAgent.indexOf('PhantomJS') < 0) {
       mocha.run();
