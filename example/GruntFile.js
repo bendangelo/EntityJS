@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                     banner: "<%= banner %>"
                 },
 
-                src: '<%= concat.lib.dest %>',
+                src: '<%= concat.lib.dist %>',
                 dest: '<%= pkg.name %>.min.js'
             }
 
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                     run: true,
 
                     urls: [
-                        "http://localhost:" + port+1 + "/dest/test/index.html"
+                        "http://localhost:" + port+1 + "/dist/test/index.html"
                     ]
 
                 }
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
                 },
 
                 files: {
-                    "dest/test/index.html": ["test/index.jade"]
+                    "dist/test/index.html": ["test/index.jade"]
                 }
             },
 
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
                 },
 
                 files: {
-                    "dest/test/play.html": ["test/play.jade"]
+                    "dist/test/play.html": ["test/play.jade"]
                 }
 
             }
