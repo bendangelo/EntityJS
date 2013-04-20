@@ -3,15 +3,9 @@ An HTML5 javascript game engine utlizing the entity-component design. Write high
 
 [EntityJS Website](http://entityjs.com) | [Demos](http://entityjs.com/demos) | [Tutorials](http://entityjs.com/tutorials) | [API](http://entityjs.com/api)
 
-## Version 0.4.2
+## EntityJS is currently being rewritten
 
-* Stylesheets are now automatically included. Place css in the styles folder.
-* Factory method added to comp.
-* El comp can place elements on top of canvas.
-* Converted config.yml to game.json.
-* Attributes inside game.json are available in js.
-* Use `entityjs html` make changes to the html.
-* Builds folder removed and replaced with a single build.
+Version 0.5.0 is moving away from ruby to a nodejs package. The game engine is also moving towards an entity-system design pattern. Checkout the dev branch for the latest updates.
 
 ## API
 Currently the [API](http://entityjs.com/api) is out of date. It will slowly be updated everyday.
@@ -120,13 +114,13 @@ View [all commands](/bendangelo/EntityJS/wiki/commands)
 #### Setters can even be used in `attr()`
 
     tile.attr('tileX', 2); //sets
-  
+
 #### Setter with multiple parameters
 
     tile.tile(1, 2); //sets tilex and tiley
     //or
     tile.attr('tile', [1,2]); //samething
-  
+
 ### Factories in 0.4.2
 
 All components now have a factory method which can be used to create complex entities.
@@ -145,7 +139,7 @@ All components now have a factory method which can be used to create complex ent
     });
 
     //Can be overwritten using the `method` function. A singleton is created below.
-    
+
     re.c("player")
     .method(function(){
       if(!this.instance){
@@ -166,45 +160,45 @@ All games use [QUnit](http://docs.jquery.com/QUnit) for testing, its light weigh
 Factories are used to easily create complex entities. During tests you may need access to a specific type of entity multiple times. Factories make it easy to create any kind of entity at anytime.
 
 Simply create a new `factories.js` in the `/tests` directory and add something like below.
-    
+
     factory('enemy', function(){
       //make a custom coin
       this.health = 100;
       this.state = 'idle';
-      
+
       //can use normal entity methods
       this.on('update', function(){
         //something
       });
     });
-    
+
     //create new enemy entity anywhere in tests
     var e = factory('enemy');
     eq(e.state, 'idle') //true
-    
+
     //Same as...
     var e = re.e('enemy');
     e.health = 100;
     //etc...
-    
+
 What if you need multiple enemy factories?
 
     //use f for laziness
     f('enemy attacking', function(){
       this.state = 'attacking';
     });
-    
+
 ### EntityJS Helpers
 
 Some asserts have been added for checking entities, like `expectTrigger`, `expectFlicker` and `expectListener`. For more info check `localhost:2345/qunit/qunit.entity.js`.
 
 ### Input Helpers
 
-Special methods like `keypress()` and `click()` are available to simulate user input. Check `localhost:2345/qunit/qunit.input.js` for more information.  
+Special methods like `keypress()` and `click()` are available to simulate user input. Check `localhost:2345/qunit/qunit.input.js` for more information.
 
 ## Tile Map Editor
 
-The awesome [tiled map editor](http://www.mapeditor.org/) is now compatible and can be used in your projects. 
+The awesome [tiled map editor](http://www.mapeditor.org/) is now compatible and can be used in your projects.
 
 Simply create a new directory in /assets named levels or anything you like to save your maps in. They can accessed in code like so:
 
@@ -214,7 +208,7 @@ Simply create a new directory in /assets named levels or anything you like to sa
 If you are still confused create a new platform game and view levels are used.
 
 ## Quick Start Guide
-First you should install [ruby](http://rubyinstaller.org/) and the [entityjs gem](http://rubygems.org/gems/entityjs). 
+First you should install [ruby](http://rubyinstaller.org/) and the [entityjs gem](http://rubygems.org/gems/entityjs).
 
 Now you can create a new game from the platform template:
 `entityjs new mygame platform`
