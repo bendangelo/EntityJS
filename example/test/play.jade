@@ -5,12 +5,15 @@ html
     title Play Test
     link(rel='Shortcut Icon', href='/test/favicon.ico')
 
+    // css
     for c in css.split(',')
       link(href="/#{c}", type="text/css", rel="stylesheet")
 
+    // vendor
     for j in vendorjs.split(',')
       script(src="/#{j}")
 
+    // lib
     for j in lib.split(',')
       script(src="/#{j}")
 
