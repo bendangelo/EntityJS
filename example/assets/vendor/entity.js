@@ -1,4 +1,5 @@
-/* Entity Game Engine | MIT License */re = function(selector){
+/* Entity Game Engine | MIT License */
+re = function(selector){
 	if(typeof selector == 'string'){
     if(selector[0] == '#'){
       //return tagged item
@@ -2448,13 +2449,13 @@ sprite.flicker('run')
 re.c('sprite')
 .requires('image bisect')
 .defaults({
-    
+
     frameX:0,
     frameY:0
-    
+
 })
 .defines({
-    
+
     frame:function(i){
       if(re.is(i)){
         this.frameX = this.biToTileX(i);
@@ -2463,13 +2464,13 @@ re.c('sprite')
       }
       return this.tileToBi(this.frameX, this.frameY);
     },
-    
+
     draw:function(c){
         c.drawImage(this._image, this.frameX * this.sizeX, this.frameY * this.sizeY, this.sizeX, this.sizeY, -this.regX, -this.regY, this.sizeX, this.sizeY);
-        
+
         return this;
     }
-    
+
 });
 /*
 The text component displays font on screen using the canvas font api.
@@ -2781,18 +2782,11 @@ re.s('mouse')
 
   processX: function(e, x) {
 
-    if (e.screenable) {
-      x = re.screen().toScreenX(x);
-    }
-
     //offset mouse coordinates
     return x + this.offX;
   },
 
   processY: function(e, y) {
-    if (e.screenable) {
-      y = re.screen().toScreenY(y);
-    }
 
     //offset mouse coordinates
     return y + this.offY;
