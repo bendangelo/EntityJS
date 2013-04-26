@@ -13,7 +13,8 @@ module.exports = function(grunt) {
             lib: {
 
                 options: {
-                    banner: "<%= banner %>"
+                    banner: "<%= banner %>\n(function(window){",
+                    footer: "})(this);"
                 },
 
                 src: [
