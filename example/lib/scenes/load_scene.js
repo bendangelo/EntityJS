@@ -1,12 +1,21 @@
+Game.Scenes.Load = en.Scene.extend({
+
+  enter: function(){
+      this.loader = new Game.Loader();
+
+      this.listenTo(this.loader, "complete", this.onComplete);
+
+      this.loader.start();
+  },
+
+  onComplete: function(){
+    Game.sceneManager.enter("home");
+  }
+
+});
+
 re.scene('load')
 .enter(function(){
-
-  re.assets = [
-      "images/bit.png",
-      "images/hero.png",
-      "images/items.png",
-      "images/tiles.png"
-  ];
 
   re.tile.sizeX = re.tile.sizeY = 25;
 
