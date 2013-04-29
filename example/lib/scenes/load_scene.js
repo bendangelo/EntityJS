@@ -13,7 +13,7 @@ Game.Scenes.Load = en.Scene.extend({
   }
 
 });
-
+/*
 re.scene('load')
 .enter(function(){
 
@@ -41,3 +41,4 @@ re.scene('load')
 .exit(function(){
   //exit load scene
 });
+*/
