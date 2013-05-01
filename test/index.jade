@@ -6,9 +6,11 @@ html
 
     link(rel='Shortcut Icon', href='/favicon.ico')
 
+    // stylesheets
     for c in css.split(',')
       link(href="/#{c}", type="text/css", rel="stylesheet")
 
+    // vendors
     for j in vendorjs.split(',')
       script(src="/#{j}")
 
@@ -16,9 +18,11 @@ html
       mocha.setup('bdd');
       expect = chai.expect;
 
+    // lib
     for j in lib.split(',')
       script(src="/#{j}")
 
+    // tests
     for j in testjs.split(',')
       script(src="/#{j}")
 
@@ -28,10 +32,10 @@ html
       .game-container
         canvas#game-canvas(width='500', height='400')
           p
-            | Requires a modern browser to play. Try downloading
+            | Requires a modern browser to play. Try downloading&nbsp;
             a(href='http://google.com/chrome') Chrome
             | .
     script(type='text/javascript', charset='utf-8')
-      if (navigator.userAgent.indexOf('PhantomJS') < 0) {
-      mocha.run();
+      if (navigator.userAgent.indexOf('PhantomJS') == -1) {
+        mocha.run();
       }

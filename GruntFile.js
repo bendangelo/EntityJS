@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
 
-    var port = 9000;
+    var port = 3000;
 
     grunt.initConfig({
 
@@ -18,11 +18,14 @@ module.exports = function(grunt) {
                 },
 
                 src: [
-                    'lib/core/re.js',
-                    'lib/util/extend.js',
-                    'lib/core/base.js',
+                    'lib/header.js',
+                    'lib/vendor/fiber.js',
+                    'lib/core/class.js',
+                    'lib/core/events.js',
                     'lib/core/*.js',
-                    'lib/**/*.js'
+                    'lib/systems/system.js',
+                    'lib/**/!(footer).js',
+                    'lib/footer.js'
                     ],
                 dest: 'example/assets/vendor/<%= pkg.name %>.js'
             }
@@ -101,16 +104,15 @@ module.exports = function(grunt) {
                 ],
 
                 vendorjs: [
-                    "example/test/js/**/*.js",
-                    "test/js/**/*.js"
+                    "example/test/js/**/*.js"
                 ],
 
                 testjs: [
-                    'dist/test/tests/**/*_test.js'
+                    'dist/test/tests/**/*.js'
                 ],
 
                 options: {
-
+                    pretty: true,
                     data: {
                         css: "<%= grunt.file.expand(jade.test.css) %>",
                         vendorjs: "<%= grunt.file.expand(jade.test.vendorjs) %>",
@@ -168,6 +170,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build:dev', ['concat:lib']);
     grunt.registerTask('build:release', ['build:dev', 'uglify:lib', 'dox']);
 
-    grunt.registerTask('default', ['build:test', 'build:release']);
+    grunt.registerTask('default', ['build:test', 'build:release', 'server']);
 
 };
