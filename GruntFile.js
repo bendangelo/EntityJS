@@ -23,7 +23,6 @@ module.exports = function(grunt) {
                     'lib/core/class.js',
                     'lib/core/events.js',
                     'lib/core/*.js',
-                    'lib/systems/system.js',
                     'lib/**/!(footer).js',
                     'lib/footer.js'
                     ],

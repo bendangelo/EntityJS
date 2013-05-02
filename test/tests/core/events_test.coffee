@@ -15,6 +15,7 @@ describe "core/events", ->
 
         expect(call).to.be.called
         expect(call).to.be.calledWith 10
+        expect(event._events.trigger).to.exist
 
         event.off()
 

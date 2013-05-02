@@ -9,7 +9,7 @@ Game = {
         this.tileSize = 25;
 
         this.world = new Game.World();
-        this.sceneManager = new en.SceneManager();
+        this.sceneManager = this.world.sceneManager;
 
         for(var i in Game.Scenes){
             this.sceneManager.add(i.toLowerCase(), new Game.Scenes[i]());

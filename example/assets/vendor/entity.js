@@ -20,83 +20,277 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 en.$ = function(id){
     return document.getElementById(id.substr(1));
 };
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
-// Inspired by base2 and Prototype
-(function(){
-  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+//     Fiber.js 1.0.5
+//     @author: Kirollos Risk
+//
+//     Copyright (c) 2012 LinkedIn.
+//     All Rights Reserved. Apache Software License 2.0
+//     http://www.apache.org/licenses/LICENSE-2.0
 
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
+(function () {
+  /*jshint bitwise: true, camelcase: false, curly: true, eqeqeq: true,
+    forin: false, immed: true, indent: 2, latedef: true, newcap: false,
+    noarg: true, noempty: false, nonew: true, plusplus: false,
+    quotmark: single, regexp: false, undef: true, unused: true, strict: false,
+    trailing: true, asi: false, boss: false, debug: false, eqnull: true,
+    es5: false, esnext: false, evil: true, expr: false, funcscope: false,
+    iterator: false, lastsemic: false, laxbreak: false, laxcomma: false,
+    loopfunc: false, multistr: true, onecase: false, proto: false,
+    regexdash: false, scripturl: false, smarttabs: false, shadow: true,
+    sub: true, supernew: true, validthis: false */
 
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop, statics) {
-    var _super = this.prototype;
+  /*global exports, global, define, module */
 
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-
-    var name;
-
-    // Copy the properties over onto the new prototype
-    for (name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == "function" &&
-        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-        (function(name, fn){
-          return function() {
-            var tmp = this._super;
-
-            // Add a new ._super() method that is the same method
-            // but on the super-class
-            this._super = _super[name];
-
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
-            var ret = fn.apply(this, arguments);
-            this._super = tmp;
-
-            return ret;
-          };
-        })(name, prop[name]) :
-        prop[name];
+  (function (root, factory) {
+    if (typeof exports === 'object') {
+      // Node. Does not work with strict CommonJS, but
+      // only CommonJS-like environments that support module.exports,
+      // like Node.
+      module.exports = factory(this);
+    } else if (typeof define === 'function' && define.amd) {
+      // AMD. Register as an anonymous module.
+      define(function () {
+        return factory(root);
+      });
+    } else {
+      // Browser globals (root is window)
+      root.Fiber = factory(root);
     }
+  }(this, function (global) {
 
-    // add properties to class
-    if(statics){
-      for(name in statics){
-        Class[name] = statics[name];
+    // Baseline setup
+    // --------------
+
+    // Stores whether the object is being initialized. i.e., whether
+    // to run the `init` function, or not.
+    var initializing = false,
+
+    // Keep a few prototype references around - for speed access,
+    // and saving bytes in the minified version.
+    ArrayProto = Array.prototype,
+
+    // Save the previous value of `Fiber`.
+    previousFiber = global.Fiber;
+
+    // Helper function to copy properties from one object to the other.
+    function copy(from, to) {
+      var name;
+      for (name in from) {
+        if (from.hasOwnProperty(name)) {
+          to[name] = from[name];
+        }
       }
     }
 
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if ( !initializing && this.init )
-        this.init.apply(this, arguments);
-    }
+    // The base `Fiber` implementation.
+    function Fiber() {}
 
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
+    // ###Extend
+    //
+    // Returns a subclass.
+    Fiber.extend = function (fn) {
+      // Keep a reference to the current prototye.
+      var parent = this.prototype,
 
-    // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
+      // Invoke the function which will return an object literal used to
+      // define the prototype. Additionally, pass in the parent prototype,
+      // which will allow instances to use it.
+      properties = (typeof fn === 'function') ? fn(parent) : fn,
 
-    // And make this class extendable
-    Class.extend = arguments.callee;
+      // Stores the constructor's prototype.
+      proto;
 
-    return Class;
-  };
-})(en);
-en.Entity = en.Events.extend({
+      // The constructor function for a subclass.
+      function child() {
+        if (!initializing) {
+          // Custom initialization is done in the `init` method.
+          this.init.apply(this, arguments);
+          // Prevent subsequent calls to `init`. Note: although a `delete
+          // this.init` would remove the `init` function from the instance, it
+          // would still exist in its super class' prototype.  Therefore,
+          // explicitly set `init` to `void 0` to obtain the `undefined`
+          // primitive value (in case the global's `undefined` property has
+          // been re-assigned).
+          this.init = void 0;
+        }
+      }
 
-});
+      // Instantiate a base class (but only create the instance, without
+      // running `init`). And, make every `constructor` instance an instance
+      // of `this` and of `constructor`.
+      initializing = true;
+      proto = child.prototype = new this;
+      initializing = false;
 
+      // Add default `init` function, which a class may override; it should
+      // call the super class' `init` function (if it exists);
+      proto.init = function () {
+        if (typeof parent.init === 'function') {
+          parent.init.apply(this, arguments);
+        }
+      };
+
+       // Copy the properties over onto the new prototype.
+      copy(properties, proto);
+
+      // Enforce the constructor to be what we expect.
+      proto.constructor = child;
+
+      // Keep a reference to the parent prototype.
+      // (Note: currently used by decorators and mixins, so that the parent
+      // can be inferred).
+      child.__base__ = parent;
+
+      // Make this class extendable, this can be overridden by providing a
+      // custom extend method on the proto.
+      child.extend = child.prototype.extend || Fiber.extend;
+
+
+      return child;
+    };
+
+    // Utilities
+    // ---------
+
+    // ###Proxy
+    //
+    // Returns a proxy object for accessing base methods with a given context.
+    //
+    // - `base`: the instance' parent class prototype.
+    // - `instance`: a Fiber class instance.
+    //
+    // Overloads:
+    //
+    // - `Fiber.proxy( instance )`
+    // - `Fiber.proxy( base, instance )`
+    //
+    Fiber.proxy = function (base, instance) {
+      var name,
+        iface = {},
+        wrap;
+
+      // If there's only 1 argument specified, then it is the instance,
+      // thus infer `base` from its constructor.
+      if (arguments.length === 1) {
+        instance = base;
+        base = instance.constructor.__base__;
+      }
+
+      // Returns a function which calls another function with `instance` as
+      // the context.
+      wrap = function (fn) {
+        return function () {
+          return base[fn].apply(instance, arguments);
+        };
+      };
+
+      // For each function in `base`, create a wrapped version.
+      for (name in base) {
+        if (base.hasOwnProperty(name) && typeof base[name] === 'function') {
+          iface[name] = wrap(name);
+        }
+      }
+      return iface;
+    };
+
+    // ###Decorate
+    //
+    // Decorate an instance with given decorator(s).
+    //
+    // - `instance`: a Fiber class instance.
+    // - `decorator[s]`: the argument list of decorator functions.
+    //
+    // Note: when a decorator is executed, the argument passed in is the super
+    // class' prototype, and the context (i.e. the `this` binding) is the
+    // instance.
+    //
+    //  *Example usage:*
+    //
+    //     function Decorator( base ) {
+    //       // this === obj
+    //       return {
+    //         greet: function() {
+    //           console.log('hi!');
+    //         }
+    //       };
+    //     }
+    //
+    //     var obj = new Bar(); // Some instance of a Fiber class
+    //     Fiber.decorate(obj, Decorator);
+    //     obj.greet(); // hi!
+    //
+    Fiber.decorate = function (instance /*, decorator[s] */) {
+      var i,
+        // Get the base prototype.
+        base = instance.constructor.__base__,
+        // Get all the decorators in the arguments.
+        decorators = ArrayProto.slice.call(arguments, 1),
+        len = decorators.length;
+
+      for (i = 0; i < len; i++) {
+        copy(decorators[i].call(instance, base), instance);
+      }
+    };
+
+    // ###Mixin
+    //
+    // Add functionality to a Fiber definition
+    //
+    // - `definition`: a Fiber class definition.
+    // - `mixin[s]`: the argument list of mixins.
+    //
+    // Note: when a mixing is executed, the argument passed in is the super
+    // class' prototype (i.e., the base)
+    //
+    // Overloads:
+    //
+    // - `Fiber.mixin( definition, mix_1 )`
+    // - `Fiber.mixin( definition, mix_1, ..., mix_n )`
+    //
+    // *Example usage:*
+    //
+    //     var Definition = Fiber.extend(function(base) {
+    //       return {
+    //         method1: function(){}
+    //       }
+    //     });
+    //
+    //     function Mixin(base) {
+    //       return {
+    //         method2: function(){}
+    //       }
+    //     }
+    //
+    //     Fiber.mixin(Definition, Mixin);
+    //     var obj = new Definition();
+    //     obj.method2();
+    //
+    Fiber.mixin = function (definition /*, mixin[s] */) {
+      var i,
+        // Get the base prototype.
+        base = definition.__base__,
+        // Get all the mixins in the arguments.
+        mixins = ArrayProto.slice.call(arguments, 1),
+        len = mixins.length;
+
+      for (i = 0; i < len; i++) {
+        copy(mixins[i](base), definition.prototype);
+      }
+    };
+
+    // ###noConflict
+    //
+    // Run Fiber.js in *noConflict* mode, returning the `fiber` variable to
+    // its previous owner. Returns a reference to the Fiber object.
+    Fiber.noConflict = function () {
+      global.Fiber = previousFiber;
+      return Fiber;
+    };
+
+    return Fiber;
+  }));
+} ());
+en.Class = Fiber;
 en.Events = en.Class.extend({
 
     on: function(name, callback, context){
@@ -108,7 +302,7 @@ en.Events = en.Class.extend({
             this._events[name] = [];
         }
 
-        console.assert(!method, "Event callback is null");
+        console.assert(callback, "Event callback is null");
 
         this._events[name].push({callback: callback, context: context || this});
 
@@ -117,7 +311,7 @@ en.Events = en.Class.extend({
 
     off: function(name, callback){
 
-        if(method){
+        if(callback){
             var types = this._events[name];
 
             if(types){
@@ -140,12 +334,12 @@ en.Events = en.Class.extend({
 
         var events = this._events[type], e;
 
-        for(var i=0, l = events[type].length; i<l; i++){
+        for(var i=0, l = events.length; i<l; i++){
             e = events[i];
 
             if(!e) break;
 
-            e.callback.apply(e.context, Array.prototype.slice.call(argments, 1));
+            e.callback.apply(e.context, Array.prototype.slice.call(arguments, 1));
         }
 
         return this;
@@ -160,9 +354,25 @@ en.Events = en.Class.extend({
     }
 
 });
-en.Loader = en.Events({
+/*
+The Group class is an array of objects, usually nodes.
+
+Example:
+
+    var monsters = new en.Group();
+
+    en.Monsters = en.Group.extend({
+
+    });
+
+*/
+en.Group = en.Class.extend({
 
 });
+en.Node = en.Events.extend({
+
+});
+
 en.Scene = en.Class.extend({
 
     enter: function() {
@@ -174,29 +384,45 @@ en.Scene = en.Class.extend({
     }
 
 });
+en.System = en.Class.extend({
+
+    init: function(){
+        this.entities = [];
+    },
+
+    processAll: function(){
+        for(var i in this.entities){
+            // process must be implemented
+            this.process(this.entities[i]);
+        }
+    }
+
+});
 en.Timer = en.Class.extend({
 
-},
-{
-    tick: function(){
-        var wall = Date.now();
-        var last = this.lastTime;
-
-        this.lastTime = wall;
-
-        return wall - last;
-    }
 });
+
+en.Timer.lastTime = 0;
+
+en.Timer.tick = function(){
+    var wall = Date.now();
+    var last = this.lastTime;
+
+    this.lastTime = wall;
+
+    return wall - last;
+};
 en.World = en.Class.extend({
 
     running: false,
     stepSize: 0.03,
     maxTick: 0.05,
     stepProgress: 0,
-    color: "#f9f9f9",
 
     init: function(canvas){
-        this.setCanvas(canvas);
+        if(canvas){
+            this.setCanvas(canvas);
+        }
 
         // find supported animation frame
         this.requestAnimationFrame =
@@ -209,13 +435,7 @@ en.World = en.Class.extend({
             window.setTimeout(callback, 1000 / 60);
         };
 
-        this._requestAnimBind = this._requestAnim.bind(this);
-
-        this.drawSystem = new en.DrawSystem(this.context);
-        this.updateSystem = new en.UpdateSystem();
-
-        this.mouseSystem = new en.MouseSystem(this.canvas);
-        this.keySystem = new en.KeySystem();
+        this._requestAnimbind = this._requestAnim.bind(this);
     },
 
     setCanvas: function(canvas){
@@ -228,9 +448,6 @@ en.World = en.Class.extend({
 
         this.context = this.canvas.getContext('2d');
 
-        this.width = this.canvas.width;
-        this.height = this.canvas.height;
-
         return this;
     },
 
@@ -238,7 +455,7 @@ en.World = en.Class.extend({
         if(!this.running){
             this.running = true;
 
-            this._requestAnimBind();
+            this._requestAnim();
         }
     },
 
@@ -269,20 +486,34 @@ en.World = en.Class.extend({
     },
 
     update: function(){
-        this.updateSystem.processAll();
+
     },
 
     draw: function(){
-        // clear whole screen
-        this.context.fillStyle = this.color;
-        this.context.fillRect(0, 0, this.width, this.height);
 
-        this.drawSystem.processAll();
     }
 
 });
+/*
+The GroupManager will add / remove nodes from groups.
 
-en.Image = en.Class.extend({
+Example:
+    this.groupManager = new GroupManager();
+
+    this.groupManager.track(new en.Monsters(), function(e){
+        return e instanceof Monster;
+    });
+
+*/
+en.GroupManager = en.Class.extend({
+
+    init: function(){
+        this.groups = {};
+    },
+
+    add: function(group, condition){
+
+    }
 
 });
 en.SceneManager = en.Class.extend({
@@ -308,31 +539,4 @@ en.SceneManager = en.Class.extend({
     }
 
 });
-en.Sound = en.Class.extend({
-
-});
-en.DrawSystem = en.System.extend({
-
-});
-en.KeySystem = en.System.extend({
-
-});
-en.MouseSystem = en.System.extend({
-
-});
-en.System = en.Class.extend({
-
-    init: function(){
-        this.entities = [];
-    },
-
-    processAll: function(){
-        for(var i in this.entities){
-            this.process(this.entities[i]);
-        }
-    }
-
-});
-en.UpdateSystem = en.System.extend({
-
-});})(this);
+})(this);

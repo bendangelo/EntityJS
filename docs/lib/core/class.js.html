@@ -17,75 +17,7 @@ code {
   div.description {margin: 14px 0; padding-top: 14px; border-top:1px solid #eee; border-bottom:1px solid #eee; }
   .tags {}
     .tags .types {color:#666}
-.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Entity</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../docs/lib/core/class.js.html">lib/core/class.js</a><ul></ul></li><li><a href="../../../docs/lib/core/entity.js.html">lib/core/entity.js</a><ul><li><a href="../../../docs/lib/core/entity.js.html#Entity">Entity</a></li></ul></li><li><a href="../../../docs/lib/core/events.js.html">lib/core/events.js</a><ul><li><a href="../../../docs/lib/core/events.js.html#Events">Events</a></li></ul></li><li><a href="../../../docs/lib/core/loader.js.html">lib/core/loader.js</a><ul><li><a href="../../../docs/lib/core/loader.js.html#Loader">Loader</a></li></ul></li><li><a href="../../../docs/lib/core/scene.js.html">lib/core/scene.js</a><ul><li><a href="../../../docs/lib/core/scene.js.html#Scene">Scene</a></li></ul></li><li><a href="../../../docs/lib/core/timer.js.html">lib/core/timer.js</a><ul><li><a href="../../../docs/lib/core/timer.js.html#Timer">Timer</a></li></ul></li><li><a href="../../../docs/lib/core/world.js.html">lib/core/world.js</a><ul><li><a href="../../../docs/lib/core/world.js.html#World">World</a></li></ul></li><li><a href="../../../docs/lib/footer.js.html">lib/footer.js</a><ul></ul></li><li><a href="../../../docs/lib/graphics/image.js.html">lib/graphics/image.js</a><ul><li><a href="../../../docs/lib/graphics/image.js.html#Image">Image</a></li></ul></li><li><a href="../../../docs/lib/header.js.html">lib/header.js</a><ul></ul></li><li><a href="../../../docs/lib/managers/scene_manager.js.html">lib/managers/scene_manager.js</a><ul><li><a href="../../../docs/lib/managers/scene_manager.js.html#SceneManager">SceneManager</a></li></ul></li><li><a href="../../../docs/lib/sounds/sound.js.html">lib/sounds/sound.js</a><ul><li><a href="../../../docs/lib/sounds/sound.js.html#Sound">Sound</a></li></ul></li><li><a href="../../../docs/lib/systems/draw_system.js.html">lib/systems/draw_system.js</a><ul><li><a href="../../../docs/lib/systems/draw_system.js.html#DrawSystem">DrawSystem</a></li></ul></li><li><a href="../../../docs/lib/systems/key_system.js.html">lib/systems/key_system.js</a><ul><li><a href="../../../docs/lib/systems/key_system.js.html#KeySystem">KeySystem</a></li></ul></li><li><a href="../../../docs/lib/systems/mouse_system.js.html">lib/systems/mouse_system.js</a><ul><li><a href="../../../docs/lib/systems/mouse_system.js.html#MouseSystem">MouseSystem</a></li></ul></li><li><a href="../../../docs/lib/systems/system.js.html">lib/systems/system.js</a><ul><li><a href="../../../docs/lib/systems/system.js.html#System">System</a></li></ul></li><li><a href="../../../docs/lib/systems/update_system.js.html">lib/systems/update_system.js</a><ul><li><a href="../../../docs/lib/systems/update_system.js.html#UpdateSystem">UpdateSystem</a></li></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="tags"><ul class="no-bullet"></ul></div><div class="description"><p>Simple JavaScript Inheritance<br />By John Resig <a href='http://ejohn.org/'>http://ejohn.org/</a><br />MIT Licensed.</p></div><pre><code class="language-javascript">// Inspired by base2 and Prototype
-(function(){
-  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
-
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
-
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop, statics) {
-    var _super = this.prototype;
-
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-
-    var name;
-
-    // Copy the properties over onto the new prototype
-    for (name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == &quot;function&quot; &amp;&amp;
-        typeof _super[name] == &quot;function&quot; &amp;&amp; fnTest.test(prop[name]) ?
-        (function(name, fn){
-          return function() {
-            var tmp = this._super;
-
-            // Add a new ._super() method that is the same method
-            // but on the super-class
-            this._super = _super[name];
-
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
-            var ret = fn.apply(this, arguments);
-            this._super = tmp;
-
-            return ret;
-          };
-        })(name, prop[name]) :
-        prop[name];
-    }
-
-    // add properties to class
-    if(statics){
-      for(name in statics){
-        Class[name] = statics[name];
-      }
-    }
-
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if ( !initializing &amp;&amp; this.init )
-        this.init.apply(this, arguments);
-    }
-
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
-
-    // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
-
-    // And make this class extendable
-    Class.extend = arguments.callee;
-
-    return Class;
-  };
-})(en);</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
+.ctx-type { float:right; margin-top:8px }</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Entity</h1></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="../../../docs/lib/core/class.js.html">lib/core/class.js</a><ul><li><a href="../../../docs/lib/core/class.js.html#Class">Class</a></li></ul></li><li><a href="../../../docs/lib/core/events.js.html">lib/core/events.js</a><ul><li><a href="../../../docs/lib/core/events.js.html#Events">Events</a></li></ul></li><li><a href="../../../docs/lib/core/group.js.html">lib/core/group.js</a><ul><li><a href="../../../docs/lib/core/group.js.html#Group">Group</a></li></ul></li><li><a href="../../../docs/lib/core/node.js.html">lib/core/node.js</a><ul><li><a href="../../../docs/lib/core/node.js.html#Node">Node</a></li></ul></li><li><a href="../../../docs/lib/core/scene.js.html">lib/core/scene.js</a><ul><li><a href="../../../docs/lib/core/scene.js.html#Scene">Scene</a></li></ul></li><li><a href="../../../docs/lib/core/system.js.html">lib/core/system.js</a><ul><li><a href="../../../docs/lib/core/system.js.html#System">System</a></li></ul></li><li><a href="../../../docs/lib/core/timer.js.html">lib/core/timer.js</a><ul><li><a href="../../../docs/lib/core/timer.js.html#Timer">Timer</a></li></ul></li><li><a href="../../../docs/lib/core/world.js.html">lib/core/world.js</a><ul><li><a href="../../../docs/lib/core/world.js.html#World">World</a></li></ul></li><li><a href="../../../docs/lib/footer.js.html">lib/footer.js</a><ul></ul></li><li><a href="../../../docs/lib/header.js.html">lib/header.js</a><ul></ul></li><li><a href="../../../docs/lib/managers/group_manager.js.html">lib/managers/group_manager.js</a><ul><li><a href="../../../docs/lib/managers/group_manager.js.html#GroupManager">GroupManager</a></li></ul></li><li><a href="../../../docs/lib/managers/scene_manager.js.html">lib/managers/scene_manager.js</a><ul><li><a href="../../../docs/lib/managers/scene_manager.js.html#SceneManager">SceneManager</a></li></ul></li><li><a href="../../../docs/lib/vendor/fiber.js.html">lib/vendor/fiber.js</a><ul></ul></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">property</div><h1 id="Class">Class</h1><h5 class="subheader">en.Class</h5><div class="tags"><ul class="no-bullet"></ul></div><div class="description"></div><pre><code class="language-javascript">en.Class = Fiber;</code></pre></div></div></div><!-- Foundation JS--><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/3.2.2/javascripts/foundation.min.js"></script><script>/**
  * Prism: Lightweight, robust, elegant syntax highlighting
  * MIT license http://www.opensource.org/licenses/mit-license.php/
  * @author Lea Verou http://lea.verou.me
